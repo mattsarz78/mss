@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../__generated__/prisma"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model AvailableTV {
+  Season     String  @db.VarChar(10)
+  Conference String  @db.NChar(10)
+  Week       Int     @db.SmallInt
+  TVOptions  String? @db.VarChar(Max)
+
+  @@id([Season, Conference, Week], map: "PK_AvailableTV")
+}
+
+model Basketball {
+  ID             BigInt    @id(map: "PK_Basketball") @default(autoincrement())
+  Season         String    @db.NChar(10)
+  GameTitle      String?   @db.VarChar(Max)
+  VisitingTeam   String?   @db.VarChar(Max)
+  HomeTeam       String?   @db.VarChar(Max)
+  Location       String?   @db.VarChar(Max)
+  Network        String?   @db.VarChar(100)
+  NetworkJPG     String?   @db.VarChar(Max)
+  CoverageNotes  String?   @db.VarChar(Max)
+  PPV            String?   @db.VarChar(Max)
+  Time           DateTime? @default(dbgenerated("(9999)/(12))/(31"), map: "DF__Basketball__Time__1273C1CD") @db.DateTime
+  Week           Int       @db.SmallInt
+  ListOrder      Int?      @db.SmallInt
+  MediaIndicator String    @db.Char(1)
+  Conference     String?   @db.Char(20)
+  FCS            String?   @db.Char(1)
+  TVType         String?   @db.Char(2)
+  TimeWithOffset DateTime  @default(dbgenerated("9999-12-31 00:00:00.000 +00:00"), map: "DF__Basketbal__TimeW__0697FACD") @db.DateTimeOffset
+}
+
+model Football {
+  ID             BigInt    @id(map: "PK_Football") @default(autoincrement())
+  Season         String    @db.VarChar(10)
+  GameTitle      String?   @db.VarChar(Max)
+  VisitingTeam   String?   @db.VarChar(Max)
+  HomeTeam       String?   @db.VarChar(Max)
+  Location       String?   @db.VarChar(Max)
+  Network        String?   @db.VarChar(100)
+  NetworkJPG     String?   @db.VarChar(Max)
+  CoverageNotes  String?   @db.VarChar(Max)
+  PPV            String?   @db.VarChar(Max)
+  Time           DateTime? @default(dbgenerated("(9999)/(12))/(31"), map: "DF__Football__Time__164452B1") @db.DateTime
+  Week           Int       @db.SmallInt
+  ListOrder      Int?      @db.SmallInt
+  MediaIndicator String    @db.Char(1)
+  Conference     String?   @db.Char(20)
+  FCS            String?   @db.Char(1)
+  TVType         String?   @db.Char(2)
+  TimeWithOffset DateTime  @default(dbgenerated("9999-12-31 00:00:00.000 -00:00"), map: "DF__Football__TimeWi__078C1F06") @db.DateTimeOffset
+}
+
+model RSNList {
+  ID           Int     @id(map: "PK_RSNList") @default(autoincrement())
+  Season       String  @db.NChar(10)
+  GameTitle    String? @db.VarChar(Max)
+  VisitingTeam String? @db.VarChar(Max)
+  HomeTeam     String? @db.VarChar(Max)
+  Location     String? @db.VarChar(Max)
+  KeyValue     String  @db.VarChar(2)
+}
+
+model WeeklyDates {
+  Season        String   @db.VarChar(10)
+  Week          Int
+  StartDate     DateTime @db.DateTime
+  EndDate       DateTime @db.DateTime
+  PostseasonInd String?  @db.VarChar(2)
+
+  @@id([Season, Week], map: "PK_WeeklyDates")
+}

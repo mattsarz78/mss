@@ -1,0 +1,19 @@
+type Query {
+  noTvGames(input: NoTvGamesInput): [NoTvGame]!
+}
+
+input NoTvGamesInput {
+  season: String!
+  week: Int!
+}
+
+type NoTvGame {
+  gameTitle: String
+  visitingTeam: String!
+  homeTeam: String!
+  location: String
+  conference: String!
+  tvOptions: String!
+  timeWithOffset: String!
+  fcs: String
+}

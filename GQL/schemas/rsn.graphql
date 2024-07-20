@@ -1,0 +1,15 @@
+type Query {
+  rsnList(input: RsnInput): [RsnGame]!
+}
+
+input RsnInput {
+  season: String!
+}
+
+type RsnGame {
+  KeyValue: String!
+  GameTitle: String
+  VisitingTeam: String
+  HomeTeam: String
+  Location: String
+}

@@ -1,0 +1,20 @@
+type Query {
+  conferenceGames(input: ConferenceGamesInput): [ConferenceGame]!
+}
+
+input ConferenceGamesInput {
+  season: String!
+  conference: String!
+}
+
+type ConferenceGame {
+  gameTitle: String
+  visitingTeam: [String]!
+  homeTeam: [String]!
+  location: String
+  time: String!
+  mediaIndicator: String!
+  network: String
+  tvtype: String
+  conference: String
+}

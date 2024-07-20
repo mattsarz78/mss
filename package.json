@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "start:all": "concurrently \"npm run start:gql\" \"npm run start:web\"",
+    "prettier:all": "concurrently \"npm run prettier:gql\" \"npm run prettier:web\"",
+    "start:gql": "cd GQL && npm run startDev",
+    "start:web": "cd mss-app && npm run dev",
+    "prettier:gql": "cd GQL && npm run prettier",
+    "prettier:web": "cd mss-app && npm run format"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

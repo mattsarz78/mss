@@ -1,0 +1,29 @@
+type Query {
+  tvGames(input: TvGamesInput): [TvGame]!
+  dailyTvGames(input: DailyTvGamesInput): [TvGame]!
+}
+
+input TvGamesInput {
+  season: String!
+  week: Int!
+  sport: String!
+}
+
+input DailyTvGamesInput {
+  season: String!
+  startDate: String!
+  sport: String!
+}
+
+type TvGame {
+  gameTitle: String
+  visitingTeam: [String]
+  homeTeam: [String]
+  location: String
+  network: String
+  networkJpg: String
+  coverageNotes: String
+  ppv: String
+  mediaIndicator: String!
+  timeWithOffset: String
+}

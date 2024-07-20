@@ -1,0 +1,94 @@
+type Query {
+  availableTv(input: AvailableTvInput): [AvailableTv]!
+  tvGames(input: TvGamesInput): [TvGame]!
+  dailyTvGames(input: DailyTvGamesInput): [TvGame]!
+  conferenceGames(input: ConferenceGamesInput): [ConferenceGame]!
+  noTvGames(input: NoTvGamesInput): [NoTvGame]!
+  health: String!
+  rsnList(input: RsnInput): [RsnGame]!
+  seasonContents(input: SeasonContentsInput): [SeasonContents]!
+}
+input AvailableTvInput {
+  season: String!
+  conference: String!
+  week: Int!
+}
+type AvailableTv {
+  season: String!
+  conference: String!
+  week: Int!
+  tvOptions: String
+}
+input TvGamesInput {
+  season: String!
+  week: Int!
+  sport: String!
+}
+input DailyTvGamesInput {
+  season: String!
+  startDate: String!
+  sport: String!
+}
+type TvGame {
+  gameTitle: String
+  visitingTeam: [String]
+  homeTeam: [String]
+  location: String
+  network: String
+  networkJpg: String
+  coverageNotes: String
+  ppv: String
+  mediaIndicator: String!
+  timeWithOffset: String
+}
+input ConferenceGamesInput {
+  season: String!
+  conference: String!
+}
+type ConferenceGame {
+  gameTitle: String
+  visitingTeam: [String]!
+  homeTeam: [String]!
+  location: String
+  time: String!
+  mediaIndicator: String!
+  network: String
+  tvtype: String
+  conference: String
+}
+input NoTvGamesInput {
+  season: String!
+  week: Int!
+}
+type NoTvGame {
+  gameTitle: String
+  visitingTeam: String!
+  homeTeam: String!
+  location: String
+  conference: String!
+  tvOptions: String!
+  timeWithOffset: String!
+  fcs: String
+}
+input RsnInput {
+  season: String!
+}
+type RsnGame {
+  KeyValue: String!
+  GameTitle: String
+  VisitingTeam: String
+  HomeTeam: String
+  Location: String
+}
+input SeasonContentsInput {
+  season: String!
+}
+type SeasonContents {
+  week: Int!
+  startDate: String!
+  endDate: String!
+  postseasonInd: String
+}
+schema {
+  query: Query
+}

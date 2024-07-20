@@ -1,0 +1,14 @@
+type Query {
+  seasonContents(input: SeasonContentsInput): [SeasonContents]!
+}
+
+input SeasonContentsInput {
+  season: String!
+}
+
+type SeasonContents {
+  week: Int!
+  startDate: String!
+  endDate: String!
+  postseasonInd: String
+}
