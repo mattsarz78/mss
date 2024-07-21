@@ -4,7 +4,8 @@ module.exports = {
     service: {
       name: 'mss-app',
       // URL to the GraphQL API
-      url: 'http://localhost:8020/graphql'
+      // url: 'http://localhost:8020/graphql'
+      localSchemaFile: 'schema.graphql'
     },
     // Files processed by the extension
     includes: ['src/**/*.vue', 'src/**/*.js', 'src/**/*.ts']

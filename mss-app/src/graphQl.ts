@@ -32,7 +32,7 @@ export type ConferenceGame = {
   visitingTeam: string[];
   homeTeam: string[];
   location?: string;
-  time: string;
+  timeWithOffset: string;
   mediaIndicator: string;
   network?: string;
   tvtype?: string;
@@ -81,7 +81,7 @@ export const CONFERENCE_GAMES = gql`
       visitingTeam
       homeTeam
       location
-      time
+      timeWithOffset
       mediaIndicator
       network
       tvtype

@@ -25,7 +25,7 @@ export const conferenceGamesResolver = async (
             visitingTeam: conferenceGame.VisitingTeam?.trim().split(',') ?? [],
             homeTeam: conferenceGame.HomeTeam?.trim().split(',') ?? [],
             location: conferenceGame.Location?.trim(),
-            time: setTimeString(conferenceGame.TimeWithOffset!, TimeZoneOffsets.Eastern),
+            timeWithOffset: DateTime.fromJSDate(conferenceGame.TimeWithOffset as Date).toISO(),
             mediaIndicator: conferenceGame.MediaIndicator.trim(),
             network: conferenceGame.NetworkJPG?.trim(),
             tvtype: conferenceGame.TVType?.trim(),
@@ -45,8 +45,3 @@ export default {
     conferenceGames: conferenceGamesResolver
   }
 };
-function setTimeString(gameTime: Date, zone: TimeZoneOffsets): string {
-  const timeWithZone = DateTime.fromJSDate(gameTime, { zone: 'UTC' }).setZone(zone);
-  const timeString = timeWithZone.hour === 0 && timeWithZone.minute === 0 ? 'TBA' : timeWithZone.toFormat('t');
-  return `${timeWithZone.toFormat('cccc LL/dd ')}${timeString}`;
-}

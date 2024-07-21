@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
 import { DateTime } from 'luxon';
-import { formatGame } from '../../utils';
+import { formatGame, formatTime } from '../../utils';
 const props = defineProps(['tvGame', 'showPPVColumn']);
 const tvGame = props['tvGame'] as TvGame;
 const showPPVColumn = props['showPPVColumn'] as boolean;
@@ -10,16 +10,16 @@ const showPPVColumn = props['showPPVColumn'] as boolean;
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b><i>{{ tvGame.gameTitle }}</i></b><br />
+      <b
+        ><i>{{ tvGame.gameTitle }}</i></b
+      ><br />
     </template>
     <template v-if="tvGame.visitingTeam!.length === 0"></template>
     <template v-else-if="tvGame.visitingTeam!.length === 1 && tvGame.homeTeam!.length === 1">
-      {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
+      {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}
     </template>
-    <template v-else>
-      {{ formatGame(tvGame) }}
-    </template>
-    <template v-if="tvGame.location">(at {{ tvGame.location }})</template><br />
+    <template v-else>{{ formatGame(tvGame) }}</template>
+    <template v-if="tvGame.location"><br />(at {{ tvGame.location }})</template>
   </td>
   <td class="network">
     {{ tvGame.networkJpg }}
@@ -31,7 +31,7 @@ const showPPVColumn = props['showPPVColumn'] as boolean;
     {{ tvGame.ppv }}
   </td>
   <td class="time">
-    {{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('t') }}
+    {{ formatTime(tvGame.timeWithOffset!) }}
   </td>
 </template>
 

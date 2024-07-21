@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ConferenceGame } from '@/graphQl';
-import { formatGame } from '../../utils';
+import { formatGame, formatTime } from '../../utils';
 import { DateTime } from 'luxon';
 
 const props = defineProps(['games']);
@@ -18,22 +18,24 @@ const games: ConferenceGame[] = props['games'];
       <tr v-for="game of games">
         <td class="game">
           <template v-if="game.gameTitle">
-            <b><i>{{ game.gameTitle }}</i></b><br />
+            <b
+              ><i>{{ game.gameTitle }}</i></b
+            ><br />
           </template>
           <template v-if="game.visitingTeam!.length === 0"></template>
           <template v-else-if="game.visitingTeam!.length === 1 && game.homeTeam!.length === 1">
-            {{ game.visitingTeam![0] }} {{ game.location ? 'vs.' : 'at' }} {{ game.homeTeam![0] }}<br />
+            {{ game.visitingTeam![0] }} {{ game.location ? 'vs.' : 'at' }} {{ game.homeTeam![0] }}
           </template>
-          <template v-else v-html="formatGame(game)">
-          </template>
-          <template v-if="game.location">(at {{ game.location }})</template>
+          <template v-else> {{ formatGame(game) }} </template>
+          <template v-if="game.location"><br />(at {{ game.location }})</template>
         </td>
         <td class="network">
           {{ game.network }}
         </td>
         <td class="time">
-          {{ game.time }}
-          <!-- {{ DateTime.fromISO(game.time!).toLocal().toFormat('t') }} -->
+          {{ DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('cccc') }}<br />{{
+            DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('LL/dd')
+          }}<br />{{ formatTime(game.timeWithOffset!) }}
         </td>
       </tr>
     </tbody>

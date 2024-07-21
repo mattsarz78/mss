@@ -3,6 +3,7 @@ import { flexScheduleLinks } from './constants/flexScheduleLinks';
 import { conferenceCasing } from './constants/conferenceCasing';
 import { contractData } from './constants/conference-data';
 import type { NoTvGame, TvGame, WeekInfo } from './graphQl';
+import { DateTime } from 'luxon';
 
 export const conferenceListBase = (sport: string, year: string): string => {
   return sport === 'football' && year !== '2021s'
@@ -100,4 +101,9 @@ export const formatGame = (game: TvGame): string => {
     formattedGame += `<br>OR ${game.visitingTeam![i]} ${game.location ? 'vs.' : 'at'} ${game.homeTeam![i]}`;
   }
   return formattedGame;
+};
+
+export const formatTime = (timeWithOffset: string) => {
+  const easternTime = DateTime.fromISO(timeWithOffset).setZone('America/New_York').toFormat('t');
+  return easternTime === '12:00 AM' ? 'TBA' : easternTime;
 };

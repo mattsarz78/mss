@@ -47,15 +47,18 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
 
     <div id="Main">
       <div id="head">
+        <p>{{ cased }} Broadcast Schedule</p>
         <p>
-          {{ cased }} Broadcast Schedule
-        </p>
-        <p>NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
+          NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
           non-conference games fall under the home team's telecast rights.
         </p>
         <div v-if="conference !== 'independents'" v-html="contractTvData"></div>
-        <IndependentsGameList v-if="conference === 'independents'" :games="result.conferenceGames"
-          :schools="getIndependentSchools(year).split('|')" :year="year" />
+        <IndependentsGameList
+          v-if="conference === 'independents'"
+          :games="result.conferenceGames"
+          :schools="getIndependentSchools(year).split('|')"
+          :year="year"
+        />
         <ConferenceGameList :year="year" v-else :games="result.conferenceGames" />
         <p>
           <BackToTopScript />

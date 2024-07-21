@@ -89,14 +89,20 @@ watch([seasonContentsResult, noTvGamesResult, tvGameResult], ([seasonContentsVal
             </span>
             <span class="blockspan">
               <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">
-                Available TV Windows</RouterLink>
+                Available TV Windows</RouterLink
+              >
               <!-- <a class="mobilespan" href="@Url.Content(" ~/Schedule/WeeklyText/" + Model.SportYear + "/" +
                               Model.Week)">Customizable Text-Only Page</a> -->
             </span>
             <br />
             <div class="filters" v-if="tvGameResult">
-              <input v-if="!isBowlWeek && !isMbkPostseason" id="btnWebGames" type="button"
-                value="Hide Web Exclusive Games" class="show_hideWeb" />
+              <input
+                v-if="!isBowlWeek && !isMbkPostseason"
+                id="btnWebGames"
+                type="button"
+                value="Hide Web Exclusive Games"
+                class="show_hideWeb"
+              />
               <!-- @Html.Partial("TimeZoneDropDown") -->
             </div>
           </div>
@@ -108,8 +114,13 @@ watch([seasonContentsResult, noTvGamesResult, tvGameResult], ([seasonContentsVal
               {
               @Html.Partial("CoverageNotes/" + Model.SportYear + "/FSNWeek" + Model.Week)
               } -->
-        <WeeklyBase :tvGames="tvGameResult.tvGames" :currentWeek="currentWeek" :isBowlWeek="isBowlWeek"
-          :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
+        <WeeklyBase
+          :tvGames="tvGameResult.tvGames"
+          :currentWeek="currentWeek"
+          :isBowlWeek="isBowlWeek"
+          :isMbkPostseason="isMbkPostseason"
+          :showPpvColumn="shouldShowPpvColumn(year)"
+        />
         <NoTvGames v-if="!isBowlWeek && showNoTvGames && noTvGamesResult" :noTvGames="noTvGamesResult?.noTvGames" />
         <!-- @if (!Model.IsBowlWeek) { if (Model.ShowNoTVPartialView) {
               @Html.Partial("NoTV", Model) } } -->

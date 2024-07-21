@@ -12,7 +12,7 @@ type ConferenceGame {
   visitingTeam: [String]!
   homeTeam: [String]!
   location: String
-  time: String!
+  timeWithOffset: String!
   mediaIndicator: String!
   network: String
   tvtype: String

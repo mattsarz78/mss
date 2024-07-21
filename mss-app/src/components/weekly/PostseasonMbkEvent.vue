@@ -8,18 +8,16 @@ const tvGame = props['tvGame'] as TvGame;
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b><i>{{ tvGame.gameTitle }}</i></b><br />
+      <b
+        ><i>{{ tvGame.gameTitle }}</i></b
+      ><br />
     </template>
     <template v-if="tvGame.location">
-      <template v-if="tvGame.visitingTeam">
-        {{ tvGame.visitingTeam[0] }} vs. {{ tvGame.homeTeam![0] }}<br />
-      </template>
+      <template v-if="tvGame.visitingTeam"> {{ tvGame.visitingTeam[0] }} vs. {{ tvGame.homeTeam![0] }}<br /> </template>
       at {{ tvGame.location }}<br />
     </template>
     <template v-else>
-      <template v-if="tvGame.visitingTeam">
-        {{ tvGame.visitingTeam[0] }} at {{ tvGame.homeTeam![0] }}<br />
-      </template>
+      <template v-if="tvGame.visitingTeam"> {{ tvGame.visitingTeam[0] }} at {{ tvGame.homeTeam![0] }}<br /> </template>
     </template>
   </td>
   <td class="network">
@@ -29,7 +27,7 @@ const tvGame = props['tvGame'] as TvGame;
     {{ tvGame.coverageNotes }}
   </td>
   <td class="time">
-    {{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('t') }}
+    {{ formatTime(tvGame.timeWithOffset!) }}
   </td>
 </template>
 
