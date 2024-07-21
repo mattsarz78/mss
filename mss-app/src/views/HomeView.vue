@@ -16,7 +16,7 @@ const TwitterRetrieval = defineAsyncComponent(() => import('../components/Twitte
 
 <template>
   <div id="Main">
-    <div><img alt="Matt's College Sports" id="imgtitle" src="../assets/logo.jpg" /><br /></div>
+    <div><img alt="Matt's College Sports" id="imgtitle" src="../../images/logo.jpg" /><br /></div>
     <div id="content">
       <div id="Links">
         <RouterLink to="/season/football/2024">2024 Football</RouterLink><br />
@@ -46,18 +46,11 @@ const TwitterRetrieval = defineAsyncComponent(() => import('../components/Twitte
         <TwitterRetrieval />
       </div>
     </div>
-    <iframe
-      id="Facebook"
-      lazy="true"
+    <iframe id="Facebook" lazy="true"
       src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmattsarzsports%2F&tabs&height=80&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
-      height="80"
-      style="border: none; overflow: hidden"
-      scrolling="no"
-      frameborder="0"
-      allowfullscreen="true"
+      height="80" style="border: none; overflow: hidden" scrolling="no" frameborder="0" allowfullscreen="true"
       allowtransparency="true"
-      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-    ></iframe>
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
     <p>
       Got a question, complaint, comment or know a game not listed here?
       <a href="mailto:footballsked@gmail.com"> Send it here </a>

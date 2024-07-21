@@ -3,8 +3,9 @@ import type { TvGame } from '@/graphQl';
 import { DateTime } from 'luxon';
 import PostseasonMbkEvent from '@/components/weekly/PostseasonMbkEvent.vue';
 import WeekGameRow from './WeekGameRow.vue';
-const props = defineProps(['weekDate', 'tvGamesForDate', 'isMbkPostseason', 'isBowlWeek', 'showPpvColumn']);
+const props = defineProps(['weekDate', 'tvGamesForDate', 'isMbkPostseason', 'isBowlWeek', 'showPpvColumn', 'season']);
 const weekDate = props['weekDate'] as string;
+const season = props['season'] as string;
 const tvGamesForDate = props['tvGamesForDate'] as TvGame[];
 const isBowlWeek = props['isBowlWeek'] as boolean;
 const isMbkPostseason = props['isBowlWeek'] as boolean;
@@ -25,12 +26,12 @@ const showPPVColumn = props['showPpvColumn'] as boolean;
       <template v-for="tvGame of tvGamesForDate">
         <template v-if="isBowlWeek || isMbkPostseason">
           <tr>
-            <PostseasonMbkEvent :tvGame="tvGame"></PostseasonMbkEvent>
+            <PostseasonMbkEvent :tvGame="tvGame" :season="season"></PostseasonMbkEvent>
           </tr>
         </template>
         <template v-else>
           <tr :class="tvGame.mediaIndicator === 'W' ? 'webGame' : ''">
-            <WeekGameRow :showPPVColumn="showPPVColumn" :tvGame="tvGame" />
+            <WeekGameRow :season="season" :showPPVColumn="showPPVColumn" :tvGame="tvGame" />
           </tr>
         </template>
       </template>
@@ -198,7 +199,7 @@ const showPPVColumn = props['showPpvColumn'] as boolean;
   display: none;
 }
 
-.linkblock {
+:deep(.linkblock) {
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
@@ -242,7 +243,7 @@ const showPPVColumn = props['showPpvColumn'] as boolean;
     width: 250px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
   }
@@ -278,7 +279,7 @@ const showPPVColumn = props['showPpvColumn'] as boolean;
     width: 160px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
   }

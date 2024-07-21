@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { DateTime } from 'luxon';
-const props = defineProps(['tvGame']);
+import { formatNetworkJpg } from '@/imageUtils';
+import { formatTime } from '../../utils'
+const props = defineProps(['tvGame', 'season']);
 const tvGame = props['tvGame'] as TvGame;
+const season = props['season'] as string;
+
 </script>
 
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b
-        ><i>{{ tvGame.gameTitle }}</i></b
-      ><br />
+      <b><i>{{ tvGame.gameTitle }}</i></b><br />
     </template>
     <template v-if="tvGame.location">
       <template v-if="tvGame.visitingTeam"> {{ tvGame.visitingTeam[0] }} vs. {{ tvGame.homeTeam![0] }}<br /> </template>
@@ -20,9 +21,7 @@ const tvGame = props['tvGame'] as TvGame;
       <template v-if="tvGame.visitingTeam"> {{ tvGame.visitingTeam[0] }} at {{ tvGame.homeTeam![0] }}<br /> </template>
     </template>
   </td>
-  <td class="network">
-    {{ tvGame.networkJpg }}
-  </td>
+  <td class="network" v-html="formatNetworkJpg(tvGame.networkJpg!, season)"></td>
   <td class="coverage">
     {{ tvGame.coverageNotes }}
   </td>
@@ -190,7 +189,7 @@ const tvGame = props['tvGame'] as TvGame;
   display: none;
 }
 
-.linkblock {
+:deep(.linkblock) {
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
@@ -234,7 +233,7 @@ const tvGame = props['tvGame'] as TvGame;
     width: 250px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
   }
@@ -270,7 +269,7 @@ const tvGame = props['tvGame'] as TvGame;
     width: 160px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
   }

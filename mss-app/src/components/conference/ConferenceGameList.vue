@@ -136,7 +136,7 @@ const internetGames = games.filter((x) => x.mediaIndicator === 'W' && x.tvtype !
     padding: 2px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
   }
@@ -161,7 +161,7 @@ const internetGames = games.filter((x) => x.mediaIndicator === 'W' && x.tvtype !
     padding: 0;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
   }

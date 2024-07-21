@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { DateTime } from 'luxon';
 import { formatGame, formatTime } from '../../utils';
-const props = defineProps(['tvGame', 'showPPVColumn']);
+import { formatNetworkJpg } from '../../imageUtils'
+const props = defineProps(['tvGame', 'showPPVColumn', 'season']);
 const tvGame = props['tvGame'] as TvGame;
 const showPPVColumn = props['showPPVColumn'] as boolean;
+const season = props['season'] as string;
+
 </script>
 
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b
-        ><i>{{ tvGame.gameTitle }}</i></b
-      ><br />
+      <b><i>{{ tvGame.gameTitle }}</i></b><br />
     </template>
     <template v-if="tvGame.visitingTeam!.length === 0"></template>
     <template v-else-if="tvGame.visitingTeam!.length === 1 && tvGame.homeTeam!.length === 1">
@@ -21,9 +21,7 @@ const showPPVColumn = props['showPPVColumn'] as boolean;
     <template v-else>{{ formatGame(tvGame) }}</template>
     <template v-if="tvGame.location"><br />(at {{ tvGame.location }})</template>
   </td>
-  <td class="network">
-    {{ tvGame.networkJpg }}
-  </td>
+  <td class="network" v-html="formatNetworkJpg(tvGame.networkJpg!, season)" />
   <td class="coverage">
     {{ tvGame.coverageNotes }}
   </td>
@@ -194,7 +192,7 @@ const showPPVColumn = props['showPPVColumn'] as boolean;
   display: none;
 }
 
-.linkblock {
+:deep(.linkblock) {
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
@@ -238,7 +236,7 @@ const showPPVColumn = props['showPPVColumn'] as boolean;
     width: 250px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
   }
@@ -274,7 +272,7 @@ const showPPVColumn = props['showPPVColumn'] as boolean;
     width: 160px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
   }

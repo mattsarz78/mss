@@ -31,22 +31,12 @@ const toggleNoTV = () => {
 
 <template>
   <div>
-    <input
-      id="btnConferenceGames"
-      type="button"
-      value="Show Non-Televised Games"
-      class="show_hideNoTV"
-      v-on:click="toggleNoTV()"
-    />
+    <input id="btnConferenceGames" type="button" value="Show Non-Televised Games" class="show_hideNoTV"
+      v-on:click="toggleNoTV()" />
     <div class="slidingNoTVDiv">
       <p v-if="!noTvGames.length">All FBS games scheduled for this week are being televised or shown online"</p>
-      <NoTvGamesTable
-        v-for="noTVDate of datesList"
-        :noTvDate="noTVDate"
-        :noTvGamesForDate="
-          noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)
-        "
-      />
+      <NoTvGamesTable v-for="noTVDate of datesList" :noTvDate="noTVDate" :noTvGamesForDate="noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)
+        " />
       <!-- else
             {
             DateTime endDate = Model.WeekDates.EndDate;
@@ -223,7 +213,7 @@ const toggleNoTV = () => {
   display: none;
 }
 
-.linkblock {
+:deep(.linkblock) {
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
@@ -267,7 +257,7 @@ const toggleNoTV = () => {
     width: 250px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
   }
@@ -303,7 +293,7 @@ const toggleNoTV = () => {
     width: 160px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
   }

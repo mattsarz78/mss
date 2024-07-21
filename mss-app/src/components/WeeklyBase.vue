@@ -5,13 +5,14 @@ import { DateTime } from 'luxon';
 import { onMounted } from 'vue';
 import WeekGamesTable from '../components/weekly/WeekGamesTable.vue';
 
-const props = defineProps(['tvGames', 'currentWeek', 'isBowlWeek', 'isMbkPostseason', 'showPpvColumn']);
+const props = defineProps(['tvGames', 'currentWeek', 'isBowlWeek', 'isMbkPostseason', 'showPpvColumn', 'season']);
 const tvGames = props['tvGames'] as TvGame[];
 const currentWeek = props['currentWeek'] as WeekInfo;
 const isBowlWeek = props['isBowlWeek'] as boolean;
 const isMbkPostseason = props['isBowlWeek'] as boolean;
 const datesList: string[] = [];
 const showPpvColumn = props['showPpvColumn'] as boolean;
+const season = props['season'] as string;
 
 tvGames.map((value) => {
   const date = DateTime.fromISO(value.timeWithOffset!).toLocal().toISODate()!;
@@ -31,15 +32,9 @@ onMounted(() => adjustNavBar());
       </template>
       <template v-else>
         <div v-for="weekDate of datesList">
-          <WeekGamesTable
-            :weekDate="weekDate"
-            :isBowlWeek="isBowlWeek"
-            :isMbkPostseason="isMbkPostseason"
-            :showPpvColumn="showPpvColumn"
-            :tvGamesForDate="
-              tvGames.filter((x) => DateTime.fromISO(x.timeWithOffset!).toLocal().toISODate() === weekDate)
-            "
-          />
+          <WeekGamesTable :season="season" :weekDate="weekDate" :isBowlWeek="isBowlWeek"
+            :isMbkPostseason="isMbkPostseason" :showPpvColumn="showPpvColumn" :tvGamesForDate="tvGames.filter((x) => DateTime.fromISO(x.timeWithOffset!).toLocal().toISODate() === weekDate)
+              " />
         </div>
       </template>
     </div>
@@ -205,7 +200,7 @@ onMounted(() => adjustNavBar());
   display: none;
 }
 
-.linkblock {
+:deep(.linkblock) {
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
@@ -249,7 +244,7 @@ onMounted(() => adjustNavBar());
     width: 250px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
   }
@@ -285,7 +280,7 @@ onMounted(() => adjustNavBar());
     width: 160px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
   }

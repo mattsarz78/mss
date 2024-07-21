@@ -21,16 +21,13 @@ const noTvGamesForDate = props['noTvGamesForDate'] as NoTvGame[];
         <tr :class="noTvGameForDate.fcs ? 'fcsgame' : ''">
           <td class="game">
             <template v-if="noTvGameForDate.gameTitle">
-              <b
-                ><i>{{ noTvGameForDate.gameTitle }}</i></b
-              ><br />
+              <b><i>{{ noTvGameForDate.gameTitle }}</i></b><br />
             </template>
             <template v-if="noTvGameForDate.location">
               <template v-if="noTvGameForDate.visitingTeam">
                 {{ noTvGameForDate.visitingTeam }} vs. {{ noTvGameForDate.homeTeam }}<br />
               </template>
-              (at {{ noTvGameForDate.location }})</template
-            >
+              (at {{ noTvGameForDate.location }})</template>
             <template v-else>
               <template v-if="noTvGameForDate.visitingTeam">
                 {{ noTvGameForDate.visitingTeam }} at {{ noTvGameForDate.homeTeam }}<br />
@@ -208,7 +205,7 @@ const noTvGamesForDate = props['noTvGamesForDate'] as NoTvGame[];
   display: none;
 }
 
-.linkblock {
+:deep(.linkblock) {
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
@@ -252,7 +249,7 @@ const noTvGamesForDate = props['noTvGamesForDate'] as NoTvGame[];
     width: 250px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
   }
@@ -288,7 +285,7 @@ const noTvGamesForDate = props['noTvGamesForDate'] as NoTvGame[];
     width: 160px;
   }
 
-  .imageDimensions {
+  :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
   }
