@@ -7,7 +7,7 @@
     "startDev": "nodemon"
   },
   "dependencies": {
-    "@apollo/server": "^4.10.4",
+    "@apollo/server": "^4.10.5",
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/typescript": "^4.0.7",
     "@graphql-codegen/typescript-resolvers": "^4.2.1",
