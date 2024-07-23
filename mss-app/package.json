@@ -19,6 +19,7 @@
     "graphql": "^16.9.0",
     "graphql-tag": "^2.12.6",
     "luxon": "^3.4.4",
+    "npm-run-all2": "^6.2.2",
     "vue": "^3.4.33",
     "vue-router": "^4.3.3"
   },
