@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { defineAsyncComponent, onMounted } from 'vue';
+import logo from '/logo.jpg'
 
 onMounted(() => {
   const linksHeight = document.querySelector('#Links')!.clientHeight;
@@ -16,7 +17,7 @@ const TwitterRetrieval = defineAsyncComponent(() => import('../components/Twitte
 
 <template>
   <div id="Main">
-    <div><img alt="Matt's College Sports" id="imgtitle" src="../../images/logo.jpg" /><br /></div>
+    <div><img alt="Matt's College Sports" id="imgtitle" :src="logo" /><br /></div>
     <div id="content">
       <div id="Links">
         <RouterLink to="/season/football/2024">2024 Football</RouterLink><br />

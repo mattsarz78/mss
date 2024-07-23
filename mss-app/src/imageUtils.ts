@@ -21,7 +21,7 @@ export const formatNetworkJpg = (networkJpg: string, season: string): string => 
 
   if (images.length) {
     images.forEach((image) => {
-      imagesString.push(`<img class=\"imageDimensions\" src=\"/../../images/${image}\" />`);
+      imagesString.push(`<img class=\"imageDimensions\" src=\"/${image}\" />`);
     });
   }
 
@@ -58,11 +58,11 @@ export const formatNetworkJpg = (networkJpg: string, season: string): string => 
         }
 
         imageHyperlinkString.push(
-          `<a href=\"${imageHyperlink}\" target=\"_blank\" ><img class=\"imageDimensions\" src=\"/../../images/${imageUrl}\" /></a>`
+          `<a href=\"${imageHyperlink}\" target=\"_blank\" ><img class=\"imageDimensions\" src=\"/${imageUrl}\" /></a>`
         );
       } else {
         imageHyperlinkString.push(
-          `<a href=\"${imageHyperlink}\" target=\"_blank\" ><img class=\"imageDimensions\" src=\"/../../images/${imageArray[0].image}\" /></a>`
+          `<a href=\"${imageHyperlink}\" target=\"_blank\" ><img class=\"imageDimensions\" src=\"/${imageArray[0].image}\" /></a>`
         );
       }
     });
