@@ -3,6 +3,7 @@ export const CHANNELFINDER = 'Channel Finder';
 export const BLACKOUTMAP = 'Blackout Map';
 export const COVERAGEMAP = 'Coverage Map';
 export const COVERAGEMAP506 = 'Coverage Map Courtesy The506.com';
+export const SPECIALCOVERAGENOTE = 'See link for full coverage information';
 
 export const imagesForUrls = [
   {

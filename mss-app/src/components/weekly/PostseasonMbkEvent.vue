@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { formatNetworkJpg } from '@/imageUtils';
+import { formatNetworkJpgAndCoverage } from '@/imageUtils';
 import { formatTime } from '../../utils'
 const props = defineProps(['tvGame', 'season']);
 const tvGame = props['tvGame'] as TvGame;
@@ -21,10 +21,10 @@ const season = props['season'] as string;
       <template v-if="tvGame.visitingTeam"> {{ tvGame.visitingTeam[0] }} at {{ tvGame.homeTeam![0] }}<br /> </template>
     </template>
   </td>
-  <td class="network" v-html="formatNetworkJpg(tvGame.networkJpg!, season)"></td>
-  <td class="coverage">
-    {{ tvGame.coverageNotes }}
+  <td class="network" v-html="!!tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg!, season) : ''">
   </td>
+  <td class="coverage"
+    v-html="!!tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes!, season) : ''" />
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>
