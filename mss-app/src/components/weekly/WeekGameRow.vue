@@ -14,8 +14,8 @@ const season = props['season'] as string;
     <template v-if="tvGame.gameTitle">
       <b><i>{{ tvGame.gameTitle }}</i></b><br />
     </template>
-    <template v-if="tvGame.visitingTeam!.length === 0"></template>
-    <template v-else-if="tvGame.visitingTeam!.length === 1 && tvGame.homeTeam!.length === 1">
+    <template v-if="tvGame.visitingTeam?.length === 0"></template>
+    <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
       {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}
     </template>
     <template v-else>

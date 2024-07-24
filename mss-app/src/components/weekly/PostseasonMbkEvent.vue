@@ -14,11 +14,13 @@ const season = props['season'] as string;
       <b><i>{{ tvGame.gameTitle }}</i></b><br />
     </template>
     <template v-if="tvGame.location">
-      <template v-if="tvGame.visitingTeam"> {{ tvGame.visitingTeam[0] }} vs. {{ tvGame.homeTeam![0] }}<br /> </template>
+      <template v-if="tvGame.visitingTeam?.length"> {{ tvGame.visitingTeam[0] }} vs. {{ tvGame.homeTeam![0] }}<br />
+      </template>
       at {{ tvGame.location }}<br />
     </template>
     <template v-else>
-      <template v-if="tvGame.visitingTeam"> {{ tvGame.visitingTeam[0] }} at {{ tvGame.homeTeam![0] }}<br /> </template>
+      <template v-if="tvGame.visitingTeam?.length"> {{ tvGame.visitingTeam[0] }} at {{ tvGame.homeTeam![0] }}<br />
+      </template>
     </template>
   </td>
   <td class="network" v-html="!!tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg!, season) : ''">
