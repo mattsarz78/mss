@@ -27,8 +27,7 @@ const season = props['season'] as string;
   </td>
   <td class="coverage"
     v-html="!!tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes!, season) : ''" />
-  <td v-if="showPPVColumn" class="ppv">
-    {{ tvGame.ppv }}
+  <td v-if="showPPVColumn" class="ppv" v-html="!!tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv!, season) : ''">
   </td>
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
