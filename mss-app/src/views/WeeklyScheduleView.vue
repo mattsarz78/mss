@@ -1,127 +1,15 @@
 <script setup lang="ts">
-import { NO_TV_GAMES, SEASON_CONTENTS, TV_GAMES, type NoTvGame, type TvGame, type WeekInfo } from '@/graphQl';
-import {
-  getBasketballSeason,
-  flexScheduleLink,
-  isBowlGameWeek,
-  isBasketballPostseason,
-  hasNoTVGames,
-  shouldShowPpvColumn
-} from '@/utils';
-import { useQuery } from '@vue/apollo-composable';
-import { defineAsyncComponent, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import BackToTopButton from '../components/shared/BackToTopButton.vue';
-import WeeklyBase from '../components/WeeklyBase.vue';
-import NoTvGames from '../components/noTVGames/NoTvGames.vue';
-
-const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
-const BackToTopScript = defineAsyncComponent(() => import('../components/shared/BackToTopScript.vue'));
+import WeekSchedule from '../components/WeekSchedule.vue'
 
 const route = useRoute();
 const week = parseInt(route.params.week as string);
 const sport = route.params.sport as string;
 const paramYear = route.params.year as string;
-const year = sport === 'football' ? paramYear : getBasketballSeason(paramYear);
-const flexLink = flexScheduleLink(year);
-const showNoTvGames = hasNoTVGames(year);
-
-const {
-  result: tvGameResult,
-  loading: tvGameLoading,
-  error: tvGameError
-} = useQuery<{ tvGames: TvGame[] }>(TV_GAMES, {
-  input: {
-    season: year,
-    sport,
-    week
-  }
-});
-
-const {
-  result: seasonContentsResult,
-  loading: seasonContentsLoading,
-  error: seasonContentsError
-} = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, {
-  input: {
-    season: year
-  }
-});
-
-const {
-  result: noTvGamesResult,
-  loading: noTvGamesLoading,
-  error: noTvGamesError
-} = useQuery<{ noTvGames: NoTvGame[] }>(NO_TV_GAMES, {
-  input: {
-    season: year,
-    week
-  }
-});
-
-let isBowlWeek: boolean = false;
-let isMbkPostseason: boolean = false;
-let currentWeek: WeekInfo;
-
-watch([seasonContentsResult, noTvGamesResult, tvGameResult], ([seasonContentsValue, noTvGamesValue, tvGameValue]) => {
-  if (!!seasonContentsValue && !!noTvGamesValue && !!tvGameValue) {
-    isBowlWeek = isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week);
-    isMbkPostseason = isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, week);
-    currentWeek = seasonContentsResult.value?.seasonContents.filter((x) => x.week === week)[0]!;
-  }
-});
 </script>
 
 <template>
-  <div>
-    <div v-if="seasonContentsLoading || noTvGamesLoading || tvGameLoading">Loading</div>
-    <div v-if="seasonContentsResult && noTvGamesResult && tvGameResult">
-      <nav class="navbar DONTPrint">
-        <div class="container">
-          <div>
-            <span class="blockspan">
-              <RouterLink class="mobilespan" to="/">Home</RouterLink>
-              <RouterLink class="mobilespan" :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
-              <!-- @if (DateTime.Now >= Model.WeekDates.StartDate && DateTime.Now <= Model.WeekDates.EndDate) { <a
-                          class="mobilespan" href="@Url.Content(" ~/Schedule/Daily/" + Model.SportYear)">Today's
-                          Schedule</a>
-                          } -->
-            </span>
-            <span class="blockspan">
-              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">
-                Available TV Windows</RouterLink>
-              <!-- <a class="mobilespan" href="@Url.Content(" ~/Schedule/WeeklyText/" + Model.SportYear + "/" +
-                              Model.Week)">Customizable Text-Only Page</a> -->
-            </span>
-            <br />
-            <div class="filters" v-if="tvGameResult">
-              <input v-if="!isBowlWeek && !isMbkPostseason" id="btnWebGames" type="button"
-                value="Hide Web Exclusive Games" class="show_hideWeb" />
-              <!-- @Html.Partial("TimeZoneDropDown") -->
-            </div>
-          </div>
-        </div>
-      </nav>
-      <template v-if="currentWeek && tvGameResult">
-        <!-- <form action="@ViewBag.ActionName" id="WeekForm" method="post"> -->
-        <!-- @if (Model.ShowRSNPartialView)
-              {
-              @Html.Partial("CoverageNotes/" + Model.SportYear + "/FSNWeek" + Model.Week)
-              } -->
-        <WeeklyBase :season="year" :tvGames="tvGameResult.tvGames" :currentWeek="currentWeek" :isBowlWeek="isBowlWeek"
-          :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
-        <NoTvGames v-if="!isBowlWeek && showNoTvGames && noTvGamesResult" :noTvGames="noTvGamesResult?.noTvGames" />
-        <!-- @if (!Model.IsBowlWeek) { if (Model.ShowNoTVPartialView) {
-              @Html.Partial("NoTV", Model) } } -->
-        <p>
-          <BackToTopScript />
-          <BackToTopButton />
-        </p>
-        <!-- </form> -->
-        <GoogleSearch />
-      </template>
-    </div>
-  </div>
+  <WeekSchedule :week="week" :sport="sport" :paramYear="paramYear" :key="route.fullPath"></WeekSchedule>
 </template>
 
 <style scoped>
