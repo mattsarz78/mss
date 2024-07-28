@@ -5,9 +5,8 @@ import { DateTime } from 'luxon';
 import { onMounted } from 'vue';
 import WeekGamesTable from '../components/weekly/WeekGamesTable.vue';
 
-const props = defineProps(['tvGames', 'currentWeek', 'isBowlWeek', 'isMbkPostseason', 'showPpvColumn', 'season']);
+const props = defineProps(['tvGames', 'isBowlWeek', 'isMbkPostseason', 'showPpvColumn', 'season']);
 const tvGames = props['tvGames'] as TvGame[];
-const currentWeek = props['currentWeek'] as WeekInfo;
 const isBowlWeek = props['isBowlWeek'] as boolean;
 const isMbkPostseason = props['isBowlWeek'] as boolean;
 const datesList: string[] = [];

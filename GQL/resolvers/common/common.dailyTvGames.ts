@@ -26,13 +26,13 @@ export const getDailyTvGames = async (
       })
     ).map((result: Football | Basketball) => {
       return {
-        season: result.Season,
+        season: result.Season.trim(),
         gameTitle: result.GameTitle?.trim(),
         visitingTeam: result.VisitingTeam?.trim().split(',') ?? [],
         homeTeam: result.HomeTeam?.trim().split(',') ?? [],
         location: result.Location?.trim(),
         network: result.Network?.trim(),
-        networkJPG: result.NetworkJPG,
+        networkJpg: result.NetworkJPG,
         coverageNotes: result.CoverageNotes?.trim(),
         ppv: result.PPV?.trim(),
         mediaIndicator: result.MediaIndicator.trim(),

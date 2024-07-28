@@ -40,6 +40,7 @@ export type ConferenceGame = {
 };
 
 export type TvGame = {
+  season: string;
   gameTitle?: string;
   visitingTeam?: string[];
   homeTeam?: string[];

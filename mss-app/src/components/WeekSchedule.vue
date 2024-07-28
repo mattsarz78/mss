@@ -68,7 +68,6 @@ const previousWeek = week - 1;
 
 let isBowlWeek: boolean = false;
 let isMbkPostseason: boolean = false;
-let currentWeek: WeekInfo;
 let gamesToday: boolean = false;
 let isWeekOne: boolean = false;
 let isNextWeekMbkPostseason: boolean = false;
@@ -78,7 +77,6 @@ watch([seasonContentsResult, noTvGamesResult, tvGameResult], ([seasonContentsVal
     if (!!seasonContentsValue && !!noTvGamesValue && !!tvGameValue) {
         isBowlWeek = isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week);
         isMbkPostseason = isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, week);
-        currentWeek = seasonContentsResult.value?.seasonContents.filter((x) => x.week === week)[0]!;
         gamesToday = seasonContentsResult.value?.seasonContents.filter(x => x.week === week).some((x) => {
             const dateToCompare = DateTime.now().setZone('America/New_York');
             return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare
@@ -145,15 +143,14 @@ watch([seasonContentsResult, noTvGamesResult, tvGameResult], ([seasonContentsVal
                     </div>
                 </div>
             </nav>
-            <template v-if="currentWeek && tvGameResult">
+            <template v-if="tvGameResult">
                 <!-- <form action="@ViewBag.ActionName" id="WeekForm" method="post"> -->
                 <!-- @if (Model.ShowRSNPartialView)
               {
               @Html.Partial("CoverageNotes/" + Model.SportYear + "/FSNWeek" + Model.Week)
               } -->
-                <WeeklyBase :season="year" :tvGames="tvGameResult.tvGames" :currentWeek="currentWeek"
-                    :isBowlWeek="isBowlWeek" :isMbkPostseason="isMbkPostseason"
-                    :showPpvColumn="shouldShowPpvColumn(year)" />
+                <WeeklyBase :season="year" :tvGames="tvGameResult.tvGames" :isBowlWeek="isBowlWeek"
+                    :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
                 <NoTvGames v-if="!isBowlWeek && showNoTvGames && noTvGamesResult"
                     :noTvGames="noTvGamesResult?.noTvGames" />
                 <p>
