@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DAILY_TV_GAMES, type TvGame } from '@/graphQl';
-import { flexScheduleLink, shouldShowPpvColumn } from '@/utils';
+import { flexScheduleLink, shouldShowPpvColumn, adjustWebExclusives } from '@/utils';
 import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { defineAsyncComponent, watch } from 'vue';
@@ -62,8 +62,8 @@ watch(dailyTvGameResult, dailyTvGameValue => {
                         </span>
                         <br />
                         <div class="filters" v-if="dailyTvGameResult">
-                            <input id="btnWebGames" type="button" value="Hide Web Exclusive Games"
-                                class="show_hideWeb" />
+                            <input id="btnWebGames" type="button" value="Hide Web Exclusive Games" class="show_hideWeb"
+                                v-on:click="adjustWebExclusives()" />
                             <!-- @Html.Partial("TimeZoneDropDown") -->
                         </div>
                     </div>

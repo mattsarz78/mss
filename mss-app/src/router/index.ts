@@ -6,6 +6,7 @@ import Season from '../views/SeasonView.vue';
 import ConferenceGameList from '../views/ConferenceGames.vue';
 import TvWindowsView from '../views/TvWindowsView.vue';
 import WeeklyScheduleView from '../views/WeeklyScheduleView.vue';
+import WeeklyTextScheduleView from '../views/WeeklyTextScheduleView.vue';
 import DailyScheduleView from '../views/DailyScheduleView.vue';
 import { getConferenceCasingBySlug } from '@/utils';
 
@@ -53,6 +54,17 @@ const router = createRouter({
         week: route.params.week
       }),
       component: WeeklyScheduleView
+    },
+    {
+      path: '/schedule/text/:sport/:year/:week',
+      meta: { title: 'Weekly Text' },
+      name: 'Weekly Text',
+      props: (route) => ({
+        sport: route.params.sport,
+        year: route.params.year,
+        week: route.params.week
+      }),
+      component: WeeklyTextScheduleView
     },
     {
       path: '/schedule/:sport/daily',

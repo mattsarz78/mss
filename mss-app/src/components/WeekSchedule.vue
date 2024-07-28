@@ -9,7 +9,8 @@ import {
     shouldShowPpvColumn,
     isFirstWeek,
     isNextWeekBasketballPostseason,
-    isNextWeekBowlGameWeek
+    isNextWeekBowlGameWeek,
+    adjustWebExclusives
 } from '@/utils';
 import { useQuery } from '@vue/apollo-composable';
 import { defineAsyncComponent, watch } from 'vue';
@@ -137,7 +138,8 @@ watch([seasonContentsResult, noTvGamesResult, tvGameResult], ([seasonContentsVal
                         <br />
                         <div class="filters" v-if="tvGameResult">
                             <input v-if="!isBowlWeek && !isMbkPostseason" id="btnWebGames" type="button"
-                                value="Hide Web Exclusive Games" class="show_hideWeb" />
+                                value="Hide Web Exclusive Games" class="show_hideWeb"
+                                v-on:click="adjustWebExclusives()" />
                             <!-- @Html.Partial("TimeZoneDropDown") -->
                         </div>
                     </div>

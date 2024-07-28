@@ -26,6 +26,20 @@ export const adjustNavBar = () => {
   document.querySelector('#Main')!.setAttribute('style', `padding-top: ${paddingAddition}px`);
 };
 
+export const adjustWebExclusives = () => {
+  document
+    .querySelectorAll<HTMLElement>('.webGame')
+    .forEach((webgame: HTMLElement) =>
+      webgame.style.display === 'none' ? (webgame.style.display = '') : (webgame.style.display = 'none')
+    );
+
+  const buttonTitle = document.querySelector('#btnWebGames')!.getAttribute('value');
+
+  buttonTitle?.startsWith('Show')
+    ? document.querySelector('#btnWebGames')!.setAttribute('value', 'Hide Web Exclusive Games')
+    : document.querySelector('#btnWebGames')!.setAttribute('value', 'Show Web Exclusive Games');
+};
+
 export const getConferenceCasing = (conference: string) => conferenceCasing.find((x) => x?.id === conference);
 
 export const getConferenceCasingBySlug = (conference: string) => conferenceCasing.find((x) => x?.slug === conference);
