@@ -12,7 +12,7 @@ import {
     isNextWeekBowlGameWeek
 } from '@/utils';
 import { useQuery } from '@vue/apollo-composable';
-import { defineAsyncComponent, onMounted, watch, type Ref } from 'vue';
+import { defineAsyncComponent, watch } from 'vue';
 import BackToTopButton from './shared/BackToTopButton.vue';
 import WeeklyBase from './WeeklyBase.vue';
 import NoTvGames from './noTVGames/NoTvGames.vue';

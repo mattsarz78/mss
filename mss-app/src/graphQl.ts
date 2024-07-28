@@ -93,6 +93,25 @@ export const CONFERENCE_GAMES = gql`
 export const TV_GAMES = gql`
   query tvGames($input: TvGamesInput) {
     tvGames(input: $input) {
+      season
+      gameTitle
+      visitingTeam
+      homeTeam
+      location
+      network
+      networkJpg
+      coverageNotes
+      ppv
+      mediaIndicator
+      timeWithOffset
+    }
+  }
+`;
+
+export const DAILY_TV_GAMES = gql`
+  query dailyTvGames($input: DailyTvGamesInput) {
+    dailyTvGames(input: $input) {
+      season
       gameTitle
       visitingTeam
       homeTeam

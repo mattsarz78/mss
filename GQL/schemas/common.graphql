@@ -10,12 +10,12 @@ input TvGamesInput {
 }
 
 input DailyTvGamesInput {
-  season: String!
   startDate: String!
   sport: String!
 }
 
 type TvGame {
+  season: String!
   gameTitle: String
   visitingTeam: [String]
   homeTeam: [String]

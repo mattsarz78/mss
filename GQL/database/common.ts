@@ -15,7 +15,6 @@ export class CommonService implements ICommonService {
   public getDailyTvGames(request: any): Promise<(Football | Basketball)[]> {
     const criteria = {
       where: {
-        Season: request.season,
         MediaIndicator: {
           in: ['T', 'W']
         },

@@ -12,6 +12,7 @@ export const getTvGames = async (_1: unknown, args: TvGamesArgs, context: IConte
   try {
     return (await context.services[CommonServiceKey].getTvGames(args.input)).map((result: Football | Basketball) => {
       return {
+        season: result.Season,
         gameTitle: result.GameTitle?.trim(),
         visitingTeam: result.VisitingTeam?.trim().split(',') ?? [],
         homeTeam: result.HomeTeam?.trim().split(',') ?? [],
