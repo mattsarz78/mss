@@ -30,30 +30,17 @@ const year = sport === 'football' ? paramYear : getBasketballSeason(paramYear);
 const flexLink = flexScheduleLink(year);
 const showNoTvGames = hasNoTVGames(year);
 
-const getTVGames = (year: string, sport: string, week: number) => {
-    const {
-        result: tvGameResult,
-        loading: tvGameLoading,
-        error: tvGameError
-    } = useQuery<{ tvGames: TvGame[] }>(TV_GAMES, {
-        input: {
-            season: year,
-            sport,
-            week
-        }
-    })
-    return {
-        tvGameResult,
-        tvGameLoading,
-        tvGameError
-    }
-};
-
 const {
-    tvGameResult,
-    tvGameLoading,
-    tvGameError
-} = getTVGames(year, sport, week);
+    result: tvGameResult,
+    loading: tvGameLoading,
+    error: tvGameError
+} = useQuery<{ tvGames: TvGame[] }>(TV_GAMES, {
+    input: {
+        season: year,
+        sport,
+        week
+    }
+})
 
 const {
     result: seasonContentsResult,
@@ -92,9 +79,10 @@ watch([seasonContentsResult, noTvGamesResult, tvGameResult], ([seasonContentsVal
         isBowlWeek = isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week);
         isMbkPostseason = isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, week);
         currentWeek = seasonContentsResult.value?.seasonContents.filter((x) => x.week === week)[0]!;
-        gamesToday = seasonContentsResult.value?.seasonContents.filter(x => x.week === week).some((x) =>
-            DateTime.fromISO(x.endDate) >= DateTime.now() && DateTime.fromISO(x.startDate) <= DateTime.now()
-        ) ?? false;
+        gamesToday = seasonContentsResult.value?.seasonContents.filter(x => x.week === week).some((x) => {
+            const dateToCompare = DateTime.now().setZone('America/New_York');
+            return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare
+        }) ?? false;
         isWeekOne = isFirstWeek(seasonContentsResult.value?.seasonContents!, week)
         isNextWeekMbkPostseason = isNextWeekBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, week)
         isNextWeekBowlWeek = isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week)
