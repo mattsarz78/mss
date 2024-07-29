@@ -22,18 +22,18 @@ const TwitterRetrieval = defineAsyncComponent(() => import('../components/Twitte
         <RouterLink to="/season/football/2024">2024 Football</RouterLink><br />
         <br />
         <RouterLink to="/season/football/2023">2023 Football</RouterLink><br />
-        <RouterLink to="/season/basketball/202324">2023-24 Men's Basketball</RouterLink><br />
+        <RouterLink to="/season/basketball/2023-24">2023-24 Men's Basketball</RouterLink><br />
         <br />
         <RouterLink to="/season/football/2022">2022 Football</RouterLink><br />
-        <RouterLink to="/season/basketball/202223">2022-23 Men's Basketball</RouterLink><br />
+        <RouterLink to="/season/basketball/2022-23">2022-23 Men's Basketball</RouterLink><br />
         <br />
         <RouterLink to="/season/football/2021">2021 Football</RouterLink><br />
-        <RouterLink to="/season/basketball/202122">2021-22 Men's Basketball</RouterLink><br />
+        <RouterLink to="/season/basketball/2021-22">2021-22 Men's Basketball</RouterLink><br />
         <br />
         <RouterLink to="/season/football/2021s">2021 Football - Spring FCS only</RouterLink><br />
         <RouterLink to="/season/football/2020r">2020 Football - Revised</RouterLink><br />
         <RouterLink to="/season/football/2020">2020 Football - Pre-Conference Only Announcements</RouterLink><br />
-        <RouterLink to="/season/basketball/202021">2020-21 Men's Basketball</RouterLink><br />
+        <RouterLink to="/season/basketball/2020-21">2020-21 Men's Basketball</RouterLink><br />
         <br />
         <RouterLink to="/archive">Archived Seasons</RouterLink>
         <p>

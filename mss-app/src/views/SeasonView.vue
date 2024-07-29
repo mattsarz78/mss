@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router';
 import { useQuery } from '@vue/apollo-composable';
 import { SEASON_CONTENTS, type WeekInfo } from '@/graphQl';
 import { defineAsyncComponent, watch } from 'vue';
-import { conferenceListBase } from '@/utils';
+import { conferenceListBase, getBasketballSeason } from '@/utils';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
 
@@ -11,7 +11,8 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
 
 const route = useRoute();
 const sport = route.params.sport as string;
-const year = route.params.year as string;
+const paramYear = route.params.year as string;
+const year = sport === 'football' ? paramYear : getBasketballSeason(paramYear);
 
 const { result, loading, error } = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, {
   input: {
@@ -41,7 +42,9 @@ watch(result, () => {
 <template>
   <nav class="navbar DONTPrint">
     <div class="container">
-      <div><RouterLink to="/">Home</RouterLink><br /></div>
+      <div>
+        <RouterLink to="/">Home</RouterLink><br />
+      </div>
     </div>
   </nav>
   <div id="Main">
@@ -51,14 +54,14 @@ watch(result, () => {
       <div v-if="loading">Loading...</div>
 
       <div id="SeasonLinks" class="DONTPrint">
-        <SeasonDates :contents="result.seasonContents" :year="year" :sport="sport"></SeasonDates>
+        <SeasonDates :contents="result.seasonContents" :year="paramYear" :sport="sport"></SeasonDates>
       </div>
-      <ConferenceList v-if="sport === 'football'" :conference-list="conferenceList" :year="year" />
+      <ConferenceList v-if="sport === 'football'" :conference-list="conferenceList" :year="paramYear" />
     </div>
     <div style="display: inline-block">
       <p>
-        <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span
-        ><a id="HyperLink32" href="mailto:footballsked@gmail.com">Send it here</a>
+        <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span><a id="HyperLink32"
+          href="mailto:footballsked@gmail.com">Send it here</a>
       </p>
     </div>
     <GoogleSearch />

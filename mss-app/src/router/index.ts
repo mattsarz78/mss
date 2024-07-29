@@ -8,7 +8,7 @@ import TvWindowsView from '../views/TvWindowsView.vue';
 import WeeklyScheduleView from '../views/WeeklyScheduleView.vue';
 import WeeklyTextScheduleView from '../views/WeeklyTextScheduleView.vue';
 import DailyScheduleView from '../views/DailyScheduleView.vue';
-import { getConferenceCasingBySlug } from '@/utils';
+import { getBasketballSeason, getConferenceCasingBySlug } from '@/utils';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -78,7 +78,8 @@ router.beforeEach((to, _from, next) => {
   document.title = to.meta.title as string;
   if ((to.meta.title as string) === 'Contents') {
     const capitalized = `${(to.params.sport as string).charAt(0).toUpperCase()}${(to.params.sport as string).slice(1)}`;
-    document.title = `${to.params.year} ${capitalized} Season`;
+    const titleYear = to.params.sport === 'football' ? to.params.year : getBasketballSeason(to.params.year as string);
+    document.title = `${titleYear} ${capitalized} Season`;
   }
 
   if ((to.meta.title as string) === 'TV Windows') {
