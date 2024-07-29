@@ -12,12 +12,12 @@ import { specialCoverageNotes } from './constants/specialCoverageNotes';
 import { syndicationLinks } from './constants/syndicationLinks';
 
 export const formatNetworkJpgAndCoverage = (input: string, season: string): string => {
-  let networks = input.split(',');
-  let imagesString: string[] = [];
-  let imageHyperlinkString: string[] = [];
-  let textHyperlinksString: string[] = [];
-  let textString: string[] = [];
-  let infoLinksString: string[] = [];
+  const networks = input.split(',');
+  const imagesString: string[] = [];
+  const imageHyperlinkString: string[] = [];
+  const textHyperlinksString: string[] = [];
+  const textString: string[] = [];
+  const infoLinksString: string[] = [];
 
   const { images, imageHyperlinks, textHyperlinks, infoLinks, strings } = validateFieldData(networks);
 
@@ -43,12 +43,12 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
 
         let imageUrl = '';
 
-        for (let image of imageArray) {
+        for (const image of imageArray) {
           let doNotUse = false;
 
           if (image.yearEnd) {
-            var years = image.yearEnd.split('|');
-            var yearToCompare = years.find((x) => x.length === season.length)![0];
+            const years = image.yearEnd.split('|');
+            const yearToCompare = years.find((x) => x.length === season.length)![0];
             doNotUse = parseInt(season) > parseInt(yearToCompare);
             imageUrl = doNotUse ? '' : image.image;
             if (imageUrl !== '') {
@@ -70,7 +70,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
     });
   }
 
-  let combinedImagesString = imagesString.concat(imageHyperlinkString);
+  const combinedImagesString = imagesString.concat(imageHyperlinkString);
 
   let counter = 0;
   combinedImagesString.forEach((_, index) => {
@@ -147,11 +147,11 @@ function validateFieldData(networks: string[]): {
   textHyperlinks: string[];
   strings: string[];
 } {
-  let images: string[] = [];
-  let imageHyperlinks: string[] = [];
-  let textHyperlinks: string[] = [];
-  let strings: string[] = [];
-  let infoLinks: string[] = [];
+  const images: string[] = [];
+  const imageHyperlinks: string[] = [];
+  const textHyperlinks: string[] = [];
+  const strings: string[] = [];
+  const infoLinks: string[] = [];
 
   networks.forEach((network) => {
     if (isImage(network)) images.push(network);

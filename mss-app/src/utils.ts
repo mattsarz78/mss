@@ -121,3 +121,23 @@ export const formatTime = (timeWithOffset: string) => {
   const easternTime = DateTime.fromISO(timeWithOffset).setZone('America/New_York').toFormat('t');
   return easternTime === '12:00 AM' ? 'TBA' : easternTime;
 };
+
+export const checkAllTextRows = () => {
+  const elements = document.querySelectorAll('.checkBoxRow');
+  const rows = document.querySelectorAll('tr.gamerow');
+  elements.forEach((element: any) => (element.checked = true));
+  rows.forEach((row) => {
+    row.setAttribute('style', 'background-color: #CCC');
+    row.setAttribute('class', 'gamerow DOPrint rowstyle');
+  });
+};
+
+export const clearAllSelectedTextRows = () => {
+  const elements = document.querySelectorAll('.checkBoxRow');
+  const rows = document.querySelectorAll('tr.gamerow');
+  elements.forEach((element: any) => (element.checked = false));
+  rows.forEach((row) => {
+    row.setAttribute('style', 'background-color: #FFF');
+    row.setAttribute('class', 'gamerow DONTPrint rowstyle');
+  });
+};

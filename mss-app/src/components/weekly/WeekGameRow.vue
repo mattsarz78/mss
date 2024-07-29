@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
 import { formatGame, formatTime } from '../../utils';
-import { formatNetworkJpgAndCoverage } from '../../imageUtils'
+import { formatNetworkJpgAndCoverage } from '../../imageUtils';
 const props = defineProps(['tvGame', 'showPPVColumn', 'season']);
 const tvGame = props['tvGame'] as TvGame;
 const showPPVColumn = props['showPPVColumn'] as boolean;
 const season = props['season'] as string;
-
 </script>
 
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b><i>{{ tvGame.gameTitle }}</i></b><br />
+      <b
+        ><i>{{ tvGame.gameTitle }}</i></b
+      ><br />
     </template>
     <template v-if="tvGame.visitingTeam?.length === 0"></template>
     <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
@@ -23,12 +24,16 @@ const season = props['season'] as string;
     </template>
     <template v-if="tvGame.location"><br />(at {{ tvGame.location }})</template>
   </td>
-  <td class="network" v-html="!!tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg!, season) : ''">
-  </td>
-  <td class="coverage"
-    v-html="!!tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes!, season) : ''" />
-  <td v-if="showPPVColumn" class="ppv" v-html="!!tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv!, season) : ''">
-  </td>
+  <td class="network" v-html="!!tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg!, season) : ''"></td>
+  <td
+    class="coverage"
+    v-html="!!tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes!, season) : ''"
+  />
+  <td
+    v-if="showPPVColumn"
+    class="ppv"
+    v-html="!!tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv!, season) : ''"
+  ></td>
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>

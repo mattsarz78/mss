@@ -56,7 +56,7 @@ const router = createRouter({
       component: WeeklyScheduleView
     },
     {
-      path: '/schedule/text/:sport/:year/:week',
+      path: '/schedule/:sport/:year/:week/text',
       meta: { title: 'Weekly Text' },
       name: 'Weekly Text',
       props: (route) => ({

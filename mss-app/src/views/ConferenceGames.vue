@@ -53,8 +53,12 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
           non-conference games fall under the home team's telecast rights.
         </p>
         <div v-if="conference !== 'independents'" v-html="contractTvData"></div>
-        <IndependentsGameList v-if="conference === 'independents'" :games="result.conferenceGames"
-          :schools="getIndependentSchools(year).split('|')" :year="year" />
+        <IndependentsGameList
+          v-if="conference === 'independents'"
+          :games="result.conferenceGames"
+          :schools="getIndependentSchools(year).split('|')"
+          :year="year"
+        />
         <ConferenceGameList :year="year" v-else :games="result.conferenceGames" />
         <p>
           <BackToTopScript />

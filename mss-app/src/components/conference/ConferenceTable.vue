@@ -18,7 +18,9 @@ const games: ConferenceGame[] = props['games'];
       <tr v-for="game of games">
         <td class="game">
           <template v-if="game.gameTitle">
-            <b><i>{{ game.gameTitle }}</i></b><br />
+            <b
+              ><i>{{ game.gameTitle }}</i></b
+            ><br />
           </template>
           <template v-if="game.visitingTeam!.length === 0"></template>
           <template v-else-if="game.visitingTeam!.length === 1 && game.homeTeam!.length === 1">

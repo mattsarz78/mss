@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TvGame, WeekInfo } from '@/graphQl';
+import type { TvGame } from '@/graphQl';
 import { adjustNavBar } from '@/utils';
 import { DateTime } from 'luxon';
 import { onMounted } from 'vue';
@@ -31,9 +31,16 @@ onMounted(() => adjustNavBar());
       </template>
       <template v-else>
         <div v-for="weekDate of datesList">
-          <WeekGamesTable :season="season" :weekDate="weekDate" :isBowlWeek="isBowlWeek"
-            :isMbkPostseason="isMbkPostseason" :showPpvColumn="showPpvColumn" :tvGamesForDate="tvGames.filter((x) => DateTime.fromISO(x.timeWithOffset!).toLocal().toISODate() === weekDate)
-              " />
+          <WeekGamesTable
+            :season="season"
+            :weekDate="weekDate"
+            :isBowlWeek="isBowlWeek"
+            :isMbkPostseason="isMbkPostseason"
+            :showPpvColumn="showPpvColumn"
+            :tvGamesForDate="
+              tvGames.filter((x) => DateTime.fromISO(x.timeWithOffset!).toLocal().toISODate() === weekDate)
+            "
+          />
         </div>
       </template>
     </div>

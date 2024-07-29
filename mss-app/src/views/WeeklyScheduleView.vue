@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import WeekSchedule from '../components/WeekSchedule.vue'
+import WeekSchedule from '../components/WeekSchedule.vue';
 
 const route = useRoute();
 const week = parseInt(route.params.week as string);
