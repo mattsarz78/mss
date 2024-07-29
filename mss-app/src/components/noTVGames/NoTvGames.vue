@@ -31,34 +31,12 @@ const toggleNoTV = () => {
 
 <template>
   <div>
-    <input
-      id="btnConferenceGames"
-      type="button"
-      value="Show Non-Televised Games"
-      class="show_hideNoTV"
-      v-on:click="toggleNoTV()"
-    />
+    <input id="btnConferenceGames" type="button" value="Show Non-Televised Games" class="show_hideNoTV"
+      v-on:click="toggleNoTV()" />
     <div class="slidingNoTVDiv">
       <p v-if="!noTvGames.length">All FBS games scheduled for this week are being televised or shown online</p>
-      <NoTvGamesTable
-        v-for="noTVDate of datesList"
-        :noTvDate="noTVDate"
-        :noTvGamesForDate="
-          noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)
-        "
-      />
-      <!-- else
-            {
-            DateTime endDate = Model.WeekDates.EndDate;
-            Model.WeekDates.CurrentDate = Model.WeekDates.StartDate.AddDays(-1);
-            while ((Model.WeekDates.CurrentDate = Model.WeekDates.CurrentDate.AddDays(1)) <= endDate) { if
-                (Model.NoTVGameList.Any(x=> x.Time.ToShortDateString() ==
-                Model.WeekDates.CurrentDate.ToShortDateString()))
-                {
-                Html.RenderPartial("NoTVGamesTable", Model);
-                }
-                }
-                } -->
+      <NoTvGamesTable v-for="noTVDate of datesList" :key="noTVDate" :noTvDate="noTVDate" :noTvGamesForDate="noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)
+        " />
       <br />
     </div>
   </div>

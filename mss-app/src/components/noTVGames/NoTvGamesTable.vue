@@ -17,20 +17,17 @@ const noTvGamesForDate = props['noTvGamesForDate'] as NoTvGame[];
         <th>Conference</th>
         <th>Television Options</th>
       </tr>
-      <template v-for="noTvGameForDate of noTvGamesForDate">
+      <template v-for="(noTvGameForDate, index) in noTvGamesForDate" :key="index">
         <tr :class="noTvGameForDate.fcs ? 'fcsgame' : ''">
           <td class="game">
             <template v-if="noTvGameForDate.gameTitle">
-              <b
-                ><i>{{ noTvGameForDate.gameTitle }}</i></b
-              ><br />
+              <b><i>{{ noTvGameForDate.gameTitle }}</i></b><br />
             </template>
             <template v-if="noTvGameForDate.location">
               <template v-if="noTvGameForDate.visitingTeam">
                 {{ noTvGameForDate.visitingTeam }} vs. {{ noTvGameForDate.homeTeam }}<br />
               </template>
-              (at {{ noTvGameForDate.location }})</template
-            >
+              (at {{ noTvGameForDate.location }})</template>
             <template v-else>
               <template v-if="noTvGameForDate.visitingTeam">
                 {{ noTvGameForDate.visitingTeam }} at {{ noTvGameForDate.homeTeam }}<br />

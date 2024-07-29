@@ -3,8 +3,7 @@ import type { TvGame } from '@/graphQl';
 import { formatGame, formatTime } from '@/utils';
 import { DateTime } from 'luxon';
 
-const props = defineProps(['tvGames', 'isBowlWeek', 'isMbkPostseason', 'showPpvColumn', 'season']);
-const season = props['season'] as string;
+const props = defineProps(['tvGames', 'isBowlWeek', 'isMbkPostseason', 'showPpvColumn']);
 const isBowlWeek = props['isBowlWeek'] as boolean;
 const isMbkPostseason = props['isMbkPostseason'] as boolean;
 const showPpvColumn = props['showPpvColumn'] as boolean;
@@ -27,7 +26,7 @@ const tvGames = props['tvGames'] as TvGame[];
                 </tr>
             </thead>
             <tbody>
-                <tr class="gamerow DONTPrint rowStyle" v-for="tvGame of tvGames">
+                <tr class="gamerow DONTPrint rowStyle" v-for="(tvGame, index) of tvGames" :key="index">
                     <td class="tablecell">
                         <input class="checkBoxRow" type="checkbox" />
                     </td>

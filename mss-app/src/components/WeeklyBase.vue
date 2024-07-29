@@ -30,7 +30,7 @@ onMounted(() => adjustNavBar());
         <p>There are no televised games at this time</p>
       </template>
       <template v-else>
-        <div v-for="weekDate of datesList">
+        <div v-for="(weekDate, index) of datesList" :key="index">
           <WeekGamesTable
             :season="season"
             :weekDate="weekDate"

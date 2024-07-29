@@ -2,7 +2,7 @@ import { validSportYears } from './constants/validSportYears';
 import { flexScheduleLinks } from './constants/flexScheduleLinks';
 import { conferenceCasing } from './constants/conferenceCasing';
 import { contractData } from './constants/conference-data';
-import type { NoTvGame, TvGame, WeekInfo } from './graphQl';
+import type { ConferenceGame, NoTvGame, TvGame, WeekInfo } from './graphQl';
 import { DateTime } from 'luxon';
 
 export const conferenceListBase = (sport: string, year: string): string => {
@@ -109,7 +109,7 @@ export const updatedTvOptions = (game: NoTvGame): string => {
   return game.tvOptions;
 };
 
-export const formatGame = (game: TvGame): string => {
+export const formatGame = (game: TvGame | ConferenceGame): string => {
   let formattedGame = `${game.visitingTeam![0]} ${game.location ? 'vs.' : 'at'} ${game.homeTeam![0]}`;
   for (let i = 1; i < game.visitingTeam!.length; i++) {
     formattedGame += `<br>OR ${game.visitingTeam![i]} ${game.location ? 'vs.' : 'at'} ${game.homeTeam![i]}`;

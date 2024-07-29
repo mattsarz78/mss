@@ -75,6 +75,9 @@ watch(
 </script>
 
 <template>
+  <div v-if="seasonContentsLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}
+  </div>
+  <div v-if="seasonContentsError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
   <div v-if="seasonContentsLoading || tvGameLoading">Loading</div>
   <div v-if="seasonContentsResult && tvGameResult">
     <nav class="navbar DONTPrint">
@@ -84,7 +87,7 @@ watch(
             <RouterLink class="homelink" to="/">Home</RouterLink>
             <RouterLink class="seasonhome" :to="`/season/${sport}/${paramYear}`">Season Home </RouterLink>
           </span>
-          <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}/text`">Weekly Schedule
+          <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}`">Weekly Schedule
           </RouterLink><br />
           <div class="pad" v-if="!isMbkPostseason && !isBowlWeek">
             <template v-if="isWeekOne">

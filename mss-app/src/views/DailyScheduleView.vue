@@ -33,7 +33,7 @@ let flexLink: string = '';
 
 watch(
   dailyTvGameResult,
-  (dailyTvGameValue) => {
+  () => {
     if (dailyTvGameResult) {
       paramYear = dailyTvGameResult.value?.dailyTvGames ? dailyTvGameResult.value?.dailyTvGames[0].season : '';
       season =
@@ -47,7 +47,8 @@ watch(
 
 <template>
   <div>
-    <div v-if="dailyTvGameLoading">Loading</div>
+    <div v-if="dailyTvGameLoading">Loading {{ sport }} for {{ startDate }}</div>
+    <div v-if="dailyTvGameError">Got a problem. Let Matt know.</div>
     <div v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">

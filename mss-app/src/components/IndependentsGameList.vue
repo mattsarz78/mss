@@ -10,9 +10,9 @@ const year = props['year'];
 </script>
 
 <template>
-  <div v-for="school of schools">
+  <div v-for="(school, index) in schools" :key="index">
     <div v-html="getConferenceContractData(school, year)!"></div>
     {{ games.filter((x) => x.conference === school)[0].homeTeam[0] }} Telecasts
-    <ConferenceTable :games="games.filter((x) => x.conference === school)" />
+    <ConferenceTable :games="games.filter((x) => x.conference === school)" :year="year" />
   </div>
 </template>

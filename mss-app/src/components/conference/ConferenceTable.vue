@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { ConferenceGame } from '@/graphQl';
-import { formatGame, formatTime } from '../../utils';
+import { formatGame, formatTime, } from '../../utils';
+import { formatNetworkJpgAndCoverage } from '../../imageUtils';
 import { DateTime } from 'luxon';
 
-const props = defineProps(['games']);
+const props = defineProps(['games', 'year']);
 const games: ConferenceGame[] = props['games'];
+const year: string = props['year'];
 </script>
 
 <template>
@@ -15,12 +17,10 @@ const games: ConferenceGame[] = props['games'];
         <th>Network</th>
         <th>Time</th>
       </tr>
-      <tr v-for="game of games">
+      <tr v-for="(game, index) in games" :key="index">
         <td class="game">
           <template v-if="game.gameTitle">
-            <b
-              ><i>{{ game.gameTitle }}</i></b
-            ><br />
+            <b><i>{{ game.gameTitle }}</i></b><br />
           </template>
           <template v-if="game.visitingTeam!.length === 0"></template>
           <template v-else-if="game.visitingTeam!.length === 1 && game.homeTeam!.length === 1">
@@ -29,9 +29,7 @@ const games: ConferenceGame[] = props['games'];
           <template v-else> {{ formatGame(game) }} </template>
           <template v-if="game.location"><br />(at {{ game.location }})</template>
         </td>
-        <td class="network">
-          {{ game.network }}
-        </td>
+        <td class="network" v-html="formatNetworkJpgAndCoverage(game.network!, year)" />
         <td class="time">
           {{ DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('cccc') }}<br />{{
             DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('LL/dd')

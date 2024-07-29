@@ -23,7 +23,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
 
   if (images.length) {
     images.forEach((image) => {
-      imagesString.push(`<img class=\"imageDimensions\" src=\"/images/${image}\" />`);
+      imagesString.push(`<img class="imageDimensions" src="/images/${image}" />`);
     });
   }
 
@@ -60,11 +60,11 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
         }
 
         imageHyperlinkString.push(
-          `<a href=\"${imageHyperlink}\" target=\"_blank\" ><img class=\"imageDimensions\" src=\"/images/${imageUrl}\" /></a>`
+          `<a href="${imageHyperlink}" target="_blank" ><img class="imageDimensions" src="/images/${imageUrl}" /></a>`
         );
       } else {
         imageHyperlinkString.push(
-          `<a href=\"${imageHyperlink}\" target=\"_blank\" ><img class=\"imageDimensions\" src=\"/images/${imageArray[0].image}\" /></a>`
+          `<a href="${imageHyperlink}" target="_blank" ><img class="imageDimensions" src="/images/${imageArray[0].image}" /></a>`
         );
       }
     });

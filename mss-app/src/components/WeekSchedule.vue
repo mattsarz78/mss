@@ -102,7 +102,9 @@ watch(
 
 <template>
   <div>
-    <div v-if="seasonContentsLoading || noTvGamesLoading || tvGameLoading">Loading</div>
+    <div v-if="seasonContentsLoading || noTvGamesLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}
+    </div>
+    <div v-if="seasonContentsError || noTvGamesError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
     <div v-if="seasonContentsResult && noTvGamesResult && tvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
@@ -110,19 +112,14 @@ watch(
             <span class="blockspan">
               <RouterLink class="mobilespan" to="/">Home</RouterLink>
               <RouterLink class="mobilespan" :to="`/season/${sport}/${paramYear}`">Season Home </RouterLink>
-              <RouterLink class="mobilespan" v-if="gamesToday" :to="`/schedule/${sport}/daily`"
-                >Today's Schedule
+              <RouterLink class="mobilespan" v-if="gamesToday" :to="`/schedule/${sport}/daily`">Today's Schedule
               </RouterLink>
             </span>
             <span class="blockspan">
               <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">
-                Available TV Windows</RouterLink
-              >
+                Available TV Windows</RouterLink>
               <RouterLink lass="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`">
-                Customizable Text-Only Page</RouterLink
-              >
-              <!-- <a class="mobilespan" href="@Url.Content(" ~/Schedule/WeeklyText/" + Model.SportYear + "/" +
-                              Model.Week)">Customizable Text-Only Page</a> -->
+                Customizable Text-Only Page</RouterLink>
             </span>
             <div class="pad" v-if="!isMbkPostseason && !isBowlWeek">
               <template v-if="isWeekOne">
@@ -137,8 +134,7 @@ watch(
                   </RouterLink>
                 </span>
                 <span style="float: right" v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek">
-                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }"
-                    >Next Week
+                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }">Next Week
                   </RouterLink>
                 </span>
               </template>
@@ -146,14 +142,8 @@ watch(
             </div>
             <br />
             <div class="filters" v-if="tvGameResult">
-              <input
-                v-if="!isBowlWeek && !isMbkPostseason"
-                id="btnWebGames"
-                type="button"
-                value="Hide Web Exclusive Games"
-                class="show_hideWeb"
-                v-on:click="adjustWebExclusives()"
-              />
+              <input v-if="!isBowlWeek && !isMbkPostseason" id="btnWebGames" type="button"
+                value="Hide Web Exclusive Games" class="show_hideWeb" v-on:click="adjustWebExclusives()" />
               <!-- @Html.Partial("TimeZoneDropDown") -->
             </div>
           </div>
@@ -165,13 +155,8 @@ watch(
               {
               @Html.Partial("CoverageNotes/" + Model.SportYear + "/FSNWeek" + Model.Week)
               } -->
-        <WeeklyBase
-          :season="year"
-          :tvGames="tvGameResult.tvGames"
-          :isBowlWeek="isBowlWeek"
-          :isMbkPostseason="isMbkPostseason"
-          :showPpvColumn="shouldShowPpvColumn(year)"
-        />
+        <WeeklyBase :season="year" :tvGames="tvGameResult.tvGames" :isBowlWeek="isBowlWeek"
+          :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
         <NoTvGames v-if="!isBowlWeek && showNoTvGames && noTvGamesResult" :noTvGames="noTvGamesResult?.noTvGames" />
         <p>
           <BackToTopScript />
