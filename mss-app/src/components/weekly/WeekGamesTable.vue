@@ -23,7 +23,7 @@ const showPPVColumn = props['showPpvColumn'] as boolean;
         <th v-if="!isBowlWeek && !isMbkPostseason && showPPVColumn">PPV</th>
         <th>Time</th>
       </tr>
-      <template v-for="(tvGame, index) in tvGamesForDate" :key="index">
+      <template v-for="(tvGame, index) of tvGamesForDate" :key="index">
         <template v-if="isBowlWeek || isMbkPostseason">
           <tr>
             <PostseasonMbkEvent :tvGame="tvGame" :season="season"></PostseasonMbkEvent>

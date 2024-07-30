@@ -17,7 +17,7 @@ const year: string = props['year'];
         <th>Network</th>
         <th>Time</th>
       </tr>
-      <tr v-for="(game, index) in games" :key="index">
+      <tr v-for="(game, index) of games" :key="index">
         <td class="game">
           <template v-if="game.gameTitle">
             <b><i>{{ game.gameTitle }}</i></b><br />
