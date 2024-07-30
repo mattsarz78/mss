@@ -119,7 +119,7 @@ export const formatGame = (game: TvGame | ConferenceGame): string => {
 
 export const formatTime = (timeWithOffset: string) => {
   const easternTime = DateTime.fromISO(timeWithOffset).setZone('America/New_York').toFormat('t');
-  return easternTime === '12:00 AM' ? 'TBA' : easternTime;
+  return easternTime === '12:00 AM' ? 'TBA' : DateTime.fromISO(timeWithOffset).toLocal().toFormat('t');
 };
 
 export const checkAllTextRows = () => {

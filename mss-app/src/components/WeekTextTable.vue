@@ -50,7 +50,7 @@ const tvGames = props['tvGames'] as TvGame[];
                     </td>
                     <td class="tablecell timecell">
                         <template v-if="formatTime(tvGame.timeWithOffset!) === 'TBA'">
-                            <span></span>{{ DateTime.fromISO(tvGame.timeWithOffset!).toFormat('MM/dd/yyyy') + ' TBA' }}
+                            <span></span>{{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy') + ' TBA' }}
                         </template>
                         <template v-else>
                             {{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy t') }}
