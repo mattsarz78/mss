@@ -73,7 +73,6 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
 </template>
 
 <style scoped>
-.game,
 .network,
 .time {
   border: medium;
@@ -92,20 +91,6 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
   padding: 2px;
 }
 
-.game {
-  width: 243px;
-}
-
-.noTVTable {
-  background-color: #fff;
-  border-color: #fff;
-  border-style: ridge;
-  border-width: 2px;
-  border-spacing: 1px;
-  border-collapse: collapse;
-  font-family: Arial;
-}
-
 .back-to-top {
   position: fixed;
   bottom: 2em;
@@ -120,18 +105,9 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
 }
 
 @media all and (min-width: 641px) {
-  .game {
-    padding: 2px;
-  }
-
   .network {
     width: 135px;
     padding: 2px;
-  }
-
-  :deep(.imageDimensions) {
-    height: 40px;
-    width: 55px;
   }
 
   .homelink,
@@ -145,18 +121,9 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
 }
 
 @media only screen and (max-width: 640px) {
-  .game {
-    padding: 1px;
-  }
-
   .network {
     width: 90px;
     padding: 0;
-  }
-
-  :deep(.imageDimensions) {
-    height: 29px;
-    width: 40px;
   }
 
   .homelink,

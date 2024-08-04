@@ -33,35 +33,8 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.fcsgame {
-  background-color: #ff0;
-}
-
-.slidingNoTVDiv {
-  display: none;
-  padding-top: 10px;
-}
-
-.show_hideNoTV,
-.show_hideWeb {
-  display: inline-block;
-}
-
-.webGame {
-  display: table-row;
-}
-
-.game {
-  width: 243px;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
-  border-width: thin;
-}
-
 .coverage a img,
-.network a img,
-.coverageppv a img {
+.network a img {
   border: 0;
 }
 
@@ -73,20 +46,10 @@ onMounted(() => {
   border-width: thin;
 }
 
-.coverage,
-.coverageppv {
+.coverage {
   border: medium;
   border-color: Gray;
   border-style: solid;
-  border-width: thin;
-  empty-cells: show;
-  text-align: center;
-}
-
-.ppv {
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
   border-width: thin;
   empty-cells: show;
   text-align: center;
@@ -100,16 +63,6 @@ onMounted(() => {
   border-style: solid;
   border-width: thin;
   padding: 2px;
-}
-
-.noTVTable {
-  background-color: #fff;
-  border-color: #fff;
-  border-style: ridge;
-  border-width: 2px;
-  border-spacing: 1px;
-  border-collapse: collapse;
-  font-family: Arial;
 }
 
 .conference {
@@ -170,7 +123,6 @@ onMounted(() => {
   vertical-align: top;
 }
 
-.imgLocation,
 .rsnLabel {
   vertical-align: middle;
 }
@@ -182,25 +134,6 @@ onMounted(() => {
   font-family: Arial;
 }
 
-.back-to-top {
-  position: fixed;
-  bottom: 2em;
-  right: 0;
-  text-decoration: none;
-  padding: 1em;
-  display: none;
-}
-
-:deep(.linkblock) {
-  display: inline-block;
-  padding-top: 7px;
-  padding-bottom: 2px;
-}
-
-.filters {
-  margin: 0;
-}
-
 .navbar {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
@@ -210,10 +143,6 @@ onMounted(() => {
 }
 
 @media all and (min-width: 641px) {
-  .game {
-    padding: 2px;
-  }
-
   .network {
     width: 135px;
     padding: 2px;
@@ -223,41 +152,22 @@ onMounted(() => {
     width: 189px;
   }
 
-  .coverageppv {
-    width: 260px;
-  }
-
-  .ppv {
-    width: 135px;
-  }
-
   #RSNLists {
     width: 250px;
-  }
-
-  :deep(.imageDimensions) {
-    height: 40px;
-    width: 55px;
-  }
-
-  .mobilespan {
-    display: block;
-  }
-
-  .filters {
-    margin-top: 10px;
   }
 
   .tvFrame {
     width: 700px;
   }
+
+  .homelink,
+  .seasonhome {
+    display: block;
+  }
+
 }
 
 @media only screen and (max-width: 640px) {
-  .game {
-    padding: 1px;
-  }
-
   .network {
     width: 90px;
     padding: 0;
@@ -267,26 +177,8 @@ onMounted(() => {
     width: 105px;
   }
 
-  .coverageppv {
-    width: 140px;
-  }
-
-  .ppv {
-    width: 44.22px;
-  }
-
   #RSNLists {
     width: 160px;
-  }
-
-  :deep(.imageDimensions) {
-    height: 29px;
-    width: 40px;
-  }
-
-  .mobilespan {
-    display: inline-block;
-    padding-right: 10px;
   }
 
   .blockspan {
@@ -294,12 +186,15 @@ onMounted(() => {
     padding-bottom: 3px;
   }
 
-  .filters {
-    margin-top: 5px;
-  }
-
   .tvFrame {
     width: 90%;
   }
+
+  .homelink,
+  .seasonhome {
+    display: inline-block;
+    padding-right: 10px;
+  }
+
 }
 </style>

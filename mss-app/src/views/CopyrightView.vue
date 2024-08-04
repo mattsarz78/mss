@@ -85,10 +85,6 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
   padding-top: 37px;
 }
 
-.navbar {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
 @media only screen and (max-width: 640px) {
   #Main {
     padding-top: 48px;

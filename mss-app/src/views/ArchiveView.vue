@@ -63,10 +63,6 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
 </template>
 
 <style scoped>
-.navbar {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
 @media all and (min-width: 641px) {
   #Links {
     width: 45%;
