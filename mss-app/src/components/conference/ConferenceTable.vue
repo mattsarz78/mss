@@ -42,8 +42,7 @@ const year: string = props['year'];
 
 <style scoped>
 .game,
-.network,
-.time {
+.network {
   border: medium;
   border-style: solid;
   border-color: Gray;
@@ -74,17 +73,10 @@ const year: string = props['year'];
   font-family: Arial;
 }
 
-.back-to-top {
-  position: fixed;
-  bottom: 2em;
-  right: 0;
-  text-decoration: none;
-  padding: 1em;
-  display: none;
-}
-
-.navbar {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+:deep(.linkblock) {
+  display: inline-block;
+  padding-top: 7px;
+  padding-bottom: 2px;
 }
 
 @media all and (min-width: 641px) {
@@ -100,11 +92,6 @@ const year: string = props['year'];
   :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
-  }
-
-  .homelink,
-  .seasonhome {
-    display: block;
   }
 
   #Main {
@@ -125,12 +112,6 @@ const year: string = props['year'];
   :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
-  }
-
-  .homelink,
-  .seasonhome {
-    display: inline-block;
-    padding-right: 10px;
   }
 
   #Main {

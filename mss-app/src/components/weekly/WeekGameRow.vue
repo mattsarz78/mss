@@ -11,9 +11,7 @@ const season = props['season'] as string;
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b
-        ><i>{{ tvGame.gameTitle }}</i></b
-      ><br />
+      <b><i>{{ tvGame.gameTitle }}</i></b><br />
     </template>
     <template v-if="tvGame.visitingTeam?.length === 0"></template>
     <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
@@ -25,39 +23,16 @@ const season = props['season'] as string;
     <template v-if="tvGame.location"><br />(at {{ tvGame.location }})</template>
   </td>
   <td class="network" v-html="!!tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg!, season) : ''"></td>
-  <td
-    class="coverage"
-    v-html="!!tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes!, season) : ''"
-  />
-  <td
-    v-if="showPPVColumn"
-    class="ppv"
-    v-html="!!tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv!, season) : ''"
-  ></td>
+  <td class="coverage"
+    v-html="!!tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes!, season) : ''" />
+  <td v-if="showPPVColumn" class="ppv" v-html="!!tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv!, season) : ''">
+  </td>
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>
 </template>
 
 <style scoped>
-.fcsgame {
-  background-color: #ff0;
-}
-
-.slidingNoTVDiv {
-  display: none;
-  padding-top: 10px;
-}
-
-.show_hideNoTV,
-.show_hideWeb {
-  display: inline-block;
-}
-
-.webGame {
-  display: table-row;
-}
-
 .game {
   width: 243px;
   border: medium;
@@ -67,8 +42,7 @@ const season = props['season'] as string;
 }
 
 .coverage a img,
-.network a img,
-.coverageppv a img {
+.network a img {
   border: 0;
 }
 
@@ -80,8 +54,7 @@ const season = props['season'] as string;
   border-width: thin;
 }
 
-.coverage,
-.coverageppv {
+.coverage {
   border: medium;
   border-color: Gray;
   border-style: solid;
@@ -107,36 +80,6 @@ const season = props['season'] as string;
   border-style: solid;
   border-width: thin;
   padding: 2px;
-}
-
-.noTVTable {
-  background-color: #fff;
-  border-color: #fff;
-  border-style: ridge;
-  border-width: 2px;
-  border-spacing: 1px;
-  border-collapse: collapse;
-  font-family: Arial;
-}
-
-.conference {
-  width: 100px;
-  text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  padding: 5px;
-}
-
-.telecast {
-  width: 400px;
-  text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  padding: 5px;
 }
 
 .overlay {
@@ -177,7 +120,6 @@ const season = props['season'] as string;
   vertical-align: top;
 }
 
-.imgLocation,
 .rsnLabel {
   vertical-align: middle;
 }
@@ -189,31 +131,10 @@ const season = props['season'] as string;
   font-family: Arial;
 }
 
-.back-to-top {
-  position: fixed;
-  bottom: 2em;
-  right: 0;
-  text-decoration: none;
-  padding: 1em;
-  display: none;
-}
-
 :deep(.linkblock) {
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
-}
-
-.filters {
-  margin: 0;
-}
-
-.navbar {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.pad {
-  padding: 5px 0;
 }
 
 @media all and (min-width: 641px) {
@@ -230,10 +151,6 @@ const season = props['season'] as string;
     width: 189px;
   }
 
-  .coverageppv {
-    width: 260px;
-  }
-
   .ppv {
     width: 135px;
   }
@@ -245,10 +162,6 @@ const season = props['season'] as string;
   :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
-  }
-
-  .mobilespan {
-    display: block;
   }
 }
 
@@ -266,10 +179,6 @@ const season = props['season'] as string;
     width: 105px;
   }
 
-  .coverageppv {
-    width: 140px;
-  }
-
   .ppv {
     width: 44.22px;
   }
@@ -281,20 +190,6 @@ const season = props['season'] as string;
   :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
-  }
-
-  .mobilespan {
-    display: inline-block;
-    padding-right: 10px;
-  }
-
-  .blockspan {
-    display: block;
-    padding-bottom: 3px;
-  }
-
-  .mobilehide {
-    display: none;
   }
 }
 </style>

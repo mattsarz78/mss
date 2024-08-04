@@ -63,14 +63,6 @@ const tvGames = props['tvGames'] as TvGame[];
 </template>
 
 <style scoped>
-.game {
-    width: 243px;
-    border: medium;
-    border-style: solid;
-    border-color: Gray;
-    border-width: thin;
-}
-
 .tablecell {
     border: medium;
     border-style: solid;
@@ -105,30 +97,12 @@ const tvGames = props['tvGames'] as TvGame[];
     width: 250px;
 }
 
-.inputpad {
-    padding-left: 10px;
-    margin-right: 3px;
-}
-
-.back-to-top {
-    position: fixed;
-    bottom: 2em;
-    right: 0;
-    text-decoration: none;
-    padding: 1em;
-    display: none;
-}
-
 #TextNav {
     margin: 0;
 }
 
 #Directions {
     margin-top: 0;
-}
-
-.navbar {
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 @media all and (min-width: 641px) {
@@ -139,11 +113,6 @@ const tvGames = props['tvGames'] as TvGame[];
     .rowStyle {
         width: 580px;
     }
-
-    .homelink,
-    .seasonhome {
-        display: block;
-    }
 }
 
 @media only screen and (max-width: 640px) {
@@ -153,12 +122,6 @@ const tvGames = props['tvGames'] as TvGame[];
 
     .DONTPrint a {
         line-height: 13px;
-    }
-
-    .homelink,
-    .seasonhome {
-        display: inline-block;
-        padding-right: 10px;
     }
 }
 </style>

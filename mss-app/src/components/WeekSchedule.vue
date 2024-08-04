@@ -170,103 +170,8 @@ watch(
 </template>
 
 <style scoped>
-.fcsgame {
-  background-color: #ff0;
-}
-
-.slidingNoTVDiv {
-  display: none;
-  padding-top: 10px;
-}
-
-.show_hideNoTV,
 .show_hideWeb {
   display: inline-block;
-}
-
-.webGame {
-  display: table-row;
-}
-
-.game {
-  width: 243px;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
-  border-width: thin;
-}
-
-.coverage a img,
-.network a img,
-.coverageppv a img {
-  border: 0;
-}
-
-.network {
-  text-align: center;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
-  border-width: thin;
-}
-
-.coverage,
-.coverageppv {
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  empty-cells: show;
-  text-align: center;
-}
-
-.ppv {
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
-  border-width: thin;
-  empty-cells: show;
-  text-align: center;
-}
-
-.time {
-  width: 60px;
-  text-align: right;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  padding: 2px;
-}
-
-.noTVTable {
-  background-color: #fff;
-  border-color: #fff;
-  border-style: ridge;
-  border-width: 2px;
-  border-spacing: 1px;
-  border-collapse: collapse;
-  font-family: Arial;
-}
-
-.conference {
-  width: 100px;
-  text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  padding: 5px;
-}
-
-.telecast {
-  width: 400px;
-  text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  padding: 5px;
 }
 
 .overlay {
@@ -307,7 +212,6 @@ watch(
   vertical-align: top;
 }
 
-.imgLocation,
 .rsnLabel {
   vertical-align: middle;
 }
@@ -328,12 +232,6 @@ watch(
   display: none;
 }
 
-:deep(.linkblock) {
-  display: inline-block;
-  padding-top: 7px;
-  padding-bottom: 2px;
-}
-
 .filters {
   margin: 0;
 }
@@ -347,34 +245,8 @@ watch(
 }
 
 @media all and (min-width: 641px) {
-  .game {
-    padding: 2px;
-  }
-
-  .network {
-    width: 135px;
-    padding: 2px;
-  }
-
-  .coverage {
-    width: 189px;
-  }
-
-  .coverageppv {
-    width: 260px;
-  }
-
-  .ppv {
-    width: 135px;
-  }
-
   #RSNLists {
     width: 250px;
-  }
-
-  :deep(.imageDimensions) {
-    height: 40px;
-    width: 55px;
   }
 
   .mobilespan {
@@ -383,34 +255,8 @@ watch(
 }
 
 @media only screen and (max-width: 640px) {
-  .game {
-    padding: 1px;
-  }
-
-  .network {
-    width: 90px;
-    padding: 0;
-  }
-
-  .coverage {
-    width: 105px;
-  }
-
-  .coverageppv {
-    width: 140px;
-  }
-
-  .ppv {
-    width: 44.22px;
-  }
-
   #RSNLists {
     width: 160px;
-  }
-
-  :deep(.imageDimensions) {
-    height: 29px;
-    width: 40px;
   }
 
   .mobilespan {
