@@ -8,6 +8,19 @@ const isBowlWeek = props['isBowlWeek'] as boolean;
 const isMbkPostseason = props['isMbkPostseason'] as boolean;
 const showPpvColumn = props['showPpvColumn'] as boolean;
 const tvGames = props['tvGames'] as TvGame[];
+
+const toggleRow = (event: any) => {
+    console.log(event)
+    const row = (event.target.parentElement as HTMLElement).closest('tr');
+    if (event.target.checked) {
+        row?.setAttribute('style', 'background-color: #CCC');
+        row?.setAttribute('class', 'gamerow DOPrint rowstyle');
+    } else {
+        row?.setAttribute('style', 'background-color: #FFF');
+        row?.setAttribute('class', 'gamerow DONTPrint rowstyle');
+    }
+}
+
 </script>
 
 <template>
@@ -28,7 +41,7 @@ const tvGames = props['tvGames'] as TvGame[];
             <tbody>
                 <tr class="gamerow DONTPrint rowStyle" v-for="(tvGame, index) of tvGames" :key="index">
                     <td class="tablecell">
-                        <input class="checkBoxRow" type="checkbox" />
+                        <input class="checkBoxRow" v-on:change="toggleRow($event)" type="checkbox" />
                     </td>
                     <td class="tablecell gamecell">
                         <template v-if="tvGame.gameTitle">
@@ -50,7 +63,8 @@ const tvGames = props['tvGames'] as TvGame[];
                     </td>
                     <td class="tablecell timecell">
                         <template v-if="formatTime(tvGame.timeWithOffset!) === 'TBA'">
-                            <span></span>{{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy') + ' TBA' }}
+                            <span></span>{{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy') +
+                                ' TBA' }}
                         </template>
                         <template v-else>
                             {{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy t') }}

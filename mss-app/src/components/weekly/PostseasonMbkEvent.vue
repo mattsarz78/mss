@@ -77,55 +77,6 @@ const season = props['season'] as string;
   padding: 2px;
 }
 
-.overlay {
-  display: none;
-  position: absolute;
-  z-index: 100000;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #333;
-}
-
-#RSNLists {
-  position: absolute;
-  z-index: 99999999;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  border: 1px solid #000;
-  padding: 10px;
-  display: none;
-}
-
-.FSNLink,
-.closer {
-  text-decoration: underline;
-  color: #00f;
-  cursor: pointer;
-}
-
-.FSNrow {
-  border-width: 1px;
-  border-style: solid;
-  vertical-align: top;
-}
-
-.rsnLabel {
-  vertical-align: middle;
-}
-
-.FSNtable {
-  border-width: 1px;
-  border-style: solid;
-  margin: auto;
-  font-family: Arial;
-}
-
 :deep(.linkblock) {
   display: inline-block;
   padding-top: 7px;
@@ -146,10 +97,6 @@ const season = props['season'] as string;
     width: 189px;
   }
 
-  #RSNLists {
-    width: 250px;
-  }
-
   :deep(.imageDimensions) {
     height: 40px;
     width: 55px;
@@ -168,10 +115,6 @@ const season = props['season'] as string;
 
   .coverage {
     width: 105px;
-  }
-
-  #RSNLists {
-    width: 160px;
   }
 
   :deep(.imageDimensions) {

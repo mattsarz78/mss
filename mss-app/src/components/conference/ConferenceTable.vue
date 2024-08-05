@@ -42,6 +42,7 @@ const year: string = props['year'];
 
 <style scoped>
 .game,
+.time,
 .network {
   border: medium;
   border-style: solid;

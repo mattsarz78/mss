@@ -75,61 +75,63 @@ watch(
 </script>
 
 <template>
-  <div v-if="seasonContentsLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}
-  </div>
-  <div v-if="seasonContentsError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
-  <div v-if="seasonContentsLoading || tvGameLoading">Loading</div>
-  <div v-if="seasonContentsResult && tvGameResult">
-    <nav class="navbar DONTPrint">
-      <div class="container">
-        <div>
-          <span>
-            <RouterLink class="homelink" to="/">Home</RouterLink>
-            <RouterLink class="seasonhome" :to="`/season/${sport}/${paramYear}`">Season Home </RouterLink>
-          </span>
-          <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}`">Weekly Schedule
-          </RouterLink><br />
-          <div class="pad" v-if="!isMbkPostseason && !isBowlWeek">
-            <template v-if="isWeekOne">
-              <span style="float: left">
-                <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week </RouterLink>
-              </span>
-            </template>
-            <template v-else>
-              <span style="float: left">
-                <RouterLink :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`"> Previous Week </RouterLink>
-              </span>
-              <span style="float: right" v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek">
-                <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week </RouterLink>
-              </span>
-            </template>
-            <br class="mobilehide" />
+  <div>
+    <div v-if="seasonContentsLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}
+    </div>
+    <div v-if="seasonContentsError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
+    <div v-if="seasonContentsLoading || tvGameLoading">Loading</div>
+    <div v-if="seasonContentsResult && tvGameResult">
+      <nav class="navbar DONTPrint">
+        <div class="container">
+          <div>
+            <span>
+              <RouterLink class="homelink" to="/">Home</RouterLink>
+              <RouterLink class="seasonhome" :to="`/season/${sport}/${paramYear}`">Season Home </RouterLink>
+            </span>
+            <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}`">Weekly Schedule
+            </RouterLink><br />
+            <div class="pad" v-if="!isMbkPostseason && !isBowlWeek">
+              <template v-if="isWeekOne">
+                <span style="float: left">
+                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week </RouterLink>
+                </span>
+              </template>
+              <template v-else>
+                <span style="float: left">
+                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`"> Previous Week </RouterLink>
+                </span>
+                <span style="float: right" v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek">
+                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week </RouterLink>
+                </span>
+              </template>
+              <br class="mobilehide" />
+            </div>
+            <br />
+            <p id="TextNav" class="DONTPrint">
+              <!-- @Html.Partial("TimeZoneDropDown") -->
+              <input type="button" id="ClearAll" value="Clear All Games" v-on:click="clearAllSelectedTextRows()"
+                class="inputpad" />
+              <input type="button" id="CheckAll" value="Check All Games" v-on:click="checkAllTextRows()"
+                class="inputpad" />
+            </p>
           </div>
-          <br />
-          <p id="TextNav" class="DONTPrint">
-            <!-- @Html.Partial("TimeZoneDropDown") -->
-            <input type="button" id="ClearAll" value="Clear All Games" v-on:click="clearAllSelectedTextRows()"
-              class="inputpad" />
-            <input type="button" id="CheckAll" value="Check All Games" v-on:click="checkAllTextRows()"
-              class="inputpad" />
-          </p>
         </div>
-      </div>
-    </nav>
-    <template v-if="tvGameResult">
-      <!-- <form action="@ViewBag.ActionName" id="WeekForm" method="post"> -->
-      <!-- @if (Model.ShowRSNPartialView)
+      </nav>
+      <template v-if="tvGameResult">
+        <!-- <form action="@ViewBag.ActionName" id="WeekForm" method="post"> -->
+        <!-- @if (Model.ShowRSNPartialView)
               {
               @Html.Partial("CoverageNotes/" + Model.SportYear + "/FSNWeek" + Model.Week)
               } -->
-      <WeekTextBase :season="year" :tvGames="tvGameResult.tvGames" :isBowlWeek="isBowlWeek"
-        :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
-      <p>
-        <BackToTopScript />
-        <BackToTopButton />
-      </p>
-      <GoogleSearch />
-    </template>
+        <WeekTextBase :season="year" :tvGames="tvGameResult.tvGames" :isBowlWeek="isBowlWeek"
+          :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
+        <p>
+          <BackToTopScript />
+          <BackToTopButton />
+        </p>
+        <GoogleSearch />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -165,6 +167,7 @@ watch(
 }
 
 @media all and (min-width: 641px) {
+
   .homelink,
   .seasonhome {
     display: block;
