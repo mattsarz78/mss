@@ -1,11 +1,14 @@
 {
   "scripts": {
+    "install:all": "concurrently \"npm run install:gql\" \"npm run install:web\"",
     "start:all": "concurrently \"npm run start:gql\" \"npm run start:web\"",
     "prettier:all": "concurrently \"npm run prettier:gql\" \"npm run prettier:web\"",
     "start:gql": "cd GQL && npm run startDev",
     "start:web": "cd mss-app && npm run dev",
     "prettier:gql": "cd GQL && npm run prettier",
-    "prettier:web": "cd mss-app && npm run format"
+    "prettier:web": "cd mss-app && npm run format",
+    "install:gql": "cd GQL && npm ci",
+    "install:web": "cd mss-app && npm ci"
   },
   "dependencies": {
     "concurrently": "^8.2.2"
