@@ -102,7 +102,8 @@ watch(
 
 <template>
   <div>
-    <div v-if="seasonContentsLoading || noTvGamesLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}
+    <div v-if="seasonContentsLoading || noTvGamesLoading || tvGameLoading">
+      Loading Week {{ week }} for {{ paramYear }}
     </div>
     <div v-if="seasonContentsError || noTvGamesError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
     <div v-if="seasonContentsResult && noTvGamesResult && tvGameResult">

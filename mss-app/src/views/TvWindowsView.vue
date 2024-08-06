@@ -111,7 +111,6 @@ onMounted(() => {
   .seasonhome {
     display: block;
   }
-
 }
 
 @media only screen and (max-width: 640px) {
@@ -138,6 +137,5 @@ onMounted(() => {
     display: inline-block;
     padding-right: 10px;
   }
-
 }
 </style>

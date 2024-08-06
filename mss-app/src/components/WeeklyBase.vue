@@ -32,8 +32,8 @@ onMounted(() => adjustNavBar());
       <template v-else>
         <div v-for="(weekDate, index) of datesList" :key="index">
           <WeekGamesTable :season="season" :weekDate="weekDate" :isBowlWeek="isBowlWeek"
-            :isMbkPostseason="isMbkPostseason" :showPpvColumn="showPpvColumn" :tvGamesForDate="tvGames.filter((x) => DateTime.fromISO(x.timeWithOffset!).toLocal().toISODate() === weekDate)
-              " />
+            :isMbkPostseason="isMbkPostseason" :showPpvColumn="showPpvColumn"
+            :tvGamesForDate="tvGames.filter((x) => DateTime.fromISO(x.timeWithOffset!).toLocal().toISODate() === weekDate)" />
         </div>
       </template>
     </div>
