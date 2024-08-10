@@ -114,6 +114,12 @@ export const validSportYears = [
     showPPVColumn: false
   },
   {
+    season: '202425',
+    hasPostseason: true,
+    hasNoTVGames: false,
+    showPPVColumn: false
+  },
+  {
     season: '2005',
     hasPostseason: false,
     hasNoTVGames: false,

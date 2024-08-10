@@ -20,6 +20,7 @@ const TwitterRetrieval = defineAsyncComponent(() => import('../components/Twitte
     <div id="content">
       <div id="Links">
         <RouterLink to="/season/football/2024">2024 Football</RouterLink><br />
+        <RouterLink to="/season/basketball/2024-25">2024-25 Men's Basketball</RouterLink><br />
         <br />
         <RouterLink to="/season/football/2023">2023 Football</RouterLink><br />
         <RouterLink to="/season/basketball/2023-24">2023-24 Men's Basketball</RouterLink><br />
