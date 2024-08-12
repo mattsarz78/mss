@@ -4,7 +4,9 @@
     "graphQlGen": "graphql-codegen --config codegen.yml",
     "prettier": "prettier --write './**/*.{ts,js,graphql}'",
     "start": "node -r ts-node/register ./index.ts",
-    "startDev": "nodemon"
+    "startDev": "nodemon",
+    "prismaGen": "prisma generate",
+    "prismaFormat": "prisma format"
   },
   "dependencies": {
     "@apollo/server": "^4.10.5",
