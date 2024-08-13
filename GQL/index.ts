@@ -45,7 +45,8 @@ async function startServer(server: any) {
   const apolloServer = new ApolloServer<IContext>({
     typeDefs,
     resolvers,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer: server })]
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer: server })],
+    hideSchemaDetailsFromClientErrors: true
   });
 
   await apolloServer.start();
