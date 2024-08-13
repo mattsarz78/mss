@@ -23,7 +23,7 @@ const season = props['season'] as string;
     <template v-if="tvGame.location"><br />(at {{ tvGame.location }})</template>
   </td>
   <td class="network" v-html="!!tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg!, season) : ''"></td>
-  <td class="coverage"
+  <td :class="showPPVColumn ? 'coverage' : 'coverageppv'"
     v-html="!!tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes!, season) : ''" />
   <td v-if="showPPVColumn" class="ppv" v-html="!!tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv!, season) : ''">
   </td>
@@ -42,6 +42,7 @@ const season = props['season'] as string;
 }
 
 .coverage a img,
+.coverageppv a img,
 .network a img {
   border: 0;
 }
@@ -54,7 +55,8 @@ const season = props['season'] as string;
   border-width: thin;
 }
 
-.coverage {
+.coverage,
+.coverageppv {
   border: medium;
   border-color: Gray;
   border-style: solid;
@@ -102,6 +104,10 @@ const season = props['season'] as string;
     width: 189px;
   }
 
+  .coverageppv {
+    width: 260px;
+  }
+
   .ppv {
     width: 135px;
   }
@@ -128,6 +134,10 @@ const season = props['season'] as string;
 
   .ppv {
     width: 44.22px;
+  }
+
+  .coverageppv {
+    width: 189px;
   }
 
   :deep(.imageDimensions) {
