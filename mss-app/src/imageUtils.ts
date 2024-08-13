@@ -183,7 +183,11 @@ function isImageHyperlink(network: string): boolean {
 
 function isInformationLink(network: string): boolean {
   return (
-    isSyndAffiliates(network) || isCoverageMap(network) || isGamePlanMap(network) || isSpecialCoverageNote(network)
+    isSyndAffiliates(network) ||
+    isCoverageMap(network) ||
+    isGamePlanMap(network) ||
+    isSpecialCoverageNote(network) ||
+    isBTN(network)
   );
 }
 
