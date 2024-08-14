@@ -198,7 +198,7 @@ function isSyndAffiliates(network: string): boolean {
     network.includes('raycomsports') ||
     network.includes('SECNetWk') ||
     network.includes('Big12NetWk') ||
-    (network.includes('wacsports') && !network.includes('wacsports.com/live')) ||
+    (network.includes('wacsports') && !network.includes('wacsports.com/live') && !network.includes('swacsports')) ||
     network.includes('theacc.com/news') ||
     network.includes('BigEastWk') ||
     network.includes('http://tinyurl.com/slctvstations') ||
