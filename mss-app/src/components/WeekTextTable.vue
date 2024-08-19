@@ -45,12 +45,12 @@ const toggleRow = (event: any) => {
             </template>
             <template v-if="tvGame.visitingTeam?.length === 0"></template>
             <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
-              {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}
+              {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
             </template>
             <template v-else>
               <div v-html="formatGame(tvGame)" />
             </template>
-            <template v-if="tvGame.location"><br />(at {{ tvGame.location }})</template>
+            <template v-if="tvGame.location">(at {{ tvGame.location }})</template>
           </td>
           <td class="tablecell networkcell" v-html="tvGame.network" />
           <td class="tablecell ppvcell" v-if="showPpvColumn">
