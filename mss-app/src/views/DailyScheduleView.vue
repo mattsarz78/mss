@@ -33,9 +33,9 @@ let flexLink: string = '';
 
 watch(
   dailyTvGameResult,
-  () => {
-    if (dailyTvGameResult) {
-      paramYear = dailyTvGameResult.value?.dailyTvGames ? dailyTvGameResult.value?.dailyTvGames[0].season : '';
+  (dailyTvGameValue) => {
+    if (dailyTvGameValue?.dailyTvGames.length) {
+      paramYear = dailyTvGameValue?.dailyTvGames[0].season ?? '';
       season =
         sport === 'football' ? (paramYear ?? null) : `${paramYear.substring(0, 4)}-${paramYear.substring(4)}`;
       flexLink = flexScheduleLink(paramYear);
