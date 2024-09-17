@@ -54,7 +54,7 @@ watch(result, () => {
       <div v-if="loading">Loading...</div>
 
       <div id="SeasonLinks" class="DONTPrint">
-        <SeasonDates :contents="result.seasonContents" :year="paramYear" :sport="sport"></SeasonDates>
+        <SeasonDates :contents="result.seasonContents" :year="year" :sport="sport"></SeasonDates>
       </div>
       <ConferenceList v-if="sport === 'football'" :conference-list="conferenceList" :year="paramYear" />
     </div>

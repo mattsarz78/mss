@@ -8,7 +8,7 @@ import TvWindowsView from '../views/TvWindowsView.vue';
 import WeeklyScheduleView from '../views/WeeklyScheduleView.vue';
 import WeeklyTextScheduleView from '../views/WeeklyTextScheduleView.vue';
 import DailyScheduleView from '../views/DailyScheduleView.vue';
-import { getBasketballSeason, getConferenceCasingBySlug } from '@/utils';
+import { getConferenceCasingBySlug } from '@/utils';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

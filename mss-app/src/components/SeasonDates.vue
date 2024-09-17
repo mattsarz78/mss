@@ -25,21 +25,25 @@ const lastContent = contents[contents.length - 1];
     </template>
   </div>
   <div v-else-if="sport === 'basketball' && hasBasketballPostseason(year)">
-    <template v-for="(content, index) of contents" :key="index">
+    <template v-for="(content, index) of contents.filter(x => x.postseasonInd === null)" :key="index">
       <template v-if="!content.postseasonInd">
         <WeekLink :sport="sport" :content="content" :year="year" :linkText="`Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate).toFormat('MMMM dd')} to
                     ${DateTime.fromISO(content.endDate).toFormat('MMMM dd')}`" />
       </template>
-      <template v-if="content.postseasonInd === 'N'">
-        <WeekLink :sport="sport" :year="year" :content="content" :linkText="`NCAA Tournament`" />
-      </template>
-      <template v-if="content.postseasonInd === 'I'">
-        <WeekLink :sport="sport" :year="year" :content="content" :linkText="`NIT`" />
-      </template>
-      <template v-if="content.postseasonInd === 'O'">
-        <WeekLink :sport="sport" :year="year" :content="content" :linkText="`Other Postseason Tournaments`" />
-      </template>
     </template>
+    <p v-if="contents.some(x => x.postseasonInd)">
+      <template v-for="(content, index) of contents.filter(x => x.postseasonInd)" :key="index">
+        <template v-if="content.postseasonInd === 'N'">
+          <WeekLink :sport="sport" :year="year" :content="content" :linkText="`NCAA Tournament`" />
+        </template>
+        <template v-if="content.postseasonInd === 'I'">
+          <WeekLink :sport="sport" :year="year" :content="content" :linkText="`NIT`" />
+        </template>
+        <template v-if="content.postseasonInd === 'O'">
+          <WeekLink :sport="sport" :year="year" :content="content" :linkText="`Other Postseason Tournaments`" />
+        </template>
+      </template>
+    </p>
   </div>
   <div v-else>
     <template v-for="(content, index) of contents" :key="index">
