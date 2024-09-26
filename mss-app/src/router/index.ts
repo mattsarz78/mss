@@ -78,7 +78,10 @@ router.beforeEach((to, _from, next) => {
   document.title = to.meta.title as string;
   if ((to.meta.title as string) === 'Contents') {
     const capitalized = `${(to.params.sport as string).charAt(0).toUpperCase()}${(to.params.sport as string).slice(1)}`;
-    const titleYear = to.params.year;
+    const titleYear =
+      to.params.sport === 'football'
+        ? to.params.year
+        : `${(to.params.year as string).substring(0, 4)}-${(to.params.year as string).substring(4, 6)}`;
     document.title = `${titleYear} ${capitalized} Season`;
   }
 
