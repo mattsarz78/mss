@@ -37,7 +37,7 @@ watch(
     if (dailyTvGameValue?.dailyTvGames.length) {
       paramYear = dailyTvGameValue?.dailyTvGames[0].season ?? '';
       season =
-        sport === 'football' ? (paramYear ?? null) : `${paramYear.substring(0, 4)}-${paramYear.substring(4)}`;
+        sport === 'football' ? (paramYear ?? null) : `${paramYear.substring(0, 4)}-${paramYear.substring(5)}`;
       flexLink = flexScheduleLink(paramYear);
     }
   },

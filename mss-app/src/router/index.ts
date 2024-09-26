@@ -81,7 +81,7 @@ router.beforeEach((to, _from, next) => {
     const titleYear =
       to.params.sport === 'football'
         ? to.params.year
-        : `${(to.params.year as string).substring(0, 4)}-${(to.params.year as string).substring(4, 6)}`;
+        : `${(to.params.year as string).substring(0, 4)}-${(to.params.year as string).substring(5, 7)}`;
     document.title = `${titleYear} ${capitalized} Season`;
   }
 
