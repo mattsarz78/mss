@@ -59,7 +59,7 @@ export const hasNoTVGames = (year: string): boolean => {
 };
 
 export const getBasketballSeason = (year: string): string => {
-  return `${year.substring(0, 4)}${year.substring(5)}`;
+  return `${year.substring(0, 4)}${year.substring(4, 6)}`;
 };
 
 export const isBowlGameWeek = (sport: string, contents: WeekInfo[], week: number): boolean => {
