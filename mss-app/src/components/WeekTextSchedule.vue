@@ -78,7 +78,6 @@ watch(
   <div>
     <div v-if="seasonContentsLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}</div>
     <div v-if="seasonContentsError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
-    <div v-if="seasonContentsLoading || tvGameLoading">Loading</div>
     <div v-if="seasonContentsResult && tvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">

@@ -8,6 +8,7 @@ import TvWindowsView from '../views/TvWindowsView.vue';
 import WeeklyScheduleView from '../views/WeeklyScheduleView.vue';
 import WeeklyTextScheduleView from '../views/WeeklyTextScheduleView.vue';
 import DailyScheduleView from '../views/DailyScheduleView.vue';
+import DailyTextScheduleView from '../views/DailyTextScheduleView.vue';
 import { getConferenceCasingBySlug } from '@/utils';
 
 const router = createRouter({
@@ -70,6 +71,11 @@ const router = createRouter({
       path: '/schedule/:sport/daily',
       meta: { title: 'Daily' },
       component: DailyScheduleView
+    },
+    {
+      path: '/schedule/:sport/daily/text',
+      meta: { title: 'Daily Text' },
+      component: DailyTextScheduleView
     }
   ]
 });

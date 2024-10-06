@@ -119,7 +119,7 @@ watch(
             <span class="blockspan">
               <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">
                 Available TV Windows</RouterLink>
-              <RouterLink lass="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`">
+              <RouterLink class="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`">
                 Customizable Text-Only Page</RouterLink>
             </span>
             <div class="pad" v-if="!isMbkPostseason && !isBowlWeek">

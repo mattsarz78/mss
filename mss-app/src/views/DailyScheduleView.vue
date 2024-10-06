@@ -60,6 +60,8 @@ watch(
             <span class="blockspan">
               <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">
                 Available TV Windows</RouterLink>
+              <RouterLink class="mobilespan" :to="`/schedule/${sport}/daily/text`">
+                Customizable Text-Only Page</RouterLink>
               <!-- <a class="mobilespan" href="@Url.Content(" ~/Schedule/WeeklyText/" + Model.SportYear + "/" +
                               Model.Week)">Customizable Text-Only Page</a> -->
             </span>
