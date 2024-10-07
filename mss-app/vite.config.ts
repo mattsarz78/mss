@@ -14,6 +14,15 @@ export default defineConfig({
     }
   },
   build: {
-    target: 'esnext'
+    target: 'esnext',
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor'; // Create a separate vendor chunk for node_modules
+          }
+        }
+      }
+    }
   }
 });
