@@ -1,4 +1,5 @@
 // apollo.config.js
+// eslint-disable-next-line no-undef
 module.exports = {
   client: {
     service: {
