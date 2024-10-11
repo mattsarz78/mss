@@ -220,5 +220,6 @@ export const syndicationLinks = [
   'http://www.soconsports.com/ViewArticle.dbml?DB_OEM_ID=4000&ATCLID=211783137',
   'http://www.soconsports.com/pdf9/5488729.pdf',
   'http://www.soconsports.com/pdf9/5488930.pdf',
-  'https://mercerbears.com/news/2020/10/19/football-mercer-announces-homecoming-kickoff-time.aspx'
+  'https://mercerbears.com/news/2020/10/19/football-mercer-announces-homecoming-kickoff-time.aspx',
+  'https://mvc-sports.com/news/2024/9/12/mens-basketball-mvc-gray-media-execute-multi-year-broadcasting-agreement.aspx'
 ];

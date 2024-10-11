@@ -316,5 +316,9 @@ export const imagesForUrls = [
   {
     link: 'max.com',
     image: 'max.jpg'
+  },
+  {
+    link: 'youtube.com',
+    image: 'youtube.jpg'
   }
 ];
