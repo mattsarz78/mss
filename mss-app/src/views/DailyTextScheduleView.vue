@@ -54,7 +54,6 @@ watch(
             <RouterLink class="DONTPrint" :to="`/schedule/${sport}/daily`">Daily Schedule </RouterLink>
             <br />
             <p id="TextNav" class="pad DONTPrint">
-              <!-- @Html.Partial("TimeZoneDropDown") -->
               <input type="button" id="ClearAll" value="Clear All Games" v-on:click="clearAllSelectedTextRows()"
                 class="inputpad" />
               <input type="button" id="CheckAll" value="Check All Games" v-on:click="checkAllTextRows()"
@@ -64,11 +63,6 @@ watch(
         </div>
       </nav>
       <template v-if="dailyTvGameResult">
-        <!-- <form action="@ViewBag.ActionName" id="WeekForm" method="post"> -->
-        <!-- @if (Model.ShowRSNPartialView)
-              {
-              @Html.Partial("CoverageNotes/" + Model.SportYear + "/FSNWeek" + Model.Week)
-              } -->
         <WeekTextBase :season="paramYear" :tvGames="dailyTvGameResult.dailyTvGames" :isBowlWeek="false"
           :isMbkPostseason="false" :showPpvColumn="shouldShowPpvColumn(paramYear)" />
         <p>

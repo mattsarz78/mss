@@ -145,17 +145,11 @@ watch(
             <div class="filters" v-if="tvGameResult">
               <input v-if="!isBowlWeek && !isMbkPostseason" id="btnWebGames" type="button"
                 value="Hide Web Exclusive Games" class="show_hideWeb" v-on:click="adjustWebExclusives()" />
-              <!-- @Html.Partial("TimeZoneDropDown") -->
             </div>
           </div>
         </div>
       </nav>
       <template v-if="tvGameResult">
-        <!-- <form action="@ViewBag.ActionName" id="WeekForm" method="post"> -->
-        <!-- @if (Model.ShowRSNPartialView)
-              {
-              @Html.Partial("CoverageNotes/" + Model.SportYear + "/FSNWeek" + Model.Week)
-              } -->
         <WeeklyBase :season="year" :tvGames="tvGameResult.tvGames" :isBowlWeek="isBowlWeek"
           :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
         <NoTvGames v-if="!isBowlWeek && showNoTvGames && noTvGamesResult" :noTvGames="noTvGamesResult?.noTvGames" />
@@ -163,7 +157,6 @@ watch(
           <BackToTopScript />
           <BackToTopButton />
         </p>
-        <!-- </form> -->
         <GoogleSearch />
       </template>
     </div>

@@ -106,7 +106,6 @@ watch(
             </div>
             <br />
             <p id="TextNav" class="DONTPrint">
-              <!-- @Html.Partial("TimeZoneDropDown") -->
               <input type="button" id="ClearAll" value="Clear All Games" v-on:click="clearAllSelectedTextRows()"
                 class="inputpad" />
               <input type="button" id="CheckAll" value="Check All Games" v-on:click="checkAllTextRows()"
@@ -116,11 +115,6 @@ watch(
         </div>
       </nav>
       <template v-if="tvGameResult">
-        <!-- <form action="@ViewBag.ActionName" id="WeekForm" method="post"> -->
-        <!-- @if (Model.ShowRSNPartialView)
-              {
-              @Html.Partial("CoverageNotes/" + Model.SportYear + "/FSNWeek" + Model.Week)
-              } -->
         <WeekTextBase :season="year" :tvGames="tvGameResult.tvGames" :isBowlWeek="isBowlWeek"
           :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
         <p>

@@ -62,31 +62,22 @@ watch(
                 Available TV Windows</RouterLink>
               <RouterLink class="mobilespan" :to="`/schedule/${sport}/daily/text`">
                 Customizable Text-Only Page</RouterLink>
-              <!-- <a class="mobilespan" href="@Url.Content(" ~/Schedule/WeeklyText/" + Model.SportYear + "/" +
-                              Model.Week)">Customizable Text-Only Page</a> -->
             </span>
             <br />
             <div class="filters" v-if="dailyTvGameResult">
               <input id="btnWebGames" type="button" value="Hide Web Exclusive Games" class="show_hideWeb"
                 v-on:click="adjustWebExclusives()" />
-              <!-- @Html.Partial("TimeZoneDropDown") -->
             </div>
           </div>
         </div>
       </nav>
       <template v-if="dailyTvGameResult">
-        <!-- <form action="@ViewBag.ActionName" id="WeekForm" method="post"> -->
-        <!-- @if (Model.ShowRSNPartialView)
-              {
-              @Html.Partial("CoverageNotes/" + Model.SportYear + "/FSNWeek" + Model.Week)
-              } -->
         <WeeklyBase :season="paramYear" :tvGames="dailyTvGameResult.dailyTvGames" :isBowlWeek="false"
           :isMbkPostseason="false" :showPpvColumn="shouldShowPpvColumn(paramYear)" />
         <p>
           <BackToTopScript />
           <BackToTopButton />
         </p>
-        <!-- </form> -->
         <GoogleSearch />
       </template>
     </div>

@@ -22,17 +22,13 @@ onMounted(() => {
 
 <template>
   <div id="Main">
-    <!-- <form action="@ViewBag.ActionName" id="TextForm" method="post"> -->
     <p id="Directions" class="DONTPrint">
       Choose your time zone and check the games that you want to print your own customized schedule. If you have trouble
       selecting &amp; printing games, please try selecting games, changing your print settings to "Print to PDF", print,
       then open the PDF file and print that.
-      <!-- Those in Arizona and Hawai'i, your states are available as a specific
-            choice and adjust based on the week of the season. -->
     </p>
     <WeekTextTable :season="season" :isBowlWeek="isBowlWeek" :isMbkPostseason="isMbkPostseason"
       :showPpvColumn="showPpvColumn" :tvGames="tvGames" />
-    <!-- </form> -->
   </div>
 </template>
 
