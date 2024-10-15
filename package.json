@@ -1,7 +1,7 @@
 {
   "scripts": {
     "install:all": "concurrently \"npm run install:gql\" \"npm run install:web\"",
-    "start:all": "concurrently \"npm run start:gql\" \"npm run start:web\"",
+    "start:all": "npm run start:gql && npm run start:web",
     "prettier:all": "concurrently \"npm run prettier:gql\" \"npm run prettier:web\"",
     "start:gql": "cd GQL && npm run startDev",
     "start:web": "cd mss-app && npm run dev",
