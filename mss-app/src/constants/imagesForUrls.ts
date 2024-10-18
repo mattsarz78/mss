@@ -221,11 +221,21 @@ export const imagesForUrls = [
   },
   {
     link: 'flofootball.com',
-    image: 'flofootball-21.jpg'
+    image: 'flofootball-21.jpg',
+    yearEnd: '2023|202324'
   },
   {
     link: 'flohoops.com',
-    image: 'flohoops-21.jpg'
+    image: 'flohoops-21.jpg',
+    yearEnd: '2023|202324'
+  },
+  {
+    link: 'flofootball.com',
+    image: 'flocollege.jpg'
+  },
+  {
+    link: 'flohoops.com',
+    image: 'flocollege.jpg'
   },
   {
     link: 'twitch.tv/elevensportsnext',
