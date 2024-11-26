@@ -78,8 +78,8 @@ watch(
   [seasonContentsResult, noTvGamesResult, tvGameResult],
   ([seasonContentsValue, noTvGamesValue, tvGameValue]) => {
     if (!!seasonContentsValue && !!noTvGamesValue && !!tvGameValue) {
-      isBowlWeek = isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week);
-      isMbkPostseason = isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, week);
+      isBowlWeek = isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
+      isMbkPostseason = isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
       gamesToday =
         seasonContentsResult.value?.seasonContents
           .filter((x) => x.week === week)
@@ -87,13 +87,13 @@ watch(
             const dateToCompare = DateTime.now().setZone('America/New_York');
             return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare;
           }) ?? false;
-      isWeekOne = isFirstWeek(seasonContentsResult.value?.seasonContents!, week);
+      isWeekOne = isFirstWeek(seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
       isNextWeekMbkPostseason = isNextWeekBasketballPostseason(
         sport,
-        seasonContentsResult.value?.seasonContents!,
+        seasonContentsResult.value?.seasonContents!, // eslint-disable-line
         week
       );
-      isNextWeekBowlWeek = isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week);
+      isNextWeekBowlWeek = isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
     }
   },
   { immediate: true }

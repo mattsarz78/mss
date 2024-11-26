@@ -7,12 +7,12 @@ import { DateTime } from 'luxon';
 
 export const conferenceListBase = (sport: string, year: string): string => {
   return sport === 'football' && year !== '2021s'
-    ? validSportYears.find((validSportYear) => validSportYear.season === year)?.conferenceListBase!
+    ? validSportYears.find((validSportYear) => validSportYear.season === year)?.conferenceListBase! // eslint-disable-line
     : '';
 };
 
 export const getIndependentSchools = (year: string): string => {
-  return validSportYears.find((validSportYear) => validSportYear.season === year)?.independents! as string;
+  return validSportYears.find((validSportYear) => validSportYear.season === year)?.independents! as string; // eslint-disable-line
 };
 
 export const flexScheduleLink = (year: string): string => {
@@ -53,11 +53,11 @@ export const getConferenceContractData = (conference: string, season: string) =>
 };
 
 export const hasBasketballPostseason = (year: string): boolean => {
-  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasPostseason!;
+  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasPostseason!; // eslint-disable-line
 };
 
 export const hasNoTVGames = (year: string): boolean => {
-  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasNoTVGames!;
+  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasNoTVGames!; // eslint-disable-line
 };
 
 export const getBasketballSeason = (year: string): string => {
@@ -87,7 +87,7 @@ export const isNextWeekBowlGameWeek = (sport: string, contents: WeekInfo[], week
 };
 
 export const shouldShowPpvColumn = (year: string): boolean => {
-  return validSportYears.find((x) => x.season === year)?.showPPVColumn!;
+  return validSportYears.find((x) => x.season === year)?.showPPVColumn!; // eslint-disable-line
 };
 
 export const updatedTvOptions = (game: NoTvGame): string => {

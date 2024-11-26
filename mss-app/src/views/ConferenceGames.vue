@@ -17,7 +17,7 @@ const flexLink = flexScheduleLink(year);
 const { cased, lookup } = getConferenceCasingBySlug(conference)!;
 
 const contractTvData =
-  conference !== 'independents' ? getConferenceContractData(getConferenceCasingBySlug(conference)?.id!, year)! : '';
+  conference !== 'independents' ? getConferenceContractData(getConferenceCasingBySlug(conference)?.id!, year)! : ''; // eslint-disable-line
 
 const { result, loading, error } = useQuery<{ conferenceGames: ConferenceGame[] }>(CONFERENCE_GAMES, {
   input: {
@@ -53,12 +53,8 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
           non-conference games fall under the home team's telecast rights.
         </p>
         <div v-if="conference !== 'independents'" v-html="contractTvData"></div>
-        <IndependentsGameList
-          v-if="conference === 'independents'"
-          :games="result.conferenceGames"
-          :schools="getIndependentSchools(year).split('|')"
-          :year="year"
-        />
+        <IndependentsGameList v-if="conference === 'independents'" :games="result.conferenceGames"
+          :schools="getIndependentSchools(year).split('|')" :year="year" />
         <ConferenceGameList :year="year" v-else :games="result.conferenceGames" />
         <p>
           <BackToTopScript />
