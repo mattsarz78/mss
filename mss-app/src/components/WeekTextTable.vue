@@ -9,10 +9,10 @@ const isMbkPostseason = props['isMbkPostseason'] as boolean;
 const showPpvColumn = props['showPpvColumn'] as boolean;
 const tvGames = props['tvGames'] as TvGame[];
 
-const toggleRow = (event: any) => {
+const toggleRow = (event: Event) => {
   console.log(event);
-  const row = (event.target.parentElement as HTMLElement).closest('tr');
-  if (event.target.checked) {
+  const row = ((event.target as HTMLInputElement).parentElement as HTMLElement).closest('tr');
+  if ((event.target as HTMLInputElement).checked) {
     row?.setAttribute('style', 'background-color: #CCC');
     row?.setAttribute('class', 'gamerow DOPrint rowstyle');
   } else {

@@ -1,5 +1,5 @@
 import { validSportYears } from './constants/validSportYears';
-import { flexScheduleLinks } from './constants/flexScheduleLinks';
+import { flexScheduleLinks, type FlexScheduleLink } from './constants/flexScheduleLinks';
 import { conferenceCasing } from './constants/conferenceCasing';
 import { contractData } from './constants/conference-data';
 import type { ConferenceGame, NoTvGame, TvGame, WeekInfo } from './graphQl';
@@ -16,7 +16,7 @@ export const getIndependentSchools = (year: string): string => {
 };
 
 export const flexScheduleLink = (year: string): string => {
-  return (flexScheduleLinks as any[]).find((link) => link.season === year)?.url;
+  return (flexScheduleLinks as FlexScheduleLink[]).find((link) => link.season === year)?.url ?? '';
 };
 
 export const adjustNavBar = () => {
@@ -35,9 +35,11 @@ export const adjustWebExclusives = () => {
 
   const buttonTitle = document.querySelector('#btnWebGames')!.getAttribute('value');
 
-  buttonTitle?.startsWith('Show')
-    ? document.querySelector('#btnWebGames')!.setAttribute('value', 'Hide Web Exclusive Games')
-    : document.querySelector('#btnWebGames')!.setAttribute('value', 'Show Web Exclusive Games');
+  if (buttonTitle?.startsWith('Show')) {
+    document.querySelector('#btnWebGames')!.setAttribute('value', 'Hide Web Exclusive Games');
+  } else {
+    document.querySelector('#btnWebGames')!.setAttribute('value', 'Show Web Exclusive Games');
+  }
 };
 
 export const getConferenceCasing = (conference: string) => conferenceCasing.find((x) => x?.id === conference);
@@ -123,21 +125,23 @@ export const formatTime = (timeWithOffset: string) => {
 };
 
 export const checkAllTextRows = () => {
-  const elements = document.querySelectorAll('.checkBoxRow');
+  const elements = document.querySelectorAll('.checkBoxRow') as NodeListOf<HTMLInputElement>;
   const rows = document.querySelectorAll('tr.gamerow');
-  elements.forEach((element: any) => (element.checked = true));
+  elements.forEach((element) => (element.checked = true));
   rows.forEach((row) => {
     row.setAttribute('style', 'background-color: #CCC');
     row.setAttribute('class', 'gamerow DOPrint rowstyle');
   });
+  console.log('rows', rows[0]);
 };
 
 export const clearAllSelectedTextRows = () => {
-  const elements = document.querySelectorAll('.checkBoxRow');
+  const elements = document.querySelectorAll('.checkBoxRow') as NodeListOf<HTMLInputElement>;
   const rows = document.querySelectorAll('tr.gamerow');
-  elements.forEach((element: any) => (element.checked = false));
+  elements.forEach((element) => (element.checked = false));
   rows.forEach((row) => {
     row.setAttribute('style', 'background-color: #FFF');
     row.setAttribute('class', 'gamerow DONTPrint rowstyle');
   });
+  console.log('rows', rows[0]);
 };

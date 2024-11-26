@@ -16,16 +16,22 @@ noTvGames.map((value) => {
 const toggleNoTV = () => {
   const noTVDiv = document.querySelector('.slidingNoTVDiv') as HTMLElement;
   if (noTVDiv.hasAttribute('style')) {
-    noTVDiv.style.display === 'none' ? (noTVDiv.style.display = 'block') : (noTVDiv.style.display = 'none');
+    if (noTVDiv.style.display === 'none') {
+      noTVDiv.style.display = 'block'
+    } else {
+      noTVDiv.style.display = 'none'
+    };
   } else {
     noTVDiv.style.display = 'block';
   }
 
   const buttonTitle = document.querySelector('#btnConferenceGames')?.getAttribute('value');
 
-  buttonTitle?.startsWith('Show')
-    ? document.querySelector('#btnConferenceGames')?.setAttribute('value', 'Hide Non-Televised Games')
-    : document.querySelector('#btnConferenceGames')?.setAttribute('value', 'Show Non-Televised Games');
+  if (buttonTitle?.startsWith('Show')) {
+    document.querySelector('#btnConferenceGames')?.setAttribute('value', 'Hide Non-Televised Games')
+  } else {
+    document.querySelector('#btnConferenceGames')?.setAttribute('value', 'Show Non-Televised Games')
+  }
 };
 </script>
 

@@ -1,4 +1,9 @@
-export const flexScheduleLinks = [
+export type FlexScheduleLink = {
+  season: string;
+  url: string;
+};
+
+export const flexScheduleLinks: FlexScheduleLink[] = [
   {
     season: '2012',
     url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTEFsaT3f-ibS0JpK1_qrH8tntY1iMeBQr0kBk9mCyMFRmb25CXfRncVeYN-PVkG2_lrXnwHF67xAac'
