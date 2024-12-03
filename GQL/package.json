@@ -21,7 +21,7 @@
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "graphql": "^16.9.0",
-    "graphql-http": "^1.22.2",
+    "graphql-http": "^1.22.3",
     "luxon": "^3.5.0"
   },
   "devDependencies": {
