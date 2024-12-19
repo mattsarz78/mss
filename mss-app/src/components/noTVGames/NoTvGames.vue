@@ -2,37 +2,33 @@
 import type { NoTvGame } from '@/graphQl';
 import { DateTime } from 'luxon';
 import NoTvGamesTable from '../noTVGames/NoTvGamesTable.vue';
+import { computed } from 'vue';
 
-const props = defineProps(['noTvGames']);
-const noTvGames = props['noTvGames'] as NoTvGame[];
-const datesList: string[] = [];
+const props = defineProps<{ noTvGames: NoTvGame[] }>();
+const { noTvGames } = props;
 
-noTvGames.map((value) => {
-  const date = DateTime.fromISO(value.timeWithOffset).toLocal().toISODate()!;
-  if (!datesList.some((dateFromList) => dateFromList === date)) {
-    datesList.push(date);
-  }
+const datesList = computed(() => {
+  const dates = new Set<string>();
+  noTvGames.forEach((value) => {
+    const date = DateTime.fromISO(value.timeWithOffset).toLocal().toISODate()!;
+    dates.add(date);
+  });
+  return Array.from(dates);
 });
+
 const toggleNoTV = () => {
   const noTVDiv = document.querySelector('.slidingNoTVDiv') as HTMLElement;
-  if (noTVDiv.hasAttribute('style')) {
-    if (noTVDiv.style.display === 'none') {
-      noTVDiv.style.display = 'block'
-    } else {
-      noTVDiv.style.display = 'none'
-    };
-  } else {
+  const button = document.querySelector('#btnConferenceGames') as HTMLInputElement;
+
+  if (noTVDiv.style.display === 'none' || !noTVDiv.style.display) {
     noTVDiv.style.display = 'block';
-  }
-
-  const buttonTitle = document.querySelector('#btnConferenceGames')?.getAttribute('value');
-
-  if (buttonTitle?.startsWith('Show')) {
-    document.querySelector('#btnConferenceGames')?.setAttribute('value', 'Hide Non-Televised Games')
+    button.value = 'Hide Non-Televised Games';
   } else {
-    document.querySelector('#btnConferenceGames')?.setAttribute('value', 'Show Non-Televised Games')
+    noTVDiv.style.display = 'none';
+    button.value = 'Show Non-Televised Games';
   }
 };
+
 </script>
 
 <template>
@@ -41,7 +37,7 @@ const toggleNoTV = () => {
       v-on:click="toggleNoTV()" />
     <div class="slidingNoTVDiv">
       <p v-if="!noTvGames.length">All FBS games scheduled for this week are being televised or shown online</p>
-      <NoTvGamesTable v-for="(noTVDate, index) of datesList" :key="index" :noTvDate="noTVDate" :noTvGamesForDate="noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)
+      <NoTvGamesTable v-for="(noTVDate, index) in datesList" :key="index" :noTvDate="noTVDate" :noTvGamesForDate="noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)
         " />
       <br />
     </div>

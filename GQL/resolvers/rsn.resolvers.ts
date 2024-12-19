@@ -6,11 +6,9 @@ export type RsnArgs = {
   input: RsnInput;
 };
 
-export const getRsnList = async (_1: unknown, args: RsnArgs, context: IContext): Promise<RsnGame[] | string> => {
+export const getRsnList = async (_1: unknown, { input }: RsnArgs, context: IContext): Promise<RsnGame[] | string> => {
   try {
-    return (await context.services[RsnListServiceKey].getRsnList(args.input.season)).map((result) => {
-      return result as RsnGame;
-    });
+    return await context.services[RsnListServiceKey].getRsnList(input.season);
   } catch (error: unknown) {
     return (error as Error).message;
   }

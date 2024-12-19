@@ -3,14 +3,16 @@ import type { TvGame } from '@/graphQl';
 import { formatGame, formatTime } from '@/utils';
 import { DateTime } from 'luxon';
 
-const props = defineProps(['tvGames', 'isBowlWeek', 'isMbkPostseason', 'showPpvColumn']);
-const isBowlWeek = props['isBowlWeek'] as boolean;
-const isMbkPostseason = props['isMbkPostseason'] as boolean;
-const showPpvColumn = props['showPpvColumn'] as boolean;
-const tvGames = props['tvGames'] as TvGame[];
+const props = defineProps<{
+  tvGames: TvGame[];
+  isBowlWeek: boolean;
+  isMbkPostseason: boolean;
+  showPpvColumn: boolean;
+}>();
+
+const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn } = props;
 
 const toggleRow = (event: Event) => {
-  console.log(event);
   const row = ((event.target as HTMLInputElement).parentElement as HTMLElement).closest('tr');
   if ((event.target as HTMLInputElement).checked) {
     row?.setAttribute('style', 'background-color: #CCC');
@@ -35,7 +37,7 @@ const toggleRow = (event: Event) => {
         </tr>
       </thead>
       <tbody>
-        <tr class="gamerow DONTPrint rowStyle" v-for="(tvGame, index) of tvGames" :key="index">
+        <tr class="gamerow DONTPrint rowStyle" v-for="(tvGame, index) in tvGames" :key="index">
           <td class="tablecell">
             <input class="checkBoxRow" v-on:change="toggleRow($event)" type="checkbox" />
           </td>

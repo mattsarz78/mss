@@ -1,5 +1,5 @@
 import { validSportYears } from './constants/validSportYears';
-import { flexScheduleLinks, type FlexScheduleLink } from './constants/flexScheduleLinks';
+import { flexScheduleLinks } from './constants/flexScheduleLinks';
 import { conferenceCasing } from './constants/conferenceCasing';
 import { contractData } from './constants/conference-data';
 import type { ConferenceGame, NoTvGame, TvGame, WeekInfo } from './graphQl';
@@ -7,38 +7,37 @@ import { DateTime } from 'luxon';
 
 export const conferenceListBase = (sport: string, year: string): string => {
   return sport === 'football' && year !== '2021s'
-    ? validSportYears.find((validSportYear) => validSportYear.season === year)?.conferenceListBase! // eslint-disable-line
+    ? (validSportYears.find((validSportYear) => validSportYear.season === year)?.conferenceListBase ?? '')
     : '';
 };
 
 export const getIndependentSchools = (year: string): string => {
-  return validSportYears.find((validSportYear) => validSportYear.season === year)?.independents! as string; // eslint-disable-line
+  return validSportYears.find((validSportYear) => validSportYear.season === year)?.independents ?? '';
 };
 
 export const flexScheduleLink = (year: string): string => {
-  return (flexScheduleLinks as FlexScheduleLink[]).find((link) => link.season === year)?.url ?? '';
+  return flexScheduleLinks.find((link) => link.season === year)?.url ?? '';
 };
 
-export const adjustNavBar = () => {
+export const adjustNavBar = (): void => {
   const widthAddition = window.innerWidth >= 641 ? 20 : 25;
-  const paddingAddition = document.querySelector('.navbar')!.clientHeight + widthAddition;
+  const paddingAddition = (document.querySelector('.navbar')?.clientHeight ?? 0) + widthAddition;
 
-  document.querySelector('#Main')!.setAttribute('style', `padding-top: ${paddingAddition}px`);
+  document.querySelector('#Main')?.setAttribute('style', `padding-top: ${paddingAddition}px`);
 };
 
-export const adjustWebExclusives = () => {
-  document
-    .querySelectorAll<HTMLElement>('.webGame')
-    .forEach((webgame: HTMLElement) =>
-      webgame.style.display === 'none' ? (webgame.style.display = '') : (webgame.style.display = 'none')
-    );
+export const adjustWebExclusives = (): void => {
+  document.querySelectorAll<HTMLElement>('.webGame').forEach((webgame) => {
+    webgame.style.display = webgame.style.display === 'none' ? '' : 'none';
+  });
 
-  const buttonTitle = document.querySelector('#btnWebGames')!.getAttribute('value');
+  const button = document.querySelector('#btnWebGames');
+  const buttonTitle = button?.getAttribute('value');
 
   if (buttonTitle?.startsWith('Show')) {
-    document.querySelector('#btnWebGames')!.setAttribute('value', 'Hide Web Exclusive Games');
+    button?.setAttribute('value', 'Hide Web Exclusive Games');
   } else {
-    document.querySelector('#btnWebGames')!.setAttribute('value', 'Show Web Exclusive Games');
+    button?.setAttribute('value', 'Show Web Exclusive Games');
   }
 };
 
@@ -53,11 +52,11 @@ export const getConferenceContractData = (conference: string, season: string) =>
 };
 
 export const hasBasketballPostseason = (year: string): boolean => {
-  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasPostseason!; // eslint-disable-line
+  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasPostseason ?? false;
 };
 
 export const hasNoTVGames = (year: string): boolean => {
-  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasNoTVGames!; // eslint-disable-line
+  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasNoTVGames ?? false;
 };
 
 export const getBasketballSeason = (year: string): string => {
@@ -77,17 +76,17 @@ export const isFirstWeek = (contents: WeekInfo[], week: number): boolean => {
 };
 
 export const isNextWeekBasketballPostseason = (sport: string, contents: WeekInfo[], week: number): boolean => {
-  const nextWeek = (week += 1);
+  const nextWeek = week + 1;
   return sport === 'basketball' && contents.some((x) => x.week === nextWeek && x.postseasonInd);
 };
 
 export const isNextWeekBowlGameWeek = (sport: string, contents: WeekInfo[], week: number): boolean => {
-  const nextWeek = (week += 1);
+  const nextWeek = week + 1;
   return sport === 'football' && contents[contents.length - 1].week === nextWeek;
 };
 
 export const shouldShowPpvColumn = (year: string): boolean => {
-  return validSportYears.find((x) => x.season === year)?.showPPVColumn!; // eslint-disable-line
+  return validSportYears.find((x) => x.season === year)?.showPPVColumn ?? false;
 };
 
 export const updatedTvOptions = (game: NoTvGame): string => {
@@ -132,7 +131,6 @@ export const checkAllTextRows = () => {
     row.setAttribute('style', 'background-color: #CCC');
     row.setAttribute('class', 'gamerow DOPrint rowstyle');
   });
-  console.log('rows', rows[0]);
 };
 
 export const clearAllSelectedTextRows = () => {
@@ -143,5 +141,4 @@ export const clearAllSelectedTextRows = () => {
     row.setAttribute('style', 'background-color: #FFF');
     row.setAttribute('class', 'gamerow DONTPrint rowstyle');
   });
-  console.log('rows', rows[0]);
 };

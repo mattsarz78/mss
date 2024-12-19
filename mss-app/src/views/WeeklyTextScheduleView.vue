@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
-import WeekTextSchedule from '@/components/WeekTextSchedule.vue';
 
 const route = useRoute();
-const week = route.params.week as string;
-const sport = route.params.sport as string;
-const paramYear = route.params.year as string;
+const { week, sport, year: paramYear } = route.params as { week: string; sport: string; year: string };
+const WeekTextSchedule = defineAsyncComponent(() => import('../components/WeekTextSchedule.vue'));
+
 </script>
 
 <template>

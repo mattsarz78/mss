@@ -13,7 +13,7 @@ import {
   adjustWebExclusives
 } from '@/utils';
 import { useQuery } from '@vue/apollo-composable';
-import { defineAsyncComponent, watch } from 'vue';
+import { defineAsyncComponent, computed } from 'vue';
 import BackToTopButton from './shared/BackToTopButton.vue';
 import WeeklyBase from './WeeklyBase.vue';
 import NoTvGames from './noTVGames/NoTvGames.vue';
@@ -22,14 +22,13 @@ import { DateTime } from 'luxon';
 const GoogleSearch = defineAsyncComponent(() => import('./shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('./shared/BackToTopScript.vue'));
 
-const props = defineProps(['week', 'sport', 'paramYear']);
-const week = parseInt(props['week'] as string);
-const sport = props['sport'] as string;
-const paramYear = props['paramYear'] as string;
+const props = defineProps<{ week: string; sport: string; paramYear: string }>();
+const { week, sport, paramYear } = props;
 
-const year = sport === 'football' ? paramYear : getBasketballSeason(paramYear);
-const flexLink = flexScheduleLink(year);
-const showNoTvGames = hasNoTVGames(year);
+const weekInt = parseInt(week);
+const year = computed(() => (sport === 'football' ? paramYear : getBasketballSeason(paramYear)));
+const flexLink = computed(() => flexScheduleLink(year.value));
+const showNoTvGames = computed(() => hasNoTVGames(year.value));
 
 const {
   result: tvGameResult,
@@ -37,9 +36,9 @@ const {
   error: tvGameError
 } = useQuery<{ tvGames: TvGame[] }>(TV_GAMES, {
   input: {
-    season: year,
+    season: year.value,
     sport,
-    week
+    week: weekInt
   }
 });
 
@@ -49,7 +48,7 @@ const {
   error: seasonContentsError
 } = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, {
   input: {
-    season: year
+    season: year.value
   }
 });
 
@@ -59,45 +58,27 @@ const {
   error: noTvGamesError
 } = useQuery<{ noTvGames: NoTvGame[] }>(NO_TV_GAMES, {
   input: {
-    season: year,
-    week
+    season: year.value,
+    week: weekInt
   }
 });
 
-const nextWeek = week + 1;
-const previousWeek = week - 1;
+const nextWeek = computed(() => weekInt + 1);
+const previousWeek = computed(() => weekInt - 1);
 
-let isBowlWeek: boolean = false;
-let isMbkPostseason: boolean = false;
-let gamesToday: boolean = false;
-let isWeekOne: boolean = false;
-let isNextWeekMbkPostseason: boolean = false;
-let isNextWeekBowlWeek: boolean = false;
-
-watch(
-  [seasonContentsResult, noTvGamesResult, tvGameResult],
-  ([seasonContentsValue, noTvGamesValue, tvGameValue]) => {
-    if (!!seasonContentsValue && !!noTvGamesValue && !!tvGameValue) {
-      isBowlWeek = isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
-      isMbkPostseason = isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
-      gamesToday =
-        seasonContentsResult.value?.seasonContents
-          .filter((x) => x.week === week)
-          .some((x) => {
-            const dateToCompare = DateTime.now().setZone('America/New_York');
-            return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare;
-          }) ?? false;
-      isWeekOne = isFirstWeek(seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
-      isNextWeekMbkPostseason = isNextWeekBasketballPostseason(
-        sport,
-        seasonContentsResult.value?.seasonContents!, // eslint-disable-line
-        week
-      );
-      isNextWeekBowlWeek = isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
-    }
-  },
-  { immediate: true }
-);
+const isBowlWeek = computed(() => isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
+const isMbkPostseason = computed(() => isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
+const gamesToday = computed(() => {
+  return seasonContentsResult.value?.seasonContents
+    .filter((x) => x.week === weekInt)
+    .some((x) => {
+      const dateToCompare = DateTime.now().setZone('America/New_York');
+      return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare;
+    }) ?? false;
+});
+const isWeekOne = computed(() => isFirstWeek(seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
+const isNextWeekMbkPostseason = computed(() => isNextWeekBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
+const isNextWeekBowlWeek = computed(() => isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
 </script>
 
 <template>
@@ -117,21 +98,20 @@ watch(
               </RouterLink>
             </span>
             <span class="blockspan">
-              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">
-                Available TV Windows</RouterLink>
-              <RouterLink class="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`">
-                Customizable Text-Only Page</RouterLink>
+              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">Available
+                TV Windows</RouterLink>
+              <RouterLink class="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`">Customizable Text-Only
+                Page</RouterLink>
             </span>
             <div class="pad" v-if="!isMbkPostseason && !isBowlWeek">
               <template v-if="isWeekOne">
                 <span style="float: left">
-                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}` }">Next Week </RouterLink>
+                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}` }">Next Week</RouterLink>
                 </span>
               </template>
               <template v-else>
                 <span style="float: left">
-                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }">
-                    Previous Week
+                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }">Previous Week
                   </RouterLink>
                 </span>
                 <span style="float: right" v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek">
@@ -144,7 +124,7 @@ watch(
             <br />
             <div class="filters" v-if="tvGameResult">
               <input v-if="!isBowlWeek && !isMbkPostseason" id="btnWebGames" type="button"
-                value="Hide Web Exclusive Games" class="show_hideWeb" v-on:click="adjustWebExclusives()" />
+                value="Hide Web Exclusive Games" class="show_hideWeb" @click="adjustWebExclusives" />
             </div>
           </div>
         </div>

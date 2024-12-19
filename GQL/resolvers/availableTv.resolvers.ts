@@ -9,21 +9,17 @@ export type AvailableTvArgs = {
 
 export const availableTvResolver = async (
   _1: unknown,
-  args: AvailableTvArgs,
+  { input }: AvailableTvArgs,
   context: IContext
 ): Promise<AvailableTv[] | string> => {
   try {
-    const response = (await context.services[AvailableTvServiceKey].getAvailableTv(args.input)).map(
-      (availableTV: AvailableTV) => {
-        return {
-          season: availableTV.Season.trim(),
-          conference: availableTV.Conference.trim(),
-          week: availableTV.Week,
-          tvOptions: availableTV.TVOptions?.trim()
-        } as AvailableTv;
-      }
-    );
-    return response;
+    const results = await context.services[AvailableTvServiceKey].getAvailableTv(input);
+    return results.map((availableTV: AvailableTV) => ({
+      season: availableTV.Season.trim(),
+      conference: availableTV.Conference.trim(),
+      week: availableTV.Week,
+      tvOptions: availableTV.TVOptions?.trim()
+    }));
   } catch (err: unknown) {
     return (err as Error).message;
   }

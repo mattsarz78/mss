@@ -5,83 +5,53 @@ import { DatabaseService } from './services';
 export const FootballServiceKey = Symbol.for('IFootballService');
 
 export interface IFootballService extends DatabaseService<IFootballService> {
-  getConferenceGames(request: any): Promise<Football[]>;
-  getTvGames(request: TvGamesInput): Promise<Football[]>;
-  getDailyTvGames(request: any): Promise<Football[]>;
+  getConferenceGames(request: GetConferenceGamesRequest): Promise<Football[]>;
   getNoTvGames(request: NoTvGamesInput): Promise<any[]>;
+}
+
+export interface GetConferenceGamesRequest {
+  season: string;
+  conference: string;
 }
 
 export class FootballService implements IFootballService {
   constructor(private client: PrismaClient | Prisma.TransactionClient) {}
-  public getConferenceGames(request: any): Promise<Football[]> {
-    return this.client.football.findMany({
-      where: {
-        Season: request.season,
-        Conference: request.conference,
-        MediaIndicator: {
-          in: ['T', 'W']
-        }
-      },
-      orderBy: {
-        TimeWithOffset: 'asc'
-      }
-    });
-  }
-
-  public getDailyTvGames(request: any): Promise<Football[]> {
-    return this.client.football.findMany({
-      where: {
-        Season: request.season,
-        MediaIndicator: {
-          in: ['T', 'W']
+  public async getConferenceGames(request: GetConferenceGamesRequest): Promise<Football[]> {
+    try {
+      return await this.client.football.findMany({
+        where: {
+          Season: request.season,
+          Conference: request.conference,
+          MediaIndicator: {
+            in: ['T', 'W']
+          }
         },
-        TimeWithOffset: {
-          lte: request.endDate,
-          gte: request.startDate
-        }
-      },
-      orderBy: [
-        {
+        orderBy: {
           TimeWithOffset: 'asc'
-        },
-        {
-          ListOrder: 'asc'
         }
-      ]
-    });
+      });
+    } catch (error) {
+      console.error('Error fetching conference games:', error);
+      throw error;
+    }
   }
 
-  public getTvGames(request: TvGamesInput): Promise<Football[]> {
-    return this.client.football.findMany({
-      where: {
-        Week: request.week,
-        Season: request.season,
-        MediaIndicator: {
-          in: ['T', 'W']
-        }
-      },
-      orderBy: [
-        {
-          TimeWithOffset: 'asc'
-        },
-        {
-          ListOrder: 'asc'
-        }
-      ]
-    });
-  }
-
-  public getNoTvGames(request: NoTvGamesInput): Promise<any[]> {
-    return this.client
-      .$queryRaw`select fb.[GameTitle],fb.[VisitingTeam],fb.[HomeTeam],fb.[Location],fb.[Conference],at.[TVOptions], fb.[TimeWithOffset], fb.[FCS]
-from [dbo].[Football] fb, [dbo].[AvailableTV] at
-where fb.week = ${request.week}
-and fb.season = ${request.season}
-and fb.conference = at.conference
-and fb.season = at.season
-AND fb.week = at.week
-and fb.Mediaindicator = 'N'
-order by fb.[Conference]`;
+  public async getNoTvGames(request: NoTvGamesInput): Promise<any[]> {
+    try {
+      return await this.client.$queryRaw`
+          SELECT fb.[GameTitle], fb.[VisitingTeam], fb.[HomeTeam], fb.[Location], fb.[Conference], at.[TVOptions], fb.[TimeWithOffset], fb.[FCS]
+          FROM [dbo].[Football] fb, [dbo].[AvailableTV] at
+          WHERE fb.week = ${request.week}
+            AND fb.season = ${request.season}
+            AND fb.conference = at.conference
+            AND fb.season = at.season
+            AND fb.week = at.week
+            AND fb.Mediaindicator = 'N'
+          ORDER BY fb.[Conference]`;
+    } catch (error) {
+      console.error('Error fetching no TV games:', error);
+      throw error;
+    }
   }
 
   public transaction(client: Prisma.TransactionClient) {

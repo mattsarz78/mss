@@ -8,18 +8,18 @@ export type SeasonContentsArgs = {
 
 export const getSeasonContents = async (
   _1: unknown,
-  args: SeasonContentsArgs,
+  { input }: SeasonContentsArgs,
   context: IContext
 ): Promise<SeasonContents[] | string> => {
   try {
-    return (await context.services[WeeklyDatesServiceKey].getConferenceGames(args.input.season)).map((result) => {
-      return {
-        week: result.Week,
-        startDate: result.StartDate.toISOString(),
-        endDate: result.EndDate.toISOString(),
-        postseasonInd: result.PostseasonInd
-      } as SeasonContents;
-    });
+    const results = await context.services[WeeklyDatesServiceKey].getConferenceGames(input.season);
+
+    return results.map((result) => ({
+      week: result.Week,
+      startDate: result.StartDate.toISOString(),
+      endDate: result.EndDate.toISOString(),
+      postseasonInd: result.PostseasonInd
+    }));
   } catch (error: unknown) {
     return (error as Error).message;
   }

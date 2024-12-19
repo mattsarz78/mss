@@ -9,12 +9,17 @@ export interface IRsnListService extends DatabaseService<IRsnListService> {
 
 export class RsnListService implements IRsnListService {
   constructor(private client: PrismaClient | Prisma.TransactionClient) {}
-  public getRsnList(season: string): Promise<RSNList[]> {
-    return this.client.rSNList.findMany({
-      where: {
-        Season: season
-      }
-    });
+  public async getRsnList(season: string): Promise<RSNList[]> {
+    try {
+      return await this.client.rSNList.findMany({
+        where: {
+          Season: season
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching RSN list:', error);
+      throw error;
+    }
   }
   public transaction(client: Prisma.TransactionClient) {
     return new RsnListService(client);

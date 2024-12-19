@@ -9,8 +9,7 @@ import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/IndependentsGameList.vue';
 
 const route = useRoute();
-const conference = route.params.conference as string;
-const year = route.params.year as string;
+const { conference, year } = route.params as { conference: string; year: string };
 
 const flexLink = flexScheduleLink(year);
 

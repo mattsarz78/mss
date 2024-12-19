@@ -2,14 +2,16 @@
 import type { NoTvGame } from '@/graphQl';
 import { updatedTvOptions } from '@/utils';
 import { DateTime } from 'luxon';
+import { computed } from 'vue';
 
-const props = defineProps(['noTvGamesForDate', 'noTvDate']);
-const noTvDate = props['noTvDate'] as string;
-const noTvGamesForDate = props['noTvGamesForDate'] as NoTvGame[];
+const props = defineProps<{ noTvGamesForDate: NoTvGame[]; noTvDate: string }>();
+const { noTvGamesForDate, noTvDate } = props;
+
+const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD'));
 </script>
 
 <template>
-  {{ DateTime.fromISO(noTvDate).toFormat('DDDD') }}
+  {{ formattedDate }}
   <table class="noTVTable">
     <tbody>
       <tr class="header">

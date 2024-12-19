@@ -4,7 +4,7 @@ import { defineAsyncComponent, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const year = route.params.year as string;
+const { year } = route.params as { year: string };
 
 const flexLink = `${flexScheduleLink(year)}/pubhtml?widget=true&amp;headers=false`;
 

@@ -11,34 +11,32 @@ export type DailyTvGamesArgs = {
 
 export const getDailyTvGames = async (
   _1: unknown,
-  args: DailyTvGamesArgs,
+  { input }: DailyTvGamesArgs,
   context: IContext
 ): Promise<TvGame[] | string> => {
-  const startDate = DateTime.fromISO(args.input.startDate).set(zeroHour).toJSDate();
-  const endDate = DateTime.fromISO(args.input.startDate).plus({ days: 1 }).set(endOfDay).toJSDate();
+  const startDate = DateTime.fromISO(input.startDate).set(zeroHour).toJSDate();
+  const endDate = DateTime.fromISO(input.startDate).plus({ days: 1 }).set(endOfDay).toJSDate();
 
   try {
-    return (
-      await context.services[CommonServiceKey].getDailyTvGames({
-        startDate,
-        endDate,
-        sport: args.input.sport
-      })
-    ).map((result: Football | Basketball) => {
-      return {
-        season: result.Season.trim(),
-        gameTitle: result.GameTitle?.trim(),
-        visitingTeam: result.VisitingTeam?.trim().split(',') ?? [],
-        homeTeam: result.HomeTeam?.trim().split(',') ?? [],
-        location: result.Location?.trim(),
-        network: result.Network?.trim(),
-        networkJpg: result.NetworkJPG,
-        coverageNotes: result.CoverageNotes?.trim(),
-        ppv: result.PPV?.trim(),
-        mediaIndicator: result.MediaIndicator.trim(),
-        timeWithOffset: DateTime.fromJSDate(result.TimeWithOffset as Date).toISO()
-      } as TvGame;
+    const results = await context.services[CommonServiceKey].getDailyTvGames({
+      startDate,
+      endDate,
+      sport: input.sport
     });
+
+    return results.map((result: Football | Basketball) => ({
+      season: result.Season.trim(),
+      gameTitle: result.GameTitle?.trim(),
+      visitingTeam: result.VisitingTeam?.trim().split(',') ?? [],
+      homeTeam: result.HomeTeam?.trim().split(',') ?? [],
+      location: result.Location?.trim(),
+      network: result.Network?.trim(),
+      networkJpg: result.NetworkJPG,
+      coverageNotes: result.CoverageNotes?.trim(),
+      ppv: result.PPV?.trim(),
+      mediaIndicator: result.MediaIndicator.trim(),
+      timeWithOffset: DateTime.fromJSDate(result.TimeWithOffset as Date).toISO()
+    }));
   } catch (err: unknown) {
     return (err as Error).message;
   }

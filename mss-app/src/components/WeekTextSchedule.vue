@@ -12,26 +12,21 @@ import {
   checkAllTextRows
 } from '@/utils';
 import { useQuery } from '@vue/apollo-composable';
-import { defineAsyncComponent, watch } from 'vue';
+import { defineAsyncComponent, computed } from 'vue';
 import WeekTextBase from './WeekTextBase.vue';
 import BackToTopButton from '../components/shared/BackToTopButton.vue';
+
 const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('../components/shared/BackToTopScript.vue'));
 
-const props = defineProps(['week', 'sport', 'paramYear']);
-const week = parseInt(props['week'] as string);
-const sport = props['sport'] as string;
-const paramYear = props['paramYear'] as string;
-const year = sport === 'football' ? paramYear : getBasketballSeason(paramYear);
+const props = defineProps<{ week: string; sport: string; paramYear: string }>();
+const { week, sport, paramYear } = props;
 
-const nextWeek = week + 1;
-const previousWeek = week - 1;
+const weekInt = parseInt(week);
+const year = computed(() => (sport === 'football' ? paramYear : getBasketballSeason(paramYear)));
 
-let isBowlWeek: boolean = false;
-let isMbkPostseason: boolean = false;
-let isWeekOne: boolean = false;
-let isNextWeekMbkPostseason: boolean = false;
-let isNextWeekBowlWeek: boolean = false;
+const nextWeek = computed(() => weekInt + 1);
+const previousWeek = computed(() => weekInt - 1);
 
 const {
   result: tvGameResult,
@@ -39,9 +34,9 @@ const {
   error: tvGameError
 } = useQuery<{ tvGames: TvGame[] }>(TV_GAMES, {
   input: {
-    season: year,
+    season: year.value,
     sport,
-    week
+    week: weekInt
   }
 });
 
@@ -51,27 +46,15 @@ const {
   error: seasonContentsError
 } = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, {
   input: {
-    season: year
+    season: year.value
   }
 });
 
-watch(
-  [tvGameResult, seasonContentsResult],
-  ([tvGameValue, seasonContentsValue]) => {
-    if (!!tvGameValue && !!seasonContentsValue) {
-      isBowlWeek = isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
-      isMbkPostseason = isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
-      isWeekOne = isFirstWeek(seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
-      isNextWeekMbkPostseason = isNextWeekBasketballPostseason(
-        sport,
-        seasonContentsResult.value?.seasonContents!, // eslint-disable-line
-        week
-      );
-      isNextWeekBowlWeek = isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, week); // eslint-disable-line
-    }
-  },
-  { immediate: true }
-);
+const isBowlWeek = computed(() => isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
+const isMbkPostseason = computed(() => isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
+const isWeekOne = computed(() => isFirstWeek(seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
+const isNextWeekMbkPostseason = computed(() => isNextWeekBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
+const isNextWeekBowlWeek = computed(() => isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
 </script>
 
 <template>
@@ -106,10 +89,9 @@ watch(
             </div>
             <br />
             <p id="TextNav" class="DONTPrint">
-              <input type="button" id="ClearAll" value="Clear All Games" v-on:click="clearAllSelectedTextRows()"
+              <input type="button" id="ClearAll" value="Clear All Games" @click="clearAllSelectedTextRows"
                 class="inputpad" />
-              <input type="button" id="CheckAll" value="Check All Games" v-on:click="checkAllTextRows()"
-                class="inputpad" />
+              <input type="button" id="CheckAll" value="Check All Games" @click="checkAllTextRows" class="inputpad" />
             </p>
           </div>
         </div>

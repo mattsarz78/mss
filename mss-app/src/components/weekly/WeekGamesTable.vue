@@ -3,27 +3,33 @@ import type { TvGame } from '@/graphQl';
 import { DateTime } from 'luxon';
 import PostseasonMbkEvent from '@/components/weekly/PostseasonMbkEvent.vue';
 import WeekGameRow from './WeekGameRow.vue';
-const props = defineProps(['weekDate', 'tvGamesForDate', 'isMbkPostseason', 'isBowlWeek', 'showPpvColumn', 'season']);
-const weekDate = props['weekDate'] as string;
-const season = props['season'] as string;
-const tvGamesForDate = props['tvGamesForDate'] as TvGame[];
-const isBowlWeek = props['isBowlWeek'] as boolean;
-const isMbkPostseason = props['isBowlWeek'] as boolean;
-const showPPVColumn = props['showPpvColumn'] as boolean;
-</script>
+import { computed } from 'vue';
+
+const props = defineProps<{
+  weekDate: string;
+  tvGamesForDate: TvGame[];
+  isMbkPostseason: boolean;
+  isBowlWeek: boolean;
+  showPpvColumn: boolean;
+  season: string;
+}>();
+
+const { weekDate, tvGamesForDate, isMbkPostseason, isBowlWeek, showPpvColumn, season } = props;
+
+const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD'));</script>
 
 <template>
-  {{ DateTime.fromISO(weekDate).toFormat('DDDD') }}
+  {{ formattedDate }}
   <table class="noTVTable">
     <tbody>
       <tr class="header">
         <th>Game</th>
         <th>Network</th>
         <th>Coverage Notes / Network Streaming</th>
-        <th v-if="!isBowlWeek && !isMbkPostseason && showPPVColumn">PPV</th>
+        <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">PPV</th>
         <th>Time</th>
       </tr>
-      <template v-for="(tvGame, index) of tvGamesForDate" :key="index">
+      <template v-for="(tvGame, index) in tvGamesForDate" :key="index">
         <template v-if="isBowlWeek || isMbkPostseason">
           <tr>
             <PostseasonMbkEvent :tvGame="tvGame" :season="season"></PostseasonMbkEvent>
@@ -31,7 +37,7 @@ const showPPVColumn = props['showPpvColumn'] as boolean;
         </template>
         <template v-else>
           <tr :class="tvGame.mediaIndicator === 'W' ? 'webGame' : ''">
-            <WeekGameRow :season="season" :showPPVColumn="showPPVColumn" :tvGame="tvGame" />
+            <WeekGameRow :season="season" :showPPVColumn="showPpvColumn" :tvGame="tvGame" />
           </tr>
         </template>
       </template>

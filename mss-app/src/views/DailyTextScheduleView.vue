@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router';
 import WeekTextBase from '../components/WeekTextBase.vue';
 
 const route = useRoute();
-const sport = route.params.sport as string;
+const { sport } = route.params as { sport: string; };
 
 const startDate = DateTime.now().setZone('America/New_York').toISODate();
 

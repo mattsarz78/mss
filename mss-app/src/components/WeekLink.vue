@@ -2,11 +2,8 @@
 import { RouterLink } from 'vue-router';
 import type { WeekInfo } from '../graphQl';
 
-const props = defineProps(['content', 'sport', 'linkText', 'year']);
-const content = props['content'] as WeekInfo;
-const sport = props['sport'] as string;
-const year = props['year'] as string;
-const linkText = props['linkText'] as string;
+const props = defineProps<{ content: WeekInfo, sport: string, linkText: string, year: string }>();
+const { content, sport, linkText, year } = props;
 </script>
 
 <template>

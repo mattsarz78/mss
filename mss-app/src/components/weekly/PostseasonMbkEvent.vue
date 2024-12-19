@@ -2,17 +2,19 @@
 import type { TvGame } from '@/graphQl';
 import { formatNetworkJpgAndCoverage } from '@/imageUtils';
 import { formatTime } from '../../utils';
-const props = defineProps(['tvGame', 'season']);
-const tvGame = props['tvGame'] as TvGame;
-const season = props['season'] as string;
+import { computed } from 'vue';
+
+const props = defineProps<{ tvGame: TvGame; season: string }>();
+const { tvGame, season } = props;
+
+const networkHtml = computed(() => tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season) : '');
+const coverageHtml = computed(() => tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season) : '');
 </script>
 
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b
-        ><i>{{ tvGame.gameTitle }}</i></b
-      ><br />
+      <b><i>{{ tvGame.gameTitle }}</i></b><br />
     </template>
     <template v-if="tvGame.location">
       <template v-if="tvGame.visitingTeam?.length">
@@ -26,11 +28,8 @@ const season = props['season'] as string;
       </template>
     </template>
   </td>
-  <td class="network" v-html="!!tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg!, season) : ''"></td>
-  <td
-    class="coverage"
-    v-html="!!tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes!, season) : ''"
-  />
+  <td class="network" v-html="networkHtml"></td>
+  <td class="coverage" v-html="coverageHtml" />
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>

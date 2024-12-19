@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { defineAsyncComponent, onMounted } from 'vue';
+import { defineAsyncComponent, nextTick, onMounted, ref } from 'vue';
 
-onMounted(() => {
-  const linksHeight = document.querySelector('#Links')!.clientHeight;
-  const windowWidth = window.innerWidth - 6;
+const linksRef = ref<HTMLElement | null>(null);
+const contentRef = ref<HTMLElement | null>(null);
+const facebookRef = ref<HTMLElement | null>(null);
 
-  document.querySelector('#content')!.setAttribute('style', `height: ${linksHeight}px`);
-  document.querySelector('#Facebook')!.setAttribute('style', `max-width: ${windowWidth}px`);
+onMounted(async () => {
+  await nextTick();
+  if (linksRef.value && contentRef.value && facebookRef.value) {
+    const linksHeight = linksRef.value.clientHeight;
+    const windowWidth = window.innerWidth - 6;
+
+    contentRef.value.style.height = `${linksHeight}px`;
+    facebookRef.value.style.maxWidth = `${windowWidth}px`;
+  }
 });
 
 const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
@@ -17,8 +24,8 @@ const TwitterRetrieval = defineAsyncComponent(() => import('../components/Twitte
 <template>
   <div id="Main">
     <div><img alt="Matt's College Sports" id="imgtitle" src="/images/logo.jpg" /><br /></div>
-    <div id="content">
-      <div id="Links">
+    <div id="content" ref="contentRef">
+      <div id="Links" ref="linksRef">
         <RouterLink to="/season/football/2024">2024 Football</RouterLink><br />
         <RouterLink to="/season/basketball/2024-25">2024-25 Men's Basketball</RouterLink><br />
         <br />
@@ -47,7 +54,7 @@ const TwitterRetrieval = defineAsyncComponent(() => import('../components/Twitte
         <TwitterRetrieval />
       </div>
     </div>
-    <iframe id="Facebook" lazy="true"
+    <iframe id="Facebook" lazy="true" ref="facebookRef"
       src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmattsarzsports%2F&tabs&height=80&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
       height="80" style="border: none; overflow: hidden" scrolling="no" frameborder="0" allowfullscreen="true"
       allowtransparency="true"

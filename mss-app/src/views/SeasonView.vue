@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router';
 import { useQuery } from '@vue/apollo-composable';
 import { SEASON_CONTENTS, type WeekInfo } from '@/graphQl';
-import { defineAsyncComponent, watch } from 'vue';
+import { defineAsyncComponent, onMounted, ref, watch } from 'vue';
 import { conferenceListBase, getBasketballSeason } from '@/utils';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
@@ -24,19 +24,26 @@ const conferenceList = conferenceListBase(sport, year);
 
 const title = document.title;
 
-watch(result, () => {
-  if (document.querySelector('#content') && document.querySelector('#SeasonLinks')) {
-    const contentWidth = document.querySelector('#content')!.clientWidth;
-    const height = document.querySelector('#SeasonLinks')!.clientHeight;
+const contentRef = ref<HTMLElement | null>(null);
+const seasonLinksRef = ref<HTMLElement | null>(null);
+const conferenceRef = ref<HTMLElement | null>(null);
+
+const updateStyles = () => {
+  if (contentRef.value && seasonLinksRef.value) {
+    const contentWidth = contentRef.value.clientWidth;
+    const height = seasonLinksRef.value.clientHeight;
 
     if (contentWidth > 640) {
-      document.querySelector('#content')!.setAttribute('style', `min-height: ${height}px`);
-      if (document.querySelector('#Conference')) {
-        document.querySelector('#Conference')!.setAttribute('style', `min-height: ${height}px`);
+      contentRef.value.style.minHeight = `${height}px`;
+      if (conferenceRef.value) {
+        conferenceRef.value.style.minHeight = `${height}px`;
       }
     }
   }
-});
+};
+
+onMounted(updateStyles);
+watch(result, updateStyles);
 </script>
 
 <template>
@@ -49,11 +56,11 @@ watch(result, () => {
   </nav>
   <div id="Main">
     <p>{{ title }}</p>
-    <div id="content" v-if="result && result.seasonContents">
+    <div id="content" v-if="result && result.seasonContents" ref="contentRef">
       <div v-if="error">There's an error</div>
       <div v-if="loading">Loading...</div>
 
-      <div id="SeasonLinks" class="DONTPrint">
+      <div id="SeasonLinks" class="DONTPrint" ref="seasonLinksRef">
         <SeasonDates :contents="result.seasonContents" :paramYear="paramYear" :year="year" :sport="sport"></SeasonDates>
       </div>
       <ConferenceList v-if="sport === 'football'" :conference-list="conferenceList" :year="paramYear" />

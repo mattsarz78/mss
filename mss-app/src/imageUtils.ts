@@ -11,6 +11,11 @@ import {
 import { specialCoverageNotes } from './constants/specialCoverageNotes';
 import { syndicationLinks } from './constants/syndicationLinks';
 
+const seasonMap: Record<string, string> = {
+  '2020r': '2020',
+  '2021s': '2020'
+};
+
 export const formatNetworkJpgAndCoverage = (input: string, season: string): string => {
   const networks = input.split(',');
   const imagesString: string[] = [];
@@ -32,14 +37,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
       const imageArray = imagesForUrls.filter((x) => imageHyperlink.includes(x.link));
 
       if (imageArray.length > 1) {
-        switch (season) {
-          case '2020r':
-          case '2021s':
-            season = '2020';
-            break;
-          default:
-            break;
-        }
+        season = seasonMap[season] || season;
 
         let imageUrl = '';
 
@@ -134,10 +132,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
     textString.push('<br>');
   }
 
-  return (
-    `${combinedImagesString.length ? combinedImagesString.join('') : ''}${textHyperlinksString.length ? textHyperlinksString.join('') : ''}` +
-    `${infoLinksString.length ? infoLinksString.join('') : ''}${textString.length ? textString.join('') : ''}`
-  );
+  return `${combinedImagesString.join('')}${textHyperlinksString.join('')}${infoLinksString.join('')}${textString.join('')}`;
 };
 
 function validateFieldData(networks: string[]): {

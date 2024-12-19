@@ -1,26 +1,30 @@
 <script setup lang="ts">
 import type { ConferenceGame } from '@/graphQl';
 import ConferenceTable from './ConferenceTable.vue';
+import { computed } from 'vue';
 
-const props = defineProps(['games', 'year']);
-const games: ConferenceGame[] = props['games'];
-const year: string = props.year;
+const props = defineProps<{ games: ConferenceGame[]; year: string }>();
+const { games, year } = props;
 
-const networkGames = games.filter((x) => x.mediaIndicator === 'T' && x.tvtype === 'N');
-const payTvGames = games.filter((x) => x.mediaIndicator === 'T' && (x.tvtype === 'NC' || x.tvtype === 'C'));
-const secondaryPayTvGames = games.filter((x) => x.mediaIndicator === 'T' && x.tvtype === 'RS');
-const navyAacGames = games.filter((x) => x.mediaIndicator === 'T' && x.tvtype === 'NV');
-const armyAacGames = games.filter((x) => x.mediaIndicator === 'T' && x.tvtype === 'AR');
-const memberRetained = games.filter(
-  (x) => (x.mediaIndicator === 'W' || x.mediaIndicator === 'T') && x.tvtype === 'R' && x.conference === 'Big 12'
+const networkGames = computed(() => games.filter((x) => x.mediaIndicator === 'T' && x.tvtype === 'N'));
+const payTvGames = computed(() => games.filter((x) => x.mediaIndicator === 'T' && (x.tvtype === 'NC' || x.tvtype === 'C')));
+const secondaryPayTvGames = computed(() => games.filter((x) => x.mediaIndicator === 'T' && x.tvtype === 'RS'));
+const navyAacGames = computed(() => games.filter((x) => x.mediaIndicator === 'T' && x.tvtype === 'NV'));
+const armyAacGames = computed(() => games.filter((x) => x.mediaIndicator === 'T' && x.tvtype === 'AR'));
+const memberRetained = computed(() =>
+  games.filter(
+    (x) => (x.mediaIndicator === 'W' || x.mediaIndicator === 'T') && x.tvtype === 'R' && x.conference === 'Big 12'
+  )
 );
-const regional = games.filter(
-  (x) =>
-    (x.mediaIndicator === 'T' && x.tvtype === 'R' && x.conference !== 'Big 12') ||
-    (x.conference === 'Big 12' && (year === '2021r' || parseInt(year) < 2012))
+const regional = computed(() =>
+  games.filter(
+    (x) =>
+      (x.mediaIndicator === 'T' && x.tvtype === 'R' && x.conference !== 'Big 12') ||
+      (x.conference === 'Big 12' && (year === '2021r' || parseInt(year) < 2012))
+  )
 );
-const tbdGames = games.filter((x) => x.mediaIndicator === 'T' && !x.tvtype);
-const internetGames = games.filter((x) => x.mediaIndicator === 'W' && x.tvtype !== 'R');
+const tbdGames = computed(() => games.filter((x) => x.mediaIndicator === 'T' && !x.tvtype));
+const internetGames = computed(() => games.filter((x) => x.mediaIndicator === 'W' && x.tvtype !== 'R'));
 </script>
 
 <template>

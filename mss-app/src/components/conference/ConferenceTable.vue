@@ -3,11 +3,22 @@ import type { ConferenceGame } from '@/graphQl';
 import { formatGame, formatTime } from '../../utils';
 import { formatNetworkJpgAndCoverage } from '../../imageUtils';
 import { DateTime } from 'luxon';
+import { computed } from 'vue';
 
-const props = defineProps(['games', 'year']);
-const games: ConferenceGame[] = props['games'];
-const year: string = props['year'];
-</script>
+const props = defineProps<{ games: ConferenceGame[]; year: string }>();
+const { games, year } = props;
+
+const formattedGames = computed(() =>
+  games.map(game => ({
+    ...game,
+    formattedNetwork: formatNetworkJpgAndCoverage(game.network!, year),
+    formattedTime: {
+      day: DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('cccc'),
+      date: DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('LL/dd'),
+      time: formatTime(game.timeWithOffset!)
+    }
+  }))
+);</script>
 
 <template>
   <table class="noTVTable">
@@ -17,7 +28,7 @@ const year: string = props['year'];
         <th>Network</th>
         <th>Time</th>
       </tr>
-      <tr v-for="(game, index) of games" :key="index">
+      <tr v-for="(game, index) of formattedGames" :key="index">
         <td class="game">
           <template v-if="game.gameTitle">
             <b><i>{{ game.gameTitle }}</i></b><br />
@@ -29,11 +40,9 @@ const year: string = props['year'];
           <template v-else> {{ formatGame(game) }} </template>
           <template v-if="game.location">(at {{ game.location }})</template>
         </td>
-        <td class="network" v-html="formatNetworkJpgAndCoverage(game.network!, year)" />
+        <td class="network" v-html="game.formattedNetwork" />
         <td class="time">
-          {{ DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('cccc') }}<br />{{
-            DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('LL/dd')
-          }}<br />{{ formatTime(game.timeWithOffset!) }}
+          {{ game.formattedTime.day }}<br />{{ game.formattedTime.date }}<br />{{ game.formattedTime.time }}
         </td>
       </tr>
     </tbody>

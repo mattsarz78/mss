@@ -13,18 +13,18 @@ export const getNoTvGames = async (
   context: IContext
 ): Promise<NoTvGame[] | string> => {
   try {
-    return (await context.services[FootballServiceKey].getNoTvGames(args.input)).map((result: any) => {
-      return {
-        gameTitle: result.GameTitle,
-        visitingTeam: result.VisitingTeam,
-        homeTeam: result.HomeTeam,
-        location: result.Location,
-        conference: result.Conference,
-        tvOptions: result.TVOptions,
-        timeWithOffset: DateTime.fromJSDate(result.TimeWithOffset as Date).toISODate(),
-        fcs: result.FCS
-      } as NoTvGame;
-    });
+    const results = await context.services[FootballServiceKey].getNoTvGames(args.input);
+
+    return results.map((result: any) => ({
+      gameTitle: result.GameTitle,
+      visitingTeam: result.VisitingTeam,
+      homeTeam: result.HomeTeam,
+      location: result.Location,
+      conference: result.Conference,
+      tvOptions: result.TVOptions,
+      timeWithOffset: DateTime.fromJSDate(result.TimeWithOffset as Date).toISODate()!,
+      fcs: result.FCS
+    }));
   } catch (err: unknown) {
     return (err as Error).message;
   }

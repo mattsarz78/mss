@@ -6,13 +6,19 @@ export const CommonServiceKey = Symbol.for('ICommonService');
 
 export interface ICommonService extends DatabaseService<ICommonService> {
   getTvGames(request: TvGamesInput): Promise<(Football | Basketball)[]>;
-  getDailyTvGames(request: any): Promise<(Football | Basketball)[]>;
+  getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(Football | Basketball)[]>;
+}
+
+export interface GetDailyTvGamesRequest {
+  sport: string;
+  startDate: Date;
+  endDate: Date;
 }
 
 export class CommonService implements ICommonService {
   constructor(private client: PrismaClient | Prisma.TransactionClient) {}
 
-  public getDailyTvGames(request: any): Promise<(Football | Basketball)[]> {
+  public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(Football | Basketball)[]> {
     const criteria = {
       where: {
         MediaIndicator: {
@@ -25,20 +31,25 @@ export class CommonService implements ICommonService {
       },
       orderBy: [
         {
-          TimeWithOffset: 'asc'
+          TimeWithOffset: Prisma.SortOrder.asc
         },
         {
-          ListOrder: 'asc'
+          ListOrder: Prisma.SortOrder.asc
         }
       ]
-    } as any;
+    };
 
-    return request.sport === 'football'
-      ? this.client.football.findMany(criteria)
-      : this.client.basketball.findMany(criteria);
+    try {
+      return request.sport === 'football'
+        ? await this.client.football.findMany(criteria)
+        : await this.client.basketball.findMany(criteria);
+    } catch (error) {
+      console.error('Error fetching daily TV games:', error);
+      throw error;
+    }
   }
 
-  public getTvGames(request: TvGamesInput): Promise<(Football | Basketball)[]> {
+  public async getTvGames(request: TvGamesInput): Promise<(Football | Basketball)[]> {
     const criteria = {
       where: {
         Week: request.week,
@@ -49,20 +60,25 @@ export class CommonService implements ICommonService {
       },
       orderBy: [
         {
-          TimeWithOffset: 'asc'
+          TimeWithOffset: Prisma.SortOrder.asc
         },
         {
-          ListOrder: 'asc'
+          ListOrder: Prisma.SortOrder.asc
         }
       ]
-    } as any;
+    };
 
-    return request.sport === 'football'
-      ? this.client.football.findMany(criteria)
-      : this.client.basketball.findMany(criteria);
+    try {
+      return request.sport === 'football'
+        ? await this.client.football.findMany(criteria)
+        : await this.client.basketball.findMany(criteria);
+    } catch (error) {
+      console.error('Error fetching TV games:', error);
+      throw error;
+    }
   }
 
-  public transaction(client: Prisma.TransactionClient) {
+  public transaction(client: Prisma.TransactionClient): CommonService {
     return new CommonService(client);
   }
 }

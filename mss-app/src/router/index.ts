@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/HomeView.vue';
-import Copyright from '../views/CopyrightView.vue';
-import Archive from '../views/ArchiveView.vue';
-import Season from '../views/SeasonView.vue';
-import ConferenceGameList from '../views/ConferenceGames.vue';
-import TvWindowsView from '../views/TvWindowsView.vue';
-import WeeklyScheduleView from '../views/WeeklyScheduleView.vue';
-import WeeklyTextScheduleView from '../views/WeeklyTextScheduleView.vue';
-import DailyScheduleView from '../views/DailyScheduleView.vue';
-import DailyTextScheduleView from '../views/DailyTextScheduleView.vue';
+const Home = () => import('../views/HomeView.vue');
+const Copyright = () => import('../views/CopyrightView.vue');
+const Archive = () => import('../views/ArchiveView.vue');
+const Season = () => import('../views/SeasonView.vue');
+const ConferenceGameList = () => import('../views/ConferenceGames.vue');
+const TvWindowsView = () => import('../views/TvWindowsView.vue');
+const WeeklyScheduleView = () => import('../views/WeeklyScheduleView.vue');
+const WeeklyTextScheduleView = () => import('../views/WeeklyTextScheduleView.vue');
+const DailyScheduleView = () => import('../views/DailyScheduleView.vue');
+const DailyTextScheduleView = () => import('../views/DailyTextScheduleView.vue');
 import { getConferenceCasingBySlug } from '@/utils';
 
 const router = createRouter({

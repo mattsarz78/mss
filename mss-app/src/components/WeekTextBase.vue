@@ -4,12 +4,15 @@ import { adjustNavBar } from '@/utils';
 import WeekTextTable from './WeekTextTable.vue';
 import type { TvGame } from '@/graphQl';
 
-const props = defineProps(['tvGames', 'isBowlWeek', 'isMbkPostseason', 'showPpvColumn', 'season']);
-const season = props['season'] as string;
-const isBowlWeek = props['isBowlWeek'] as boolean;
-const isMbkPostseason = props['isMbkPostseason'] as boolean;
-const showPpvColumn = props['showPpvColumn'] as boolean;
-const tvGames = props['tvGames'] as TvGame[];
+const props = defineProps<{
+  tvGames: TvGame[];
+  isBowlWeek: boolean;
+  isMbkPostseason: boolean;
+  showPpvColumn: boolean;
+  season: string;
+}>();
+
+const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, season } = props;
 
 onMounted(() => {
   adjustNavBar();
