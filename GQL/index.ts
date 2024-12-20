@@ -1,5 +1,4 @@
-import express, { json } from 'express';
-import type { Request } from 'express';
+import express, { json, type Request } from 'express';
 import cors from 'cors';
 import { ApolloServer } from '@apollo/server';
 import { loadSchemaSync } from '@graphql-tools/load';
@@ -20,20 +19,20 @@ import { RsnListService, RsnListServiceKey } from './database/rsnList';
 
 const app = express();
 
-app.use('*', cors({ origin: '*' }));
+app.use(cors({ origin: '*' }));
 
-app.use('*', json());
+app.use(json());
 
-async function startServer(server: any) {
+async function startServer() {
   const db = new PrismaClient();
 
-  const databaseServices: Partial<DatabaseServices> = {};
-  databaseServices[AvailableTvServiceKey] = new AvailableTvService(db);
-  databaseServices[FootballServiceKey] = new FootballService(db);
-  databaseServices[CommonServiceKey] = new CommonService(db);
-  databaseServices[WeeklyDatesServiceKey] = new WeeklyDatesService(db);
-  databaseServices[RsnListServiceKey] = new RsnListService(db);
-
+  const databaseServices: Partial<DatabaseServices> = {
+    [AvailableTvServiceKey]: new AvailableTvService(db),
+    [FootballServiceKey]: new FootballService(db),
+    [CommonServiceKey]: new CommonService(db),
+    [WeeklyDatesServiceKey]: new WeeklyDatesService(db),
+    [RsnListServiceKey]: new RsnListService(db)
+  };
   const gqlSchema = loadSchemaSync('./schemas/*.graphql', {
     loaders: [new GraphQLFileLoader()]
   });
@@ -42,10 +41,12 @@ async function startServer(server: any) {
   const resolversArray = loadFilesSync('./resolvers/**/*.resolvers.ts');
   const resolvers = mergeResolvers(resolversArray);
 
+  const httpServer = http.createServer(app);
+
   const apolloServer = new ApolloServer<IContext>({
     typeDefs,
     resolvers,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer: server })],
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     hideSchemaDetailsFromClientErrors: true
   });
 
@@ -62,17 +63,18 @@ async function startServer(server: any) {
     })
   );
 
-  await new Promise<void>((resolve) => server.listen({ port: 8020 }, resolve));
+  httpServer.listen(8020, () => {
+    console.log(`Server is running on http://localhost:8020/graphql`);
+  });
 
-  console.log('Started!');
+  process.on('SIGTERM', () => {
+    httpServer.close(() => {
+      console.log('Server closed');
+    });
+  });
 }
 
-const httpServer = http.createServer(app);
-
-try {
-  startServer(httpServer);
-} catch (e: unknown) {
-  throw e;
-}
-
-process.on('SIGTERM', () => httpServer.close());
+startServer().catch((error) => {
+  console.error('Error starting server:', error);
+  process.exit(1);
+});

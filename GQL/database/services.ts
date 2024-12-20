@@ -18,20 +18,19 @@ export type DatabaseServices = {
 };
 
 export const getDatabaseServices = (services: Partial<DatabaseServices>): DatabaseServices => {
-  if (
-    services[AvailableTvServiceKey] &&
-    services[FootballServiceKey] &&
-    services[WeeklyDatesServiceKey] &&
-    services[CommonServiceKey] &&
-    services[RsnListServiceKey]
-  ) {
-    return Object.assign(services, {
-      [AvailableTvServiceKey]: services[AvailableTvServiceKey],
-      [FootballServiceKey]: services[FootballServiceKey],
-      [WeeklyDatesServiceKey]: services[WeeklyDatesServiceKey],
-      [CommonServiceKey]: services[CommonServiceKey],
-      [RsnListServiceKey]: services[RsnListServiceKey]
-    });
+  const requiredServices = [
+    AvailableTvServiceKey,
+    FootballServiceKey,
+    WeeklyDatesServiceKey,
+    CommonServiceKey,
+    RsnListServiceKey
+  ];
+
+  for (const serviceKey of requiredServices) {
+    if (!services[serviceKey as keyof DatabaseServices]) {
+      throw new Error(`Missing service: ${String(serviceKey)}`);
+    }
   }
-  throw new Error("Can't find all services");
+
+  return services as DatabaseServices;
 };
