@@ -7,7 +7,7 @@
     "startDev": "nodemon",
     "prismaGen": "prisma generate",
     "prismaFormat": "prisma format",
-    "build": "docker buildx build . -t gql:latest",
+    "build": "docker buildx build --no-cache . -t gql:latest",
     "dockerRun": "docker run --name gql -p 8020:8020 mattsarz78/graphql:latest",
     "tagImage": "docker tag gql:latest mattsarz78/graphql:latest",
     "pushImage": "docker push mattsarz78/graphql:latest",
