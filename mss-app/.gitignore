@@ -30,5 +30,5 @@ stats.html
 
 *.tsbuildinfo
 
-Config
+# Config
 .env
