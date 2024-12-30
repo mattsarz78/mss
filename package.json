@@ -11,6 +11,6 @@
     "install:web": "cd mss-app && npm ci"
   },
   "dependencies": {
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.1"
   }
 }
