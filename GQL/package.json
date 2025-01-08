@@ -14,7 +14,7 @@
     "pullImage": "docker pull mattsarz78/graphql:latest"
   },
   "dependencies": {
-    "@apollo/server": "^4.11.2",
+    "@apollo/server": "^4.11.3",
     "@prisma/client": "^6.1.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
