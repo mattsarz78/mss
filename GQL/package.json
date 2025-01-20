@@ -32,7 +32,7 @@
     "@graphql-tools/merge": "^9.0.17",
     "@types/cors": "^2.8.17",
     "@types/luxon": "^3.4.2",
-    "@types/node": "^22.10.6",
+    "@types/node": "^22.10.7",
     "nodemon": "^3.1.9",
     "prettier": "3.4.2",
     "prisma": "^6.2.1",
