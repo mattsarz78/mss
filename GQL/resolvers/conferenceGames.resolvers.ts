@@ -34,7 +34,7 @@ export const conferenceGamesResolver = async (
       tvtype: conferenceGame.TVType?.trim(),
       conference: conferenceGame.Conference?.trim()
     }));
-    
+
     return conferenceGames;
   } catch (err: unknown) {
     return (err as Error).message;
