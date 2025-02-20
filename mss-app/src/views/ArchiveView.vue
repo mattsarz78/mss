@@ -18,6 +18,11 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
       <div id="Links">
         <RouterLink to="/">Home</RouterLink><br />
         <br />
+        <RouterLink to="/season/football/2021s">2021 Football - Spring FCS only</RouterLink><br />
+        <RouterLink to="/season/football/2020r">2020 Football - Revised</RouterLink><br />
+        <RouterLink to="/season/football/2020">2020 Football - Pre-Conference Only Announcements</RouterLink><br />
+        <RouterLink to="/season/basketball/2020-21">2020-21 Men's Basketball</RouterLink><br />
+        <br />
         <div v-for="(season, index) in footballSeasons" :key="index">
           <RouterLink :to="`/season/football/${season}`">{{ season }} Football</RouterLink><br />
           <RouterLink :to="`/season/basketball/${basketballSeasons[index]}`">{{ basketballSeasons[index] }} Men's

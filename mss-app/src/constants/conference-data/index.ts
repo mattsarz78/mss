@@ -19,6 +19,7 @@ import { conferenceData as conferenceData2021 } from './2021';
 import { conferenceData as conferenceData2022 } from './2022';
 import { conferenceData as conferenceData2023 } from './2023';
 import { conferenceData as conferenceData2024 } from './2024';
+import { conferenceData as conferenceData2025 } from './2025';
 
 export const contractData = [
   {
@@ -104,5 +105,9 @@ export const contractData = [
   {
     season: '2024',
     conferenceData: conferenceData2024
+  },
+  {
+    season: '2025',
+    conferenceData: conferenceData2025
   }
 ];

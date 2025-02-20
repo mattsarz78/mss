@@ -26,6 +26,8 @@ const TwitterRetrieval = defineAsyncComponent(() => import('../components/Twitte
     <div><img alt="Matt's College Sports" id="imgtitle" src="/images/logo.jpg" /><br /></div>
     <div id="content" ref="contentRef">
       <div id="Links" ref="linksRef">
+        <RouterLink to="/season/football/2025">2025 Football</RouterLink><br />
+        <br />
         <RouterLink to="/season/football/2024">2024 Football</RouterLink><br />
         <RouterLink to="/season/basketball/2024-25">2024-25 Men's Basketball</RouterLink><br />
         <br />
@@ -37,11 +39,6 @@ const TwitterRetrieval = defineAsyncComponent(() => import('../components/Twitte
         <br />
         <RouterLink to="/season/football/2021">2021 Football</RouterLink><br />
         <RouterLink to="/season/basketball/2021-22">2021-22 Men's Basketball</RouterLink><br />
-        <br />
-        <RouterLink to="/season/football/2021s">2021 Football - Spring FCS only</RouterLink><br />
-        <RouterLink to="/season/football/2020r">2020 Football - Revised</RouterLink><br />
-        <RouterLink to="/season/football/2020">2020 Football - Pre-Conference Only Announcements</RouterLink><br />
-        <RouterLink to="/season/basketball/2020-21">2020-21 Men's Basketball</RouterLink><br />
         <br />
         <RouterLink to="/archive">Archived Seasons</RouterLink>
         <p>

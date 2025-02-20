@@ -292,5 +292,13 @@ export const validSportYears = [
     showPPVColumn: false,
     conferenceListBase: 'ListBase3',
     independents: 'Notre Dame|UMass|UConn'
+  },
+  {
+    season: '2025',
+    hasPostseason: false,
+    hasNoTVGames: true,
+    showPPVColumn: false,
+    conferenceListBase: 'ListBase3',
+    independents: 'Notre Dame|UConn'
   }
 ];
