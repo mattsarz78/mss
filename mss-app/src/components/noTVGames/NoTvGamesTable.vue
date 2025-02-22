@@ -11,43 +11,44 @@ const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD')
 </script>
 
 <template>
-  <p>
+  <div>
     {{ formattedDate }}
-  <table class="noTVTable">
-    <tbody>
-      <tr class="header">
-        <th>Game</th>
-        <th>Conference</th>
-        <th>Television Options</th>
-      </tr>
-      <template v-for="(noTvGameForDate, index) of noTvGamesForDate" :key="index">
-        <tr :class="noTvGameForDate.fcs ? 'fcsgame' : ''">
-          <td class="game">
-            <template v-if="noTvGameForDate.gameTitle">
-              <b><i>{{ noTvGameForDate.gameTitle }}</i></b><br />
-            </template>
-            <template v-if="noTvGameForDate.location">
-              <template v-if="noTvGameForDate.visitingTeam">
-                {{ noTvGameForDate.visitingTeam }} vs. {{ noTvGameForDate.homeTeam }}<br />
-              </template>
-              (at {{ noTvGameForDate.location }})</template>
-            <template v-else>
-              <template v-if="noTvGameForDate.visitingTeam">
-                {{ noTvGameForDate.visitingTeam }} at {{ noTvGameForDate.homeTeam }}<br />
-              </template>
-            </template>
-          </td>
-          <td class="conference">
-            {{ noTvGameForDate.conference }}
-          </td>
-          <td class="telecast">
-            {{ updatedTvOptions(noTvGameForDate) }}
-          </td>
+    <table class="noTVTable">
+      <tbody>
+        <tr class="header">
+          <th>Game</th>
+          <th>Conference</th>
+          <th>Television Options</th>
         </tr>
-      </template>
-    </tbody>
-  </table>
-  </p>
+        <template v-for="(noTvGameForDate, index) of noTvGamesForDate" :key="index">
+          <tr :class="noTvGameForDate.fcs ? 'fcsgame' : ''">
+            <td class="game">
+              <template v-if="noTvGameForDate.gameTitle">
+                <b><i>{{ noTvGameForDate.gameTitle }}</i></b><br />
+              </template>
+              <template v-if="noTvGameForDate.location">
+                <template v-if="noTvGameForDate.visitingTeam">
+                  {{ noTvGameForDate.visitingTeam }} vs. {{ noTvGameForDate.homeTeam }}<br />
+                </template>
+                (at {{ noTvGameForDate.location }})</template>
+              <template v-else>
+                <template v-if="noTvGameForDate.visitingTeam">
+                  {{ noTvGameForDate.visitingTeam }} at {{ noTvGameForDate.homeTeam }}<br />
+                </template>
+              </template>
+            </td>
+            <td class="conference">
+              {{ noTvGameForDate.conference }}
+            </td>
+            <td class="telecast">
+              {{ updatedTvOptions(noTvGameForDate) }}
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+  <br>
 </template>
 
 <style scoped>
