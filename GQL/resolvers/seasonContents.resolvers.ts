@@ -15,10 +15,10 @@ export const getSeasonContents = async (
     const results = await context.services[WeeklyDatesServiceKey].getConferenceGames(input.season);
 
     return results.map((result) => ({
-      week: result.Week,
-      startDate: result.StartDate.toISOString(),
-      endDate: result.EndDate.toISOString(),
-      postseasonInd: result.PostseasonInd
+      week: result.week,
+      startDate: result.startdate?.toISOString() || '',
+      endDate: result.enddate?.toISOString() || '',
+      postseasonInd: result.postseasonind
     }));
   } catch (error: unknown) {
     return (error as Error).message;

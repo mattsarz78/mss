@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { DailyTvGamesInput, TvGame } from '../../__generated__/graphql';
 import { endOfDay, zeroHour } from '../../utils/constants';
 import { CommonServiceKey } from '../../database/common';
-import { Basketball, Football } from '__generated__/prisma';
+import { basketball, football } from '__generated__/prisma';
 
 export type DailyTvGamesArgs = {
   input: DailyTvGamesInput;
@@ -24,18 +24,18 @@ export const getDailyTvGames = async (
       sport: input.sport
     });
 
-    return results.map((result: Football | Basketball) => ({
-      season: result.Season.trim(),
-      gameTitle: result.GameTitle?.trim(),
-      visitingTeam: result.VisitingTeam?.trim().split(',') ?? [],
-      homeTeam: result.HomeTeam?.trim().split(',') ?? [],
-      location: result.Location?.trim(),
-      network: result.Network?.trim(),
-      networkJpg: result.NetworkJPG,
-      coverageNotes: result.CoverageNotes?.trim(),
-      ppv: result.PPV?.trim(),
-      mediaIndicator: result.MediaIndicator.trim(),
-      timeWithOffset: DateTime.fromJSDate(result.TimeWithOffset as Date).toISO()
+    return results.map((result: football | basketball) => ({
+      season: result.season?.trim() ?? '',
+      gameTitle: result.gametitle?.trim() ?? '',
+      visitingTeam: result.visitingteam?.trim().split(',') ?? [],
+      homeTeam: result.hometeam?.trim().split(',') ?? [],
+      location: result.location?.trim() ?? '',
+      network: result.network?.trim() ?? '',
+      networkJpg: result.networkjpg ?? '',
+      coverageNotes: result.coveragenotes?.trim() ?? '',
+      ppv: result.ppv?.trim() ?? '',
+      mediaIndicator: result.mediaindicator?.trim() ?? '',
+      timeWithOffset: DateTime.fromJSDate(result.timewithoffset as Date).toISO() ?? ''
     }));
   } catch (err: unknown) {
     return (err as Error).message;

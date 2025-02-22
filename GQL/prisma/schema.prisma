@@ -4,77 +4,77 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlserver"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model AvailableTV {
-  Season     String  @db.VarChar(10)
-  Conference String  @db.NChar(10)
-  Week       Int     @db.SmallInt
-  TVOptions  String? @db.VarChar(Max)
-
-  @@id([Season, Conference, Week], map: "PK_AvailableTV")
+model football {
+  id             BigInt    @id @default(autoincrement())
+  season         String?
+  gametitle      String?
+  visitingteam   String?
+  hometeam       String?
+  location       String?
+  network        String?
+  networkjpg     String?
+  coveragenotes  String?
+  ppv            String?
+  time           DateTime? @default(dbgenerated("'9999-12-31 00:00:00'::timestamp without time zone")) @db.Timestamp(6)
+  week           Int?      @db.SmallInt
+  listorder      Int?      @db.SmallInt
+  mediaindicator String?   @default("N")
+  conference     String?
+  fcs            String?
+  tvtype         String?
+  timewithoffset DateTime? @default(dbgenerated("'9999-12-31 00:00:00+00'::timestamp with time zone")) @db.Timestamp(6)
 }
 
-model Basketball {
-  ID             BigInt    @id(map: "PK_Basketball") @default(autoincrement())
-  Season         String    @db.NChar(10)
-  GameTitle      String?   @db.VarChar(Max)
-  VisitingTeam   String?   @db.VarChar(Max)
-  HomeTeam       String?   @db.VarChar(Max)
-  Location       String?   @db.VarChar(Max)
-  Network        String?   @db.VarChar(100)
-  NetworkJPG     String?   @db.VarChar(Max)
-  CoverageNotes  String?   @db.VarChar(Max)
-  PPV            String?   @db.VarChar(Max)
-  Time           DateTime? @default(dbgenerated("(9999)/(12))/(31"), map: "DF__Basketball__Time__1273C1CD") @db.DateTime
-  Week           Int       @db.SmallInt
-  ListOrder      Int?      @db.SmallInt
-  MediaIndicator String    @db.Char(1)
-  Conference     String?   @db.Char(20)
-  FCS            String?   @db.Char(1)
-  TVType         String?   @db.Char(2)
-  TimeWithOffset DateTime  @default(dbgenerated("9999-12-31 00:00:00.000 +00:00"), map: "DF__Basketbal__TimeW__0697FACD") @db.DateTimeOffset
+model basketball {
+  id             BigInt    @id
+  season         String?
+  gametitle      String?
+  visitingteam   String?
+  hometeam       String?
+  location       String?
+  network        String?
+  networkjpg     String?
+  coveragenotes  String?
+  ppv            String?
+  time           DateTime? @default(dbgenerated("'9999-12-31 00:00:00'::timestamp without time zone")) @db.Timestamp(6)
+  week           Int?      @db.SmallInt
+  listorder      Int?      @db.SmallInt
+  mediaindicator String?   @default("N")
+  conference     String?
+  fcs            String?
+  tvtype         String?
+  timewithoffset DateTime? @default(dbgenerated("'9999-12-31 00:00:00+00'::timestamp with time zone")) @db.Timestamp(6)
 }
 
-model Football {
-  ID             BigInt    @id(map: "PK_Football") @default(autoincrement())
-  Season         String    @db.VarChar(10)
-  GameTitle      String?   @db.VarChar(Max)
-  VisitingTeam   String?   @db.VarChar(Max)
-  HomeTeam       String?   @db.VarChar(Max)
-  Location       String?   @db.VarChar(Max)
-  Network        String?   @db.VarChar(100)
-  NetworkJPG     String?   @db.VarChar(Max)
-  CoverageNotes  String?   @db.VarChar(Max)
-  PPV            String?   @db.VarChar(Max)
-  Time           DateTime? @default(dbgenerated("(9999)/(12))/(31"), map: "DF__Football__Time__164452B1") @db.DateTime
-  Week           Int       @db.SmallInt
-  ListOrder      Int?      @db.SmallInt
-  MediaIndicator String    @db.Char(1)
-  Conference     String?   @db.Char(20)
-  FCS            String?   @db.Char(1)
-  TVType         String?   @db.Char(2)
-  TimeWithOffset DateTime  @default(dbgenerated("9999-12-31 00:00:00.000 -00:00"), map: "DF__Football__TimeWi__078C1F06") @db.DateTimeOffset
+model availabletv {
+  season     String
+  conference String
+  week       Int     @db.SmallInt
+  tvoptions  String?
+
+  @@id([season, conference, week])
 }
 
-model RSNList {
-  ID           Int     @id(map: "PK_RSNList") @default(autoincrement())
-  Season       String  @db.NChar(10)
-  GameTitle    String? @db.VarChar(Max)
-  VisitingTeam String? @db.VarChar(Max)
-  HomeTeam     String? @db.VarChar(Max)
-  Location     String? @db.VarChar(Max)
-  KeyValue     String  @db.VarChar(2)
+model rsnlist {
+  id           BigInt  @id
+  season       String?
+  gametitle    String?
+  visitingteam String?
+  hometeam     String?
+  location     String?
+  keyvalue     String?
 }
 
-model WeeklyDates {
-  Season        String   @db.VarChar(10)
-  Week          Int
-  StartDate     DateTime @db.DateTime
-  EndDate       DateTime @db.DateTime
-  PostseasonInd String?  @db.VarChar(2)
+model weeklydates {
+  season        String
+  week          Int       @db.SmallInt
+  startdate     DateTime? @db.Timestamp(6)
+  enddate       DateTime? @db.Timestamp(6)
+  postseasonind String?
 
-  @@id([Season, Week], map: "PK_WeeklyDates")
+  @@id([season, week])
 }

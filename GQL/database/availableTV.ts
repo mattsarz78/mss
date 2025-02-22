@@ -1,22 +1,22 @@
 import { AvailableTvInput } from '__generated__/graphql';
-import { Prisma, PrismaClient, AvailableTV } from '../__generated__/prisma';
+import { Prisma, PrismaClient, availabletv } from '../__generated__/prisma';
 import { DatabaseService } from './services';
 
 export const AvailableTvServiceKey = Symbol.for('IAvailableTVService');
 
 export interface IAvailableTvService extends DatabaseService<IAvailableTvService> {
-  getAvailableTv(request: AvailableTvInput): Promise<AvailableTV[]>;
+  getAvailableTv(request: AvailableTvInput): Promise<availabletv[]>;
 }
 
 export class AvailableTvService implements IAvailableTvService {
   constructor(private client: PrismaClient | Prisma.TransactionClient) {}
-  public async getAvailableTv(request: any): Promise<AvailableTV[]> {
+  public async getAvailableTv(request: any): Promise<availabletv[]> {
     try {
-      return await this.client.availableTV.findMany({
+      return await this.client.availabletv.findMany({
         where: {
-          Season: request.season,
-          Conference: request.conference,
-          Week: request.week
+          season: request.season,
+          conference: request.conference,
+          week: request.week
         }
       });
     } catch (error) {

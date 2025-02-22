@@ -1,19 +1,19 @@
-import { Prisma, PrismaClient, RSNList } from '../__generated__/prisma';
+import { Prisma, PrismaClient, rsnlist } from '../__generated__/prisma';
 import { DatabaseService } from './services';
 
 export const RsnListServiceKey = Symbol.for('IRsnListService');
 
 export interface IRsnListService extends DatabaseService<IRsnListService> {
-  getRsnList(request: any): Promise<RSNList[]>;
+  getRsnList(request: any): Promise<rsnlist[]>;
 }
 
 export class RsnListService implements IRsnListService {
   constructor(private client: PrismaClient | Prisma.TransactionClient) {}
-  public async getRsnList(season: string): Promise<RSNList[]> {
+  public async getRsnList(season: string): Promise<rsnlist[]> {
     try {
-      return await this.client.rSNList.findMany({
+      return await this.client.rsnlist.findMany({
         where: {
-          Season: season
+          season: season
         }
       });
     } catch (error) {

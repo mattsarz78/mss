@@ -1,22 +1,22 @@
-import { Prisma, PrismaClient, WeeklyDates } from '../__generated__/prisma';
+import { Prisma, PrismaClient, weeklydates } from '../__generated__/prisma';
 import { DatabaseService } from './services';
 
 export const WeeklyDatesServiceKey = Symbol.for('IWeeklyDatesService');
 
 export interface IWeeklyDatesService extends DatabaseService<IWeeklyDatesService> {
-  getConferenceGames(request: any): Promise<WeeklyDates[]>;
+  getConferenceGames(request: any): Promise<weeklydates[]>;
 }
 
 export class WeeklyDatesService implements IWeeklyDatesService {
   constructor(private client: PrismaClient | Prisma.TransactionClient) {}
-  public async getConferenceGames(season: string): Promise<WeeklyDates[]> {
+  public async getConferenceGames(season: string): Promise<weeklydates[]> {
     try {
-      return await this.client.weeklyDates.findMany({
+      return await this.client.weeklydates.findMany({
         where: {
-          Season: season
+          season: season
         },
         orderBy: {
-          Week: 'asc'
+          week: 'asc'
         }
       });
     } catch (error) {

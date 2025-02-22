@@ -1,12 +1,12 @@
 import { TvGamesInput } from '../__generated__/graphql';
-import { Prisma, PrismaClient, Football, Basketball } from '../__generated__/prisma';
+import { Prisma, PrismaClient, football, basketball } from '../__generated__/prisma';
 import { DatabaseService } from './services';
 
 export const CommonServiceKey = Symbol.for('ICommonService');
 
 export interface ICommonService extends DatabaseService<ICommonService> {
-  getTvGames(request: TvGamesInput): Promise<(Football | Basketball)[]>;
-  getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(Football | Basketball)[]>;
+  getTvGames(request: TvGamesInput): Promise<(football | basketball)[]>;
+  getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(football | basketball)[]>;
 }
 
 export interface GetDailyTvGamesRequest {
@@ -18,23 +18,23 @@ export interface GetDailyTvGamesRequest {
 export class CommonService implements ICommonService {
   constructor(private client: PrismaClient | Prisma.TransactionClient) {}
 
-  public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(Football | Basketball)[]> {
+  public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(football | basketball)[]> {
     const criteria = {
       where: {
-        MediaIndicator: {
+        mediaindicator: {
           in: ['T', 'W']
         },
-        TimeWithOffset: {
+        timewithoffset: {
           lte: request.endDate,
           gte: request.startDate
         }
       },
       orderBy: [
         {
-          TimeWithOffset: Prisma.SortOrder.asc
+          timewithoffset: Prisma.SortOrder.asc
         },
         {
-          ListOrder: Prisma.SortOrder.asc
+          listorder: Prisma.SortOrder.asc
         }
       ]
     };
@@ -49,21 +49,21 @@ export class CommonService implements ICommonService {
     }
   }
 
-  public async getTvGames(request: TvGamesInput): Promise<(Football | Basketball)[]> {
+  public async getTvGames(request: TvGamesInput): Promise<(football | basketball)[]> {
     const criteria = {
       where: {
-        Week: request.week,
-        Season: request.season,
-        MediaIndicator: {
+        week: request.week,
+        season: request.season,
+        mediaindicator: {
           in: ['T', 'W']
         }
       },
       orderBy: [
         {
-          TimeWithOffset: Prisma.SortOrder.asc
+          timewithoffset: Prisma.SortOrder.asc
         },
         {
-          ListOrder: Prisma.SortOrder.asc
+          listorder: Prisma.SortOrder.asc
         }
       ]
     };

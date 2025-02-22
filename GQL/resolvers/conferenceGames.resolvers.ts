@@ -1,9 +1,8 @@
 import { IContext } from '../context';
 import { ConferenceGame, ConferenceGamesInput } from '../__generated__/graphql';
 import { FootballServiceKey } from '../database/football';
-import { Football } from '../__generated__/prisma';
+import { football } from '../__generated__/prisma';
 import { DateTime } from 'luxon';
-import { TimeZoneOffsets } from '../utils/constants';
 
 export type ConferenceGamesArgs = {
   input: ConferenceGamesInput;
@@ -23,16 +22,16 @@ export const conferenceGamesResolver = async (
       )
     );
 
-    const conferenceGames: ConferenceGame[] = conferenceResults.flat().map((conferenceGame: Football) => ({
-      gameTitle: conferenceGame.GameTitle?.trim(),
-      visitingTeam: conferenceGame.VisitingTeam?.trim().split(',') ?? [],
-      homeTeam: conferenceGame.HomeTeam?.trim().split(',') ?? [],
-      location: conferenceGame.Location?.trim(),
-      timeWithOffset: DateTime.fromJSDate(conferenceGame.TimeWithOffset as Date).toISO()!,
-      mediaIndicator: conferenceGame.MediaIndicator.trim(),
-      network: conferenceGame.NetworkJPG?.trim(),
-      tvtype: conferenceGame.TVType?.trim(),
-      conference: conferenceGame.Conference?.trim()
+    const conferenceGames: ConferenceGame[] = conferenceResults.flat().map((conferenceGame: football) => ({
+      gameTitle: conferenceGame.gametitle?.trim() ?? '',
+      visitingTeam: conferenceGame.visitingteam?.trim().split(',') ?? [],
+      homeTeam: conferenceGame.hometeam?.trim().split(',') ?? [],
+      location: conferenceGame.location?.trim() ?? '',
+      timeWithOffset: DateTime.fromJSDate(conferenceGame.timewithoffset as Date).toISO()!,
+      mediaIndicator: conferenceGame.mediaindicator?.trim() ?? '',
+      network: conferenceGame.networkjpg?.trim() ?? '',
+      tvtype: conferenceGame.tvtype?.trim() ?? '',
+      conference: conferenceGame.conference?.trim() ?? ''
     }));
 
     return conferenceGames;
