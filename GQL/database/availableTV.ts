@@ -10,7 +10,7 @@ export interface IAvailableTvService extends DatabaseService<IAvailableTvService
 
 export class AvailableTvService implements IAvailableTvService {
   constructor(private client: PrismaClient | Prisma.TransactionClient) {}
-  public async getAvailableTv(request: any): Promise<availabletv[]> {
+  public async getAvailableTv(request: AvailableTvInput): Promise<availabletv[]> {
     try {
       return await this.client.availabletv.findMany({
         where: {

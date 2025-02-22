@@ -4,7 +4,7 @@ import { DatabaseService } from './services';
 export const WeeklyDatesServiceKey = Symbol.for('IWeeklyDatesService');
 
 export interface IWeeklyDatesService extends DatabaseService<IWeeklyDatesService> {
-  getConferenceGames(request: any): Promise<weeklydates[]>;
+  getConferenceGames(season: string): Promise<weeklydates[]>;
 }
 
 export class WeeklyDatesService implements IWeeklyDatesService {

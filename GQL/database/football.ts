@@ -1,4 +1,4 @@
-import { NoTvGamesInput, TvGamesInput } from '../__generated__/graphql';
+import { NoTvGamesInput } from '../__generated__/graphql';
 import { Prisma, PrismaClient, football } from '../__generated__/prisma';
 import { DatabaseService } from './services';
 
@@ -6,12 +6,23 @@ export const FootballServiceKey = Symbol.for('IFootballService');
 
 export interface IFootballService extends DatabaseService<IFootballService> {
   getConferenceGames(request: GetConferenceGamesRequest): Promise<football[]>;
-  getNoTvGames(request: NoTvGamesInput): Promise<any[]>;
+  getNoTvGames(request: NoTvGamesInput): Promise<NoTVGames[]>;
 }
 
 export interface GetConferenceGamesRequest {
   season: string;
   conference: string;
+}
+
+export interface NoTVGames {
+  gametitle: string | null;
+  visitingteam: string | null;
+  hometeam: string | null;
+  location: string | null;
+  conference: string | null;
+  tvoptions: string | null;
+  timewithoffset: Date | null;
+  fcs: string | null;
 }
 
 export class FootballService implements IFootballService {
@@ -36,7 +47,7 @@ export class FootballService implements IFootballService {
     }
   }
 
-  public async getNoTvGames(request: NoTvGamesInput): Promise<any[]> {
+  public async getNoTvGames(request: NoTvGamesInput): Promise<NoTVGames[]> {
     try {
       return await this.client.$queryRaw`
           SELECT fb.gametitle, fb.visitingteam, fb.hometeam, fb.location, fb.conference, at.tvoptions, fb.timewithoffset, fb.fcs

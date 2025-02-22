@@ -4,7 +4,7 @@ import { DatabaseService } from './services';
 export const RsnListServiceKey = Symbol.for('IRsnListService');
 
 export interface IRsnListService extends DatabaseService<IRsnListService> {
-  getRsnList(request: any): Promise<rsnlist[]>;
+  getRsnList(season: string): Promise<rsnlist[]>;
 }
 
 export class RsnListService implements IRsnListService {

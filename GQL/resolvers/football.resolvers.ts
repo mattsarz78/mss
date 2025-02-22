@@ -15,15 +15,15 @@ export const getNoTvGames = async (
   try {
     const results = await context.services[FootballServiceKey].getNoTvGames(args.input);
 
-    return results.map((result: any) => ({
-      gameTitle: result.gametitle,
-      visitingTeam: result.visitingteam,
-      homeTeam: result.hometeam,
-      location: result.location,
-      conference: result.conference,
-      tvOptions: result.tvoptions,
-      timeWithOffset: DateTime.fromJSDate(result.timewithoffset as Date).toISODate()!,
-      fcs: result.fcs
+    return results.map((result) => ({
+      gameTitle: result.gametitle ?? '',
+      visitingTeam: result.visitingteam ?? '',
+      homeTeam: result.hometeam ?? '',
+      location: result.location ?? '',
+      conference: result.conference ?? '',
+      tvOptions: result.tvoptions ?? '',
+      timeWithOffset: DateTime.fromJSDate(result.timewithoffset!).toISODate()!,
+      fcs: result.fcs ?? ''
     }));
   } catch (err: unknown) {
     return (err as Error).message;
