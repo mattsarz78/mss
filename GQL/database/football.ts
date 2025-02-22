@@ -47,7 +47,7 @@ export class FootballService implements IFootballService {
             AND fb.season = at.season
             AND fb.week = at.week
             AND fb.mediaindicator = 'N'
-          ORDER BY fb.conference`;
+          ORDER BY fb.timewithoffset, fb.conference;`;
     } catch (error) {
       console.error('Error fetching no TV games:', error);
       throw error;

@@ -11,7 +11,8 @@ const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD')
 </script>
 
 <template>
-  {{ formattedDate }}
+  <p>
+    {{ formattedDate }}
   <table class="noTVTable">
     <tbody>
       <tr class="header">
@@ -46,6 +47,7 @@ const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD')
       </template>
     </tbody>
   </table>
+  </p>
 </template>
 
 <style scoped>
