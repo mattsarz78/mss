@@ -59,5 +59,9 @@ export const flexScheduleLinks: FlexScheduleLink[] = [
   {
     season: '2024',
     url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8jWOJf66uR8S0L29uXWpqpwuRLrZ89FGqCIxjhBGQmRLRHCuESfheWGzoBK5TQqlNdxN6nFOUBPrf'
+  },
+  {
+    season: '2025',
+    url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTGCyUtTb43-8LwJ8_GU5cThccSQNCcFaf-mkZTKYTfr6O1K82VpeMcUlx5Qp97maabhkB15XjsS3Be/pubhtml?widget=true&amp;headers=false'
   }
 ];
