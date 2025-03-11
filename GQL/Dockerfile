@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim AS build
+FROM public.ecr.aws/docker/library/node:22.14.0-bookworm-slim AS build
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ RUN npm run prismaGen
 RUN npm run graphQlGen
 RUN npm run prismaFormat
 
-FROM node:20-bookworm-slim
+FROM public.ecr.aws/docker/library/node:22.14.0-bookworm-slim
 
 WORKDIR /app
 # Copy package.json and package-lock.json first to leverage Docker cache

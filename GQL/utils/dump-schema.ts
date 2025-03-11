@@ -1,6 +1,13 @@
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
-import { getIntrospectionQuery, graphql, GraphQLSchema, isSpecifiedDirective, isSpecifiedScalarType, print } from 'graphql';
+import {
+  getIntrospectionQuery,
+  graphql,
+  GraphQLSchema,
+  isSpecifiedDirective,
+  isSpecifiedScalarType,
+  print
+} from 'graphql';
 import fs from 'fs';
 import path from 'path';
 import prettier from 'prettier';
@@ -8,8 +15,6 @@ import prettier from 'prettier';
 const gqlSchema = loadSchemaSync('./schemas/*.graphql', {
   loaders: [new GraphQLFileLoader()]
 });
-
-const destination = './';
 
 function printSchemasWithDirectives(schema: GraphQLSchema) {
   const str = Object.keys(schema.getTypeMap())
@@ -27,10 +32,7 @@ function printSchemasWithDirectives(schema: GraphQLSchema) {
   );
 }
 
-const schemaPath =
-  fs.existsSync(destination) && fs.statSync(destination).isDirectory()
-    ? path.join(destination, 'schema.graphql')
-    : destination;
+const schemaPath = fs.existsSync('./') && fs.statSync('./').isDirectory() ? path.join('./', 'schema.graphql') : './';
 
 if (schemaPath.endsWith('json')) {
   graphql({
