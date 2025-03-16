@@ -10,7 +10,7 @@
     "build": "docker buildx build --no-cache . -t mattsarz78/graphql:latest",
     "lint": "eslint .",
     "dockerRun": "docker run --name gql -p 8020:8020 mattsarz78/graphql:latest",
-    "tagImage": "docker tag gql:latest mattsarz78/graphql:latest",
+    "tagImage": "docker tag mattsarz78/graphql:latest mattsarz78/graphql:latest",
     "pushImage": "docker push mattsarz78/graphql:latest",
     "pullImage": "docker pull mattsarz78/graphql:latest"
   },
