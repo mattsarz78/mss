@@ -23,6 +23,10 @@ app.use(cors({ origin: '*' }));
 
 app.use(json());
 
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 async function startServer() {
   const db = new PrismaClient();
 
