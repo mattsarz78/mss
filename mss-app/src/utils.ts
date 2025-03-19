@@ -20,7 +20,7 @@ export const flexScheduleLink = (year: string): string => {
 };
 
 export const adjustNavBar = (): void => {
-  const widthAddition = window.innerWidth >= 641 ? 20 : 25;
+  const widthAddition = window.innerWidth >= 641 ? 3 : 8;
   const paddingAddition = (document.querySelector('.navbar')?.clientHeight ?? 0) + widthAddition;
 
   document.querySelector('#Main')?.setAttribute('style', `padding-top: ${paddingAddition}px`);
