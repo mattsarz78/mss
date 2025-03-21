@@ -27,7 +27,8 @@
     "vite-plugin-vue-devtools": "^7.7.2",
     "rollup-plugin-visualizer": "^5.14.0",
     "vite-plugin-compression": "^0.5.1",
-    "@tsconfig/node20": "^20.1.4"
+    "@tsconfig/node20": "^20.1.4",
+    "vue-tsc": "^2.2.8"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.11.0",
@@ -39,7 +40,6 @@
     "eslint": "^9.22.0",
     "eslint-plugin-vue": "^10.0.0",
     "prettier": "^3.5.3",
-    "typescript": "~5.8.2",
-    "vue-tsc": "^2.2.8"
+    "typescript": "~5.8.2"
   }
 }
