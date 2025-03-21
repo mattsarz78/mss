@@ -34,6 +34,7 @@ onMounted(() => adjustNavBar());
         <p>There are no televised games at this time</p>
       </template>
       <template v-else>
+        <p><b>All start times displayed are based on your device's location.</b></p>
         <div v-for="(weekDate, index) in datesList" :key="index">
           <WeekGamesTable :season="season" :weekDate="weekDate" :isBowlWeek="isBowlWeek"
             :isMbkPostseason="isMbkPostseason" :showPpvColumn="showPpvColumn"

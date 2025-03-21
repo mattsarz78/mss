@@ -26,7 +26,7 @@ onMounted(() => {
 <template>
   <div id="Main">
     <p id="Directions" class="DONTPrint">
-      Choose your time zone and check the games that you want to print your own customized schedule. If you have trouble
+      All start times displayed are based on your device's location. If you have trouble
       selecting &amp; printing games, please try selecting games, changing your print settings to "Print to PDF", print,
       then open the PDF file and print that.
     </p>
