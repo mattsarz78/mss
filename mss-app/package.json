@@ -26,11 +26,11 @@
     "@vitejs/plugin-vue-jsx": "^4.1.2",
     "vite-plugin-vue-devtools": "^7.7.2",
     "rollup-plugin-visualizer": "^5.14.0",
-    "vite-plugin-compression": "^0.5.1"
+    "vite-plugin-compression": "^0.5.1",
+    "@tsconfig/node20": "^20.1.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.11.0",
-    "@tsconfig/node20": "^20.1.4",
     "@types/luxon": "^3.4.2",
     "@types/node": "^22.13.10",
     "@vue/eslint-config-prettier": "^10.2.0",
