@@ -68,7 +68,7 @@ async function startServer() {
   );
 
   httpServer.listen(8020, () => {
-    console.log(`Server is running on http://localhost:8020/graphql`);
+    console.log(`Server is running`);
   });
 
   process.on('SIGTERM', () => {

@@ -1,5 +1,6 @@
 FROM node:22.14.0-bookworm-slim AS build
 
+ENV NODE_ENV=development
 WORKDIR /app
 
 USER root
@@ -25,10 +26,12 @@ RUN npm run prismaFormat
 FROM node:22.14.0-bookworm-slim AS production
 
 ARG DATABASE_URL
+ARG NODE_ENV
 
 EXPOSE 8020
 
 ENV DATABASE_URL=$DATABASE_URL
+ENV NODE_ENV=production
 
 USER root
 
