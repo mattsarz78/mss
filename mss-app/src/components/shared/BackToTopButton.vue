@@ -1,6 +1,9 @@
 <template>
   <p>
-    <a href="#" id="backToTopBtn">Back to top</a>
+    <a
+      id="backToTopBtn"
+      href="#"
+    >Back to top</a>
   </p>
 </template>
 

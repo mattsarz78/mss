@@ -16,9 +16,16 @@ const filteredGames = computed(() =>
 </script>
 
 <template>
-  <div v-for="({ school, games }, index) in filteredGames" :key="index">
-    <div v-html="getConferenceContractData(school, year)!"></div>
+  <div
+    v-for="({ school, games: filterGames }, index) in filteredGames"
+    :key="index"
+  >
+    <!-- eslint-disable-next-line -->
+    <div v-html="getConferenceContractData(school, year)!" />
     {{ games[0]?.homeTeam[0] }} Telecasts
-    <ConferenceTable :games="games" :year="year" />
+    <ConferenceTable
+      :games="filterGames"
+      :year="year"
+    />
   </div>
 </template>

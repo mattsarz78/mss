@@ -7,5 +7,7 @@ const { content, sport, linkText, year } = props;
 </script>
 
 <template>
-  <RouterLink :to="`/schedule/${sport}/${year}/${content.week}`"> {{ linkText }} </RouterLink><br />
+  <RouterLink :to="`/schedule/${sport}/${year}/${content.week}`">
+    {{ linkText }}
+  </RouterLink><br>
 </template>

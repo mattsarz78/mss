@@ -33,13 +33,25 @@ const toggleNoTV = () => {
 
 <template>
   <div>
-    <input id="btnConferenceGames" type="button" value="Show Non-Televised Games" class="show_hideNoTV"
-      v-on:click="toggleNoTV()" />
+    <input
+      id="btnConferenceGames"
+      type="button"
+      value="Show Non-Televised Games"
+      class="show_hideNoTV"
+      @click="toggleNoTV()"
+    >
     <div class="slidingNoTVDiv">
-      <p v-if="!noTvGames.length">All FBS games scheduled for this week are being televised or shown online</p>
-      <NoTvGamesTable v-for="(noTVDate, index) in datesList" :key="index" :noTvDate="noTVDate" :noTvGamesForDate="noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)
-        " />
-      <br />
+      <p v-if="!noTvGames.length">
+        All FBS games scheduled for this week are being televised or shown online
+      </p>
+      <NoTvGamesTable
+        v-for="(noTVDate, index) in datesList"
+        :key="index"
+        :no-tv-date="noTVDate"
+        :no-tv-games-for-date="noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)
+        "
+      />
+      <br>
     </div>
   </div>
 </template>

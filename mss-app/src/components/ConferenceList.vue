@@ -22,27 +22,57 @@ const wacLink = computed(() => conferenceList === 'ListBase1' ? getConferenceCas
 </script>
 
 <template>
-  <div id="Conference" ref="conferenceRef" class="DONTPrint">
-    <span>By Conference</span><br />
-    <br />
-    <RouterLink :to="`/contract/${accLink?.slug}/${year}`">{{ accLink?.cased }}</RouterLink><br />
+  <div
+    id="Conference"
+    ref="conferenceRef"
+    class="DONTPrint"
+  >
+    <span>By Conference</span><br>
+    <br>
+    <RouterLink :to="`/contract/${accLink?.slug}/${year}`">
+      {{ accLink?.cased }}
+    </RouterLink><br>
     <div v-if="aacLink">
-      <RouterLink :to="`/contract/${aacLink?.slug}/${year}`">{{ aacLink?.cased }}</RouterLink><br />
+      <RouterLink :to="`/contract/${aacLink?.slug}/${year}`">
+        {{ aacLink?.cased }}
+      </RouterLink><br>
     </div>
-    <RouterLink :to="`/contract/${b12Link?.slug}/${year}`">{{ b12Link?.cased }}</RouterLink><br />
+    <RouterLink :to="`/contract/${b12Link?.slug}/${year}`">
+      {{ b12Link?.cased }}
+    </RouterLink><br>
     <template v-if="beastLink">
-      <RouterLink :to="`/contract/${beastLink?.slug}/${year}`">{{ beastLink?.cased }}</RouterLink><br />
+      <RouterLink :to="`/contract/${beastLink?.slug}/${year}`">
+        {{ beastLink?.cased }}
+      </RouterLink><br>
     </template>
-    <RouterLink :to="`/contract/${b1gLink?.slug}/${year}`">{{ b1gLink?.cased }}</RouterLink><br />
-    <RouterLink :to="`/contract/${cusaLink?.slug}/${year}`">{{ cusaLink?.cased }}</RouterLink><br />
-    <RouterLink :to="`/contract/${indLink?.slug}/${year}`">{{ indLink?.cased }}</RouterLink><br />
-    <RouterLink :to="`/contract/${macLink?.slug}/${year}`">{{ macLink?.cased }}</RouterLink><br />
-    <RouterLink :to="`/contract/${mwLink?.slug}/${year}`">{{ mwLink?.cased }}</RouterLink><br />
-    <RouterLink :to="`/contract/${pacLink?.slug}/${year}`">{{ pacLink?.cased }}</RouterLink><br />
-    <RouterLink :to="`/contract/${secLink?.slug}/${year}`">{{ secLink?.cased }}</RouterLink><br />
-    <RouterLink :to="`/contract/${sbcLink?.slug}/${year}`">{{ sbcLink?.cased }}</RouterLink><br />
+    <RouterLink :to="`/contract/${b1gLink?.slug}/${year}`">
+      {{ b1gLink?.cased }}
+    </RouterLink><br>
+    <RouterLink :to="`/contract/${cusaLink?.slug}/${year}`">
+      {{ cusaLink?.cased }}
+    </RouterLink><br>
+    <RouterLink :to="`/contract/${indLink?.slug}/${year}`">
+      {{ indLink?.cased }}
+    </RouterLink><br>
+    <RouterLink :to="`/contract/${macLink?.slug}/${year}`">
+      {{ macLink?.cased }}
+    </RouterLink><br>
+    <RouterLink :to="`/contract/${mwLink?.slug}/${year}`">
+      {{ mwLink?.cased }}
+    </RouterLink><br>
+    <RouterLink :to="`/contract/${pacLink?.slug}/${year}`">
+      {{ pacLink?.cased }}
+    </RouterLink><br>
+    <RouterLink :to="`/contract/${secLink?.slug}/${year}`">
+      {{ secLink?.cased }}
+    </RouterLink><br>
+    <RouterLink :to="`/contract/${sbcLink?.slug}/${year}`">
+      {{ sbcLink?.cased }}
+    </RouterLink><br>
     <template v-if="wacLink">
-      <RouterLink :to="`/contract/wac/${year}`">WAC</RouterLink><br />
+      <RouterLink :to="`/contract/wac/${year}`">
+        WAC
+      </RouterLink><br>
     </template>
   </div>
 </template>

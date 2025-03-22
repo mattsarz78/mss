@@ -15,21 +15,26 @@ const ppvHtml = computed(() => tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.p
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b><i>{{ tvGame.gameTitle }}</i></b><br />
+      <b><i>{{ tvGame.gameTitle }}</i></b><br>
     </template>
-    <template v-if="tvGame.visitingTeam?.length === 0"></template>
+    <template v-if="tvGame.visitingTeam?.length === 0" />
     <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
-      {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
+      {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br>
     </template>
     <template v-else>
+      <!-- eslint-disable-next-line -->
       <div v-html="formatGame(tvGame)" />
     </template>
-    <template v-if="tvGame.location">(at {{ tvGame.location }})</template>
+    <template v-if="tvGame.location">
+      (at {{ tvGame.location }})
+    </template>
   </td>
-  <td class="network" v-html="networkHtml"></td>
+  <!-- eslint-disable-next-line -->
+  <td class="network" v-html="networkHtml" />
+  <!-- eslint-disable-next-line -->
   <td :class="showPPVColumn ? 'coverage' : 'coverageppv'" v-html="coverageHtml" />
-  <td v-if="showPPVColumn" class="ppv" v-html="ppvHtml">
-  </td>
+  <!-- eslint-disable-next-line -->
+  <td v-if="showPPVColumn" class="ppv" v-html="ppvHtml" />
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>

@@ -25,13 +25,21 @@ onMounted(() => {
 
 <template>
   <div id="Main">
-    <p id="Directions" class="DONTPrint">
+    <p
+      id="Directions"
+      class="DONTPrint"
+    >
       All start times displayed are based on your device's location. If you have trouble
       selecting &amp; printing games, please try selecting games, changing your print settings to "Print to PDF", print,
       then open the PDF file and print that.
     </p>
-    <WeekTextTable :season="season" :isBowlWeek="isBowlWeek" :isMbkPostseason="isMbkPostseason"
-      :showPpvColumn="showPpvColumn" :tvGames="tvGames" />
+    <WeekTextTable
+      :season="season"
+      :is-bowl-week="isBowlWeek"
+      :is-mbk-postseason="isMbkPostseason"
+      :show-ppv-column="showPpvColumn"
+      :tv-games="tvGames"
+    />
   </div>
 </template>
 

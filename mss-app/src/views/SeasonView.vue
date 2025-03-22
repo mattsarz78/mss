@@ -50,25 +50,50 @@ watch(result, updateStyles);
   <nav class="navbar DONTPrint">
     <div class="container">
       <div>
-        <RouterLink to="/">Home</RouterLink><br />
+        <RouterLink to="/">
+          Home
+        </RouterLink><br>
       </div>
     </div>
   </nav>
   <div id="Main">
     <p>{{ title }}</p>
-    <div id="content" v-if="result && result.seasonContents" ref="contentRef">
-      <div v-if="error">There's an error</div>
-      <div v-if="loading">Loading...</div>
-
-      <div id="SeasonLinks" class="DONTPrint" ref="seasonLinksRef">
-        <SeasonDates :contents="result.seasonContents" :paramYear="paramYear" :year="year" :sport="sport"></SeasonDates>
+    <div
+      v-if="result && result.seasonContents"
+      id="content"
+      ref="contentRef"
+    >
+      <div v-if="error">
+        There's an error
       </div>
-      <ConferenceList v-if="sport === 'football'" :conference-list="conferenceList" :year="paramYear" />
+      <div v-if="loading">
+        Loading...
+      </div>
+
+      <div
+        id="SeasonLinks"
+        ref="seasonLinksRef"
+        class="DONTPrint"
+      >
+        <SeasonDates
+          :contents="result.seasonContents"
+          :param-year="paramYear"
+          :year="year"
+          :sport="sport"
+        />
+      </div>
+      <ConferenceList
+        v-if="sport === 'football'"
+        :conference-list="conferenceList"
+        :year="paramYear"
+      />
     </div>
     <div style="display: inline-block">
       <p>
-        <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span><a id="HyperLink32"
-          href="mailto:footballsked@gmail.com">Send it here</a>
+        <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span><a
+          id="HyperLink32"
+          href="mailto:footballsked@gmail.com"
+        >Send it here</a>
       </p>
     </div>
     <GoogleSearch />

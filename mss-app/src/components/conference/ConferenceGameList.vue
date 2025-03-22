@@ -30,56 +30,83 @@ const internetGames = computed(() => games.filter((x) => x.mediaIndicator === 'W
 <template>
   <template v-if="networkGames.length">
     <div>Network telecasts</div>
-    <ConferenceTable :games="networkGames" :year="year" />
-    <br />
+    <ConferenceTable
+      :games="networkGames"
+      :year="year"
+    />
+    <br>
   </template>
 
   <template v-if="payTvGames.length">
     <div>Primary National Cable telecasts</div>
-    <ConferenceTable :games="payTvGames" :year="year" />
-    <br />
+    <ConferenceTable
+      :games="payTvGames"
+      :year="year"
+    />
+    <br>
   </template>
 
   <template v-if="secondaryPayTvGames.length">
     <div>Broadly Syndicated and/or Secondary National Cable Telecasts</div>
-    <ConferenceTable :games="secondaryPayTvGames" :year="year" />
-    <br />
+    <ConferenceTable
+      :games="secondaryPayTvGames"
+      :year="year"
+    />
+    <br>
   </template>
 
   <template v-if="navyAacGames.length">
     <div>Navy Telecasts</div>
-    <ConferenceTable :games="navyAacGames" :year="year" />
-    <br />
+    <ConferenceTable
+      :games="navyAacGames"
+      :year="year"
+    />
+    <br>
   </template>
 
   <template v-if="armyAacGames.length">
     <div>Army West Point Telecasts</div>
-    <ConferenceTable :games="armyAacGames" :year="year" />
-    <br />
+    <ConferenceTable
+      :games="armyAacGames"
+      :year="year"
+    />
+    <br>
   </template>
 
   <template v-if="memberRetained.length && (year === '2021r' || parseInt(year) >= 2012)">
     <div>Member Retained Telecasts or Internet Exclusives</div>
-    <ConferenceTable :games="memberRetained" :year="year" />
-    <br />
+    <ConferenceTable
+      :games="memberRetained"
+      :year="year"
+    />
+    <br>
   </template>
 
   <template v-if="regional.length">
     <div>Regional Telecasts</div>
-    <ConferenceTable :games="regional" :year="year" />
-    <br />
+    <ConferenceTable
+      :games="regional"
+      :year="year"
+    />
+    <br>
   </template>
 
   <template v-if="tbdGames.length">
     <div>Network or Platform To Be Determined</div>
-    <ConferenceTable :games="tbdGames" :year="year" />
-    <br />
+    <ConferenceTable
+      :games="tbdGames"
+      :year="year"
+    />
+    <br>
   </template>
 
   <template v-if="internetGames.length">
     <div>Internet Exclusives</div>
-    <ConferenceTable :games="internetGames" :year="year" />
-    <br />
+    <ConferenceTable
+      :games="internetGames"
+      :year="year"
+    />
+    <br>
   </template>
 </template>
 

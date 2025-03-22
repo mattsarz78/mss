@@ -36,10 +36,22 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
       <div class="container">
         <div>
           <span>
-            <RouterLink class="homelink" to="/">Home</RouterLink>
-            <RouterLink class="seasonhome" :to="`/season/football/${year}`">Season Home</RouterLink>
+            <RouterLink
+              class="homelink"
+              to="/"
+            >Home</RouterLink>
+            <RouterLink
+              class="seasonhome"
+              :to="`/season/football/${year}`"
+            >Season Home</RouterLink>
           </span>
-          <RouterLink v-if="flexLink" :to="`/tv-windows/${year}`" target="_blank">Available TV Windows</RouterLink>
+          <RouterLink
+            v-if="flexLink"
+            :to="`/tv-windows/${year}`"
+            target="_blank"
+          >
+            Available TV Windows
+          </RouterLink>
         </div>
       </div>
     </nav>
@@ -51,10 +63,19 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
           NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
           non-conference games fall under the home team's telecast rights.
         </p>
-        <div v-if="conference !== 'independents'" v-html="contractTvData"></div>
-        <IndependentsGameList v-if="conference === 'independents'" :games="result.conferenceGames"
-          :schools="getIndependentSchools(year).split('|')" :year="year" />
-        <ConferenceGameList :year="year" v-else :games="result.conferenceGames" />
+        <!-- eslint-disable-next-line -->
+        <div v-if="conference !== 'independents'" v-html="contractTvData" />
+        <IndependentsGameList
+          v-if="conference === 'independents'"
+          :games="result.conferenceGames"
+          :schools="getIndependentSchools(year).split('|')"
+          :year="year"
+        />
+        <ConferenceGameList
+          v-else
+          :year="year"
+          :games="result.conferenceGames"
+        />
         <p>
           <BackToTopScript />
           <BackToTopButton />
@@ -63,8 +84,12 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
       </div>
     </div>
   </div>
-  <div v-if="loading">{{ cased }} Games Loading...</div>
-  <div v-if="error">There's an error.</div>
+  <div v-if="loading">
+    {{ cased }} Games Loading...
+  </div>
+  <div v-if="error">
+    There's an error.
+  </div>
 </template>
 
 <style scoped>

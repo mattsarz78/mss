@@ -47,33 +47,65 @@ watch(
 
 <template>
   <div>
-    <div v-if="dailyTvGameLoading">Loading {{ sport }} for {{ startDate }}</div>
-    <div v-if="dailyTvGameError">Got a problem. Let Matt know.</div>
+    <div v-if="dailyTvGameLoading">
+      Loading {{ sport }} for {{ startDate }}
+    </div>
+    <div v-if="dailyTvGameError">
+      Got a problem. Let Matt know.
+    </div>
     <div v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
             <span class="blockspan">
-              <RouterLink class="mobilespan" to="/">Home</RouterLink>
-              <RouterLink v-if="season" class="mobilespan" :to="`/season/${sport}/${season}`">Season Home </RouterLink>
+              <RouterLink
+                class="mobilespan"
+                to="/"
+              >Home</RouterLink>
+              <RouterLink
+                v-if="season"
+                class="mobilespan"
+                :to="`/season/${sport}/${season}`"
+              >Season Home </RouterLink>
             </span>
             <span class="blockspan">
-              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">
+              <RouterLink
+                v-if="flexLink"
+                class="mobilespan"
+                :to="`/tv-windows/${paramYear}`"
+                target="_blank"
+              >
                 Available TV Windows</RouterLink>
-              <RouterLink class="mobilespan" :to="`/schedule/${sport}/daily/text`">
+              <RouterLink
+                class="mobilespan"
+                :to="`/schedule/${sport}/daily/text`"
+              >
                 Customizable Text-Only Page</RouterLink>
             </span>
-            <br />
-            <div class="filters" v-if="dailyTvGameResult">
-              <input id="btnWebGames" type="button" value="Hide Web Exclusive Games" class="show_hideWeb"
-                v-on:click="adjustWebExclusives()" />
+            <br>
+            <div
+              v-if="dailyTvGameResult"
+              class="filters"
+            >
+              <input
+                id="btnWebGames"
+                type="button"
+                value="Hide Web Exclusive Games"
+                class="show_hideWeb"
+                @click="adjustWebExclusives()"
+              >
             </div>
           </div>
         </div>
       </nav>
       <template v-if="dailyTvGameResult">
-        <WeeklyBase :season="paramYear" :tvGames="dailyTvGameResult.dailyTvGames" :isBowlWeek="false"
-          :isMbkPostseason="false" :showPpvColumn="shouldShowPpvColumn(paramYear)" />
+        <WeeklyBase
+          :season="paramYear"
+          :tv-games="dailyTvGameResult.dailyTvGames"
+          :is-bowl-week="false"
+          :is-mbk-postseason="false"
+          :show-ppv-column="shouldShowPpvColumn(paramYear)"
+        />
         <p>
           <BackToTopScript />
           <BackToTopButton />

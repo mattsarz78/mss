@@ -59,19 +59,37 @@ const isNextWeekBowlWeek = computed(() => isNextWeekBowlGameWeek(sport, seasonCo
 
 <template>
   <div>
-    <div v-if="seasonContentsLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}</div>
-    <div v-if="seasonContentsError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
+    <div v-if="seasonContentsLoading || tvGameLoading">
+      Loading Week {{ week }} for {{ paramYear }}
+    </div>
+    <div v-if="seasonContentsError || tvGameError">
+      Sorry. Got a bit of a problem. Let Matt know.
+    </div>
     <div v-if="seasonContentsResult && tvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
             <span>
-              <RouterLink class="homelink" to="/">Home</RouterLink>
-              <RouterLink class="seasonhome" :to="`/season/${sport}/${paramYear}`">Season Home </RouterLink>
+              <RouterLink
+                class="homelink"
+                to="/"
+              >Home</RouterLink>
+              <RouterLink
+                class="seasonhome"
+                :to="`/season/${sport}/${paramYear}`"
+              >Season Home </RouterLink>
             </span>
-            <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}`">Weekly Schedule </RouterLink>
-            <br />
-            <div class="pad" v-if="!isMbkPostseason && !isBowlWeek">
+            <RouterLink
+              class="DONTPrint"
+              :to="`/schedule/${sport}/${paramYear}/${week}`"
+            >
+              Weekly Schedule
+            </RouterLink>
+            <br>
+            <div
+              v-if="!isMbkPostseason && !isBowlWeek"
+              class="pad"
+            >
               <template v-if="isWeekOne">
                 <span style="float: left">
                   <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week </RouterLink>
@@ -81,24 +99,46 @@ const isNextWeekBowlWeek = computed(() => isNextWeekBowlGameWeek(sport, seasonCo
                 <span style="float: left">
                   <RouterLink :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`"> Previous Week </RouterLink>
                 </span>
-                <span style="float: right" v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek">
+                <span
+                  v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek"
+                  style="float: right"
+                >
                   <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week </RouterLink>
                 </span>
               </template>
-              <br class="mobilehide" />
+              <br class="mobilehide">
             </div>
-            <br />
-            <p id="TextNav" class="DONTPrint">
-              <input type="button" id="ClearAll" value="Clear All Games" @click="clearAllSelectedTextRows"
-                class="inputpad" />
-              <input type="button" id="CheckAll" value="Check All Games" @click="checkAllTextRows" class="inputpad" />
+            <br>
+            <p
+              id="TextNav"
+              class="DONTPrint"
+            >
+              <input
+                id="ClearAll"
+                type="button"
+                value="Clear All Games"
+                class="inputpad"
+                @click="clearAllSelectedTextRows"
+              >
+              <input
+                id="CheckAll"
+                type="button"
+                value="Check All Games"
+                class="inputpad"
+                @click="checkAllTextRows"
+              >
             </p>
           </div>
         </div>
       </nav>
       <template v-if="tvGameResult">
-        <WeekTextBase :season="year" :tvGames="tvGameResult.tvGames" :isBowlWeek="isBowlWeek"
-          :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
+        <WeekTextBase
+          :season="year"
+          :tv-games="tvGameResult.tvGames"
+          :is-bowl-week="isBowlWeek"
+          :is-mbk-postseason="isMbkPostseason"
+          :show-ppv-column="shouldShowPpvColumn(year)"
+        />
         <p>
           <BackToTopScript />
           <BackToTopButton />

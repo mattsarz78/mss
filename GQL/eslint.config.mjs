@@ -5,8 +5,16 @@ import tseslint from 'typescript-eslint';
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   { files: ['**/*.{js,mjs,cjs,ts}'] },
-  { ignores: ['node_modules/**/*','__generated__/**/*','apollo.config.js'] },
-  { languageOptions: { globals: globals.browser } },
+  { ignores: ['node_modules/**/*', '__generated__/**/*', 'apollo.config.js', 'eslint.config.mjs'] },
+  {
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname
+      }
+    }
+  },
   pluginJs.configs.recommended,
-  ...tseslint.configs.recommended
+  ...tseslint.configs.recommendedTypeChecked
 ];

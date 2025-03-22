@@ -28,21 +28,29 @@ const formattedGames = computed(() =>
         <th>Network</th>
         <th>Time</th>
       </tr>
-      <tr v-for="(game, index) of formattedGames" :key="index">
+      <tr
+        v-for="(game, index) of formattedGames"
+        :key="index"
+      >
         <td class="game">
           <template v-if="game.gameTitle">
-            <b><i>{{ game.gameTitle }}</i></b><br />
+            <b><i>{{ game.gameTitle }}</i></b><br>
           </template>
-          <template v-if="game.visitingTeam!.length === 0"></template>
+          <template v-if="game.visitingTeam!.length === 0" />
           <template v-else-if="game.visitingTeam!.length === 1 && game.homeTeam!.length === 1">
             {{ game.visitingTeam![0] }} {{ game.location ? 'vs.' : 'at' }} {{ game.homeTeam![0] }}<br>
           </template>
-          <template v-else> {{ formatGame(game) }} </template>
-          <template v-if="game.location">(at {{ game.location }})</template>
+          <template v-else>
+            {{ formatGame(game) }}
+          </template>
+          <template v-if="game.location">
+            (at {{ game.location }})
+          </template>
         </td>
-        <td class="network" v-html="game.formattedNetwork" />
+        <!-- eslint-disable-next-line -->
+          <td class="network" v-html="game.formattedNetwork" />
         <td class="time">
-          {{ game.formattedTime.day }}<br />{{ game.formattedTime.date }}<br />{{ game.formattedTime.time }}
+          {{ game.formattedTime.day }}<br>{{ game.formattedTime.date }}<br>{{ game.formattedTime.time }}
         </td>
       </tr>
     </tbody>

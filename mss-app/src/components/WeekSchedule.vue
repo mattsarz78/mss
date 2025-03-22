@@ -86,24 +86,47 @@ const isNextWeekBowlWeek = computed(() => isNextWeekBowlGameWeek(sport, seasonCo
     <div v-if="seasonContentsLoading || noTvGamesLoading || tvGameLoading">
       Loading Week {{ week }} for {{ paramYear }}
     </div>
-    <div v-if="seasonContentsError || noTvGamesError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
+    <div v-if="seasonContentsError || noTvGamesError || tvGameError">
+      Sorry. Got a bit of a problem. Let Matt know.
+    </div>
     <div v-if="seasonContentsResult && noTvGamesResult && tvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
             <span class="blockspan">
-              <RouterLink class="mobilespan" to="/">Home</RouterLink>
-              <RouterLink class="mobilespan" :to="`/season/${sport}/${paramYear}`">Season Home </RouterLink>
-              <RouterLink class="mobilespan" v-if="gamesToday" :to="`/schedule/${sport}/daily`">Today's Schedule
+              <RouterLink
+                class="mobilespan"
+                to="/"
+              >Home</RouterLink>
+              <RouterLink
+                class="mobilespan"
+                :to="`/season/${sport}/${paramYear}`"
+              >Season Home </RouterLink>
+              <RouterLink
+                v-if="gamesToday"
+                class="mobilespan"
+                :to="`/schedule/${sport}/daily`"
+              >Today's Schedule
               </RouterLink>
             </span>
             <span class="blockspan">
-              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">Available
+              <RouterLink
+                v-if="flexLink"
+                class="mobilespan"
+                :to="`/tv-windows/${paramYear}`"
+                target="_blank"
+              >Available
                 TV Windows</RouterLink>
-              <RouterLink class="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`">Customizable Text-Only
+              <RouterLink
+                class="mobilespan"
+                :to="`/schedule/${sport}/${paramYear}/${week}/text`"
+              >Customizable Text-Only
                 Page</RouterLink>
             </span>
-            <div class="pad" v-if="!isMbkPostseason && !isBowlWeek">
+            <div
+              v-if="!isMbkPostseason && !isBowlWeek"
+              class="pad"
+            >
               <template v-if="isWeekOne">
                 <span style="float: left">
                   <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}` }">Next Week</RouterLink>
@@ -114,25 +137,45 @@ const isNextWeekBowlWeek = computed(() => isNextWeekBowlGameWeek(sport, seasonCo
                   <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }">Previous Week
                   </RouterLink>
                 </span>
-                <span style="float: right" v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek">
+                <span
+                  v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek"
+                  style="float: right"
+                >
                   <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }">Next Week
                   </RouterLink>
                 </span>
               </template>
-              <br class="mobilehide" />
+              <br class="mobilehide">
             </div>
-            <br />
-            <div class="filters" v-if="tvGameResult">
-              <input v-if="!isBowlWeek && !isMbkPostseason" id="btnWebGames" type="button"
-                value="Hide Web Exclusive Games" class="show_hideWeb" @click="adjustWebExclusives" />
+            <br>
+            <div
+              v-if="tvGameResult"
+              class="filters"
+            >
+              <input
+                v-if="!isBowlWeek && !isMbkPostseason"
+                id="btnWebGames"
+                type="button"
+                value="Hide Web Exclusive Games"
+                class="show_hideWeb"
+                @click="adjustWebExclusives"
+              >
             </div>
           </div>
         </div>
       </nav>
       <template v-if="tvGameResult">
-        <WeeklyBase :season="year" :tvGames="tvGameResult.tvGames" :isBowlWeek="isBowlWeek"
-          :isMbkPostseason="isMbkPostseason" :showPpvColumn="shouldShowPpvColumn(year)" />
-        <NoTvGames v-if="!isBowlWeek && showNoTvGames && noTvGamesResult" :noTvGames="noTvGamesResult?.noTvGames" />
+        <WeeklyBase
+          :season="year"
+          :tv-games="tvGameResult.tvGames"
+          :is-bowl-week="isBowlWeek"
+          :is-mbk-postseason="isMbkPostseason"
+          :show-ppv-column="shouldShowPpvColumn(year)"
+        />
+        <NoTvGames
+          v-if="!isBowlWeek && showNoTvGames && noTvGamesResult"
+          :no-tv-games="noTvGamesResult?.noTvGames"
+        />
         <p>
           <BackToTopScript />
           <BackToTopButton />

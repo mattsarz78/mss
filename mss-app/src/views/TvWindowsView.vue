@@ -20,14 +20,23 @@ onMounted(() => {
     <div class="container">
       <div>
         <span class="blockspan">
-          <RouterLink class="homelink" to="/">Home</RouterLink><br />
-          <RouterLink class="seasonhome" :to="`/season/football/${year}`">Season Home</RouterLink>
+          <RouterLink
+            class="homelink"
+            to="/"
+          >Home</RouterLink><br>
+          <RouterLink
+            class="seasonhome"
+            :to="`/season/football/${year}`"
+          >Season Home</RouterLink>
         </span>
       </div>
     </div>
   </nav>
   <div id="Main">
-    <iframe class="tvFrame" :src="flexLink"></iframe>
+    <iframe
+      class="tvFrame"
+      :src="flexLink"
+    />
     <GoogleSearch />
   </div>
 </template>

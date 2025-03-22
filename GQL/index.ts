@@ -1,4 +1,4 @@
-import express, { json, type Request } from 'express';
+import express, { json } from 'express';
 import cors from 'cors';
 import { ApolloServer } from '@apollo/server';
 import { loadSchemaSync } from '@graphql-tools/load';
@@ -59,11 +59,12 @@ async function startServer() {
   app.use(
     '/graphql',
     expressMiddleware<IContext>(apolloServer, {
-      context: async ({ req }) => ({
-        db,
-        services: getDatabaseServices(databaseServices),
-        request: req as Request
-      })
+      context: async ({ req }) =>
+        Promise.resolve({
+          db,
+          services: getDatabaseServices(databaseServices),
+          request: req
+        })
     })
   );
 

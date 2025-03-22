@@ -9,7 +9,12 @@ const WeekSchedule = defineAsyncComponent(() => import('../components/WeekSchedu
 </script>
 
 <template>
-  <WeekSchedule :week="week" :sport="sport" :paramYear="paramYear" :key="route.fullPath"></WeekSchedule>
+  <WeekSchedule
+    :key="route.fullPath"
+    :week="week"
+    :sport="sport"
+    :param-year="paramYear"
+  />
 </template>
 
 <style scoped>

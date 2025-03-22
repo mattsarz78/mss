@@ -29,38 +29,55 @@ const toggleRow = (event: Event) => {
     <table class="tableborder rowStyle DOPrint">
       <thead>
         <tr class="DOPrint">
-          <th></th>
+          <th />
           <th>Game</th>
           <th>Network</th>
-          <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">PPV</th>
+          <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">
+            PPV
+          </th>
           <th>Time</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="gamerow DONTPrint rowStyle" v-for="(tvGame, index) in tvGames" :key="index">
+        <tr
+          v-for="(tvGame, index) in tvGames"
+          :key="index"
+          class="gamerow DONTPrint rowStyle"
+        >
           <td class="tablecell">
-            <input class="checkBoxRow" v-on:change="toggleRow($event)" type="checkbox" />
+            <input
+              class="checkBoxRow"
+              type="checkbox"
+              @change="toggleRow($event)"
+            >
           </td>
           <td class="tablecell gamecell">
             <template v-if="tvGame.gameTitle">
-              <b><i>{{ tvGame.gameTitle }}</i></b><br />
+              <b><i>{{ tvGame.gameTitle }}</i></b><br>
             </template>
-            <template v-if="tvGame.visitingTeam?.length === 0"></template>
+            <template v-if="tvGame.visitingTeam?.length === 0" />
             <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
-              {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
+              {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br>
             </template>
             <template v-else>
+              <!-- eslint-disable-next-line -->
               <div v-html="formatGame(tvGame)" />
             </template>
-            <template v-if="tvGame.location">(at {{ tvGame.location }})</template>
+            <template v-if="tvGame.location">
+              (at {{ tvGame.location }})
+            </template>
           </td>
+          <!-- eslint-disable-next-line -->
           <td class="tablecell networkcell" v-html="tvGame.network" />
-          <td class="tablecell ppvcell" v-if="showPpvColumn">
+          <td
+            v-if="showPpvColumn"
+            class="tablecell ppvcell"
+          >
             {{ tvGame.ppv === 'X' ? 'PPV' : '' }}
           </td>
           <td class="tablecell timecell">
             <template v-if="formatTime(tvGame.timeWithOffset!) === 'TBA'">
-              <span></span>{{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy') + ' TBA' }}
+              <span />{{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy') + ' TBA' }}
             </template>
             <template v-else>
               {{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy t') }}

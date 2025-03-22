@@ -26,24 +26,36 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
         <th>Game</th>
         <th>Network</th>
         <th>Coverage Notes / Network Streaming</th>
-        <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">PPV</th>
+        <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">
+          PPV
+        </th>
         <th>Time</th>
       </tr>
-      <template v-for="(tvGame, index) in tvGamesForDate" :key="index">
+      <template
+        v-for="(tvGame, index) in tvGamesForDate"
+        :key="index"
+      >
         <template v-if="isBowlWeek || isMbkPostseason">
           <tr>
-            <PostseasonMbkEvent :tvGame="tvGame" :season="season"></PostseasonMbkEvent>
+            <PostseasonMbkEvent
+              :tv-game="tvGame"
+              :season="season"
+            />
           </tr>
         </template>
         <template v-else>
           <tr :class="tvGame.mediaIndicator === 'W' ? 'webGame' : ''">
-            <WeekGameRow :season="season" :showPPVColumn="showPpvColumn" :tvGame="tvGame" />
+            <WeekGameRow
+              :season="season"
+              :show-p-p-v-column="showPpvColumn"
+              :tv-game="tvGame"
+            />
           </tr>
         </template>
       </template>
     </tbody>
   </table>
-  <br />
+  <br>
 </template>
 
 <style scoped>

@@ -8,7 +8,11 @@ const GoogleSearch = defineAsyncComponent(() => import('../components/shared/Goo
 <template>
   <div id="Main">
     <div id="content">
-      <div id="Links"><RouterLink to="/">Home</RouterLink><br /></div>
+      <div id="Links">
+        <RouterLink to="/">
+          Home
+        </RouterLink><br>
+      </div>
       <div>
         <p>Copyright © 2005 MattSarzSports.com</p>
         <p>

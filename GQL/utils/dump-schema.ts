@@ -26,9 +26,9 @@ function printSchemasWithDirectives(schema: GraphQLSchema) {
 
   return schema.getDirectives().reduce(
     (accum, directive) => {
-      return !isSpecifiedDirective(directive) ? (accum += `${print(directive!.astNode!)}\n`) : accum;
+      return !isSpecifiedDirective(directive) ? (accum += `${print(directive.astNode!)}\n`) : accum;
     },
-    str + `${print(schema!.astNode!)}\n`
+    str + `${print(schema.astNode!)}\n`
   );
 }
 
@@ -53,5 +53,8 @@ if (schemaPath.endsWith('json')) {
   const schemaText = printSchemasWithDirectives(gqlSchema);
   prettier
     .format(schemaText, { parser: 'graphql' })
-    .then((prettySchema) => fs.writeFileSync(schemaPath, prettySchema, 'utf-8'));
+    .then((prettySchema) => fs.writeFileSync(schemaPath, prettySchema, 'utf-8'))
+    .catch((error) => {
+      console.error('Error formatting schema: ', error);
+    });
 }
