@@ -9,6 +9,7 @@ export interface IWeeklyDatesService extends DatabaseService<IWeeklyDatesService
 
 export class WeeklyDatesService implements IWeeklyDatesService {
   constructor(private client: PrismaClient | Prisma.TransactionClient) {}
+
   public async getConferenceGames(season: string): Promise<weeklydates[]> {
     try {
       return await this.client.weeklydates.findMany({
@@ -20,11 +21,12 @@ export class WeeklyDatesService implements IWeeklyDatesService {
         }
       });
     } catch (error) {
-      console.error('Error fetching conference games:', error);
+      console.error(`Error fetching conference games for season: ${season}`, error);
       throw error;
     }
   }
-  public transaction(client: Prisma.TransactionClient) {
+
+  public transaction(client: Prisma.TransactionClient): WeeklyDatesService {
     return new WeeklyDatesService(client);
   }
 }

@@ -16,17 +16,13 @@ export interface GetDailyTvGamesRequest {
 }
 
 export class CommonService implements ICommonService {
-  constructor(private client: PrismaClient | Prisma.TransactionClient) {}
+  constructor(private client: PrismaClient) {}
 
-  public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(football | basketball)[]> {
-    const criteria = {
+  private buildCriteria(request: GetDailyTvGamesRequest | TvGamesInput, isDaily: boolean) {
+    const baseCriteria = {
       where: {
         mediaindicator: {
           in: ['T', 'W']
-        },
-        timewithoffset: {
-          lte: request.endDate,
-          gte: request.startDate
         }
       },
       orderBy: [
@@ -38,6 +34,22 @@ export class CommonService implements ICommonService {
         }
       ]
     };
+
+    if (isDaily) {
+      baseCriteria.where['timewithoffset'] = {
+        lte: (request as GetDailyTvGamesRequest).endDate,
+        gte: (request as GetDailyTvGamesRequest).startDate
+      };
+    } else {
+      baseCriteria.where['week'] = (request as TvGamesInput).week;
+      baseCriteria.where['season'] = (request as TvGamesInput).season;
+    }
+
+    return baseCriteria;
+  }
+
+  public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(football | basketball)[]> {
+    const criteria = this.buildCriteria(request, true);
 
     try {
       return request.sport === 'football'
@@ -50,23 +62,7 @@ export class CommonService implements ICommonService {
   }
 
   public async getTvGames(request: TvGamesInput): Promise<(football | basketball)[]> {
-    const criteria = {
-      where: {
-        week: request.week,
-        season: request.season,
-        mediaindicator: {
-          in: ['T', 'W']
-        }
-      },
-      orderBy: [
-        {
-          timewithoffset: Prisma.SortOrder.asc
-        },
-        {
-          listorder: Prisma.SortOrder.asc
-        }
-      ]
-    };
+    const criteria = this.buildCriteria(request, false);
 
     try {
       return request.sport === 'football'
@@ -78,7 +74,7 @@ export class CommonService implements ICommonService {
     }
   }
 
-  public transaction(client: Prisma.TransactionClient): CommonService {
+  public transaction(client: PrismaClient): CommonService {
     return new CommonService(client);
   }
 }

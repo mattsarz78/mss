@@ -20,8 +20,9 @@ export const getSeasonContents = async (
       endDate: result.enddate?.toISOString() || '',
       postseasonInd: result.postseasonind
     }));
-  } catch (error: unknown) {
-    return (error as Error).message;
+  } catch (err: unknown) {
+    console.error(`Error fetching season contents: ${(err as Error).message}`);
+    return (err as Error).message;
   }
 };
 

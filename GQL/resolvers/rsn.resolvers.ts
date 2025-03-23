@@ -1,7 +1,7 @@
 import { RsnListServiceKey } from '../database/rsnList';
 import { IContext } from '../context';
 import { RsnGame, RsnInput } from '../__generated__/graphql';
-import { rsnlist } from '__generated__/prisma';
+import { rsnlist } from '../__generated__/prisma';
 
 export type RsnArgs = {
   input: RsnInput;
@@ -14,8 +14,9 @@ export const getRsnList = async (_1: unknown, { input }: RsnArgs, context: ICont
       ...game,
       KeyValue: game.keyvalue ?? ''
     }));
-  } catch (error: unknown) {
-    return (error as Error).message;
+  } catch (err: unknown) {
+    console.error(`Error fetching RSN list: ${(err as Error).message}`);
+    return (err as Error).message;
   }
 };
 

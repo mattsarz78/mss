@@ -36,6 +36,7 @@ export const conferenceGamesResolver = async (
 
     return conferenceGames;
   } catch (err: unknown) {
+    console.error(`Error fetching conference games: ${(err as Error).message}`);
     return (err as Error).message;
   }
 };

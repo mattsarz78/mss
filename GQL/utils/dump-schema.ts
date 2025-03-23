@@ -12,27 +12,37 @@ import fs from 'fs';
 import path from 'path';
 import prettier from 'prettier';
 
-const gqlSchema = loadSchemaSync('./schemas/*.graphql', {
+const SCHEMA_PATH = './';
+const SCHEMA_FILE = 'schema.graphql';
+const SCHEMA_GLOB = './schemas/*.graphql';
+
+const gqlSchema = loadSchemaSync(SCHEMA_GLOB, {
   loaders: [new GraphQLFileLoader()]
 });
 
-function printSchemasWithDirectives(schema: GraphQLSchema) {
-  const str = Object.keys(schema.getTypeMap())
-    .filter((path) => !path.match(/^__/))
-    .reduce((accum, name) => {
-      const type = schema.getType(name);
-      return !isSpecifiedScalarType(type!) ? (accum += `${print(type!.astNode!)}\n`) : accum;
-    }, '');
+function printSchemasWithDirectives(schema: GraphQLSchema): string {
+  const typeMap = schema.getTypeMap();
+  const typeStrings = Object.keys(typeMap)
+    .filter((typeName) => !typeName.startsWith('__'))
+    .map((typeName) => {
+      const type = typeMap[typeName];
+      return !isSpecifiedScalarType(type) ? print(type.astNode!) : '';
+    })
+    .join('\n');
 
-  return schema.getDirectives().reduce(
-    (accum, directive) => {
-      return !isSpecifiedDirective(directive) ? (accum += `${print(directive.astNode!)}\n`) : accum;
-    },
-    str + `${print(schema.astNode!)}\n`
-  );
+  const directiveStrings = schema
+    .getDirectives()
+    .filter((directive) => !isSpecifiedDirective(directive))
+    .map((directive) => print(directive.astNode!))
+    .join('\n');
+
+  return `${print(schema.astNode!)}\n${typeStrings}\n${directiveStrings}`;
 }
 
-const schemaPath = fs.existsSync('./') && fs.statSync('./').isDirectory() ? path.join('./', 'schema.graphql') : './';
+const schemaPath =
+  fs.existsSync(SCHEMA_PATH) && fs.statSync(SCHEMA_PATH).isDirectory()
+    ? path.join(SCHEMA_PATH, SCHEMA_FILE)
+    : SCHEMA_PATH;
 
 if (schemaPath.endsWith('json')) {
   graphql({
@@ -41,9 +51,9 @@ if (schemaPath.endsWith('json')) {
   }).then(
     async (result) => {
       const prettierResult = await prettier.format(JSON.stringify(result), {
-        parser: 'JSON'
+        parser: 'json'
       });
-      fs.writeFileSync(path.join(schemaPath), prettierResult);
+      fs.writeFileSync(schemaPath, prettierResult);
     },
     (error: unknown) => {
       console.error('Error introspecting schema: ', JSON.stringify(error, null, 2));

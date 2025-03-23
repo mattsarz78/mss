@@ -29,7 +29,14 @@ export const getTvGames = async (
       mediaIndicator: result.mediaindicator?.trim() ?? '',
       timeWithOffset: DateTime.fromJSDate(result.timewithoffset as Date).toISO() ?? ''
     }));
-  } catch (err: unknown) {
-    return (err as Error).message;
+  } catch (error: unknown) {
+    console.error(`Error fetching TV games: ${(error as Error).message}`);
+    return (error as Error).message;
+  }
+};
+
+export default {
+  Query: {
+    tvGames: getTvGames
   }
 };

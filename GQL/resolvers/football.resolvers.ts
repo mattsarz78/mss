@@ -9,23 +9,24 @@ export type NoTvGamesArgs = {
 
 export const getNoTvGames = async (
   _1: unknown,
-  args: NoTvGamesArgs,
+  { input }: NoTvGamesArgs,
   context: IContext
 ): Promise<NoTvGame[] | string> => {
   try {
-    const results = await context.services[FootballServiceKey].getNoTvGames(args.input);
+    const results = await context.services[FootballServiceKey].getNoTvGames(input);
 
     return results.map((result) => ({
-      gameTitle: result.gametitle ?? '',
-      visitingTeam: result.visitingteam ?? '',
-      homeTeam: result.hometeam ?? '',
-      location: result.location ?? '',
-      conference: result.conference ?? '',
-      tvOptions: result.tvoptions ?? '',
+      gameTitle: result.gametitle?.trim() ?? '',
+      visitingTeam: result.visitingteam?.trim() ?? '',
+      homeTeam: result.hometeam?.trim() ?? '',
+      location: result.location?.trim() ?? '',
+      conference: result.conference?.trim() ?? '',
+      tvOptions: result.tvoptions?.trim() ?? '',
       timeWithOffset: DateTime.fromJSDate(result.timewithoffset!).toISODate()!,
-      fcs: result.fcs ?? ''
+      fcs: result.fcs?.trim() ?? ''
     }));
   } catch (err: unknown) {
+    console.error(`Error fetching no TV games: ${(err as Error).message}`);
     return (err as Error).message;
   }
 };

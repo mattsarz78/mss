@@ -18,9 +18,10 @@ export const availableTvResolver = async (
       season: availableTV.season.trim(),
       conference: availableTV.conference.trim(),
       week: availableTV.week,
-      tvOptions: availableTV.tvoptions?.trim()
+      tvOptions: availableTV.tvoptions?.trim() || ''
     }));
   } catch (err: unknown) {
+    console.error(`Error fetching available TV: ${(err as Error).message}`);
     return (err as Error).message;
   }
 };
