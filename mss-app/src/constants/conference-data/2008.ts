@@ -1,4 +1,6 @@
-export const conferenceData = [
+import type { ConferenceData } from './conferenceData';
+
+export const conferenceData: ConferenceData[] = [
   {
     id: 'acc',
     data: '<p>The ACC has contracts with ABC for network TV, ESPN Networks for national cable and Raycom Sports for regional syndication.</p><p>It does not appear that there are any limits/minimums in terms of number of games over a season for the ACC with their national TV contracts. ABC/ESPN/ESPN2 televised a total of 31 regular season games each of the last two seasons, where 2005 had more games on ABC and 2006 had less. The ACC is guaranteed a game on Labor Day by ESPN and is set to appear as many as six times on Thursday nights on ESPN.</p>'

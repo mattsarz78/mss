@@ -2,7 +2,7 @@
 import type { NoTvGame } from '@/graphQl';
 import { DateTime } from 'luxon';
 import NoTvGamesTable from '../noTVGames/NoTvGamesTable.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{ noTvGames: NoTvGame[] }>();
 const { noTvGames } = props;
@@ -16,19 +16,11 @@ const datesList = computed(() => {
   return Array.from(dates);
 });
 
+const showNoTV = ref(false);
+
 const toggleNoTV = () => {
-  const noTVDiv = document.querySelector('.slidingNoTVDiv') as HTMLElement;
-  const button = document.querySelector('#btnConferenceGames') as HTMLInputElement;
-
-  if (noTVDiv.style.display === 'none' || !noTVDiv.style.display) {
-    noTVDiv.style.display = 'block';
-    button.value = 'Hide Non-Televised Games';
-  } else {
-    noTVDiv.style.display = 'none';
-    button.value = 'Show Non-Televised Games';
-  }
+  showNoTV.value = !showNoTV.value;
 };
-
 </script>
 
 <template>
@@ -36,11 +28,14 @@ const toggleNoTV = () => {
     <input
       id="btnConferenceGames"
       type="button"
-      value="Show Non-Televised Games"
+      :value="showNoTV ? 'Hide Non-Televised Games' : 'Show Non-Televised Games'"
       class="show_hideNoTV"
-      @click="toggleNoTV()"
+      @click="toggleNoTV"
     >
-    <div class="slidingNoTVDiv">
+    <div
+      v-show="showNoTV"
+      class="slidingNoTVDiv"
+    >
       <p v-if="!noTvGames.length">
         All FBS games scheduled for this week are being televised or shown online
       </p>
@@ -48,8 +43,7 @@ const toggleNoTV = () => {
         v-for="(noTVDate, index) in datesList"
         :key="index"
         :no-tv-date="noTVDate"
-        :no-tv-games-for-date="noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)
-        "
+        :no-tv-games-for-date="noTvGames.filter((x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate)"
       />
       <br>
     </div>
@@ -58,7 +52,6 @@ const toggleNoTV = () => {
 
 <style scoped>
 .slidingNoTVDiv {
-  display: none;
   padding-top: 10px;
 }
 

@@ -25,16 +25,12 @@ const WeekSchedule = defineAsyncComponent(() => import('../components/WeekSchedu
 
 .network {
   text-align: center;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
+  border: medium solid Gray;
   border-width: thin;
 }
 
 .coverage {
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   empty-cells: show;
   text-align: center;
@@ -43,9 +39,7 @@ const WeekSchedule = defineAsyncComponent(() => import('../components/WeekSchedu
 .time {
   width: 60px;
   text-align: right;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   padding: 2px;
 }
@@ -53,9 +47,7 @@ const WeekSchedule = defineAsyncComponent(() => import('../components/WeekSchedu
 .conference {
   width: 100px;
   text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   padding: 5px;
 }
@@ -63,9 +55,7 @@ const WeekSchedule = defineAsyncComponent(() => import('../components/WeekSchedu
 .telecast {
   width: 400px;
   text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   padding: 5px;
 }

@@ -10,9 +10,7 @@ const flexLink = `${flexScheduleLink(year)}/pubhtml?widget=true&amp;headers=fals
 
 const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
 
-onMounted(() => {
-  adjustNavBar();
-});
+onMounted(adjustNavBar);
 </script>
 
 <template>
@@ -49,16 +47,12 @@ onMounted(() => {
 
 .network {
   text-align: center;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
+  border: medium solid Gray;
   border-width: thin;
 }
 
 .coverage {
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   empty-cells: show;
   text-align: center;
@@ -67,9 +61,7 @@ onMounted(() => {
 .time {
   width: 60px;
   text-align: right;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   padding: 2px;
 }
@@ -77,9 +69,7 @@ onMounted(() => {
 .conference {
   width: 100px;
   text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   padding: 5px;
 }
@@ -87,9 +77,7 @@ onMounted(() => {
 .telecast {
   width: 400px;
   text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   padding: 5px;
 }

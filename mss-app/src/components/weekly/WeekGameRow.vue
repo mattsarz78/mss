@@ -30,11 +30,11 @@ const ppvHtml = computed(() => tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.p
     </template>
   </td>
   <!-- eslint-disable-next-line -->
-  <td class="network" v-html="networkHtml" />
+  <td class="network" v-html="networkHtml"></td>
   <!-- eslint-disable-next-line -->
-  <td :class="showPPVColumn ? 'coverage' : 'coverageppv'" v-html="coverageHtml" />
+  <td :class="showPPVColumn ? 'coverage' : 'coverageppv'" v-html="coverageHtml"></td>
   <!-- eslint-disable-next-line -->
-  <td v-if="showPPVColumn" class="ppv" v-html="ppvHtml" />
+  <td v-if="showPPVColumn" class="ppv" v-html="ppvHtml"></td>
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>
@@ -43,9 +43,7 @@ const ppvHtml = computed(() => tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.p
 <style scoped>
 .game {
   width: 243px;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
+  border: medium solid Gray;
   border-width: thin;
 }
 
@@ -57,26 +55,20 @@ const ppvHtml = computed(() => tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.p
 
 .network {
   text-align: center;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
+  border: medium solid Gray;
   border-width: thin;
 }
 
 .coverage,
 .coverageppv {
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   empty-cells: show;
   text-align: center;
 }
 
 .ppv {
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
+  border: medium solid Gray;
   border-width: thin;
   empty-cells: show;
   text-align: center;
@@ -85,9 +77,7 @@ const ppvHtml = computed(() => tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.p
 .time {
   width: 60px;
   text-align: right;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   padding: 2px;
 }

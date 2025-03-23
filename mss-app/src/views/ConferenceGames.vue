@@ -26,7 +26,6 @@ const { result, loading, error } = useQuery<{ conferenceGames: ConferenceGame[] 
 });
 
 const BackToTopScript = defineAsyncComponent(() => import('../components/shared/BackToTopScript.vue'));
-
 const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
 </script>
 

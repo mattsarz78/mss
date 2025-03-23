@@ -40,9 +40,7 @@ const coverageHtml = computed(() => tvGame.coverageNotes ? formatNetworkJpgAndCo
 <style scoped>
 .game {
   width: 243px;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
+  border: medium solid Gray;
   border-width: thin;
 }
 
@@ -53,16 +51,12 @@ const coverageHtml = computed(() => tvGame.coverageNotes ? formatNetworkJpgAndCo
 
 .network {
   text-align: center;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
+  border: medium solid Gray;
   border-width: thin;
 }
 
 .coverage {
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   empty-cells: show;
   text-align: center;
@@ -71,9 +65,7 @@ const coverageHtml = computed(() => tvGame.coverageNotes ? formatNetworkJpgAndCo
 .time {
   width: 60px;
   text-align: right;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
+  border: medium solid Gray;
   border-width: thin;
   padding: 2px;
 }

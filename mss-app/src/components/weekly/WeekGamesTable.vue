@@ -16,46 +16,49 @@ const props = defineProps<{
 
 const { weekDate, tvGamesForDate, isMbkPostseason, isBowlWeek, showPpvColumn, season } = props;
 
-const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD'));</script>
+const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD'));
+</script>
 
 <template>
-  {{ formattedDate }}
-  <table class="noTVTable">
-    <tbody>
-      <tr class="header">
-        <th>Game</th>
-        <th>Network</th>
-        <th>Coverage Notes / Network Streaming</th>
-        <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">
-          PPV
-        </th>
-        <th>Time</th>
-      </tr>
-      <template
-        v-for="(tvGame, index) in tvGamesForDate"
-        :key="index"
-      >
-        <template v-if="isBowlWeek || isMbkPostseason">
-          <tr>
-            <PostseasonMbkEvent
-              :tv-game="tvGame"
-              :season="season"
-            />
+  <div>
+    <h3>{{ formattedDate }}</h3>
+    <table class="noTVTable">
+      <thead>
+        <tr class="header">
+          <th>Game</th>
+          <th>Network</th>
+          <th>Coverage Notes / Network Streaming</th>
+          <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">
+            PPV
+          </th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template
+          v-for="(tvGame, index) in tvGamesForDate"
+          :key="index"
+        >
+          <tr :class="{ webGame: tvGame.mediaIndicator === 'W' }">
+            <template v-if="isBowlWeek || isMbkPostseason">
+              <PostseasonMbkEvent
+                :tv-game="tvGame"
+                :season="season"
+              />
+            </template>
+            <template v-else>
+              <WeekGameRow
+                :season="season"
+                :show-p-p-v-column="showPpvColumn"
+                :tv-game="tvGame"
+              />
+            </template>
           </tr>
         </template>
-        <template v-else>
-          <tr :class="tvGame.mediaIndicator === 'W' ? 'webGame' : ''">
-            <WeekGameRow
-              :season="season"
-              :show-p-p-v-column="showPpvColumn"
-              :tv-game="tvGame"
-            />
-          </tr>
-        </template>
-      </template>
-    </tbody>
-  </table>
-  <br>
+      </tbody>
+    </table>
+    <br>
+  </div>
 </template>
 
 <style scoped>

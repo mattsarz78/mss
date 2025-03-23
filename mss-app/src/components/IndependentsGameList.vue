@@ -7,12 +7,19 @@ import { computed } from 'vue';
 const props = defineProps<{ games: ConferenceGame[]; schools: string[]; year: string }>();
 const { games, schools, year } = props;
 
+const filterGamesBySchool = (school: string) => {
+  return games.filter(game => game.conference === school);
+};
+
 const filteredGames = computed(() =>
-  schools.map(school => ({
-    school,
-    games: games.filter(game => game.conference === school)
-  }))
+  schools
+    .map(school => {
+      const schoolGames = filterGamesBySchool(school);
+      return schoolGames.length > 0 ? { school, games: schoolGames } : null;
+    })
+    .filter(game => game !== null)
 );
+
 </script>
 
 <template>
@@ -22,7 +29,7 @@ const filteredGames = computed(() =>
   >
     <!-- eslint-disable-next-line -->
     <div v-html="getConferenceContractData(school, year)!" />
-    {{ games[0]?.homeTeam[0] }} Telecasts
+    {{ filterGames[0]?.homeTeam[0] }} Telecasts
     <ConferenceTable
       :games="filterGames"
       :year="year"

@@ -88,7 +88,7 @@ watch(result, updateStyles);
         :year="paramYear"
       />
     </div>
-    <div style="display: inline-block">
+    <div class="inline-block">
       <p>
         <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span><a
           id="HyperLink32"
@@ -115,8 +115,8 @@ watch(result, updateStyles);
   padding-top: 29px;
 }
 
-.navbar {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+.inline-block {
+  display: inline-block;
 }
 
 @media all and (min-width: 641px) {

@@ -6,8 +6,7 @@ const linksRef = ref<HTMLElement | null>(null);
 const contentRef = ref<HTMLElement | null>(null);
 const facebookRef = ref<HTMLElement | null>(null);
 
-onMounted(async () => {
-  await nextTick();
+const adjustLayout = () => {
   if (linksRef.value && contentRef.value && facebookRef.value) {
     const linksHeight = linksRef.value.clientHeight;
     const windowWidth = window.innerWidth - 6;
@@ -15,6 +14,11 @@ onMounted(async () => {
     contentRef.value.style.height = `${linksHeight}px`;
     facebookRef.value.style.maxWidth = `${windowWidth}px`;
   }
+};
+
+onMounted(async () => {
+  await nextTick();
+  adjustLayout();
 });
 
 const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));

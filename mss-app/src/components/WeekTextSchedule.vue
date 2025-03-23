@@ -1,20 +1,9 @@
 <script setup lang="ts">
-import { type TvGame, type WeekInfo, SEASON_CONTENTS, TV_GAMES } from '@/graphQl';
-import {
-  clearAllSelectedTextRows,
-  getBasketballSeason,
-  isBasketballPostseason,
-  isBowlGameWeek,
-  isFirstWeek,
-  isNextWeekBasketballPostseason,
-  isNextWeekBowlGameWeek,
-  shouldShowPpvColumn,
-  checkAllTextRows
-} from '@/utils';
-import { useQuery } from '@vue/apollo-composable';
-import { defineAsyncComponent, computed } from 'vue';
+import { defineAsyncComponent } from 'vue';
 import WeekTextBase from './WeekTextBase.vue';
 import BackToTopButton from '../components/shared/BackToTopButton.vue';
+import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
+import { clearAllSelectedTextRows, checkAllTextRows, shouldShowPpvColumn } from '@/utils';
 
 const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('../components/shared/BackToTopScript.vue'));
@@ -22,39 +11,22 @@ const BackToTopScript = defineAsyncComponent(() => import('../components/shared/
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
 
-const weekInt = parseInt(week);
-const year = computed(() => (sport === 'football' ? paramYear : getBasketballSeason(paramYear)));
-
-const nextWeek = computed(() => weekInt + 1);
-const previousWeek = computed(() => weekInt - 1);
-
 const {
-  result: tvGameResult,
-  loading: tvGameLoading,
-  error: tvGameError
-} = useQuery<{ tvGames: TvGame[] }>(TV_GAMES, {
-  input: {
-    season: year.value,
-    sport,
-    week: weekInt
-  }
-});
-
-const {
-  result: seasonContentsResult,
-  loading: seasonContentsLoading,
-  error: seasonContentsError
-} = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, {
-  input: {
-    season: year.value
-  }
-});
-
-const isBowlWeek = computed(() => isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
-const isMbkPostseason = computed(() => isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
-const isWeekOne = computed(() => isFirstWeek(seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
-const isNextWeekMbkPostseason = computed(() => isNextWeekBasketballPostseason(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
-const isNextWeekBowlWeek = computed(() => isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents!, weekInt)); //eslint-disable-line
+  tvGameResult,
+  tvGameLoading,
+  tvGameError,
+  seasonContentsResult,
+  seasonContentsLoading,
+  seasonContentsError,
+  year,
+  nextWeek,
+  previousWeek,
+  isBowlWeek,
+  isMbkPostseason,
+  isWeekOne,
+  isNextWeekMbkPostseason,
+  isNextWeekBowlWeek
+} = useWeekTextSchedule(sport, paramYear, week);
 </script>
 
 <template>
@@ -77,7 +49,7 @@ const isNextWeekBowlWeek = computed(() => isNextWeekBowlGameWeek(sport, seasonCo
               <RouterLink
                 class="seasonhome"
                 :to="`/season/${sport}/${paramYear}`"
-              >Season Home </RouterLink>
+              >Season Home</RouterLink>
             </span>
             <RouterLink
               class="DONTPrint"
@@ -92,18 +64,18 @@ const isNextWeekBowlWeek = computed(() => isNextWeekBowlGameWeek(sport, seasonCo
             >
               <template v-if="isWeekOne">
                 <span style="float: left">
-                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week </RouterLink>
+                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week</RouterLink>
                 </span>
               </template>
               <template v-else>
                 <span style="float: left">
-                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`"> Previous Week </RouterLink>
+                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`">Previous Week</RouterLink>
                 </span>
                 <span
                   v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek"
                   style="float: right"
                 >
-                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week </RouterLink>
+                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week</RouterLink>
                 </span>
               </template>
               <br class="mobilehide">

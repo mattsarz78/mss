@@ -1,42 +1,17 @@
 <script setup lang="ts">
-import { DAILY_TV_GAMES, type TvGame } from '@/graphQl';
+import { useDailyTvTextGames } from '@/composables/useDailyTvTextGames';
 import { shouldShowPpvColumn, clearAllSelectedTextRows, checkAllTextRows } from '@/utils';
-import { useQuery } from '@vue/apollo-composable';
-import { DateTime } from 'luxon';
-import { watch } from 'vue';
-import { useRoute } from 'vue-router';
 import WeekTextBase from '../components/WeekTextBase.vue';
 
-const route = useRoute();
-const { sport } = route.params as { sport: string; };
-
-const startDate = DateTime.now().setZone('America/New_York').toISODate();
-
 const {
-  result: dailyTvGameResult,
-  loading: dailyTvGameLoading,
-  error: dailyTvGameError
-} = useQuery<{ dailyTvGames: TvGame[] }>(DAILY_TV_GAMES, {
-  input: {
-    sport,
-    startDate
-  }
-});
-
-let season: string = '';
-let paramYear: string = '';
-
-watch(
   dailyTvGameResult,
-  (dailyTvGameValue) => {
-    if (dailyTvGameValue?.dailyTvGames.length) {
-      paramYear = dailyTvGameValue?.dailyTvGames[0].season ?? '';
-      season =
-        sport === 'football' ? (paramYear ?? null) : `${paramYear.substring(0, 4)}-${paramYear.substring(5)}`;
-    }
-  },
-  { immediate: true }
-);
+  dailyTvGameLoading,
+  dailyTvGameError,
+  season,
+  paramYear,
+  sport,
+  startDate
+} = useDailyTvTextGames();
 </script>
 
 <template>

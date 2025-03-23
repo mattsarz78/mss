@@ -18,27 +18,30 @@ const formattedGames = computed(() =>
       time: formatTime(game.timeWithOffset!)
     }
   }))
-);</script>
+);
+</script>
 
 <template>
   <table class="noTVTable">
-    <tbody>
+    <thead>
       <tr class="header">
         <th>Game</th>
         <th>Network</th>
         <th>Time</th>
       </tr>
+    </thead>
+    <tbody>
       <tr
-        v-for="(game, index) of formattedGames"
+        v-for="(game, index) in formattedGames"
         :key="index"
       >
         <td class="game">
           <template v-if="game.gameTitle">
             <b><i>{{ game.gameTitle }}</i></b><br>
           </template>
-          <template v-if="game.visitingTeam!.length === 0" />
-          <template v-else-if="game.visitingTeam!.length === 1 && game.homeTeam!.length === 1">
-            {{ game.visitingTeam![0] }} {{ game.location ? 'vs.' : 'at' }} {{ game.homeTeam![0] }}<br>
+          <template v-if="game.visitingTeam.length === 0" />
+          <template v-else-if="game.visitingTeam.length === 1 && game.homeTeam.length === 1">
+            {{ game.visitingTeam[0] }} {{ game.location ? 'vs.' : 'at' }} {{ game.homeTeam[0] }}<br>
           </template>
           <template v-else>
             {{ formatGame(game) }}
@@ -48,7 +51,7 @@ const formattedGames = computed(() =>
           </template>
         </td>
         <!-- eslint-disable-next-line -->
-          <td class="network" v-html="game.formattedNetwork" />
+        <td class="network" v-html="game.formattedNetwork" />
         <td class="time">
           {{ game.formattedTime.day }}<br>{{ game.formattedTime.date }}<br>{{ game.formattedTime.time }}
         </td>
@@ -61,9 +64,7 @@ const formattedGames = computed(() =>
 .game,
 .time,
 .network {
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
+  border: medium solid Gray;
   border-width: thin;
 }
 
@@ -83,9 +84,7 @@ const formattedGames = computed(() =>
 
 .noTVTable {
   background-color: #fff;
-  border-color: #fff;
-  border-style: ridge;
-  border-width: 2px;
+  border: 2px ridge #fff;
   border-spacing: 1px;
   border-collapse: collapse;
   font-family: Arial;

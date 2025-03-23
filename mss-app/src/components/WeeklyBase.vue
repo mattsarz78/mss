@@ -24,6 +24,14 @@ const datesList = computed(() => {
   return Array.from(dates);
 });
 
+const tvGamesByDate = computed(() => {
+  const gamesByDate: Record<string, TvGame[]> = {};
+  datesList.value.forEach(date => {
+    gamesByDate[date] = tvGames.filter(game => DateTime.fromISO(game.timeWithOffset!).toLocal().toISODate() === date);
+  });
+  return gamesByDate;
+});
+
 onMounted(() => adjustNavBar());
 </script>
 
@@ -45,7 +53,7 @@ onMounted(() => adjustNavBar());
             :is-bowl-week="isBowlWeek"
             :is-mbk-postseason="isMbkPostseason"
             :show-ppv-column="showPpvColumn"
-            :tv-games-for-date="tvGames.filter((x) => DateTime.fromISO(x.timeWithOffset!).toLocal().toISODate() === weekDate)"
+            :tv-games-for-date="tvGamesByDate[weekDate]"
           />
         </div>
       </template>

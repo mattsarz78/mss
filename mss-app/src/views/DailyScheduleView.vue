@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { DAILY_TV_GAMES, type TvGame } from '@/graphQl';
-import { flexScheduleLink, shouldShowPpvColumn, adjustWebExclusives } from '@/utils';
-import { useQuery } from '@vue/apollo-composable';
-import { DateTime } from 'luxon';
-import { defineAsyncComponent, watch } from 'vue';
+import { defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import BackToTopButton from '../components/shared/BackToTopButton.vue';
 import WeeklyBase from '../components/WeeklyBase.vue';
+import { useDailyTvGames } from '@/composables/useDailyTvGames';
+import { shouldShowPpvColumn, adjustWebExclusives } from '@/utils';
 
 const route = useRoute();
 const { sport } = route.params as { sport: string; };
-
-const startDate = DateTime.now().setZone('America/New_York').toISODate();
 
 const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('../components/shared/BackToTopScript.vue'));
@@ -19,30 +15,11 @@ const BackToTopScript = defineAsyncComponent(() => import('../components/shared/
 const {
   result: dailyTvGameResult,
   loading: dailyTvGameLoading,
-  error: dailyTvGameError
-} = useQuery<{ dailyTvGames: TvGame[] }>(DAILY_TV_GAMES, {
-  input: {
-    sport,
-    startDate
-  }
-});
-
-let season: string = '';
-let paramYear: string = '';
-let flexLink: string = '';
-
-watch(
-  dailyTvGameResult,
-  (dailyTvGameValue) => {
-    if (dailyTvGameValue?.dailyTvGames.length) {
-      paramYear = dailyTvGameValue?.dailyTvGames[0].season ?? '';
-      season =
-        sport === 'football' ? (paramYear ?? null) : `${paramYear.substring(0, 4)}-${paramYear.substring(5)}`;
-      flexLink = flexScheduleLink(paramYear);
-    }
-  },
-  { immediate: true }
-);
+  error: dailyTvGameError,
+  season,
+  flexLink,
+  startDate
+} = useDailyTvGames(sport);
 </script>
 
 <template>
@@ -72,7 +49,7 @@ watch(
               <RouterLink
                 v-if="flexLink"
                 class="mobilespan"
-                :to="`/tv-windows/${paramYear}`"
+                :to="`/tv-windows/${season}`"
                 target="_blank"
               >
                 Available TV Windows</RouterLink>
@@ -100,11 +77,11 @@ watch(
       </nav>
       <template v-if="dailyTvGameResult">
         <WeeklyBase
-          :season="paramYear"
+          :season="season"
           :tv-games="dailyTvGameResult.dailyTvGames"
           :is-bowl-week="false"
           :is-mbk-postseason="false"
-          :show-ppv-column="shouldShowPpvColumn(paramYear)"
+          :show-ppv-column="shouldShowPpvColumn(season)"
         />
         <p>
           <BackToTopScript />

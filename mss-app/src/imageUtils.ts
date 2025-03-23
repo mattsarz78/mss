@@ -26,111 +26,38 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
 
   const { images, imageHyperlinks, textHyperlinks, infoLinks, strings } = validateFieldData(networks);
 
-  if (images.length) {
-    images.forEach((image) => {
-      imagesString.push(`<img class="imageDimensions" src="/images/${image}" />`);
-    });
-  }
-
-  if (imageHyperlinks.length) {
-    imageHyperlinks.forEach((imageHyperlink) => {
-      const imageArray = imagesForUrls.filter((x) => imageHyperlink.includes(x.link));
-
-      if (imageArray.length > 1) {
-        season = seasonMap[season] || season;
-
-        let imageUrl = '';
-
-        for (const image of imageArray) {
-          let doNotUse = false;
-
-          if (image.yearEnd) {
-            const years = image.yearEnd.split('|');
-            const yearToCompare = years.find((x) => x.length === season.length)![0];
-            doNotUse = parseInt(season) > parseInt(yearToCompare);
-            imageUrl = doNotUse ? '' : image.image;
-            if (imageUrl !== '') {
-              break;
-            }
-          } else {
-            imageUrl = image.image;
-          }
-        }
-
-        imageHyperlinkString.push(
-          `<a href="${imageHyperlink}" target="_blank" ><img class="imageDimensions" src="/images/${imageUrl}" /></a>`
-        );
-      } else {
-        imageHyperlinkString.push(
-          `<a href="${imageHyperlink}" target="_blank" ><img class="imageDimensions" src="/images/${imageArray[0].image}" /></a>`
-        );
-      }
-    });
-  }
-
-  const combinedImagesString = imagesString.concat(imageHyperlinkString);
-
-  let counter = 0;
-  combinedImagesString.forEach((_, index) => {
-    counter++;
-    if (counter % 3 === 0 && (counter === 4 || counter >= 7)) {
-      combinedImagesString.splice(index, 0, '<br>');
-    }
+  images.forEach((image) => {
+    imagesString.push(`<img class="imageDimensions" src="/images/${image}" />`);
   });
 
-  if (textHyperlinks.length) {
-    textHyperlinks.forEach((textHyperlink, index) => {
-      if (index % 2 !== 0) {
-        textHyperlinksString.push('<br>');
-      }
-      textHyperlinksString.push(`<a class="linkblock" href="${textHyperlink}" target="_blank">Live Video</a>`);
-    });
-  }
+  imageHyperlinks.forEach((imageHyperlink) => {
+    const imageArray = imagesForUrls.filter((x) => imageHyperlink.includes(x.link));
+    const imageUrl = getImageUrl(imageArray, season);
+    imageHyperlinkString.push(
+      `<a href="${imageHyperlink}" target="_blank" ><img class="imageDimensions" src="/images/${imageUrl}" /></a>`
+    );
+  });
 
-  if (strings.length) {
-    strings.forEach((str, index) => {
-      if (index % 2 !== 0) {
-        textString.push('<br>');
-      }
-      textString.push(str);
-    });
-  }
+  const combinedImagesString = imagesString.concat(imageHyperlinkString);
+  addLineBreaks(combinedImagesString);
 
-  if (infoLinks.length) {
-    infoLinks.forEach((infoLink, index) => {
-      let infoLinkValue = 'Live Video';
-      if (isSyndAffiliates(infoLink)) infoLinkValue = AFFILIATES;
-      else if (isCoverageMap(infoLink)) infoLinkValue = COVERAGEMAP;
-      else if (isThe506CoverageMap(infoLink)) infoLinkValue = COVERAGEMAP506;
-      else if (isGamePlanMap(infoLink)) infoLinkValue = BLACKOUTMAP;
-      else if (isBTN(infoLink) || isP12Networks(infoLink)) infoLinkValue = CHANNELFINDER;
-      else if (isSpecialCoverageNote(infoLink)) infoLinkValue = SPECIALCOVERAGENOTE;
-      if (index % 2 !== 0) {
-        infoLinksString.push('<br>');
-      }
-      infoLinksString.push(`<a class="linkblock" href="${infoLink}" target="_blank">${infoLinkValue}</a>`);
-    });
-  }
+  textHyperlinks.forEach((textHyperlink, index) => {
+    if (index % 2 !== 0) textHyperlinksString.push('<br>');
+    textHyperlinksString.push(`<a class="linkblock" href="${textHyperlink}" target="_blank">Live Video</a>`);
+  });
 
-  if (
-    combinedImagesString.length &&
-    !combinedImagesString.join('').endsWith('<br>') &&
-    (textHyperlinksString.length || textString.length || infoLinksString.length)
-  ) {
-    combinedImagesString.push('<br>');
-  }
+  strings.forEach((str, index) => {
+    if (index % 2 !== 0) textString.push('<br>');
+    textString.push(str);
+  });
 
-  if (textHyperlinksString.length && !textHyperlinksString.join('').endsWith('<br>')) {
-    textHyperlinksString.push('<br>');
-  }
+  infoLinks.forEach((infoLink, index) => {
+    const infoLinkValue = getInfoLinkValue(infoLink);
+    if (index % 2 !== 0) infoLinksString.push('<br>');
+    infoLinksString.push(`<a class="linkblock" href="${infoLink}" target="_blank">${infoLinkValue}</a>`);
+  });
 
-  if (infoLinksString.length && !infoLinksString.join('').endsWith('<br>')) {
-    infoLinksString.push('<br>');
-  }
-
-  if (textString.length && !textString.join('').endsWith('<br>')) {
-    textString.push('<br>');
-  }
+  ensureLineBreaks(combinedImagesString, textHyperlinksString, textString, infoLinksString);
 
   return `${combinedImagesString.join('')}${textHyperlinksString.join('')}${infoLinksString.join('')}${textString.join('')}`;
 };
@@ -168,7 +95,7 @@ function isImage(network: string): boolean {
   );
 }
 
-function isHyperlink(network: string) {
+function isHyperlink(network: string): boolean {
   return network.includes('http') || network.includes('.com');
 }
 
@@ -205,6 +132,7 @@ function isSyndAffiliates(network: string): boolean {
 function IsASNLink(network: string): boolean {
   return syndicationLinks.some((x) => x === network);
 }
+
 function isCoverageMap(network: string): boolean {
   return (
     coverageMapLinks.some((x) => x === network) ||
@@ -214,6 +142,7 @@ function isCoverageMap(network: string): boolean {
     network.includes('https://espnpressroom.com/us/files/2013/08/CF_Oct29_Maps_MZ.pdf')
   );
 }
+
 function isGamePlanMap(network: string): boolean {
   return (
     network.includes('http://assets.espn.go.com/gameplan/') ||
@@ -222,9 +151,11 @@ function isGamePlanMap(network: string): boolean {
     network.includes('blackout')
   );
 }
+
 function isSpecialCoverageNote(network: string): boolean {
   return specialCoverageNotes.some((x) => x === network);
 }
+
 function isThe506CoverageMap(network: string): boolean {
   return network.includes('http://www.the506.com');
 }
@@ -235,4 +166,76 @@ function isBTN(network: string): boolean {
 
 function isP12Networks(network: string): boolean {
   return network.includes('http://pac-12.com/AboutPac-12Enterprises/ChannelFinder.aspx');
+}
+
+function getImageUrl(
+  imageArray: {
+    link: string;
+    image: string;
+    yearEnd?: string;
+  }[],
+  season: string
+): string {
+  if (imageArray.length > 1) {
+    season = seasonMap[season] || season;
+    for (const image of imageArray) {
+      if (image.yearEnd) {
+        const years = image.yearEnd.split('|');
+        const yearToCompare = years.find((x) => x.length === season.length)![0];
+        if (parseInt(season) <= parseInt(yearToCompare)) {
+          return image.image;
+        }
+      } else {
+        return image.image;
+      }
+    }
+  }
+  return imageArray[0].image;
+}
+
+function addLineBreaks(combinedImagesString: string[]): void {
+  let counter = 0;
+  combinedImagesString.forEach((_, index) => {
+    counter++;
+    if (counter % 3 === 0 && (counter === 4 || counter >= 7)) {
+      combinedImagesString.splice(index, 0, '<br>');
+    }
+  });
+}
+
+function ensureLineBreaks(
+  combinedImagesString: string[],
+  textHyperlinksString: string[],
+  textString: string[],
+  infoLinksString: string[]
+): void {
+  if (
+    combinedImagesString.length &&
+    !combinedImagesString.join('').endsWith('<br>') &&
+    (textHyperlinksString.length || textString.length || infoLinksString.length)
+  ) {
+    combinedImagesString.push('<br>');
+  }
+
+  if (textHyperlinksString.length && !textHyperlinksString.join('').endsWith('<br>')) {
+    textHyperlinksString.push('<br>');
+  }
+
+  if (infoLinksString.length && !infoLinksString.join('').endsWith('<br>')) {
+    infoLinksString.push('<br>');
+  }
+
+  if (textString.length && !textString.join('').endsWith('<br>')) {
+    textString.push('<br>');
+  }
+}
+
+function getInfoLinkValue(infoLink: string): string {
+  if (isSyndAffiliates(infoLink)) return AFFILIATES;
+  if (isCoverageMap(infoLink)) return COVERAGEMAP;
+  if (isThe506CoverageMap(infoLink)) return COVERAGEMAP506;
+  if (isGamePlanMap(infoLink)) return BLACKOUTMAP;
+  if (isBTN(infoLink) || isP12Networks(infoLink)) return CHANNELFINDER;
+  if (isSpecialCoverageNote(infoLink)) return SPECIALCOVERAGENOTE;
+  return 'Live Video';
 }

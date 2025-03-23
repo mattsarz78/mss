@@ -5,20 +5,32 @@ import { computed } from 'vue';
 const props = defineProps<{ conferenceList: string; year: string }>();
 const { conferenceList, year } = props;
 
-const accLink = getConferenceCasing('acc');
-const aacLink = computed(() => conferenceList === 'ListBase3' ? getConferenceCasing('aac') : undefined);
-const beastLink = computed(() => conferenceList !== 'ListBase3' ? getConferenceCasing('beast') : undefined);
-const b12Link = getConferenceCasing('b12');
-const b1gLink = getConferenceCasing('b1g');
-const cusaLink = getConferenceCasing('cusa');
-const indLink = getConferenceCasing('ind');
-const macLink = getConferenceCasing('mac');
-const mwLink = getConferenceCasing('mw');
-const secLink = getConferenceCasing('sec');
-const sbcLink = getConferenceCasing('sbc');
-const pacLink = computed(() => conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12'));
-const wacLink = computed(() => conferenceList === 'ListBase1' ? getConferenceCasing('wac') : undefined);
+const conferenceLinks = computed(() => {
+  const links = [
+    { key: 'acc', link: getConferenceCasing('acc') },
+    { key: 'b12', link: getConferenceCasing('b12') },
+    { key: 'b1g', link: getConferenceCasing('b1g') },
+    { key: 'cusa', link: getConferenceCasing('cusa') },
+    { key: 'ind', link: getConferenceCasing('ind') },
+    { key: 'mac', link: getConferenceCasing('mac') },
+    { key: 'mw', link: getConferenceCasing('mw') },
+    { key: 'sec', link: getConferenceCasing('sec') },
+    { key: 'sbc', link: getConferenceCasing('sbc') },
+    { key: 'pac', link: conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12') },
+  ];
 
+  if (conferenceList === 'ListBase3') {
+    links.splice(1, 0, { key: 'aac', link: getConferenceCasing('aac') });
+  } else {
+    links.splice(1, 0, { key: 'beast', link: getConferenceCasing('beast') });
+  }
+
+  if (conferenceList === 'ListBase1') {
+    links.push({ key: 'wac', link: getConferenceCasing('wac') });
+  }
+
+  return links;
+});
 </script>
 
 <template>
@@ -27,52 +39,14 @@ const wacLink = computed(() => conferenceList === 'ListBase1' ? getConferenceCas
     ref="conferenceRef"
     class="DONTPrint"
   >
-    <span>By Conference</span><br>
-    <br>
-    <RouterLink :to="`/contract/${accLink?.slug}/${year}`">
-      {{ accLink?.cased }}
-    </RouterLink><br>
-    <div v-if="aacLink">
-      <RouterLink :to="`/contract/${aacLink?.slug}/${year}`">
-        {{ aacLink?.cased }}
+    <span>By Conference</span><br><br>
+    <div
+      v-for="conference in conferenceLinks"
+      :key="conference.key"
+    >
+      <RouterLink :to="`/contract/${conference.link?.slug}/${year}`">
+        {{ conference.link?.cased }}
       </RouterLink><br>
     </div>
-    <RouterLink :to="`/contract/${b12Link?.slug}/${year}`">
-      {{ b12Link?.cased }}
-    </RouterLink><br>
-    <template v-if="beastLink">
-      <RouterLink :to="`/contract/${beastLink?.slug}/${year}`">
-        {{ beastLink?.cased }}
-      </RouterLink><br>
-    </template>
-    <RouterLink :to="`/contract/${b1gLink?.slug}/${year}`">
-      {{ b1gLink?.cased }}
-    </RouterLink><br>
-    <RouterLink :to="`/contract/${cusaLink?.slug}/${year}`">
-      {{ cusaLink?.cased }}
-    </RouterLink><br>
-    <RouterLink :to="`/contract/${indLink?.slug}/${year}`">
-      {{ indLink?.cased }}
-    </RouterLink><br>
-    <RouterLink :to="`/contract/${macLink?.slug}/${year}`">
-      {{ macLink?.cased }}
-    </RouterLink><br>
-    <RouterLink :to="`/contract/${mwLink?.slug}/${year}`">
-      {{ mwLink?.cased }}
-    </RouterLink><br>
-    <RouterLink :to="`/contract/${pacLink?.slug}/${year}`">
-      {{ pacLink?.cased }}
-    </RouterLink><br>
-    <RouterLink :to="`/contract/${secLink?.slug}/${year}`">
-      {{ secLink?.cased }}
-    </RouterLink><br>
-    <RouterLink :to="`/contract/${sbcLink?.slug}/${year}`">
-      {{ sbcLink?.cased }}
-    </RouterLink><br>
-    <template v-if="wacLink">
-      <RouterLink :to="`/contract/wac/${year}`">
-        WAC
-      </RouterLink><br>
-    </template>
   </div>
 </template>

@@ -15,11 +15,13 @@ const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn } = props;
 const toggleRow = (event: Event) => {
   const row = ((event.target as HTMLInputElement).parentElement as HTMLElement).closest('tr');
   if ((event.target as HTMLInputElement).checked) {
-    row?.setAttribute('style', 'background-color: #CCC');
-    row?.setAttribute('class', 'gamerow DOPrint rowstyle');
+    row?.classList.add('DOPrint');
+    row?.classList.remove('DONTPrint');
+    row?.style.setProperty('background-color', '#CCC');
   } else {
-    row?.setAttribute('style', 'background-color: #FFF');
-    row?.setAttribute('class', 'gamerow DONTPrint rowstyle');
+    row?.classList.add('DONTPrint');
+    row?.classList.remove('DOPrint');
+    row?.style.setProperty('background-color', '#FFF');
   }
 };
 </script>
@@ -48,7 +50,7 @@ const toggleRow = (event: Event) => {
             <input
               class="checkBoxRow"
               type="checkbox"
-              @change="toggleRow($event)"
+              @change="toggleRow"
             >
           </td>
           <td class="tablecell gamecell">
@@ -91,9 +93,7 @@ const toggleRow = (event: Event) => {
 
 <style scoped>
 .tablecell {
-  border: medium;
-  border-style: solid;
-  border-color: gray;
+  border: medium solid gray;
   border-width: thin;
 }
 
@@ -122,14 +122,6 @@ const toggleRow = (event: Event) => {
 
 .gamecell {
   width: 250px;
-}
-
-#TextNav {
-  margin: 0;
-}
-
-#Directions {
-  margin-top: 0;
 }
 
 @media all and (min-width: 641px) {

@@ -19,6 +19,21 @@ const lastContent = contents[contents.length - 1];
 const filteredContents = computed(() => contents.filter(x => x.postseasonInd === null));
 const postseasonContents = computed(() => contents.filter(x => x.postseasonInd));
 
+const getLinkText = (content: WeekInfo) => {
+  if (lastContent.week !== content.week) {
+    return `Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd')} to ${DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd')}`;
+  }
+  return 'Bowl Games';
+};
+
+const getPostseasonLinkText = (content: WeekInfo) => {
+  if (content.postseasonInd === 'N') {
+    return 'NCAA Tournament';
+  } else if (content.postseasonInd === 'I') {
+    return 'NIT';
+  }
+  return 'Other Postseason Tournaments';
+};
 </script>
 
 <template>
@@ -31,9 +46,7 @@ const postseasonContents = computed(() => contents.filter(x => x.postseasonInd))
         :year="paramYear"
         :sport="sport"
         :content="content"
-        :link-text="lastContent.week !== content.week
-          ? `Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd')} to ${DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd')}`
-          : 'Bowl Games'"
+        :link-text="getLinkText(content)"
       />
     </template>
   </div>
@@ -42,15 +55,12 @@ const postseasonContents = computed(() => contents.filter(x => x.postseasonInd))
       v-for="(content, index) in filteredContents"
       :key="index"
     >
-      <template v-if="!content.postseasonInd">
-        <WeekLink
-          :sport="sport"
-          :content="content"
-          :year="paramYear"
-          :link-text="`Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd')} to
-                    ${DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd')}`"
-        />
-      </template>
+      <WeekLink
+        :sport="sport"
+        :content="content"
+        :year="paramYear"
+        :link-text="`Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd')} to ${DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd')}`"
+      />
     </template>
     <p v-if="postseasonContents.length">
       <template
@@ -61,11 +71,7 @@ const postseasonContents = computed(() => contents.filter(x => x.postseasonInd))
           :sport="sport"
           :year="paramYear"
           :content="content"
-          :link-text="content.postseasonInd === 'N'
-            ? 'NCAA Tournament'
-            : content.postseasonInd === 'I'
-              ? 'NIT'
-              : 'Other Postseason Tournaments'"
+          :link-text="getPostseasonLinkText(content)"
         />
       </template>
     </p>
@@ -79,8 +85,7 @@ const postseasonContents = computed(() => contents.filter(x => x.postseasonInd))
         :sport="sport"
         :year="paramYear"
         :content="content"
-        :link-text="`Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd')} to
-                    ${DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd')}`"
+        :link-text="`Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd')} to ${DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd')}`"
       />
     </template>
   </div>
