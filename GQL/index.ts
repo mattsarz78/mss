@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from '@apollo/server';
 import { loadSchemaSync } from '@graphql-tools/load';
@@ -21,8 +21,7 @@ const app = express();
 
 app.use(cors({ origin: '*' }));
 
-app.use(json());
-
+app.use(express.json());
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
