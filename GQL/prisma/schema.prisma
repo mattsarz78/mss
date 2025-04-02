@@ -1,6 +1,6 @@
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../__generated__/prisma"
+  provider = "prisma-client-js"
+  output   = "../__generated__/prisma"
 }
 
 datasource db {
@@ -30,7 +30,7 @@ model football {
 }
 
 model basketball {
-  id             BigInt    @id
+  id             BigInt    @id @default(autoincrement())
   season         String?
   gametitle      String?
   visitingteam   String?

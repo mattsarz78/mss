@@ -5,6 +5,7 @@
     "prettier": "prettier --write './**/*.{ts,js,graphql}'",
     "start": "node -r ts-node/register ./index.ts",
     "startDev": "nodemon",
+    "prismaPull": "prisma db pull",
     "prismaGen": "prisma generate",
     "prismaFormat": "prisma format",
     "build": "docker buildx build --no-cache . -t mattsarz78/graphql:latest",
