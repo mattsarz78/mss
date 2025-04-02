@@ -49,6 +49,7 @@ async function startServer() {
   const apolloServer = new ApolloServer<IContext>({
     typeDefs,
     resolvers,
+    introspection: process.env.NODE_ENV !== 'production',
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     hideSchemaDetailsFromClientErrors: true
   });
@@ -57,7 +58,7 @@ async function startServer() {
 
   app.use(
     '/graphql',
-    cors(),
+    cors({ origin: '*' }),
     express.json(),
     expressMiddleware<IContext>(apolloServer, {
       context: async ({ req, res }) =>
