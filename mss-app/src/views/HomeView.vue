@@ -21,8 +21,8 @@ onMounted(async () => {
   adjustLayout();
 });
 
-const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
-const TwitterRetrieval = defineAsyncComponent(() => import('../components/TwitterRetrieval.vue'));
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
+const TwitterRetrieval = defineAsyncComponent(() => import('@/components/TwitterRetrieval.vue'));
 </script>
 
 <template>

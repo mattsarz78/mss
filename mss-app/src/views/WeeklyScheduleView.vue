@@ -4,7 +4,7 @@ import { defineAsyncComponent } from 'vue';
 
 const route = useRoute();
 const { week, sport, year: paramYear } = route.params as { week: string; sport: string; year: string };
-const WeekSchedule = defineAsyncComponent(() => import('../components/WeekSchedule.vue'));
+const WeekSchedule = defineAsyncComponent(() => import('@/components/WeekSchedule.vue'));
 
 </script>
 

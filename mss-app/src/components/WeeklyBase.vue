@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { adjustNavBar } from '@/utils';
+import { adjustNavBar } from '@/domUtils';
 import { DateTime } from 'luxon';
 import { computed, onMounted } from 'vue';
-import WeekGamesTable from '../components/weekly/WeekGamesTable.vue';
+import WeekGamesTable from '@/components/weekly/WeekGamesTable.vue';
 
 const props = defineProps<{
   tvGames: TvGame[];

@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
-import BackToTopButton from '../components/shared/BackToTopButton.vue';
-import WeeklyBase from '../components/WeeklyBase.vue';
+import BackToTopButton from '@/components/shared/BackToTopButton.vue';
+import WeeklyBase from '@/components/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
-import { shouldShowPpvColumn, adjustWebExclusives } from '@/utils';
+import { shouldShowPpvColumn } from '@/conferenceUtils';
+import { adjustWebExclusives } from '@/domUtils';
 
 const route = useRoute();
 const { sport } = route.params as { sport: string; };
 
-const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
-const BackToTopScript = defineAsyncComponent(() => import('../components/shared/BackToTopScript.vue'));
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
+const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 const {
   result: dailyTvGameResult,

@@ -2,7 +2,7 @@
 import { RouterLink } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
 
-const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 </script>
 
 <template>

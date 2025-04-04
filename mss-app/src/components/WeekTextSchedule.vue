@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue';
 import WeekTextBase from './WeekTextBase.vue';
-import BackToTopButton from '../components/shared/BackToTopButton.vue';
+import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
-import { clearAllSelectedTextRows, checkAllTextRows, shouldShowPpvColumn } from '@/utils';
+import { checkAllTextRows, clearAllSelectedTextRows } from '@/domUtils';
+import { shouldShowPpvColumn } from '@/conferenceUtils';
 
-const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
-const BackToTopScript = defineAsyncComponent(() => import('../components/shared/BackToTopScript.vue'));
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
+const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;

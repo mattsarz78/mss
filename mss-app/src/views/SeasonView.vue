@@ -7,7 +7,7 @@ import { conferenceListBase, getBasketballSeason } from '@/utils';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
 
-const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 
 const route = useRoute();
 const sport = route.params.sport as string;

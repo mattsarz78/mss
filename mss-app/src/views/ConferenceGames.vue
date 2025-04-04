@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
-import BackToTopButton from '../components/shared/BackToTopButton.vue';
-import { flexScheduleLink, getConferenceCasingBySlug, getIndependentSchools, getConferenceContractData } from '@/utils';
+import BackToTopButton from '@/components/shared/BackToTopButton.vue';
+import { flexScheduleLink, getIndependentSchools } from '@/utils';
+import { getConferenceCasingBySlug, getConferenceContractData } from '@/conferenceUtils';
 import { CONFERENCE_GAMES, type ConferenceGame } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
@@ -25,8 +26,8 @@ const { result, loading, error } = useQuery<{ conferenceGames: ConferenceGame[] 
   }
 });
 
-const BackToTopScript = defineAsyncComponent(() => import('../components/shared/BackToTopScript.vue'));
-const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
+const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 </script>
 
 <template>

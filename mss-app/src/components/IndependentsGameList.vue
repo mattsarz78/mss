@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ConferenceGame } from '@/graphQl';
-import { getConferenceContractData } from '@/utils';
+import { getConferenceContractData } from '@/conferenceUtils';
 import ConferenceTable from '@/components/conference/ConferenceTable.vue';
 import { computed } from 'vue';
 

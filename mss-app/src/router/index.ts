@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, type RouteLocationNormalizedGeneric } from 'vue-router';
 import { routes } from './routes';
-import { getConferenceCasingBySlug } from '@/utils';
+import { getConferenceCasingBySlug } from '@/conferenceUtils';
 import { DateTime } from 'luxon';
 
 const router = createRouter({
@@ -31,9 +31,10 @@ function generateTitle(title: string, to: RouteLocationNormalizedGeneric): strin
     case 'Contents':
       return createTitle(to);
     case 'TV Windows':
-      return `Football TV Windows for ${to.params.year}`;
+      return `Football TV Windows for ${Array.isArray(to.params.year) ? to.params.year[0] : to.params.year}`;
     case 'Contract':
-      return `${to.params.year} ${getConferenceCasingBySlug(to.params.conference as string)?.cased} Controlled Games`;
+      const year = Array.isArray(to.params.year) ? to.params.year[0] : to.params.year;
+      return `${year} ${getConferenceCasingBySlug(to.params.conference as string)?.cased} Controlled Games`;
     case 'Weekly':
     case 'Weekly Text':
       return generateWeeklyTitle(title, to);
@@ -53,7 +54,7 @@ function createTitle(to: RouteLocationNormalizedGeneric): string {
     sport === 'football'
       ? to.params.year
       : `${(to.params.year as string).substring(0, 4)}-${(to.params.year as string).substring(5, 7)}`;
-  return `${titleYear} ${capitalized} Season`;
+  return `${Array.isArray(titleYear) ? titleYear[0] : titleYear} ${capitalized} Season`;
 }
 
 // Helper function to generate titles for "Weekly" and "Weekly Text"
@@ -62,7 +63,9 @@ function generateWeeklyTitle(title: string, to: RouteLocationNormalizedGeneric):
   const capitalizedSport = `${sport.charAt(0).toUpperCase()}${sport.slice(1)}`;
   const week = to.params.week;
   const year = to.params.year;
-  return `${capitalizedSport} ${title.includes('Text') ? 'Weekly Text Schedule' : 'Weekly Schedule'} for ${year} Week ${week}`;
+  const resolvedYear = Array.isArray(year) ? year[0] : year;
+  const resolvedWeek = Array.isArray(week) ? week[0] : week;
+  return `${capitalizedSport} ${title.includes('Text') ? 'Weekly Text Schedule' : 'Weekly Schedule'} for ${resolvedYear} Week ${resolvedWeek}`;
 }
 
 // Helper function to update meta tags

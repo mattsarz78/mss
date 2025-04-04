@@ -1,33 +1,27 @@
 import { createApp, provide, h } from 'vue';
 import App from './App.vue';
 import router from './router';
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core';
 import { DefaultApolloClient } from '@vue/apollo-composable';
+import { apolloClient } from './apolloClient'; // Import Apollo Client setup
 
-// HTTP connection to the API
-const httpLink = createHttpLink({
-  // You should use an absolute URL here
-  uri: process.env.API_URL
-});
-
-// Cache implementation
-const cache = new InMemoryCache();
-
-// Create the apollo client
-const apolloClient = new ApolloClient({
-  link: httpLink,
-  cache
-});
-
+// Create the Vue app
 const app = createApp({
   setup() {
+    // Provide the Apollo Client to the app
     provide(DefaultApolloClient, apolloClient);
   },
 
   render: () => h(App)
 });
 
+// Use the router and mount the app
 app.use(router);
-router.isReady().then(() => {
-  app.mount('#app');
-});
+
+router
+  .isReady()
+  .then(() => {
+    app.mount('#app');
+  })
+  .catch((error) => {
+    console.error('Error during router readiness. Ensure all routes are properly configured:', error);
+  });

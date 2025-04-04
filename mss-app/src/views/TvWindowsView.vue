@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { adjustNavBar, flexScheduleLink } from '@/utils';
+import { flexScheduleLink } from '@/utils';
+import { adjustNavBar } from '@/domUtils';
 import { defineAsyncComponent, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -8,7 +9,7 @@ const { year } = route.params as { year: string };
 
 const flexLink = `${flexScheduleLink(year)}/pubhtml?widget=true&amp;headers=false`;
 
-const GoogleSearch = defineAsyncComponent(() => import('../components/shared/GoogleSearchBar.vue'));
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 
 onMounted(adjustNavBar);
 </script>

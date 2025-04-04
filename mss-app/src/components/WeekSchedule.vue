@@ -6,7 +6,7 @@ import NoTvGames from './noTVGames/NoTvGames.vue';
 import { useWeekSchedule } from '@/composables/useWeekSchedule';
 import {
   adjustWebExclusives
-} from '@/utils';
+} from '@/domUtils';
 
 const GoogleSearch = defineAsyncComponent(() => import('./shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('./shared/BackToTopScript.vue'));

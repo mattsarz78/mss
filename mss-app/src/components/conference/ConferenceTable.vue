@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ConferenceGame } from '@/graphQl';
-import { formatGame, formatTime } from '../../utils';
-import { formatNetworkJpgAndCoverage } from '../../imageUtils';
+import { formatGame, formatTime } from '@/gameUtils';
+import { formatNetworkJpgAndCoverage } from '@/imageUtils';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
@@ -13,9 +13,9 @@ const formattedGames = computed(() =>
     ...game,
     formattedNetwork: formatNetworkJpgAndCoverage(game.network!, year),
     formattedTime: {
-      day: DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('cccc'),
-      date: DateTime.fromISO(game.timeWithOffset!).toLocal().toFormat('LL/dd'),
-      time: formatTime(game.timeWithOffset!)
+      day: DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('cccc'),
+      date: DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('LL/dd'),
+      time: formatTime(game.timeWithOffset)
     }
   }))
 );

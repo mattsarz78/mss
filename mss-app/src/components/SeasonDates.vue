@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { WeekInfo } from '@/graphQl';
-import { hasBasketballPostseason } from '@/utils';
+import { hasBasketballPostseason } from '@/conferenceUtils';
 import { DateTime } from 'luxon';
 import WeekLink from '@/components/WeekLink.vue';
 import { computed } from 'vue';

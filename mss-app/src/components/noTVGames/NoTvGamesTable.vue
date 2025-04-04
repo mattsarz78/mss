@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NoTvGame } from '@/graphQl';
-import { updatedTvOptions } from '@/utils';
+import { updatedTvOptions } from '@/gameUtils';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 

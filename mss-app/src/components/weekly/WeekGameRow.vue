@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { formatGame, formatTime } from '../../utils';
-import { formatNetworkJpgAndCoverage } from '../../imageUtils';
+import { formatGame, formatTime } from '@/gameUtils';
+import { formatNetworkJpgAndCoverage } from '@/imageUtils';
 import { computed } from 'vue';
 
 const props = defineProps<{ tvGame: TvGame; showPPVColumn: boolean; season: string }>();

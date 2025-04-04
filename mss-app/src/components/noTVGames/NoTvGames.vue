@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NoTvGame } from '@/graphQl';
 import { DateTime } from 'luxon';
-import NoTvGamesTable from '../noTVGames/NoTvGamesTable.vue';
+import NoTvGamesTable from './NoTvGamesTable.vue';
 import { computed, ref } from 'vue';
 
 const props = defineProps<{ noTvGames: NoTvGame[] }>();

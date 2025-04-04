@@ -5,14 +5,12 @@ import { computed } from 'vue';
 import {
   getBasketballSeason,
   flexScheduleLink,
-  isBowlGameWeek,
-  isBasketballPostseason,
-  hasNoTVGames,
   isFirstWeek,
   isNextWeekBasketballPostseason,
-  isNextWeekBowlGameWeek,
-  shouldShowPpvColumn
+  isNextWeekBowlGameWeek
 } from '@/utils';
+import { hasNoTVGames, shouldShowPpvColumn } from '@/conferenceUtils';
+import { isBasketballPostseason, isBowlGameWeek } from '@/gameUtils';
 
 export function useWeekSchedule(sport: string, paramYear: string, week: string) {
   const weekInt = parseInt(week);

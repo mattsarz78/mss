@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getConferenceCasing } from '@/utils';
+import { getConferenceCasing } from '@/conferenceUtils';
 import { computed } from 'vue';
 
 const props = defineProps<{ conferenceList: string; year: string }>();
