@@ -7,9 +7,15 @@ export interface RsnArgs {
   input: RsnInput;
 }
 
-export const getRsnList = async (_1: unknown, { input }: RsnArgs, context: IContext): Promise<RsnGame[] | string> => {
+export const getRsnList = async (
+  _1: unknown,
+  { input }: RsnArgs,
+  context: IContext
+): Promise<RsnGame[] | string> => {
   try {
-    const result = await context.services[RsnListServiceKey].getRsnList(input.season);
+    const result = await context.services[RsnListServiceKey].getRsnList(
+      input.season
+    );
     return result.map((game: rsnlist) => ({
       ...game,
       KeyValue: game.keyvalue ?? ''
@@ -20,8 +26,4 @@ export const getRsnList = async (_1: unknown, { input }: RsnArgs, context: ICont
   }
 };
 
-export default {
-  Query: {
-    rsnList: getRsnList
-  }
-};
+export default { Query: { rsnList: getRsnList } };

@@ -12,11 +12,7 @@ export class RsnListService implements IRsnListService {
 
   public async getRsnList(season: string): Promise<rsnlist[]> {
     try {
-      return await this.client.rsnlist.findMany({
-        where: {
-          season: season
-        }
-      });
+      return await this.client.rsnlist.findMany({ where: { season: season } });
     } catch (error) {
       console.error(`Error fetching RSN list for season: ${season}`, error);
       throw error;

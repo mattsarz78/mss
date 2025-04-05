@@ -10,10 +10,16 @@ import { expressMiddleware } from '@apollo/server/express4';
 import http from 'http';
 import { PrismaClient } from './__generated__/prisma';
 import { DatabaseServices, getDatabaseServices } from './database/services';
-import { AvailableTvService, AvailableTvServiceKey } from './database/availableTV';
+import {
+  AvailableTvService,
+  AvailableTvServiceKey
+} from './database/availableTV';
 import { IContext } from './context';
 import { FootballService, FootballServiceKey } from './database/football';
-import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDates';
+import {
+  WeeklyDatesService,
+  WeeklyDatesServiceKey
+} from './database/weeklyDates';
 import { CommonService, CommonServiceKey } from './database/common';
 import { RsnListService, RsnListServiceKey } from './database/rsnList';
 

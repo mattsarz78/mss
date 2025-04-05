@@ -18,23 +18,28 @@ export const conferenceGamesResolver = async (
 
     const conferenceResults = await Promise.all(
       conferences.map((conference) =>
-        context.services[FootballServiceKey].getConferenceGames({ conference, season: input.season })
+        context.services[FootballServiceKey].getConferenceGames({
+          conference,
+          season: input.season
+        })
       )
     );
 
-    const conferenceGames: ConferenceGame[] = conferenceResults.flat().map((conferenceGame: football) => ({
-      gameTitle: conferenceGame.gametitle?.trim() ?? '',
-      visitingTeam: conferenceGame.visitingteam?.trim().split(',') ?? [],
-      homeTeam: conferenceGame.hometeam?.trim().split(',') ?? [],
-      location: conferenceGame.location?.trim() ?? '',
-      timeWithOffset: conferenceGame.timewithoffset
-        ? (DateTime.fromJSDate(conferenceGame.timewithoffset).toISO() ?? '')
-        : '',
-      mediaIndicator: conferenceGame.mediaindicator?.trim() ?? '',
-      network: conferenceGame.networkjpg?.trim() ?? '',
-      tvtype: conferenceGame.tvtype?.trim() ?? '',
-      conference: conferenceGame.conference?.trim() ?? ''
-    }));
+    const conferenceGames: ConferenceGame[] = conferenceResults
+      .flat()
+      .map((conferenceGame: football) => ({
+        gameTitle: conferenceGame.gametitle?.trim() ?? '',
+        visitingTeam: conferenceGame.visitingteam?.trim().split(',') ?? [],
+        homeTeam: conferenceGame.hometeam?.trim().split(',') ?? [],
+        location: conferenceGame.location?.trim() ?? '',
+        timeWithOffset: conferenceGame.timewithoffset
+          ? (DateTime.fromJSDate(conferenceGame.timewithoffset).toISO() ?? '')
+          : '',
+        mediaIndicator: conferenceGame.mediaindicator?.trim() ?? '',
+        network: conferenceGame.networkjpg?.trim() ?? '',
+        tvtype: conferenceGame.tvtype?.trim() ?? '',
+        conference: conferenceGame.conference?.trim() ?? ''
+      }));
 
     return conferenceGames;
   } catch (err: unknown) {
@@ -43,8 +48,4 @@ export const conferenceGamesResolver = async (
   }
 };
 
-export default {
-  Query: {
-    conferenceGames: conferenceGamesResolver
-  }
-};
+export default { Query: { conferenceGames: conferenceGamesResolver } };

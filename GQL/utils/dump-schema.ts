@@ -26,7 +26,9 @@ function printSchemasWithDirectives(schema: GraphQLSchema): string {
     .filter((typeName) => !typeName.startsWith('__'))
     .map((typeName) => {
       const type = typeMap[typeName];
-      return !isSpecifiedScalarType(type) && type.astNode ? print(type.astNode) : '';
+      return !isSpecifiedScalarType(type) && type.astNode
+        ? print(type.astNode)
+        : '';
     })
     .join('\n');
 
@@ -46,10 +48,7 @@ const schemaPath =
     : SCHEMA_PATH;
 
 if (schemaPath.endsWith('json')) {
-  graphql({
-    schema: gqlSchema,
-    source: getIntrospectionQuery()
-  }).then(
+  graphql({ schema: gqlSchema, source: getIntrospectionQuery() }).then(
     async (result) => {
       const prettierResult = await prettier.format(JSON.stringify(result), {
         parser: 'json'
@@ -57,7 +56,10 @@ if (schemaPath.endsWith('json')) {
       fs.writeFileSync(schemaPath, prettierResult);
     },
     (error: unknown) => {
-      console.error('Error introspecting schema: ', JSON.stringify(error, null, 2));
+      console.error(
+        'Error introspecting schema: ',
+        JSON.stringify(error, null, 2)
+      );
     }
   );
 } else {

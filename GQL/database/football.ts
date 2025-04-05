@@ -28,19 +28,17 @@ export interface NoTVGames {
 export class FootballService implements IFootballService {
   constructor(private client: PrismaClient) {}
 
-  public async getConferenceGames(request: GetConferenceGamesRequest): Promise<football[]> {
+  public async getConferenceGames(
+    request: GetConferenceGamesRequest
+  ): Promise<football[]> {
     try {
       return await this.client.football.findMany({
         where: {
           season: request.season,
           conference: request.conference,
-          mediaindicator: {
-            in: ['T', 'W']
-          }
+          mediaindicator: { in: ['T', 'W'] }
         },
-        orderBy: {
-          timewithoffset: 'asc'
-        }
+        orderBy: { timewithoffset: 'asc' }
       });
     } catch (error) {
       console.error(
@@ -64,7 +62,10 @@ export class FootballService implements IFootballService {
           AND fb.mediaindicator = 'N'
         ORDER BY fb.timewithoffset, fb.conference;`;
     } catch (error) {
-      console.error(`Error fetching no TV games for week: ${request.week.toString()}, season: ${request.season}`, error);
+      console.error(
+        `Error fetching no TV games for week: ${request.week.toString()}, season: ${request.season}`,
+        error
+      );
       throw error;
     }
   }

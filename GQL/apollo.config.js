@@ -1,5 +1,1 @@
-module.exports = {
-  service: {
-    localSchemaFile: 'schema.graphql'
-  }
-};
+module.exports = { service: { localSchemaFile: 'schema.graphql' } };

@@ -17,7 +17,10 @@ export const getDailyTvGames = async (
   context: IContext
 ): Promise<TvGame[] | string> => {
   const startDate = DateTime.fromISO(input.startDate).set(zeroHour).toJSDate();
-  const endDate = DateTime.fromISO(input.startDate).plus({ days: 1 }).set(endOfDay).toJSDate();
+  const endDate = DateTime.fromISO(input.startDate)
+    .plus({ days: 1 })
+    .set(endOfDay)
+    .toJSDate();
 
   try {
     const results = await context.services[CommonServiceKey].getDailyTvGames({
@@ -37,7 +40,9 @@ export const getDailyTvGames = async (
       coverageNotes: result.coveragenotes?.trim() ?? '',
       ppv: result.ppv?.trim() ?? '',
       mediaIndicator: result.mediaindicator?.trim() ?? '',
-      timeWithOffset: result.timewithoffset ? DateTime.fromJSDate(result.timewithoffset).toISO() ?? '' : ''
+      timeWithOffset: result.timewithoffset
+        ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '')
+        : ''
     }));
   } catch (error: unknown) {
     console.error(`Error fetching daily TV games: ${(error as Error).message}`);
@@ -45,8 +50,4 @@ export const getDailyTvGames = async (
   }
 };
 
-export default {
-  Query: {
-    dailyTvGames: getDailyTvGames
-  }
-};
+export default { Query: { dailyTvGames: getDailyTvGames } };
