@@ -25,11 +25,10 @@ const app = express();
 const corsOptions: cors.CorsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void): void => {
     if (isValidCors(origin) || origin === undefined) {
-      console.log('CORS allowed for origin:', origin);
       callback(null, true);
       return;
     }
-    callback(new Error('Not allowed by CORS'));
+    callback(new Error(`Not allowed by CORS: ${origin}`));
   },
   optionsSuccessStatus: 200
 };
@@ -62,7 +61,7 @@ async function startServer() {
   const apolloServer = new ApolloServer<IContext>({
     typeDefs,
     resolvers,
-    introspection: process.env.NODE_ENV !== 'production',
+    introspection: NODE_ENV !== 'production',
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     hideSchemaDetailsFromClientErrors: true
   });
