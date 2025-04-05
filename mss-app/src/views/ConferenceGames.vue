@@ -45,33 +45,17 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
       <div class="container">
         <div>
           <span>
-            <!-- eslint-disable-next-line -->
             <RouterLink class="homelink" to="/">Home</RouterLink>
-            <!-- eslint-disable-next-line -->
-            <RouterLink class="seasonhome" :to="`/season/football/${year}`"
-              >Season Home
-              <!-- eslint-disable-next-line -->
-            </RouterLink>
+            <RouterLink class="seasonhome" :to="`/season/football/${year}`">Season Home</RouterLink>
           </span>
-          <!-- eslint-disable-next-line -->
-          <RouterLink
-            v-if="flexLink"
-            :to="`/tv-windows/${year}`"
-            target="_blank">
-            Available TV Windows
-          </RouterLink>
+          <RouterLink v-if="flexLink" :to="`/tv-windows/${year}`" target="_blank"> Available TV Windows </RouterLink>
         </div>
       </div>
     </nav>
 
     <div id="Main">
       <div id="head">
-        <p>
-          <!-- eslint-disable-next-line -->
-          {{ cased }} Broadcast Schedule<br /><b
-            >All start times displayed are based on your device's location.</b
-          >
-        </p>
+        <p>{{ cased }} Broadcast Schedule<br /><b>All start times displayed are based on your device's location.</b></p>
         <p>
           NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
           non-conference games fall under the home team's telecast rights.
@@ -79,16 +63,10 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
         <!-- eslint-disable-next-line -->
         <div v-if="conference !== 'independents'" v-html="contractTvData" />
         <!-- eslint-disable-next-line -->
-        <IndependentsGameList
-          v-if="conference === 'independents'"
-          :games="result.conferenceGames"
+        <IndependentsGameList v-if="conference === 'independents'" :games="result.conferenceGames"
           :schools="getIndependentSchools(year).split('|')"
           :year="year" />
-        <!-- eslint-disable-next-line -->
-        <ConferenceGameList
-          v-else
-          :year="year"
-          :games="result.conferenceGames" />
+        <ConferenceGameList v-else :year="year" :games="result.conferenceGames" />
         <p>
           <BackToTopScript />
           <BackToTopButton />
@@ -97,9 +75,7 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
       </div>
     </div>
   </div>
-  <!-- eslint-disable-next-line -->
   <div v-if="loading">{{ cased }} Games Loading...</div>
-  <!-- eslint-disable-next-line -->
   <div v-if="error">There's an error.</div>
 </template>
 

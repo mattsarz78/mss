@@ -17,9 +17,8 @@ const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b
-        ><i>{{ tvGame.gameTitle }}</i></b
-      ><br />
+      <span class="gameTitle">{{ tvGame.gameTitle }}</span>
+      <br />
     </template>
     <template v-if="tvGame.visitingTeam?.length === 0" />
     <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
@@ -34,8 +33,7 @@ const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.
   <!-- eslint-disable-next-line -->
   <td class="network" v-html="networkHtml"></td>
   <!-- eslint-disable-next-line -->
-  <td :class="showPPVColumn ? 'coverage' : 'coverageppv'" v-html="coverageHtml"></td> // eslint-disable-next-line
-  vue/no-v-html
+  <td :class="showPPVColumn ? 'coverage' : 'coverageppv'" v-html="coverageHtml"></td>
   <!-- eslint-disable-next-line -->
   <td v-if="showPPVColumn" class="ppv" v-html="ppvHtml"></td>
   <td class="time">
@@ -44,6 +42,11 @@ const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.
 </template>
 
 <style scoped>
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
+}
+
 .game {
   width: 243px;
   border: medium solid Gray;
