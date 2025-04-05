@@ -1,124 +1,24 @@
 export const validSportYears = [
-  {
-    season: '200506',
-    hasPostseason: false,
-    hasNoTVGames: false,
-    showPPVColumn: true
-  },
-  {
-    season: '200607',
-    hasPostseason: false,
-    hasNoTVGames: false,
-    showPPVColumn: true
-  },
-  {
-    season: '200708',
-    hasPostseason: false,
-    hasNoTVGames: false,
-    showPPVColumn: true
-  },
-  {
-    season: '200809',
-    hasPostseason: false,
-    hasNoTVGames: false,
-    showPPVColumn: true
-  },
-  {
-    season: '200910',
-    hasPostseason: false,
-    hasNoTVGames: false,
-    showPPVColumn: true
-  },
-  {
-    season: '201011',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: true
-  },
-  {
-    season: '201112',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: true
-  },
-  {
-    season: '201213',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: true
-  },
-  {
-    season: '201314',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: true
-  },
-  {
-    season: '201415',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '201516',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '201617',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '201718',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '201819',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '201920',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '202021',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '202122',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '202223',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '202324',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
-  {
-    season: '202425',
-    hasPostseason: true,
-    hasNoTVGames: false,
-    showPPVColumn: false
-  },
+  { season: '200506', hasPostseason: false, hasNoTVGames: false, showPPVColumn: true },
+  { season: '200607', hasPostseason: false, hasNoTVGames: false, showPPVColumn: true },
+  { season: '200708', hasPostseason: false, hasNoTVGames: false, showPPVColumn: true },
+  { season: '200809', hasPostseason: false, hasNoTVGames: false, showPPVColumn: true },
+  { season: '200910', hasPostseason: false, hasNoTVGames: false, showPPVColumn: true },
+  { season: '201011', hasPostseason: true, hasNoTVGames: false, showPPVColumn: true },
+  { season: '201112', hasPostseason: true, hasNoTVGames: false, showPPVColumn: true },
+  { season: '201213', hasPostseason: true, hasNoTVGames: false, showPPVColumn: true },
+  { season: '201314', hasPostseason: true, hasNoTVGames: false, showPPVColumn: true },
+  { season: '201415', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '201516', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '201617', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '201718', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '201819', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '201920', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '202021', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '202122', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '202223', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '202324', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
+  { season: '202425', hasPostseason: true, hasNoTVGames: false, showPPVColumn: false },
   {
     season: '2005',
     hasPostseason: false,
@@ -255,12 +155,7 @@ export const validSportYears = [
     conferenceListBase: 'ListBase3',
     independents: 'Army|BYU|Liberty|Notre Dame|NMSt|UMass|UConn'
   },
-  {
-    season: '2021s',
-    hasPostseason: false,
-    hasNoTVGames: true,
-    showPPVColumn: false
-  },
+  { season: '2021s', hasPostseason: false, hasNoTVGames: true, showPPVColumn: false },
   {
     season: '2021',
     hasPostseason: false,

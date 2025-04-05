@@ -4,15 +4,8 @@ import { clearAllSelectedTextRows, checkAllTextRows } from '@/domUtils';
 import { shouldShowPpvColumn } from '@/conferenceUtils';
 import WeekTextBase from '@/components/WeekTextBase.vue';
 
-const {
-  dailyTvGameResult,
-  dailyTvGameLoading,
-  dailyTvGameError,
-  season,
-  paramYear,
-  sport,
-  startDate
-} = useDailyTvTextGames();
+const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate } =
+  useDailyTvTextGames();
 </script>
 
 <template>
@@ -25,13 +18,9 @@ const {
           <div>
             <span>
               <RouterLink class="homelink" to="/">Home</RouterLink>
-              <RouterLink class="seasonhome" :to="`/season/${sport}/${season}`"
-                >Season Home
-              </RouterLink>
+              <RouterLink class="seasonhome" :to="`/season/${sport}/${season}`">Season Home </RouterLink>
             </span>
-            <RouterLink class="DONTPrint" :to="`/schedule/${sport}/daily`">
-              Daily Schedule
-            </RouterLink>
+            <RouterLink class="DONTPrint" :to="`/schedule/${sport}/daily`"> Daily Schedule </RouterLink>
             <br />
             <p id="TextNav" class="pad DONTPrint">
               <input
@@ -40,12 +29,7 @@ const {
                 value="Clear All Games"
                 class="inputpad"
                 @click="clearAllSelectedTextRows()" />
-              <input
-                id="CheckAll"
-                type="button"
-                value="Check All Games"
-                class="inputpad"
-                @click="checkAllTextRows()" />
+              <input id="CheckAll" type="button" value="Check All Games" class="inputpad" @click="checkAllTextRows()" />
             </p>
           </div>
         </div>

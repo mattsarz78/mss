@@ -7,19 +7,16 @@ import { conferenceListBase, getBasketballSeason } from '@/utils';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
 
-const GoogleSearch = defineAsyncComponent(
-  () => import('@/components/shared/GoogleSearchBar.vue')
-);
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 
 const route = useRoute();
 const sport = route.params.sport as string;
 const paramYear = route.params.year as string;
 const year = sport === 'football' ? paramYear : getBasketballSeason(paramYear);
 
-const { result, loading, error } = useQuery<{ seasonContents: WeekInfo[] }>(
-  SEASON_CONTENTS,
-  { input: { season: year } }
-);
+const { result, loading, error } = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, {
+  input: { season: year }
+});
 
 const conferenceList = conferenceListBase(sport, year);
 
@@ -60,24 +57,14 @@ watch(result, updateStyles);
       <div v-if="loading">Loading...</div>
 
       <div id="SeasonLinks" ref="seasonLinksRef" class="DONTPrint">
-        <SeasonDates
-          :contents="result.seasonContents"
-          :param-year="paramYear"
-          :year="year"
-          :sport="sport" />
+        <SeasonDates :contents="result.seasonContents" :param-year="paramYear" :year="year" :sport="sport" />
       </div>
-      <ConferenceList
-        v-if="sport === 'football'"
-        :conference-list="conferenceList"
-        :year="paramYear" />
+      <ConferenceList v-if="sport === 'football'" :conference-list="conferenceList" :year="paramYear" />
     </div>
     <div class="inline-block">
       <p>
-        <span id="Label9">
-          Got a question, complaint, comment or know a game not listed here? </span
-        ><a id="HyperLink32" href="mailto:footballsked@gmail.com"
-          >Send it here</a
-        >
+        <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span
+        ><a id="HyperLink32" href="mailto:footballsked@gmail.com">Send it here</a>
       </p>
     </div>
     <GoogleSearch />

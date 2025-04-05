@@ -13,10 +13,7 @@ import { syndicationLinks } from './constants/syndicationLinks';
 
 const seasonMap: Record<string, string> = { '2020r': '2020', '2021s': '2020' };
 
-export const formatNetworkJpgAndCoverage = (
-  input: string,
-  season: string
-): string => {
+export const formatNetworkJpgAndCoverage = (input: string, season: string): string => {
   const networks = input.split(',');
   const imagesString: string[] = [];
   const imageHyperlinkString: string[] = [];
@@ -24,17 +21,14 @@ export const formatNetworkJpgAndCoverage = (
   const textString: string[] = [];
   const infoLinksString: string[] = [];
 
-  const { images, imageHyperlinks, textHyperlinks, infoLinks, strings } =
-    validateFieldData(networks);
+  const { images, imageHyperlinks, textHyperlinks, infoLinks, strings } = validateFieldData(networks);
 
   images.forEach((image) => {
     imagesString.push(`<img class="imageDimensions" src="/images/${image}" />`);
   });
 
   imageHyperlinks.forEach((imageHyperlink) => {
-    const imageArray = imagesForUrls.filter((x) =>
-      imageHyperlink.includes(x.link)
-    );
+    const imageArray = imagesForUrls.filter((x) => imageHyperlink.includes(x.link));
     const imageUrl = getImageUrl(imageArray, season);
     imageHyperlinkString.push(
       `<a href="${imageHyperlink}" target="_blank" ><img class="imageDimensions" src="/images/${imageUrl}" /></a>`
@@ -46,9 +40,7 @@ export const formatNetworkJpgAndCoverage = (
 
   textHyperlinks.forEach((textHyperlink, index) => {
     if (index % 2 !== 0) textHyperlinksString.push('<br>');
-    textHyperlinksString.push(
-      `<a class="linkblock" href="${textHyperlink}" target="_blank">Live Video</a>`
-    );
+    textHyperlinksString.push(`<a class="linkblock" href="${textHyperlink}" target="_blank">Live Video</a>`);
   });
 
   strings.forEach((str, index) => {
@@ -59,17 +51,10 @@ export const formatNetworkJpgAndCoverage = (
   infoLinks.forEach((infoLink, index) => {
     const infoLinkValue = getInfoLinkValue(infoLink);
     if (index % 2 !== 0) infoLinksString.push('<br>');
-    infoLinksString.push(
-      `<a class="linkblock" href="${infoLink}" target="_blank">${infoLinkValue}</a>`
-    );
+    infoLinksString.push(`<a class="linkblock" href="${infoLink}" target="_blank">${infoLinkValue}</a>`);
   });
 
-  ensureLineBreaks(
-    combinedImagesString,
-    textHyperlinksString,
-    textString,
-    infoLinksString
-  );
+  ensureLineBreaks(combinedImagesString, textHyperlinksString, textString, infoLinksString);
 
   return `${combinedImagesString.join('')}${textHyperlinksString.join('')}${infoLinksString.join('')}${textString.join('')}`;
 };
@@ -132,9 +117,7 @@ function isSyndAffiliates(network: string): boolean {
     network.includes('raycomsports') ||
     network.includes('SECNetWk') ||
     network.includes('Big12NetWk') ||
-    (network.includes('wacsports') &&
-      !network.includes('wacsports.com/live') &&
-      !network.includes('swacsports')) ||
+    (network.includes('wacsports') && !network.includes('wacsports.com/live') && !network.includes('swacsports')) ||
     network.includes('theacc.com/news') ||
     network.includes('BigEastWk') ||
     network.includes('http://tinyurl.com/slctvstations') ||
@@ -152,12 +135,8 @@ function isCoverageMap(network: string): boolean {
     coverageMapLinks.some((x) => x === network) ||
     network.includes('http://assets.espn.go.com/photo/') ||
     (network.includes('espncdn') && !network.includes('blackout')) ||
-    network.includes(
-      'http://www.seminoles.com/blog/Screen%20Shot%202013-11-07%20at%2011.42.17%20AM.png'
-    ) ||
-    network.includes(
-      'https://espnpressroom.com/us/files/2013/08/CF_Oct29_Maps_MZ.pdf'
-    )
+    network.includes('http://www.seminoles.com/blog/Screen%20Shot%202013-11-07%20at%2011.42.17%20AM.png') ||
+    network.includes('https://espnpressroom.com/us/files/2013/08/CF_Oct29_Maps_MZ.pdf')
   );
 }
 
@@ -183,15 +162,10 @@ function isBTN(network: string): boolean {
 }
 
 function isP12Networks(network: string): boolean {
-  return network.includes(
-    'http://pac-12.com/AboutPac-12Enterprises/ChannelFinder.aspx'
-  );
+  return network.includes('http://pac-12.com/AboutPac-12Enterprises/ChannelFinder.aspx');
 }
 
-function getImageUrl(
-  imageArray: { link: string; image: string; yearEnd?: string }[],
-  season: string
-): string {
+function getImageUrl(imageArray: { link: string; image: string; yearEnd?: string }[], season: string): string {
   if (imageArray.length > 1) {
     season = seasonMap[season] || season;
     for (const image of imageArray) {
@@ -238,10 +212,7 @@ function ensureLineBreaks(
     combinedImagesString.push('<br>');
   }
 
-  if (
-    textHyperlinksString.length &&
-    !textHyperlinksString.join('').endsWith('<br>')
-  ) {
+  if (textHyperlinksString.length && !textHyperlinksString.join('').endsWith('<br>')) {
     textHyperlinksString.push('<br>');
   }
 

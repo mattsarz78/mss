@@ -1,8 +1,4 @@
-import {
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache
-} from '@apollo/client/core';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core';
 
 // HTTP connection to the API
 const httpLink = createHttpLink({

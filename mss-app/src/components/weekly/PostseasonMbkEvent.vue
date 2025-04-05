@@ -7,15 +7,9 @@ import { computed } from 'vue';
 const props = defineProps<{ tvGame: TvGame; season: string }>();
 const { tvGame, season } = props;
 
-const networkHtml = computed(() =>
-  tvGame.networkJpg
-    ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season)
-    : ''
-);
+const networkHtml = computed(() => (tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season) : ''));
 const coverageHtml = computed(() =>
-  tvGame.coverageNotes
-    ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season)
-    : ''
+  tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season) : ''
 );
 </script>
 

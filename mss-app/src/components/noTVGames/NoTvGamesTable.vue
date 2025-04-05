@@ -7,9 +7,7 @@ import { computed } from 'vue';
 const props = defineProps<{ noTvGamesForDate: NoTvGame[]; noTvDate: string }>();
 const { noTvGamesForDate, noTvDate } = props;
 
-const formattedDate = computed(() =>
-  DateTime.fromISO(noTvDate).toFormat('DDDD')
-);
+const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD'));
 </script>
 
 <template>
@@ -24,10 +22,7 @@ const formattedDate = computed(() =>
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(noTvGameForDate, index) in noTvGamesForDate"
-          :key="index"
-          :class="{ fcsgame: noTvGameForDate.fcs }">
+        <tr v-for="(noTvGameForDate, index) in noTvGamesForDate" :key="index" :class="{ fcsgame: noTvGameForDate.fcs }">
           <td class="game">
             <template v-if="noTvGameForDate.gameTitle">
               <b
@@ -36,15 +31,13 @@ const formattedDate = computed(() =>
             </template>
             <template v-if="noTvGameForDate.location">
               <template v-if="noTvGameForDate.visitingTeam">
-                {{ noTvGameForDate.visitingTeam }} vs.
-                {{ noTvGameForDate.homeTeam }}<br />
+                {{ noTvGameForDate.visitingTeam }} vs. {{ noTvGameForDate.homeTeam }}<br />
               </template>
               (at {{ noTvGameForDate.location }})
             </template>
             <template v-else>
               <template v-if="noTvGameForDate.visitingTeam">
-                {{ noTvGameForDate.visitingTeam }} at
-                {{ noTvGameForDate.homeTeam }}<br />
+                {{ noTvGameForDate.visitingTeam }} at {{ noTvGameForDate.homeTeam }}<br />
               </template>
             </template>
           </td>

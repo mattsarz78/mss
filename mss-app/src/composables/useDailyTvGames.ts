@@ -7,17 +7,14 @@ import { flexScheduleLink } from '@/utils';
 export function useDailyTvGames(sport: string) {
   const startDate = DateTime.now().setZone('America/New_York').toISODate();
 
-  const { result, loading, error } = useQuery<{ dailyTvGames: TvGame[] }>(
-    DAILY_TV_GAMES,
-    { input: { sport, startDate } }
-  );
+  const { result, loading, error } = useQuery<{ dailyTvGames: TvGame[] }>(DAILY_TV_GAMES, {
+    input: { sport, startDate }
+  });
 
   const season = computed(() => {
     if (result.value?.dailyTvGames.length) {
       const paramYear = result.value.dailyTvGames[0].season;
-      return sport === 'football'
-        ? paramYear
-        : `${paramYear.substring(0, 4)}-${paramYear.substring(5)}`;
+      return sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}-${paramYear.substring(5)}`;
     }
     return '';
   });

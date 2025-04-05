@@ -14,9 +14,7 @@ export const updatedTvOptions = (game: NoTvGame): string => {
       if (game.visitingTeam === 'Boise State') {
         return 'CBS or CBS Sports Network';
       }
-      return game.homeTeam === 'Boise State'
-        ? 'FOX, FS1 or FS2'
-        : game.tvOptions;
+      return game.homeTeam === 'Boise State' ? 'FOX, FS1 or FS2' : game.tvOptions;
     }
   };
 
@@ -39,29 +37,14 @@ export const formatGame = (game: TvGame | ConferenceGame): string => {
 };
 
 export const formatTime = (timeWithOffset: string): string => {
-  const easternTime = DateTime.fromISO(timeWithOffset)
-    .setZone('America/New_York')
-    .toFormat('t');
-  return easternTime === '12:00 AM'
-    ? 'TBA'
-    : DateTime.fromISO(timeWithOffset).toLocal().toFormat('t');
+  const easternTime = DateTime.fromISO(timeWithOffset).setZone('America/New_York').toFormat('t');
+  return easternTime === '12:00 AM' ? 'TBA' : DateTime.fromISO(timeWithOffset).toLocal().toFormat('t');
 };
 
-export const isBowlGameWeek = (
-  sport: string,
-  contents: WeekInfo[],
-  week: number
-): boolean => {
+export const isBowlGameWeek = (sport: string, contents: WeekInfo[], week: number): boolean => {
   return sport === 'football' && contents[contents.length - 1].week === week;
 };
 
-export const isBasketballPostseason = (
-  sport: string,
-  contents: WeekInfo[],
-  week: number
-): boolean => {
-  return (
-    sport === 'basketball' &&
-    contents.some((x) => x.week === week && x.postseasonInd)
-  );
+export const isBasketballPostseason = (sport: string, contents: WeekInfo[], week: number): boolean => {
+  return sport === 'basketball' && contents.some((x) => x.week === week && x.postseasonInd);
 };

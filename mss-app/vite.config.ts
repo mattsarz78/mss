@@ -13,16 +13,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    plugins: [
-      vue(),
-      vueJsx(),
-      vueDevTools(),
-      visualizer({ open: true }),
-      viteCompression()
-    ],
-    resolve: {
-      alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) }
-    },
+    plugins: [vue(), vueJsx(), vueDevTools(), visualizer({ open: true }), viteCompression()],
+    resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
     build: {
       target: 'esnext',
       rollupOptions: {

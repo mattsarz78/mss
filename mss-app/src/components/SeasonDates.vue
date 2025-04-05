@@ -5,23 +5,14 @@ import { DateTime } from 'luxon';
 import WeekLink from '@/components/WeekLink.vue';
 import { computed } from 'vue';
 
-const props = defineProps<{
-  contents: WeekInfo[];
-  sport: string;
-  paramYear: string;
-  year: string;
-}>();
+const props = defineProps<{ contents: WeekInfo[]; sport: string; paramYear: string; year: string }>();
 
 const { contents, sport, paramYear, year } = props;
 
 const lastContent = contents[contents.length - 1];
 
-const filteredContents = computed(() =>
-  contents.filter((x) => !x.postseasonInd)
-);
-const postseasonContents = computed(() =>
-  contents.filter((x) => x.postseasonInd)
-);
+const filteredContents = computed(() => contents.filter((x) => !x.postseasonInd));
+const postseasonContents = computed(() => contents.filter((x) => x.postseasonInd));
 
 const getLinkText = (content: WeekInfo) => {
   if (lastContent.week !== content.week) {
@@ -43,11 +34,7 @@ const getPostseasonLinkText = (content: WeekInfo) => {
 <template>
   <div v-if="sport === 'football'">
     <template v-for="(content, index) in contents" :key="index">
-      <WeekLink
-        :year="paramYear"
-        :sport="sport"
-        :content="content"
-        :link-text="getLinkText(content)" />
+      <WeekLink :year="paramYear" :sport="sport" :content="content" :link-text="getLinkText(content)" />
     </template>
   </div>
   <div v-else-if="sport === 'basketball' && hasBasketballPostseason(year)">
@@ -60,11 +47,7 @@ const getPostseasonLinkText = (content: WeekInfo) => {
     </template>
     <p v-if="postseasonContents.length">
       <template v-for="(content, index) in postseasonContents" :key="index">
-        <WeekLink
-          :sport="sport"
-          :year="paramYear"
-          :content="content"
-          :link-text="getPostseasonLinkText(content)" />
+        <WeekLink :sport="sport" :year="paramYear" :content="content" :link-text="getPostseasonLinkText(content)" />
       </template>
     </p>
   </div>

@@ -6,12 +6,8 @@ import NoTvGames from './noTVGames/NoTvGames.vue';
 import { useWeekSchedule } from '@/composables/useWeekSchedule';
 import { adjustWebExclusives } from '@/domUtils';
 
-const GoogleSearch = defineAsyncComponent(
-  () => import('./shared/GoogleSearchBar.vue')
-);
-const BackToTopScript = defineAsyncComponent(
-  () => import('./shared/BackToTopScript.vue')
-);
+const GoogleSearch = defineAsyncComponent(() => import('./shared/GoogleSearchBar.vue'));
+const BackToTopScript = defineAsyncComponent(() => import('./shared/BackToTopScript.vue'));
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
@@ -46,69 +42,40 @@ const {
     <div v-if="seasonContentsLoading || noTvGamesLoading || tvGameLoading">
       Loading Week {{ week }} for {{ paramYear }}
     </div>
-    <div v-if="seasonContentsError || noTvGamesError || tvGameError">
-      Sorry. Got a bit of a problem. Let Matt know.
-    </div>
+    <div v-if="seasonContentsError || noTvGamesError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
     <div v-if="seasonContentsResult && noTvGamesResult && tvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
             <span class="blockspan">
               <RouterLink class="mobilespan" to="/">Home</RouterLink>
-              <RouterLink
-                class="mobilespan"
-                :to="`/season/${sport}/${paramYear}`"
-                >Season Home</RouterLink
-              >
-              <RouterLink
-                v-if="gamesToday"
-                class="mobilespan"
-                :to="`/schedule/${sport}/daily`"
+              <RouterLink class="mobilespan" :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
+              <RouterLink v-if="gamesToday" class="mobilespan" :to="`/schedule/${sport}/daily`"
                 >Today's Schedule
               </RouterLink>
             </span>
             <span class="blockspan">
-              <RouterLink
-                v-if="flexLink"
-                class="mobilespan"
-                :to="`/tv-windows/${paramYear}`"
-                target="_blank"
+              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank"
                 >Available TV Windows</RouterLink
               >
-              <RouterLink
-                class="mobilespan"
-                :to="`/schedule/${sport}/${paramYear}/${week}/text`"
+              <RouterLink class="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`"
                 >Customizable Text-Only Page</RouterLink
               >
             </span>
             <div v-if="!isMbkPostseason && !isBowlWeek" class="pad">
               <template v-if="isWeekOne">
                 <span style="float: left">
-                  <RouterLink
-                    :to="{
-                      path: `/schedule/${sport}/${paramYear}/${nextWeek}`
-                    }"
-                    >Next Week</RouterLink
-                  >
+                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}` }">Next Week</RouterLink>
                 </span>
               </template>
               <template v-else>
                 <span style="float: left">
-                  <RouterLink
-                    :to="{
-                      path: `/schedule/${sport}/${paramYear}/${previousWeek}`
-                    }"
+                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }"
                     >Previous Week
                   </RouterLink>
                 </span>
-                <span
-                  v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek"
-                  style="float: right">
-                  <RouterLink
-                    :to="{
-                      path: `/schedule/${sport}/${paramYear}/${nextWeek}`,
-                      force: true
-                    }"
+                <span v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek" style="float: right">
+                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }"
                     >Next Week
                   </RouterLink>
                 </span>
@@ -135,9 +102,7 @@ const {
           :is-bowl-week="isBowlWeek"
           :is-mbk-postseason="isMbkPostseason"
           :show-ppv-column="showPpvColumn" />
-        <NoTvGames
-          v-if="!isBowlWeek && showNoTvGames && noTvGamesResult"
-          :no-tv-games="noTvGamesResult?.noTvGames" />
+        <NoTvGames v-if="!isBowlWeek && showNoTvGames && noTvGamesResult" :no-tv-games="noTvGamesResult?.noTvGames" />
         <p>
           <BackToTopScript />
           <BackToTopButton />

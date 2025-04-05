@@ -3,22 +3,12 @@ import { useRoute } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
 
 const route = useRoute();
-const {
-  week,
-  sport,
-  year: paramYear
-} = route.params as { week: string; sport: string; year: string };
-const WeekSchedule = defineAsyncComponent(
-  () => import('@/components/WeekSchedule.vue')
-);
+const { week, sport, year: paramYear } = route.params as { week: string; sport: string; year: string };
+const WeekSchedule = defineAsyncComponent(() => import('@/components/WeekSchedule.vue'));
 </script>
 
 <template>
-  <WeekSchedule
-    :key="route.fullPath"
-    :week="week"
-    :sport="sport"
-    :param-year="paramYear" />
+  <WeekSchedule :key="route.fullPath" :week="week" :sport="sport" :param-year="paramYear" />
 </template>
 
 <style scoped>

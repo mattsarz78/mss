@@ -41,10 +41,7 @@ const toggleRow = (event: Event) => {
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(tvGame, index) in tvGames"
-          :key="index"
-          class="gamerow DONTPrint rowStyle">
+        <tr v-for="(tvGame, index) in tvGames" :key="index" class="gamerow DONTPrint rowStyle">
           <td class="tablecell">
             <input class="checkBoxRow" type="checkbox" @change="toggleRow" />
           </td>
@@ -55,22 +52,15 @@ const toggleRow = (event: Event) => {
               ><br />
             </template>
             <template v-if="tvGame.visitingTeam?.length === 0" />
-            <template
-              v-else-if="
-                tvGame.visitingTeam?.length === 1 &&
-                tvGame.homeTeam?.length === 1
-              ">
+            <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
               {{ tvGame.visitingTeam![0] }}
-              {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0]
-              }}<br />
+              {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
             </template>
             <template v-else>
               <!-- eslint-disable-next-line -->
               <div v-html="formatGame(tvGame)" />
             </template>
-            <template v-if="tvGame.location">
-              (at {{ tvGame.location }})
-            </template>
+            <template v-if="tvGame.location"> (at {{ tvGame.location }}) </template>
           </td>
           <!-- eslint-disable-next-line -->
           <td class="tablecell networkcell" v-html="tvGame.network" />
@@ -79,18 +69,10 @@ const toggleRow = (event: Event) => {
           </td>
           <td class="tablecell timecell">
             <template v-if="formatTime(tvGame.timeWithOffset!) === 'TBA'">
-              <span />{{
-                DateTime.fromISO(tvGame.timeWithOffset!)
-                  .toLocal()
-                  .toFormat('MM/dd/yyyy') + ' TBA'
-              }}
+              <span />{{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy') + ' TBA' }}
             </template>
             <template v-else>
-              {{
-                DateTime.fromISO(tvGame.timeWithOffset!)
-                  .toLocal()
-                  .toFormat('MM/dd/yyyy t')
-              }}
+              {{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy t') }}
             </template>
           </td>
         </tr>

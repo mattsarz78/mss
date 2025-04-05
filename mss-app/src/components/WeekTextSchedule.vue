@@ -6,12 +6,8 @@ import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
 import { checkAllTextRows, clearAllSelectedTextRows } from '@/domUtils';
 import { shouldShowPpvColumn } from '@/conferenceUtils';
 
-const GoogleSearch = defineAsyncComponent(
-  () => import('@/components/shared/GoogleSearchBar.vue')
-);
-const BackToTopScript = defineAsyncComponent(
-  () => import('@/components/shared/BackToTopScript.vue')
-);
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
+const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
@@ -36,53 +32,30 @@ const {
 
 <template>
   <div>
-    <div v-if="seasonContentsLoading || tvGameLoading">
-      Loading Week {{ week }} for {{ paramYear }}
-    </div>
-    <div v-if="seasonContentsError || tvGameError">
-      Sorry. Got a bit of a problem. Let Matt know.
-    </div>
+    <div v-if="seasonContentsLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}</div>
+    <div v-if="seasonContentsError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
     <div v-if="seasonContentsResult && tvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
             <span>
               <RouterLink class="homelink" to="/">Home</RouterLink>
-              <RouterLink
-                class="seasonhome"
-                :to="`/season/${sport}/${paramYear}`"
-                >Season Home</RouterLink
-              >
+              <RouterLink class="seasonhome" :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
             </span>
-            <RouterLink
-              class="DONTPrint"
-              :to="`/schedule/${sport}/${paramYear}/${week}`">
-              Weekly Schedule
-            </RouterLink>
+            <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}`"> Weekly Schedule </RouterLink>
             <br />
             <div v-if="!isMbkPostseason && !isBowlWeek" class="pad">
               <template v-if="isWeekOne">
                 <span style="float: left">
-                  <RouterLink
-                    :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`"
-                    >Next Week</RouterLink
-                  >
+                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week</RouterLink>
                 </span>
               </template>
               <template v-else>
                 <span style="float: left">
-                  <RouterLink
-                    :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`"
-                    >Previous Week</RouterLink
-                  >
+                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`">Previous Week</RouterLink>
                 </span>
-                <span
-                  v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek"
-                  style="float: right">
-                  <RouterLink
-                    :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`"
-                    >Next Week</RouterLink
-                  >
+                <span v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek" style="float: right">
+                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week</RouterLink>
                 </span>
               </template>
               <br class="mobilehide" />
@@ -95,12 +68,7 @@ const {
                 value="Clear All Games"
                 class="inputpad"
                 @click="clearAllSelectedTextRows" />
-              <input
-                id="CheckAll"
-                type="button"
-                value="Check All Games"
-                class="inputpad"
-                @click="checkAllTextRows" />
+              <input id="CheckAll" type="button" value="Check All Games" class="inputpad" @click="checkAllTextRows" />
             </p>
           </div>
         </div>

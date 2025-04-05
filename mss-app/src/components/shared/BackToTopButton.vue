@@ -22,13 +22,7 @@ onUnmounted(() => {
 
 <template>
   <p>
-    <a
-      id="backToTopBtn"
-      href="#"
-      :class="{ show: showButton }"
-      @click.prevent="scrollToTop"
-      >Back to top</a
-    >
+    <a id="backToTopBtn" href="#" :class="{ show: showButton }" @click.prevent="scrollToTop">Back to top</a>
   </p>
 </template>
 

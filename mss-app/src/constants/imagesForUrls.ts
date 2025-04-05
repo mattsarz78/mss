@@ -18,11 +18,7 @@ export const imagesForUrls = [
   { link: 'cbssports.com', image: 'cbssports-15.jpg', yearEnd: '2020|202021' },
   { link: 'cbssports.com', image: 'cbssports-21.jpg' },
   { link: 'collegesportsdirect.com', image: 'csd.jpg' },
-  {
-    link: 'collegesportslive.com',
-    image: 'cslive.jpg',
-    yearEnd: '2017|201617'
-  },
+  { link: 'collegesportslive.com', image: 'cslive.jpg', yearEnd: '2017|201617' },
   { link: 'collegesportslive.com', image: 'sportslive.jpg' },
   { link: 'slc-now', image: 'slcdn.jpg' },
   { link: 'southland.org/watch', image: 'slcdn.jpg' },
@@ -37,10 +33,7 @@ export const imagesForUrls = [
   { link: 'network/wcc-network/', image: 'thewtv.jpg', yearEnd: '2018|201819' },
   { link: 'network/wcc-network/', image: 'wccnetwork.jpg' },
   { link: 'network/mountain-west/', image: 'mwdn.jpg' },
-  {
-    link: 'themw.com/sports/2017/8/28/broadcast-guide.aspx',
-    image: 'mwdn.jpg'
-  },
+  { link: 'themw.com/sports/2017/8/28/broadcast-guide.aspx', image: 'mwdn.jpg' },
   { link: 'thew.tv', image: 'ci.jpg', yearEnd: '2016|201617' },
   { link: 'watchabc.com', image: 'watchabc.jpg' },
   { link: 'liveextra', image: 'nbcle.jpg', yearEnd: '2015|201516' },
@@ -60,17 +53,9 @@ export const imagesForUrls = [
   { link: 'facebook.com/CBSSports', image: 'cbssn-fb.jpg' },
   { link: 'flofootball.com', image: 'flofootball.jpg', yearEnd: '2018|201819' },
   { link: 'flohoops.com', image: 'flohoops.jpg', yearEnd: '2018|201819' },
-  {
-    link: 'flofootball.com',
-    image: 'flosports-19.jpg',
-    yearEnd: '2020|202021'
-  },
+  { link: 'flofootball.com', image: 'flosports-19.jpg', yearEnd: '2020|202021' },
   { link: 'flohoops.com', image: 'flosports-19.jpg', yearEnd: '2020|202021' },
-  {
-    link: 'flofootball.com',
-    image: 'flofootball-21.jpg',
-    yearEnd: '2023|202324'
-  },
+  { link: 'flofootball.com', image: 'flofootball-21.jpg', yearEnd: '2023|202324' },
   { link: 'flohoops.com', image: 'flohoops-21.jpg', yearEnd: '2023|202324' },
   { link: 'flofootball.com', image: 'flocollege.jpg' },
   { link: 'flohoops.com', image: 'flocollege.jpg' },

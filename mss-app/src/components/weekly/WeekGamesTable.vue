@@ -14,18 +14,9 @@ const props = defineProps<{
   season: string;
 }>();
 
-const {
-  weekDate,
-  tvGamesForDate,
-  isMbkPostseason,
-  isBowlWeek,
-  showPpvColumn,
-  season
-} = props;
+const { weekDate, tvGamesForDate, isMbkPostseason, isBowlWeek, showPpvColumn, season } = props;
 
-const formattedDate = computed(() =>
-  DateTime.fromISO(weekDate).toFormat('DDDD')
-);
+const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD'));
 </script>
 
 <template>
@@ -48,10 +39,7 @@ const formattedDate = computed(() =>
               <PostseasonMbkEvent :tv-game="tvGame" :season="season" />
             </template>
             <template v-else>
-              <WeekGameRow
-                :season="season"
-                :show-p-p-v-column="showPpvColumn"
-                :tv-game="tvGame" />
+              <WeekGameRow :season="season" :show-p-p-v-column="showPpvColumn" :tv-game="tvGame" />
             </template>
           </tr>
         </template>

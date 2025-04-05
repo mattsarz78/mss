@@ -11,9 +11,7 @@ const { games, year } = props;
 const formattedGames = computed(() =>
   games.map((game) => ({
     ...game,
-    formattedNetwork: game.network
-      ? formatNetworkJpgAndCoverage(game.network, year)
-      : '',
+    formattedNetwork: game.network ? formatNetworkJpgAndCoverage(game.network, year) : '',
     formattedTime: {
       day: DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('cccc'),
       date: DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('LL/dd'),
@@ -41,12 +39,8 @@ const formattedGames = computed(() =>
             ><br />
           </template>
           <template v-if="game.visitingTeam.length === 0" />
-          <template
-            v-else-if="
-              game.visitingTeam.length === 1 && game.homeTeam.length === 1
-            ">
-            {{ game.visitingTeam[0] }} {{ game.location ? 'vs.' : 'at' }}
-            {{ game.homeTeam[0] }}<br />
+          <template v-else-if="game.visitingTeam.length === 1 && game.homeTeam.length === 1">
+            {{ game.visitingTeam[0] }} {{ game.location ? 'vs.' : 'at' }} {{ game.homeTeam[0] }}<br />
           </template>
           <template v-else>
             {{ formatGame(game) }}
@@ -56,8 +50,7 @@ const formattedGames = computed(() =>
         <!-- eslint-disable-next-line -->
         <td class="network" v-html="game.formattedNetwork" />
         <td class="time">
-          {{ game.formattedTime.day }}<br />{{ game.formattedTime.date
-          }}<br />{{ game.formattedTime.time }}
+          {{ game.formattedTime.day }}<br />{{ game.formattedTime.date }}<br />{{ game.formattedTime.time }}
         </td>
       </tr>
     </tbody>

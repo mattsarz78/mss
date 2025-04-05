@@ -9,9 +9,7 @@ const { year } = route.params as { year: string };
 
 const flexLink = `${flexScheduleLink(year)}/pubhtml?widget=true&amp;headers=false`;
 
-const GoogleSearch = defineAsyncComponent(
-  () => import('@/components/shared/GoogleSearchBar.vue')
-);
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 
 onMounted(adjustNavBar);
 </script>
@@ -22,9 +20,7 @@ onMounted(adjustNavBar);
       <div>
         <span class="blockspan">
           <RouterLink class="homelink" to="/">Home</RouterLink><br />
-          <RouterLink class="seasonhome" :to="`/season/football/${year}`"
-            >Season Home</RouterLink
-          >
+          <RouterLink class="seasonhome" :to="`/season/football/${year}`">Season Home</RouterLink>
         </span>
       </div>
     </div>

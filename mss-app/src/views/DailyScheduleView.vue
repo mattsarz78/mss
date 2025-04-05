@@ -10,12 +10,8 @@ import { adjustWebExclusives } from '@/domUtils';
 const route = useRoute();
 const { sport } = route.params as { sport: string };
 
-const GoogleSearch = defineAsyncComponent(
-  () => import('@/components/shared/GoogleSearchBar.vue')
-);
-const BackToTopScript = defineAsyncComponent(
-  () => import('@/components/shared/BackToTopScript.vue')
-);
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
+const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 const {
   result: dailyTvGameResult,
@@ -37,24 +33,13 @@ const {
           <div>
             <span class="blockspan">
               <RouterLink class="mobilespan" to="/">Home</RouterLink>
-              <RouterLink
-                v-if="season"
-                class="mobilespan"
-                :to="`/season/${sport}/${season}`"
-                >Season Home
-              </RouterLink>
+              <RouterLink v-if="season" class="mobilespan" :to="`/season/${sport}/${season}`">Season Home </RouterLink>
             </span>
             <span class="blockspan">
-              <RouterLink
-                v-if="flexLink"
-                class="mobilespan"
-                :to="`/tv-windows/${season}`"
-                target="_blank">
+              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${season}`" target="_blank">
                 Available TV Windows</RouterLink
               >
-              <RouterLink
-                class="mobilespan"
-                :to="`/schedule/${sport}/daily/text`">
+              <RouterLink class="mobilespan" :to="`/schedule/${sport}/daily/text`">
                 Customizable Text-Only Page</RouterLink
               >
             </span>

@@ -32,9 +32,7 @@ const tvGamesByDate = computed(() => {
   const gamesByDate: Record<string, TvGame[]> = {};
   datesList.value.forEach((date) => {
     gamesByDate[date] = tvGames.filter(
-      (game) =>
-        game.timeWithOffset &&
-        DateTime.fromISO(game.timeWithOffset).toLocal().toISODate() === date
+      (game) => game.timeWithOffset && DateTime.fromISO(game.timeWithOffset).toLocal().toISODate() === date
     );
   });
   return gamesByDate;

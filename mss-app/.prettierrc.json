@@ -2,7 +2,7 @@
   "arrowParens": "always",
   "bracketSpacing": true,
   "bracketSameLine": true,
-  "endOfLine": "lf",
+  "endOfLine": "auto",
   "insertPragma": false,
   "htmlWhitespaceSensitivity": "css",
   "quoteProps": "as-needed",
@@ -11,7 +11,7 @@
   "semi": true,
   "tabWidth": 2,
   "singleQuote": true,
-  "printWidth": 80,
+  "printWidth": 120,
   "trailingComma": "none",
   "useTabs": false,
   "objectWrap": "collapse"

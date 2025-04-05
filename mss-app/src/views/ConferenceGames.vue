@@ -3,20 +3,14 @@ import { defineAsyncComponent } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 import { flexScheduleLink, getIndependentSchools } from '@/utils';
-import {
-  getConferenceCasingBySlug,
-  getConferenceContractData
-} from '@/conferenceUtils';
+import { getConferenceCasingBySlug, getConferenceContractData } from '@/conferenceUtils';
 import { CONFERENCE_GAMES, type ConferenceGame } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/IndependentsGameList.vue';
 
 const route = useRoute();
-const { conference, year } = route.params as {
-  conference: string;
-  year: string;
-};
+const { conference, year } = route.params as { conference: string; year: string };
 
 const flexLink = flexScheduleLink(year);
 
@@ -31,30 +25,18 @@ const contractTvData =
     ? (() => {
         const casing = getConferenceCasingBySlug(conference);
         if (!casing?.id) {
-          throw new Error(
-            `Invalid conference casing or ID for slug: ${conference}`
-          );
+          throw new Error(`Invalid conference casing or ID for slug: ${conference}`);
         }
         return getConferenceContractData(casing.id, year);
       })()
     : '';
 
-const { result, loading, error } = useQuery<{
-  conferenceGames: ConferenceGame[];
-}>(CONFERENCE_GAMES, {
-  input: {
-    season: year,
-    conference:
-      conference === 'independents' ? getIndependentSchools(year) : lookup
-  }
+const { result, loading, error } = useQuery<{ conferenceGames: ConferenceGame[] }>(CONFERENCE_GAMES, {
+  input: { season: year, conference: conference === 'independents' ? getIndependentSchools(year) : lookup }
 });
 
-const BackToTopScript = defineAsyncComponent(
-  () => import('@/components/shared/BackToTopScript.vue')
-);
-const GoogleSearch = defineAsyncComponent(
-  () => import('@/components/shared/GoogleSearchBar.vue')
-);
+const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 </script>
 
 <template>
@@ -91,9 +73,8 @@ const GoogleSearch = defineAsyncComponent(
           >
         </p>
         <p>
-          NOTE: This list includes telecasts that fall under the TV contracts
-          for the conference. Any road non-conference games fall under the home
-          team's telecast rights.
+          NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
+          non-conference games fall under the home team's telecast rights.
         </p>
         <!-- eslint-disable-next-line -->
         <div v-if="conference !== 'independents'" v-html="contractTvData" />

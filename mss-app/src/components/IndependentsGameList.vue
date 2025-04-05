@@ -4,11 +4,7 @@ import { getConferenceContractData } from '@/conferenceUtils';
 import ConferenceTable from '@/components/conference/ConferenceTable.vue';
 import { computed } from 'vue';
 
-const props = defineProps<{
-  games: ConferenceGame[];
-  schools: string[];
-  year: string;
-}>();
+const props = defineProps<{ games: ConferenceGame[]; schools: string[]; year: string }>();
 const { games, schools, year } = props;
 
 const filterGamesBySchool = (school: string) => {
@@ -26,9 +22,7 @@ const filteredGames = computed(() =>
 </script>
 
 <template>
-  <div
-    v-for="({ school, games: filterGames }, index) in filteredGames"
-    :key="index">
+  <div v-for="({ school, games: filterGames }, index) in filteredGames" :key="index">
     <!-- eslint-disable-next-line -->
     <div v-html="getConferenceContractData(school, year)!" />
     {{ filterGames[0]?.homeTeam[0] }} Telecasts

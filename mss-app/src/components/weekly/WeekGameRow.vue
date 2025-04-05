@@ -4,26 +4,14 @@ import { formatGame, formatTime } from '@/gameUtils';
 import { formatNetworkJpgAndCoverage } from '@/imageUtils';
 import { computed } from 'vue';
 
-const props = defineProps<{
-  tvGame: TvGame;
-  showPPVColumn: boolean;
-  season: string;
-}>();
+const props = defineProps<{ tvGame: TvGame; showPPVColumn: boolean; season: string }>();
 const { tvGame, showPPVColumn, season } = props;
 
-const networkHtml = computed(() =>
-  tvGame.networkJpg
-    ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season)
-    : ''
-);
+const networkHtml = computed(() => (tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season) : ''));
 const coverageHtml = computed(() =>
-  tvGame.coverageNotes
-    ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season)
-    : ''
+  tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season) : ''
 );
-const ppvHtml = computed(() =>
-  tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv, season) : ''
-);
+const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv, season) : ''));
 </script>
 
 <template>
@@ -34,12 +22,8 @@ const ppvHtml = computed(() =>
       ><br />
     </template>
     <template v-if="tvGame.visitingTeam?.length === 0" />
-    <template
-      v-else-if="
-        tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1
-      ">
-      {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }}
-      {{ tvGame.homeTeam![0] }}<br />
+    <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
+      {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
     </template>
     <template v-else>
       <!-- eslint-disable-next-line -->
@@ -50,9 +34,8 @@ const ppvHtml = computed(() =>
   <!-- eslint-disable-next-line -->
   <td class="network" v-html="networkHtml"></td>
   <!-- eslint-disable-next-line -->
-  <td
-    :class="showPPVColumn ? 'coverage' : 'coverageppv'"
-    v-html="coverageHtml"></td>
+  <td :class="showPPVColumn ? 'coverage' : 'coverageppv'" v-html="coverageHtml"></td> // eslint-disable-next-line
+  vue/no-v-html
   <!-- eslint-disable-next-line -->
   <td v-if="showPPVColumn" class="ppv" v-html="ppvHtml"></td>
   <td class="time">

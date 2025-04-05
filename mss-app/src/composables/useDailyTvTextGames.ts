@@ -14,9 +14,7 @@ export function useDailyTvTextGames() {
     result: dailyTvGameResult,
     loading: dailyTvGameLoading,
     error: dailyTvGameError
-  } = useQuery<{ dailyTvGames: TvGame[] }>(DAILY_TV_GAMES, {
-    input: { sport, startDate }
-  });
+  } = useQuery<{ dailyTvGames: TvGame[] }>(DAILY_TV_GAMES, { input: { sport, startDate } });
 
   const season = ref<string>('');
   const paramYear = ref<string>('');
@@ -27,21 +25,11 @@ export function useDailyTvTextGames() {
       if (dailyTvGameValue?.dailyTvGames.length) {
         paramYear.value = dailyTvGameValue.dailyTvGames[0].season;
         season.value =
-          sport === 'football'
-            ? paramYear.value
-            : `${paramYear.value.substring(0, 4)}-${paramYear.value.substring(5)}`;
+          sport === 'football' ? paramYear.value : `${paramYear.value.substring(0, 4)}-${paramYear.value.substring(5)}`;
       }
     },
     { immediate: true }
   );
 
-  return {
-    dailyTvGameResult,
-    dailyTvGameLoading,
-    dailyTvGameError,
-    season,
-    paramYear,
-    sport,
-    startDate
-  };
+  return { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate };
 }

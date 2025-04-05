@@ -13,8 +13,7 @@ const gameCategories = computed(() => ({
   },
   payTvGames: {
     title: 'Primary National Cable telecasts',
-    filter: (x: ConferenceGame) =>
-      x.mediaIndicator === 'T' && (x.tvtype === 'NC' || x.tvtype === 'C')
+    filter: (x: ConferenceGame) => x.mediaIndicator === 'T' && (x.tvtype === 'NC' || x.tvtype === 'C')
   },
   secondaryPayTvGames: {
     title: 'Broadly Syndicated and/or Secondary National Cable Telecasts',
@@ -31,16 +30,12 @@ const gameCategories = computed(() => ({
   memberRetained: {
     title: 'Member Retained Telecasts or Internet Exclusives',
     filter: (x: ConferenceGame) =>
-      (x.mediaIndicator === 'W' || x.mediaIndicator === 'T') &&
-      x.tvtype === 'R' &&
-      x.conference === 'Big 12'
+      (x.mediaIndicator === 'W' || x.mediaIndicator === 'T') && x.tvtype === 'R' && x.conference === 'Big 12'
   },
   regional: {
     title: 'Regional Telecasts',
     filter: (x: ConferenceGame) =>
-      (x.mediaIndicator === 'T' &&
-        x.tvtype === 'R' &&
-        x.conference !== 'Big 12') ||
+      (x.mediaIndicator === 'T' && x.tvtype === 'R' && x.conference !== 'Big 12') ||
       (x.conference === 'Big 12' && (year === '2021r' || parseInt(year) < 2012))
   },
   tbdGames: {
