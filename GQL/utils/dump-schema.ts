@@ -16,9 +16,7 @@ const SCHEMA_PATH = './';
 const SCHEMA_FILE = 'schema.graphql';
 const SCHEMA_GLOB = './schemas/*.graphql';
 
-const gqlSchema = loadSchemaSync(SCHEMA_GLOB, {
-  loaders: [new GraphQLFileLoader()]
-});
+const gqlSchema = loadSchemaSync(SCHEMA_GLOB, { loaders: [new GraphQLFileLoader()] });
 
 function printSchemasWithDirectives(schema: GraphQLSchema): string {
   const typeMap = schema.getTypeMap();
@@ -26,9 +24,7 @@ function printSchemasWithDirectives(schema: GraphQLSchema): string {
     .filter((typeName) => !typeName.startsWith('__'))
     .map((typeName) => {
       const type = typeMap[typeName];
-      return !isSpecifiedScalarType(type) && type.astNode
-        ? print(type.astNode)
-        : '';
+      return !isSpecifiedScalarType(type) && type.astNode ? print(type.astNode) : '';
     })
     .join('\n');
 
@@ -50,16 +46,11 @@ const schemaPath =
 if (schemaPath.endsWith('json')) {
   graphql({ schema: gqlSchema, source: getIntrospectionQuery() }).then(
     async (result) => {
-      const prettierResult = await prettier.format(JSON.stringify(result), {
-        parser: 'json'
-      });
+      const prettierResult = await prettier.format(JSON.stringify(result), { parser: 'json' });
       fs.writeFileSync(schemaPath, prettierResult);
     },
     (error: unknown) => {
-      console.error(
-        'Error introspecting schema: ',
-        JSON.stringify(error, null, 2)
-      );
+      console.error('Error introspecting schema: ', JSON.stringify(error, null, 2));
     }
   );
 } else {

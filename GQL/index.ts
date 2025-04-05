@@ -10,16 +10,10 @@ import { expressMiddleware } from '@apollo/server/express4';
 import http from 'http';
 import { PrismaClient } from './__generated__/prisma';
 import { DatabaseServices, getDatabaseServices } from './database/services';
-import {
-  AvailableTvService,
-  AvailableTvServiceKey
-} from './database/availableTV';
+import { AvailableTvService, AvailableTvServiceKey } from './database/availableTV';
 import { IContext } from './context';
 import { FootballService, FootballServiceKey } from './database/football';
-import {
-  WeeklyDatesService,
-  WeeklyDatesServiceKey
-} from './database/weeklyDates';
+import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDates';
 import { CommonService, CommonServiceKey } from './database/common';
 import { RsnListService, RsnListServiceKey } from './database/rsnList';
 
@@ -42,9 +36,7 @@ async function startServer() {
     [WeeklyDatesServiceKey]: new WeeklyDatesService(db),
     [RsnListServiceKey]: new RsnListService(db)
   };
-  const gqlSchema = loadSchemaSync('./schemas/*.graphql', {
-    loaders: [new GraphQLFileLoader()]
-  });
+  const gqlSchema = loadSchemaSync('./schemas/*.graphql', { loaders: [new GraphQLFileLoader()] });
   const typeDefs = mergeTypeDefs([gqlSchema]);
 
   const resolversArray = loadFilesSync('./resolvers/**/*.resolvers.ts');
@@ -68,12 +60,7 @@ async function startServer() {
     express.json(),
     expressMiddleware<IContext>(apolloServer, {
       context: async ({ req, res }) =>
-        Promise.resolve({
-          db,
-          services: getDatabaseServices(databaseServices),
-          request: req,
-          response: res
-        })
+        Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req, response: res })
     })
   );
 

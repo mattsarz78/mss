@@ -7,19 +7,10 @@ export interface RsnArgs {
   input: RsnInput;
 }
 
-export const getRsnList = async (
-  _1: unknown,
-  { input }: RsnArgs,
-  context: IContext
-): Promise<RsnGame[] | string> => {
+export const getRsnList = async (_1: unknown, { input }: RsnArgs, context: IContext): Promise<RsnGame[] | string> => {
   try {
-    const result = await context.services[RsnListServiceKey].getRsnList(
-      input.season
-    );
-    return result.map((game: rsnlist) => ({
-      ...game,
-      KeyValue: game.keyvalue ?? ''
-    }));
+    const result = await context.services[RsnListServiceKey].getRsnList(input.season);
+    return result.map((game: rsnlist) => ({ ...game, KeyValue: game.keyvalue ?? '' }));
   } catch (err: unknown) {
     console.error(`Error fetching RSN list: ${(err as Error).message}`);
     return (err as Error).message;

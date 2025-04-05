@@ -27,9 +27,7 @@ export const getTvGames = async (
       coverageNotes: result.coveragenotes?.trim() ?? '',
       ppv: result.ppv?.trim() ?? '',
       mediaIndicator: result.mediaindicator?.trim() ?? '',
-      timeWithOffset: result.timewithoffset
-        ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '')
-        : ''
+      timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
     }));
   } catch (error: unknown) {
     console.error(`Error fetching TV games: ${(error as Error).message}`);

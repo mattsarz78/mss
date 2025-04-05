@@ -17,9 +17,7 @@ export interface DatabaseServices {
   [RsnListServiceKey]: IRsnListService;
 }
 
-export const getDatabaseServices = (
-  services: Partial<DatabaseServices>
-): DatabaseServices => {
+export const getDatabaseServices = (services: Partial<DatabaseServices>): DatabaseServices => {
   const requiredServices = [
     AvailableTvServiceKey,
     FootballServiceKey,

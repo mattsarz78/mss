@@ -12,9 +12,7 @@ export const getSeasonContents = async (
   context: IContext
 ): Promise<SeasonContents[] | string> => {
   try {
-    const results = await context.services[
-      WeeklyDatesServiceKey
-    ].getConferenceGames(input.season);
+    const results = await context.services[WeeklyDatesServiceKey].getConferenceGames(input.season);
 
     return results.map((result) => ({
       week: result.week,

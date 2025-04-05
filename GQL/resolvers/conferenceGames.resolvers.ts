@@ -18,10 +18,7 @@ export const conferenceGamesResolver = async (
 
     const conferenceResults = await Promise.all(
       conferences.map((conference) =>
-        context.services[FootballServiceKey].getConferenceGames({
-          conference,
-          season: input.season
-        })
+        context.services[FootballServiceKey].getConferenceGames({ conference, season: input.season })
       )
     );
 

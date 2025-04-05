@@ -3,8 +3,7 @@ import { DatabaseService } from './services';
 
 export const WeeklyDatesServiceKey = Symbol.for('IWeeklyDatesService');
 
-export interface IWeeklyDatesService
-  extends DatabaseService<IWeeklyDatesService> {
+export interface IWeeklyDatesService extends DatabaseService<IWeeklyDatesService> {
   getConferenceGames(season: string): Promise<weeklydates[]>;
 }
 
@@ -13,15 +12,9 @@ export class WeeklyDatesService implements IWeeklyDatesService {
 
   public async getConferenceGames(season: string): Promise<weeklydates[]> {
     try {
-      return await this.client.weeklydates.findMany({
-        where: { season: season },
-        orderBy: { week: 'asc' }
-      });
+      return await this.client.weeklydates.findMany({ where: { season: season }, orderBy: { week: 'asc' } });
     } catch (error) {
-      console.error(
-        `Error fetching conference games for season: ${season}`,
-        error
-      );
+      console.error(`Error fetching conference games for season: ${season}`, error);
       throw error;
     }
   }

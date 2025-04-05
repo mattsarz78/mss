@@ -13,8 +13,7 @@ export const availableTvResolver = async (
   context: IContext
 ): Promise<AvailableTv[] | string> => {
   try {
-    const results =
-      await context.services[AvailableTvServiceKey].getAvailableTv(input);
+    const results = await context.services[AvailableTvServiceKey].getAvailableTv(input);
     return results.map((availableTV: availabletv) => ({
       season: availableTV.season.trim(),
       conference: availableTV.conference.trim(),
