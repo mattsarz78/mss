@@ -3,9 +3,9 @@ import { AvailableTvInput, AvailableTv } from '../__generated__/graphql';
 import { availabletv } from '../__generated__/prisma';
 import { IContext } from '../context';
 
-export type AvailableTvArgs = {
+export interface AvailableTvArgs {
   input: AvailableTvInput;
-};
+}
 
 export const availableTvResolver = async (
   _1: unknown,
@@ -18,7 +18,7 @@ export const availableTvResolver = async (
       season: availableTV.season.trim(),
       conference: availableTV.conference.trim(),
       week: availableTV.week,
-      tvOptions: availableTV.tvoptions?.trim() || ''
+      tvOptions: availableTV.tvoptions?.trim() ?? ''
     }));
   } catch (err: unknown) {
     console.error(`Error fetching available TV: ${(err as Error).message}`);

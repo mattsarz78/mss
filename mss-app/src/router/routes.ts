@@ -42,7 +42,7 @@ const generateMetaTags = (title: string) => [
 ];
 
 // Routes definition
-export const routes: Array<RouteRecordRaw> = [
+export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',

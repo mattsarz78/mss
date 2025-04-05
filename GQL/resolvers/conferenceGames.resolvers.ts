@@ -4,9 +4,9 @@ import { FootballServiceKey } from '../database/football';
 import { football } from '../__generated__/prisma';
 import { DateTime } from 'luxon';
 
-export type ConferenceGamesArgs = {
+export interface ConferenceGamesArgs {
   input: ConferenceGamesInput;
-};
+}
 
 export const conferenceGamesResolver = async (
   _1: unknown,
@@ -27,7 +27,9 @@ export const conferenceGamesResolver = async (
       visitingTeam: conferenceGame.visitingteam?.trim().split(',') ?? [],
       homeTeam: conferenceGame.hometeam?.trim().split(',') ?? [],
       location: conferenceGame.location?.trim() ?? '',
-      timeWithOffset: DateTime.fromJSDate(conferenceGame.timewithoffset as Date).toISO() || '',
+      timeWithOffset: conferenceGame.timewithoffset
+        ? (DateTime.fromJSDate(conferenceGame.timewithoffset).toISO() ?? '')
+        : '',
       mediaIndicator: conferenceGame.mediaindicator?.trim() ?? '',
       network: conferenceGame.networkjpg?.trim() ?? '',
       tvtype: conferenceGame.tvtype?.trim() ?? '',

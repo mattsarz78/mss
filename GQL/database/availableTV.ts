@@ -22,7 +22,7 @@ export class AvailableTvService implements IAvailableTvService {
       });
     } catch (error) {
       console.error(
-        `Error fetching available TV for season: ${request.season}, conference: ${request.conference}, week: ${request.week}`,
+        `Error fetching available TV for season: ${request.season}, conference: ${request.conference}, week: ${request.week.toString()}`,
         error
       );
       throw error;

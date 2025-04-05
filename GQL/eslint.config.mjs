@@ -19,5 +19,6 @@ export default [
     }
   },
   pluginJs.configs.recommended,
-  ...tseslint.configs.strict
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked
 ];

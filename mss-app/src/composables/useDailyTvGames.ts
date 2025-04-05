@@ -16,7 +16,7 @@ export function useDailyTvGames(sport: string) {
 
   const season = computed(() => {
     if (result.value?.dailyTvGames.length) {
-      const paramYear = result.value.dailyTvGames[0].season ?? '';
+      const paramYear = result.value.dailyTvGames[0].season;
       return sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}-${paramYear.substring(5)}`;
     }
     return '';
@@ -24,7 +24,7 @@ export function useDailyTvGames(sport: string) {
 
   const flexLink = computed(() => {
     if (result.value?.dailyTvGames.length) {
-      const paramYear = result.value.dailyTvGames[0].season ?? '';
+      const paramYear = result.value.dailyTvGames[0].season;
       return flexScheduleLink(paramYear);
     }
     return '';

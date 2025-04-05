@@ -11,8 +11,8 @@ const adjustLayout = () => {
     const linksHeight = linksRef.value.clientHeight;
     const windowWidth = window.innerWidth - 6;
 
-    contentRef.value.style.height = `${linksHeight}px`;
-    facebookRef.value.style.maxWidth = `${windowWidth}px`;
+    contentRef.value.style.height = `${linksHeight.toString()}px`;
+    facebookRef.value.style.maxWidth = `${windowWidth.toString()}px`;
   }
 };
 

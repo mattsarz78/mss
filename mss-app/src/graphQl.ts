@@ -1,33 +1,33 @@
 import gql from 'graphql-tag';
 
-export type SeasonContentsInput = {
+export interface SeasonContentsInput {
   season: string;
-};
+}
 
-export type ConferenceGamesInput = {
+export interface ConferenceGamesInput {
   season: string;
   conference: string;
-};
+}
 
-export type TvGamesInput = {
+export interface TvGamesInput {
   season: string;
   sport: string;
   week: number;
-};
+}
 
-export type NoTvGamesInput = {
+export interface NoTvGamesInput {
   season: string;
   week: number;
-};
+}
 
-export type WeekInfo = {
+export interface WeekInfo {
   startDate: string;
   endDate: string;
   week: number;
   postseasonInd?: string;
-};
+}
 
-export type ConferenceGame = {
+export interface ConferenceGame {
   gameTitle?: string;
   visitingTeam: string[];
   homeTeam: string[];
@@ -37,9 +37,9 @@ export type ConferenceGame = {
   network?: string;
   tvtype?: string;
   conference?: string;
-};
+}
 
-export type TvGame = {
+export interface TvGame {
   season: string;
   gameTitle?: string;
   visitingTeam?: string[];
@@ -51,9 +51,9 @@ export type TvGame = {
   ppv?: string;
   mediaIndicator: string;
   timeWithOffset?: string;
-};
+}
 
-export type NoTvGame = {
+export interface NoTvGame {
   gameTitle?: string;
   visitingTeam: string;
   homeTeam: string;
@@ -62,7 +62,7 @@ export type NoTvGame = {
   tvOptions: string;
   timeWithOffset: string;
   fcs?: string;
-};
+}
 
 export const SEASON_CONTENTS = gql`
   query seasonContents($input: SeasonContentsInput) {

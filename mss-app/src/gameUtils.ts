@@ -18,7 +18,7 @@ export const updatedTvOptions = (game: NoTvGame): string => {
     }
   };
 
-  return conferenceOptions[game.conference]?.(game) ?? game.tvOptions;
+  return conferenceOptions[game.conference](game);
 };
 
 export const formatGame = (game: TvGame | ConferenceGame): string => {

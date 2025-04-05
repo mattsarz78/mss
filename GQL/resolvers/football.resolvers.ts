@@ -3,9 +3,9 @@ import { IContext } from '../context';
 import { NoTvGame, NoTvGamesInput } from '../__generated__/graphql';
 import { DateTime } from 'luxon';
 
-export type NoTvGamesArgs = {
+export interface NoTvGamesArgs {
   input: NoTvGamesInput;
-};
+}
 
 export const getNoTvGames = async (
   _1: unknown,

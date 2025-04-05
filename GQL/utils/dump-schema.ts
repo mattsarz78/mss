@@ -64,8 +64,10 @@ if (schemaPath.endsWith('json')) {
   const schemaText = printSchemasWithDirectives(gqlSchema);
   prettier
     .format(schemaText, { parser: 'graphql' })
-    .then((prettySchema) => fs.writeFileSync(schemaPath, prettySchema, 'utf-8'))
-    .catch((error) => {
-      console.error('Error formatting schema: ', error);
+    .then((prettySchema) => {
+      fs.writeFileSync(schemaPath, prettySchema, 'utf-8');
+    })
+    .catch((error: unknown) => {
+      console.error('Error formatting schema: ', (error as Error).message);
     });
 }

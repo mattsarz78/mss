@@ -22,6 +22,9 @@ router
   .then(() => {
     app.mount('#app');
   })
-  .catch((error) => {
-    console.error('Error during router readiness. Ensure all routes are properly configured:', error);
+  .catch((error: unknown) => {
+    console.error(
+      'Error during router readiness. Ensure all routes are properly configured:',
+      (error as Error).message
+    );
   });

@@ -34,9 +34,9 @@ const updateStyles = () => {
     const height = seasonLinksRef.value.clientHeight;
 
     if (contentWidth > 640) {
-      contentRef.value.style.minHeight = `${height}px`;
+      contentRef.value.style.minHeight = `${height.toString()}px`;
       if (conferenceRef.value) {
-        conferenceRef.value.style.minHeight = `${height}px`;
+        conferenceRef.value.style.minHeight = `${height.toString()}px`;
       }
     }
   }

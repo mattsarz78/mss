@@ -9,13 +9,13 @@ export interface DatabaseService<T> {
   transaction(client: Prisma.TransactionClient): T;
 }
 
-export type DatabaseServices = {
+export interface DatabaseServices {
   [AvailableTvServiceKey]: IAvailableTvService;
   [FootballServiceKey]: IFootballService;
   [WeeklyDatesServiceKey]: IWeeklyDatesService;
   [CommonServiceKey]: ICommonService;
   [RsnListServiceKey]: IRsnListService;
-};
+}
 
 export const getDatabaseServices = (services: Partial<DatabaseServices>): DatabaseServices => {
   const requiredServices = [

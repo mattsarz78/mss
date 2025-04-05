@@ -4,9 +4,9 @@ import { DailyTvGamesInput, TvGame } from '../../__generated__/graphql';
 import { CommonServiceKey } from '../../database/common';
 import { basketball, football } from '__generated__/prisma';
 
-export type DailyTvGamesArgs = {
+export interface DailyTvGamesArgs {
   input: DailyTvGamesInput;
-};
+}
 
 const zeroHour = { hour: 0, minute: 0, seconds: 0, milliseconds: 0 };
 const endOfDay = { hour: 4, minute: 59, seconds: 59, milliseconds: 0 };
@@ -37,7 +37,7 @@ export const getDailyTvGames = async (
       coverageNotes: result.coveragenotes?.trim() ?? '',
       ppv: result.ppv?.trim() ?? '',
       mediaIndicator: result.mediaindicator?.trim() ?? '',
-      timeWithOffset: DateTime.fromJSDate(result.timewithoffset as Date).toISO() ?? ''
+      timeWithOffset: result.timewithoffset ? DateTime.fromJSDate(result.timewithoffset).toISO() ?? '' : ''
     }));
   } catch (error: unknown) {
     console.error(`Error fetching daily TV games: ${(error as Error).message}`);

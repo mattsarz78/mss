@@ -23,7 +23,13 @@ export class CommonService implements ICommonService {
       where: {
         mediaindicator: {
           in: ['T', 'W']
-        }
+        },
+        timewithoffset: undefined as unknown as {
+          lte?: Date;
+          gte?: Date;
+        },
+        season: undefined as unknown as string,
+        week: undefined as unknown as number
       },
       orderBy: [
         {
@@ -36,13 +42,13 @@ export class CommonService implements ICommonService {
     };
 
     if (isDaily) {
-      baseCriteria.where['timewithoffset'] = {
+      baseCriteria.where.timewithoffset = {
         lte: (request as GetDailyTvGamesRequest).endDate,
         gte: (request as GetDailyTvGamesRequest).startDate
       };
     } else {
-      baseCriteria.where['week'] = (request as TvGamesInput).week;
-      baseCriteria.where['season'] = (request as TvGamesInput).season;
+      baseCriteria.where.week = (request as TvGamesInput).week;
+      baseCriteria.where.season = (request as TvGamesInput).season;
     }
 
     return baseCriteria;

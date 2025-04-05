@@ -3,9 +3,9 @@ import { IContext } from '../context';
 import { RsnGame, RsnInput } from '../__generated__/graphql';
 import { rsnlist } from '../__generated__/prisma';
 
-export type RsnArgs = {
+export interface RsnArgs {
   input: RsnInput;
-};
+}
 
 export const getRsnList = async (_1: unknown, { input }: RsnArgs, context: IContext): Promise<RsnGame[] | string> => {
   try {

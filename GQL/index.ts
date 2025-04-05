@@ -82,7 +82,7 @@ async function startServer() {
   });
 }
 
-startServer().catch((error) => {
-  console.error('Error starting server:', error);
+startServer().catch((error: unknown) => {
+  console.error('Error starting server:', (error as Error).message);
   process.exit(1);
 });

@@ -13,15 +13,17 @@ const props = defineProps<{
 const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn } = props;
 
 const toggleRow = (event: Event) => {
-  const row = ((event.target as HTMLInputElement).parentElement as HTMLElement).closest('tr');
+  const parentElement = (event.target as HTMLInputElement).parentElement;
+  const row = parentElement ? parentElement.closest('tr') : null;
+  if (!row) return;
   if ((event.target as HTMLInputElement).checked) {
-    row?.classList.add('DOPrint');
-    row?.classList.remove('DONTPrint');
-    row?.style.setProperty('background-color', '#CCC');
+    row.classList.add('DOPrint');
+    row.classList.remove('DONTPrint');
+    row.style.setProperty('background-color', '#CCC');
   } else {
-    row?.classList.add('DONTPrint');
-    row?.classList.remove('DOPrint');
-    row?.style.setProperty('background-color', '#FFF');
+    row.classList.add('DONTPrint');
+    row.classList.remove('DOPrint');
+    row.style.setProperty('background-color', '#FFF');
   }
 };
 </script>

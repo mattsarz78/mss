@@ -4,7 +4,7 @@ export const adjustNavBar = (): void => {
   if (navbar && main) {
     const widthAddition = window.innerWidth >= 641 ? 3 : 8;
     const paddingAddition = navbar.clientHeight + widthAddition;
-    main.setAttribute('style', `padding-top: ${paddingAddition}px`);
+    main.setAttribute('style', `padding-top: ${paddingAddition.toString()}px`);
   }
 };
 

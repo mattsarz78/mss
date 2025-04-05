@@ -16,7 +16,7 @@ const { contents, sport, paramYear, year } = props;
 
 const lastContent = contents[contents.length - 1];
 
-const filteredContents = computed(() => contents.filter(x => x.postseasonInd === null));
+const filteredContents = computed(() => contents.filter(x => !x.postseasonInd));
 const postseasonContents = computed(() => contents.filter(x => x.postseasonInd));
 
 const getLinkText = (content: WeekInfo) => {

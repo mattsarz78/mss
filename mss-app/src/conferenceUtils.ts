@@ -2,9 +2,9 @@ import { validSportYears } from './constants/validSportYears';
 import { conferenceCasing } from './constants/conferenceCasing';
 import { contractData } from './constants/conference-data';
 
-export const getConferenceCasing = (conference: string) => conferenceCasing.find((x) => x?.id === conference);
+export const getConferenceCasing = (conference: string) => conferenceCasing.find((x) => x.id === conference);
 
-export const getConferenceCasingBySlug = (conference: string) => conferenceCasing.find((x) => x?.slug === conference);
+export const getConferenceCasingBySlug = (conference: string) => conferenceCasing.find((x) => x.slug === conference);
 
 export const getConferenceContractData = (conference: string, season: string) => {
   return contractData

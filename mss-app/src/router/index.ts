@@ -10,7 +10,7 @@ const router = createRouter({
 
 router.beforeEach((to, _from, next) => {
   const title = to.meta.title as string | undefined;
-  const metaTags = to.meta.metaTags as Array<{ name?: string; content?: string; property?: string }> | undefined;
+  const metaTags = to.meta.metaTags as { name?: string; content?: string; property?: string }[] | undefined;
 
   // Update document title
   if (title) {
@@ -34,7 +34,7 @@ function generateTitle(title: string, to: RouteLocationNormalizedGeneric): strin
       return `Football TV Windows for ${Array.isArray(to.params.year) ? to.params.year[0] : to.params.year}`;
     case 'Contract':
       const year = Array.isArray(to.params.year) ? to.params.year[0] : to.params.year;
-      return `${year} ${getConferenceCasingBySlug(to.params.conference as string)?.cased} Controlled Games`;
+      return `${year} ${getConferenceCasingBySlug(to.params.conference as string)?.cased ?? 'Unknown Conference'} Controlled Games`;
     case 'Weekly':
     case 'Weekly Text':
       return generateWeeklyTitle(title, to);
@@ -70,7 +70,7 @@ function generateWeeklyTitle(title: string, to: RouteLocationNormalizedGeneric):
 
 // Helper function to update meta tags
 function updateMetaTags(
-  metaTags: Array<{ name?: string; content?: string; property?: string }>,
+  metaTags: { name?: string; content?: string; property?: string }[],
   to: RouteLocationNormalizedGeneric
 ): void {
   const url = `${window.location.origin}${to.fullPath}`;
@@ -78,7 +78,9 @@ function updateMetaTags(
     const content = generateMetaContent(tag, to, url);
 
     // Remove existing meta tag with the same name or property
-    const existingMeta = document.querySelector(`meta[name="${tag.name}"], meta[property="${tag.property}"]`);
+    const existingMeta = document.querySelector(
+      `meta[name="${tag.name ?? ''}"], meta[property="${tag.property ?? ''}"]`
+    );
     if (existingMeta) {
       existingMeta.remove();
     }
@@ -87,7 +89,7 @@ function updateMetaTags(
     const meta = document.createElement('meta');
     if (tag.name) meta.name = tag.name;
     if (tag.property) meta.setAttribute('property', tag.property);
-    meta.content = content || '';
+    meta.content = content ?? '';
     document.head.appendChild(meta);
   });
 }

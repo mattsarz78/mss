@@ -2,9 +2,9 @@ import { WeeklyDatesServiceKey } from '../database/weeklyDates';
 import { SeasonContents, SeasonContentsInput } from '../__generated__/graphql';
 import { IContext } from '../context';
 
-export type SeasonContentsArgs = {
+export interface SeasonContentsArgs {
   input: SeasonContentsInput;
-};
+}
 
 export const getSeasonContents = async (
   _1: unknown,
@@ -16,8 +16,8 @@ export const getSeasonContents = async (
 
     return results.map((result) => ({
       week: result.week,
-      startDate: result.startdate?.toISOString() || '',
-      endDate: result.enddate?.toISOString() || '',
+      startDate: result.startdate?.toISOString() ?? '',
+      endDate: result.enddate?.toISOString() ?? '',
       postseasonInd: result.postseasonind
     }));
   } catch (err: unknown) {

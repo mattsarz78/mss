@@ -4,9 +4,9 @@ import { TvGame, TvGamesInput } from '../../__generated__/graphql';
 import { CommonServiceKey } from '../../database/common';
 import { basketball, football } from '__generated__/prisma';
 
-export type TvGamesArgs = {
+export interface TvGamesArgs {
   input: TvGamesInput;
-};
+}
 
 export const getTvGames = async (
   _1: unknown,
@@ -27,7 +27,7 @@ export const getTvGames = async (
       coverageNotes: result.coveragenotes?.trim() ?? '',
       ppv: result.ppv?.trim() ?? '',
       mediaIndicator: result.mediaindicator?.trim() ?? '',
-      timeWithOffset: DateTime.fromJSDate(result.timewithoffset as Date).toISO() ?? ''
+      timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
     }));
   } catch (error: unknown) {
     console.error(`Error fetching TV games: ${(error as Error).message}`);

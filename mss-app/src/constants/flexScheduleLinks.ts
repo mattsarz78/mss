@@ -1,7 +1,7 @@
-export type FlexScheduleLink = {
+export interface FlexScheduleLink {
   season: string;
   url: string;
-};
+}
 
 export const flexScheduleLinks: FlexScheduleLink[] = [
   {
