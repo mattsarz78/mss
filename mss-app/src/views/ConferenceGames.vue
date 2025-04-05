@@ -3,14 +3,20 @@ import { defineAsyncComponent } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 import { flexScheduleLink, getIndependentSchools } from '@/utils';
-import { getConferenceCasingBySlug, getConferenceContractData } from '@/conferenceUtils';
+import {
+  getConferenceCasingBySlug,
+  getConferenceContractData
+} from '@/conferenceUtils';
 import { CONFERENCE_GAMES, type ConferenceGame } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/IndependentsGameList.vue';
 
 const route = useRoute();
-const { conference, year } = route.params as { conference: string; year: string };
+const { conference, year } = route.params as {
+  conference: string;
+  year: string;
+};
 
 const flexLink = flexScheduleLink(year);
 
@@ -21,17 +27,34 @@ if (!conferenceCasing) {
 const { cased, lookup } = conferenceCasing;
 
 const contractTvData =
-  conference !== 'independents' ? getConferenceContractData(getConferenceCasingBySlug(conference)?.id!, year)! : ''; // eslint-disable-line
+  conference !== 'independents'
+    ? (() => {
+        const casing = getConferenceCasingBySlug(conference);
+        if (!casing?.id) {
+          throw new Error(
+            `Invalid conference casing or ID for slug: ${conference}`
+          );
+        }
+        return getConferenceContractData(casing.id, year);
+      })()
+    : '';
 
-const { result, loading, error } = useQuery<{ conferenceGames: ConferenceGame[] }>(CONFERENCE_GAMES, {
+const { result, loading, error } = useQuery<{
+  conferenceGames: ConferenceGame[];
+}>(CONFERENCE_GAMES, {
   input: {
     season: year,
-    conference: conference === 'independents' ? getIndependentSchools(year) : lookup
+    conference:
+      conference === 'independents' ? getIndependentSchools(year) : lookup
   }
 });
 
-const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
+const BackToTopScript = defineAsyncComponent(
+  () => import('@/components/shared/BackToTopScript.vue')
+);
+const GoogleSearch = defineAsyncComponent(
+  () => import('@/components/shared/GoogleSearchBar.vue')
+);
 </script>
 
 <template>
@@ -40,20 +63,19 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
       <div class="container">
         <div>
           <span>
-            <RouterLink
-              class="homelink"
-              to="/"
-            >Home</RouterLink>
-            <RouterLink
-              class="seasonhome"
-              :to="`/season/football/${year}`"
-            >Season Home</RouterLink>
+            <!-- eslint-disable-next-line -->
+            <RouterLink class="homelink" to="/">Home</RouterLink>
+            <!-- eslint-disable-next-line -->
+            <RouterLink class="seasonhome" :to="`/season/football/${year}`"
+              >Season Home
+              <!-- eslint-disable-next-line -->
+            </RouterLink>
           </span>
+          <!-- eslint-disable-next-line -->
           <RouterLink
             v-if="flexLink"
             :to="`/tv-windows/${year}`"
-            target="_blank"
-          >
+            target="_blank">
             Available TV Windows
           </RouterLink>
         </div>
@@ -62,24 +84,30 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
 
     <div id="Main">
       <div id="head">
-        <p>{{ cased }} Broadcast Schedule<br><b>All start times displayed are based on your device's location.</b></p>
         <p>
-          NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
-          non-conference games fall under the home team's telecast rights.
+          <!-- eslint-disable-next-line -->
+          {{ cased }} Broadcast Schedule<br /><b
+            >All start times displayed are based on your device's location.</b
+          >
+        </p>
+        <p>
+          NOTE: This list includes telecasts that fall under the TV contracts
+          for the conference. Any road non-conference games fall under the home
+          team's telecast rights.
         </p>
         <!-- eslint-disable-next-line -->
         <div v-if="conference !== 'independents'" v-html="contractTvData" />
+        <!-- eslint-disable-next-line -->
         <IndependentsGameList
           v-if="conference === 'independents'"
           :games="result.conferenceGames"
           :schools="getIndependentSchools(year).split('|')"
-          :year="year"
-        />
+          :year="year" />
+        <!-- eslint-disable-next-line -->
         <ConferenceGameList
           v-else
           :year="year"
-          :games="result.conferenceGames"
-        />
+          :games="result.conferenceGames" />
         <p>
           <BackToTopScript />
           <BackToTopButton />
@@ -88,12 +116,10 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
       </div>
     </div>
   </div>
-  <div v-if="loading">
-    {{ cased }} Games Loading...
-  </div>
-  <div v-if="error">
-    There's an error.
-  </div>
+  <!-- eslint-disable-next-line -->
+  <div v-if="loading">{{ cased }} Games Loading...</div>
+  <!-- eslint-disable-next-line -->
+  <div v-if="error">There's an error.</div>
 </template>
 
 <style scoped>

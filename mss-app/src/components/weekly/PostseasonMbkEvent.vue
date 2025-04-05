@@ -7,24 +7,34 @@ import { computed } from 'vue';
 const props = defineProps<{ tvGame: TvGame; season: string }>();
 const { tvGame, season } = props;
 
-const networkHtml = computed(() => tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season) : '');
-const coverageHtml = computed(() => tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season) : '');
+const networkHtml = computed(() =>
+  tvGame.networkJpg
+    ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season)
+    : ''
+);
+const coverageHtml = computed(() =>
+  tvGame.coverageNotes
+    ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season)
+    : ''
+);
 </script>
 
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b><i>{{ tvGame.gameTitle }}</i></b><br>
+      <b
+        ><i>{{ tvGame.gameTitle }}</i></b
+      ><br />
     </template>
     <template v-if="tvGame.location">
       <template v-if="tvGame.visitingTeam?.length">
-        {{ tvGame.visitingTeam[0] }} vs. {{ tvGame.homeTeam![0] }}<br>
+        {{ tvGame.visitingTeam[0] }} vs. {{ tvGame.homeTeam![0] }}<br />
       </template>
-      (at {{ tvGame.location }})<br>
+      (at {{ tvGame.location }})<br />
     </template>
     <template v-else>
       <template v-if="tvGame.visitingTeam?.length">
-        {{ tvGame.visitingTeam[0] }} at {{ tvGame.homeTeam![0] }}<br>
+        {{ tvGame.visitingTeam[0] }} at {{ tvGame.homeTeam![0] }}<br />
       </template>
     </template>
   </td>

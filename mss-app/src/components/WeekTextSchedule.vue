@@ -6,8 +6,12 @@ import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
 import { checkAllTextRows, clearAllSelectedTextRows } from '@/domUtils';
 import { shouldShowPpvColumn } from '@/conferenceUtils';
 
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
-const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
+const GoogleSearch = defineAsyncComponent(
+  () => import('@/components/shared/GoogleSearchBar.vue')
+);
+const BackToTopScript = defineAsyncComponent(
+  () => import('@/components/shared/BackToTopScript.vue')
+);
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
@@ -43,63 +47,60 @@ const {
         <div class="container">
           <div>
             <span>
-              <RouterLink
-                class="homelink"
-                to="/"
-              >Home</RouterLink>
+              <RouterLink class="homelink" to="/">Home</RouterLink>
               <RouterLink
                 class="seasonhome"
                 :to="`/season/${sport}/${paramYear}`"
-              >Season Home</RouterLink>
+                >Season Home</RouterLink
+              >
             </span>
             <RouterLink
               class="DONTPrint"
-              :to="`/schedule/${sport}/${paramYear}/${week}`"
-            >
+              :to="`/schedule/${sport}/${paramYear}/${week}`">
               Weekly Schedule
             </RouterLink>
-            <br>
-            <div
-              v-if="!isMbkPostseason && !isBowlWeek"
-              class="pad"
-            >
+            <br />
+            <div v-if="!isMbkPostseason && !isBowlWeek" class="pad">
               <template v-if="isWeekOne">
                 <span style="float: left">
-                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week</RouterLink>
+                  <RouterLink
+                    :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`"
+                    >Next Week</RouterLink
+                  >
                 </span>
               </template>
               <template v-else>
                 <span style="float: left">
-                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`">Previous Week</RouterLink>
+                  <RouterLink
+                    :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`"
+                    >Previous Week</RouterLink
+                  >
                 </span>
                 <span
                   v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek"
-                  style="float: right"
-                >
-                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week</RouterLink>
+                  style="float: right">
+                  <RouterLink
+                    :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`"
+                    >Next Week</RouterLink
+                  >
                 </span>
               </template>
-              <br class="mobilehide">
+              <br class="mobilehide" />
             </div>
-            <br>
-            <p
-              id="TextNav"
-              class="DONTPrint"
-            >
+            <br />
+            <p id="TextNav" class="DONTPrint">
               <input
                 id="ClearAll"
                 type="button"
                 value="Clear All Games"
                 class="inputpad"
-                @click="clearAllSelectedTextRows"
-              >
+                @click="clearAllSelectedTextRows" />
               <input
                 id="CheckAll"
                 type="button"
                 value="Check All Games"
                 class="inputpad"
-                @click="checkAllTextRows"
-              >
+                @click="checkAllTextRows" />
             </p>
           </div>
         </div>
@@ -110,8 +111,7 @@ const {
           :tv-games="tvGameResult.tvGames"
           :is-bowl-week="isBowlWeek"
           :is-mbk-postseason="isMbkPostseason"
-          :show-ppv-column="shouldShowPpvColumn(year)"
-        />
+          :show-ppv-column="shouldShowPpvColumn(year)" />
         <p>
           <BackToTopScript />
           <BackToTopButton />
@@ -154,7 +154,6 @@ const {
 }
 
 @media all and (min-width: 641px) {
-
   .homelink,
   .seasonhome {
     display: block;

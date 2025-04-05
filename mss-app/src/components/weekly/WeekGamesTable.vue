@@ -14,9 +14,18 @@ const props = defineProps<{
   season: string;
 }>();
 
-const { weekDate, tvGamesForDate, isMbkPostseason, isBowlWeek, showPpvColumn, season } = props;
+const {
+  weekDate,
+  tvGamesForDate,
+  isMbkPostseason,
+  isBowlWeek,
+  showPpvColumn,
+  season
+} = props;
 
-const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD'));
+const formattedDate = computed(() =>
+  DateTime.fromISO(weekDate).toFormat('DDDD')
+);
 </script>
 
 <template>
@@ -28,36 +37,27 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
           <th>Game</th>
           <th>Network</th>
           <th>Coverage Notes / Network Streaming</th>
-          <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">
-            PPV
-          </th>
+          <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">PPV</th>
           <th>Time</th>
         </tr>
       </thead>
       <tbody>
-        <template
-          v-for="(tvGame, index) in tvGamesForDate"
-          :key="index"
-        >
+        <template v-for="(tvGame, index) in tvGamesForDate" :key="index">
           <tr :class="{ webGame: tvGame.mediaIndicator === 'W' }">
             <template v-if="isBowlWeek || isMbkPostseason">
-              <PostseasonMbkEvent
-                :tv-game="tvGame"
-                :season="season"
-              />
+              <PostseasonMbkEvent :tv-game="tvGame" :season="season" />
             </template>
             <template v-else>
               <WeekGameRow
                 :season="season"
                 :show-p-p-v-column="showPpvColumn"
-                :tv-game="tvGame"
-              />
+                :tv-game="tvGame" />
             </template>
           </tr>
         </template>
       </tbody>
     </table>
-    <br>
+    <br />
   </div>
 </template>
 

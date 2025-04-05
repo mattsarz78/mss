@@ -18,7 +18,9 @@ const addDontPrintClass = () => {
   const selectors = document.querySelectorAll<HTMLElement>(
     'ins.adsbygoogle,ins.adsbygoogle.adsbygoogle-noablate,.gsc-control-cse'
   );
-  selectors.forEach((selector) => { selector.classList.add('DONTPrint'); });
+  selectors.forEach((selector) => {
+    selector.classList.add('DONTPrint');
+  });
 };
 
 onMounted(() => {
@@ -29,21 +31,18 @@ onMounted(() => {
 
 <template>
   <div id="Main">
-    <p
-      id="Directions"
-      class="DONTPrint"
-    >
-      All start times displayed are based on your device's location. If you have trouble
-      selecting &amp; printing games, please try selecting games, changing your print settings to "Print to PDF", print,
-      then open the PDF file and print that.
+    <p id="Directions" class="DONTPrint">
+      All start times displayed are based on your device's location. If you have
+      trouble selecting &amp; printing games, please try selecting games,
+      changing your print settings to "Print to PDF", print, then open the PDF
+      file and print that.
     </p>
     <WeekTextTable
       :season="season"
       :is-bowl-week="isBowlWeek"
       :is-mbk-postseason="isMbkPostseason"
       :show-ppv-column="showPpvColumn"
-      :tv-games="tvGames"
-    />
+      :tv-games="tvGames" />
   </div>
 </template>
 

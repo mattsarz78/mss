@@ -16,7 +16,13 @@ const conferenceLinks = computed(() => {
     { key: 'mw', link: getConferenceCasing('mw') },
     { key: 'sec', link: getConferenceCasing('sec') },
     { key: 'sbc', link: getConferenceCasing('sbc') },
-    { key: 'pac', link: conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12') },
+    {
+      key: 'pac',
+      link:
+        conferenceList === 'ListBase1'
+          ? getConferenceCasing('p10')
+          : getConferenceCasing('p12')
+    }
   ];
 
   if (conferenceList === 'ListBase3') {
@@ -34,19 +40,12 @@ const conferenceLinks = computed(() => {
 </script>
 
 <template>
-  <div
-    id="Conference"
-    ref="conferenceRef"
-    class="DONTPrint"
-  >
-    <span>By Conference</span><br><br>
-    <div
-      v-for="conference in conferenceLinks"
-      :key="conference.key"
-    >
+  <div id="Conference" ref="conferenceRef" class="DONTPrint">
+    <p><span>By Conference</span></p>
+    <div v-for="conference in conferenceLinks" :key="conference.key">
       <RouterLink :to="`/contract/${conference.link?.slug}/${year}`">
-        {{ conference.link?.cased }}
-      </RouterLink><br>
+        {{ conference.link?.cased }} </RouterLink
+      ><br />
     </div>
   </div>
 </template>

@@ -30,13 +30,19 @@ const datesList = computed(() => {
 
 const tvGamesByDate = computed(() => {
   const gamesByDate: Record<string, TvGame[]> = {};
-  datesList.value.forEach(date => {
-    gamesByDate[date] = tvGames.filter(game => game.timeWithOffset && DateTime.fromISO(game.timeWithOffset).toLocal().toISODate() === date);
+  datesList.value.forEach((date) => {
+    gamesByDate[date] = tvGames.filter(
+      (game) =>
+        game.timeWithOffset &&
+        DateTime.fromISO(game.timeWithOffset).toLocal().toISODate() === date
+    );
   });
   return gamesByDate;
 });
 
-onMounted(() => { adjustNavBar(); });
+onMounted(() => {
+  adjustNavBar();
+});
 </script>
 
 <template v-if="datesList.length">
@@ -46,19 +52,17 @@ onMounted(() => { adjustNavBar(); });
         <p>There are no televised games at this time</p>
       </template>
       <template v-else>
-        <p><b>All start times displayed are based on your device's location.</b></p>
-        <div
-          v-for="(weekDate, index) in datesList"
-          :key="index"
-        >
+        <p>
+          <b>All start times displayed are based on your device's location.</b>
+        </p>
+        <div v-for="(weekDate, index) in datesList" :key="index">
           <WeekGamesTable
             :season="season"
             :week-date="weekDate"
             :is-bowl-week="isBowlWeek"
             :is-mbk-postseason="isMbkPostseason"
             :show-ppv-column="showPpvColumn"
-            :tv-games-for-date="tvGamesByDate[weekDate]"
-          />
+            :tv-games-for-date="tvGamesByDate[weekDate]" />
         </div>
       </template>
     </div>

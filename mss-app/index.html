@@ -1,61 +1,74 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <!-- Basic Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="keywords"
+      content="NCAA Football TV, NCAA Basketball TV, Matt Sarzyniak, sports on television" />
+    <meta
+      name="description"
+      content="Since 2005, compiling NCAA Division I football and men's basketball television schedules. Looking for a game? Check here." />
+    <meta name="author" content="Matt Sarzyniak" />
+    <meta
+      http-equiv="cache-control"
+      content="no-cache, no-store, must-revalidate" />
 
-<head>
-  <!-- Basic Meta Tags -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="NCAA Football TV, NCAA Basketball TV, Matt Sarzyniak, sports on television" />
-  <meta name="description"
-    content="Since 2005, compiling NCAA Division I football and men's basketball television schedules. Looking for a game? Check here." />
-  <meta name="author" content="Matt Sarzyniak" />
-  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="/style.css" />
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-GRJPEN1CQ1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-GRJPEN1CQ1');
+    </script>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRJPEN1CQ1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'G-GRJPEN1CQ1');
-  </script>
+    <!-- Google Ads -->
+    <script
+      async
+      src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      crossorigin="anonymous"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: 'ca-pub-0296554708545211',
+        enable_page_level_ads: true
+      });
+    </script>
+  </head>
 
-  <!-- Google Ads -->
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: 'ca-pub-0296554708545211',
-      enable_page_level_ads: true
-    });
-  </script>
-</head>
+  <body>
+    <div class="overlay"></div>
+    <div class="maincontainer">
+      <!-- Vue App Mount Point -->
+      <div id="app"></div>
+      <script type="module" src="/src/main.ts"></script>
 
-<body>
-  <div class="overlay"></div>
-  <div class="maincontainer">
-    <!-- Vue App Mount Point -->
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+      <!-- Footer Section -->
+      <div class="DONTPrint">
+        <p><a href="/copyright">Website Copyright</a></p>
+      </div>
 
-    <!-- Footer Section -->
-    <div class="DONTPrint">
-      <p><a href="/copyright">Website Copyright</a></p>
+      <!-- Google Bottom Banner -->
+      <div class="DONTPrint">
+        <ins
+          class="adsbygoogle"
+          style="display: block"
+          data-ad-client="ca-pub-0296554708545211"
+          data-ad-slot="9539391470"
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
     </div>
-
-    <!-- Google Bottom Banner -->
-    <div class="DONTPrint">
-      <ins class="adsbygoogle" style="display: block" data-ad-client="ca-pub-0296554708545211" data-ad-slot="9539391470"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-  </div>
-</body>
-
+  </body>
 </html>

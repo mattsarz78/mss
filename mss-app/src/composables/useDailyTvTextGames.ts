@@ -6,7 +6,7 @@ import { useRoute } from 'vue-router';
 
 export function useDailyTvTextGames() {
   const route = useRoute();
-  const { sport } = route.params as { sport: string; };
+  const { sport } = route.params as { sport: string };
 
   const startDate = DateTime.now().setZone('America/New_York').toISODate();
 
@@ -15,10 +15,7 @@ export function useDailyTvTextGames() {
     loading: dailyTvGameLoading,
     error: dailyTvGameError
   } = useQuery<{ dailyTvGames: TvGame[] }>(DAILY_TV_GAMES, {
-    input: {
-      sport,
-      startDate
-    }
+    input: { sport, startDate }
   });
 
   const season = ref<string>('');
@@ -30,7 +27,9 @@ export function useDailyTvTextGames() {
       if (dailyTvGameValue?.dailyTvGames.length) {
         paramYear.value = dailyTvGameValue.dailyTvGames[0].season;
         season.value =
-          sport === 'football' ? paramYear.value : `${paramYear.value.substring(0, 4)}-${paramYear.value.substring(5)}`;
+          sport === 'football'
+            ? paramYear.value
+            : `${paramYear.value.substring(0, 4)}-${paramYear.value.substring(5)}`;
       }
     },
     { immediate: true }

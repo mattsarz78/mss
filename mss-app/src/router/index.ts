@@ -1,4 +1,8 @@
-import { createRouter, createWebHistory, type RouteLocationNormalizedGeneric } from 'vue-router';
+import {
+  createRouter,
+  createWebHistory,
+  type RouteLocationNormalizedGeneric
+} from 'vue-router';
 import { routes } from './routes';
 import { getConferenceCasingBySlug } from '@/conferenceUtils';
 import { DateTime } from 'luxon';
@@ -10,7 +14,9 @@ const router = createRouter({
 
 router.beforeEach((to, _from, next) => {
   const title = to.meta.title as string | undefined;
-  const metaTags = to.meta.metaTags as { name?: string; content?: string; property?: string }[] | undefined;
+  const metaTags = to.meta.metaTags as
+    | { name?: string; content?: string; property?: string }[]
+    | undefined;
 
   // Update document title
   if (title) {
@@ -26,14 +32,19 @@ router.beforeEach((to, _from, next) => {
 });
 
 // Helper function to generate document title
-function generateTitle(title: string, to: RouteLocationNormalizedGeneric): string {
+function generateTitle(
+  title: string,
+  to: RouteLocationNormalizedGeneric
+): string {
   switch (title) {
     case 'Contents':
       return createTitle(to);
     case 'TV Windows':
       return `Football TV Windows for ${Array.isArray(to.params.year) ? to.params.year[0] : to.params.year}`;
     case 'Contract':
-      const year = Array.isArray(to.params.year) ? to.params.year[0] : to.params.year;
+      const year = Array.isArray(to.params.year)
+        ? to.params.year[0]
+        : to.params.year;
       return `${year} ${getConferenceCasingBySlug(to.params.conference as string)?.cased ?? 'Unknown Conference'} Controlled Games`;
     case 'Weekly':
     case 'Weekly Text':
@@ -58,8 +69,13 @@ function createTitle(to: RouteLocationNormalizedGeneric): string {
 }
 
 // Helper function to generate titles for "Weekly" and "Weekly Text"
-function generateWeeklyTitle(title: string, to: RouteLocationNormalizedGeneric): string {
-  const sport = Array.isArray(to.params.sport) ? to.params.sport[0] : to.params.sport;
+function generateWeeklyTitle(
+  title: string,
+  to: RouteLocationNormalizedGeneric
+): string {
+  const sport = Array.isArray(to.params.sport)
+    ? to.params.sport[0]
+    : to.params.sport;
   const capitalizedSport = `${sport.charAt(0).toUpperCase()}${sport.slice(1)}`;
   const week = to.params.week;
   const year = to.params.year;

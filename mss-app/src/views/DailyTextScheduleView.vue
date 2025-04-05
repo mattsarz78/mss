@@ -17,51 +17,35 @@ const {
 
 <template>
   <div>
-    <div v-if="dailyTvGameLoading">
-      Loading {{ sport }} for {{ startDate }}
-    </div>
-    <div v-if="dailyTvGameError">
-      Got a problem. Let Matt know.
-    </div>
+    <div v-if="dailyTvGameLoading">Loading {{ sport }} for {{ startDate }}</div>
+    <div v-if="dailyTvGameError">Got a problem. Let Matt know.</div>
     <div v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
             <span>
-              <RouterLink
-                class="homelink"
-                to="/"
-              >Home</RouterLink>
-              <RouterLink
-                class="seasonhome"
-                :to="`/season/${sport}/${season}`"
-              >Season Home </RouterLink>
+              <RouterLink class="homelink" to="/">Home</RouterLink>
+              <RouterLink class="seasonhome" :to="`/season/${sport}/${season}`"
+                >Season Home
+              </RouterLink>
             </span>
-            <RouterLink
-              class="DONTPrint"
-              :to="`/schedule/${sport}/daily`"
-            >
+            <RouterLink class="DONTPrint" :to="`/schedule/${sport}/daily`">
               Daily Schedule
             </RouterLink>
-            <br>
-            <p
-              id="TextNav"
-              class="pad DONTPrint"
-            >
+            <br />
+            <p id="TextNav" class="pad DONTPrint">
               <input
                 id="ClearAll"
                 type="button"
                 value="Clear All Games"
                 class="inputpad"
-                @click="clearAllSelectedTextRows()"
-              >
+                @click="clearAllSelectedTextRows()" />
               <input
                 id="CheckAll"
                 type="button"
                 value="Check All Games"
                 class="inputpad"
-                @click="checkAllTextRows()"
-              >
+                @click="checkAllTextRows()" />
             </p>
           </div>
         </div>
@@ -72,8 +56,7 @@ const {
           :tv-games="dailyTvGameResult.dailyTvGames"
           :is-bowl-week="false"
           :is-mbk-postseason="false"
-          :show-ppv-column="shouldShowPpvColumn(paramYear)"
-        />
+          :show-ppv-column="shouldShowPpvColumn(paramYear)" />
         <p>
           <BackToTopScript />
           <BackToTopButton />
@@ -116,7 +99,6 @@ const {
 }
 
 @media all and (min-width: 641px) {
-
   .homelink,
   .seasonhome {
     display: block;

@@ -1,7 +1,6 @@
 import type { ConferenceData } from './conferenceData';
 
 export const conferenceData: ConferenceData[] = [
-
   {
     id: 'acc',
     data: '<p>The ACC has a contract with ABC/ESPN for all of its football television rights. ESPN\'s broadband service, ESPN3.com, can also access games that are not slated for telecast.  This contract begins with the 2011-12 athletic year and ends with the 2022-23 athletic year.</p><p>Raycom is the syndication partner of the ACC and they sublicense their content from ESPN.  Raycom will manage both over-the-air and regional cable syndication packages. The regional cable package appears to have been sublicensed to FOX Sports Media Group for airing on some FSN affiliates.  Raycom\'s package of games are branded as the ACC Network. The ACC Network over-the-air telecasts will kickoff at 12:30pm ET, a change from prior seasons.   ESPN is also able to sublicenese games to other national carriers.</p><p>It does not appear that there are any limits/minimums in terms of number of games over a season for the ACC with their national TV contracts. The ACC is guaranteed a game on Labor Day by ESPN.</p><p>Source: <a href="https://espnpressroom.com/us/press-releases/2010/07/espn-and-acc-reach-exclusive-12-year-agreement/" target="_blank">ESPN PressRoom</a></p>'

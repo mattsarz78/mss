@@ -22,92 +22,26 @@ import { conferenceData as conferenceData2024 } from './2024';
 import { conferenceData as conferenceData2025 } from './2025';
 
 export const contractData = [
-  {
-    season: '2005',
-    conferenceData: conferenceData2005
-  },
-  {
-    season: '2006',
-    conferenceData: conferenceData2006
-  },
-  {
-    season: '2007',
-    conferenceData: conferenceData2007
-  },
-  {
-    season: '2008',
-    conferenceData: conferenceData2008
-  },
-  {
-    season: '2009',
-    conferenceData: conferenceData2009
-  },
-  {
-    season: '2010',
-    conferenceData: conferenceData2010
-  },
-  {
-    season: '2011',
-    conferenceData: conferenceData2011
-  },
-  {
-    season: '2012',
-    conferenceData: conferenceData2012
-  },
-  {
-    season: '2013',
-    conferenceData: conferenceData2013
-  },
-  {
-    season: '2014',
-    conferenceData: conferenceData2014
-  },
-  {
-    season: '2015',
-    conferenceData: conferenceData2015
-  },
-  {
-    season: '2016',
-    conferenceData: conferenceData2016
-  },
-  {
-    season: '2017',
-    conferenceData: conferenceData2017
-  },
-  {
-    season: '2018',
-    conferenceData: conferenceData2018
-  },
-  {
-    season: '2019',
-    conferenceData: conferenceData2019
-  },
-  {
-    season: '2020',
-    conferenceData: conferenceData2020
-  },
-  {
-    season: '2020r',
-    conferenceData: conferenceData2020r
-  },
-  {
-    season: '2021',
-    conferenceData: conferenceData2021
-  },
-  {
-    season: '2022',
-    conferenceData: conferenceData2022
-  },
-  {
-    season: '2023',
-    conferenceData: conferenceData2023
-  },
-  {
-    season: '2024',
-    conferenceData: conferenceData2024
-  },
-  {
-    season: '2025',
-    conferenceData: conferenceData2025
-  }
+  { season: '2005', conferenceData: conferenceData2005 },
+  { season: '2006', conferenceData: conferenceData2006 },
+  { season: '2007', conferenceData: conferenceData2007 },
+  { season: '2008', conferenceData: conferenceData2008 },
+  { season: '2009', conferenceData: conferenceData2009 },
+  { season: '2010', conferenceData: conferenceData2010 },
+  { season: '2011', conferenceData: conferenceData2011 },
+  { season: '2012', conferenceData: conferenceData2012 },
+  { season: '2013', conferenceData: conferenceData2013 },
+  { season: '2014', conferenceData: conferenceData2014 },
+  { season: '2015', conferenceData: conferenceData2015 },
+  { season: '2016', conferenceData: conferenceData2016 },
+  { season: '2017', conferenceData: conferenceData2017 },
+  { season: '2018', conferenceData: conferenceData2018 },
+  { season: '2019', conferenceData: conferenceData2019 },
+  { season: '2020', conferenceData: conferenceData2020 },
+  { season: '2020r', conferenceData: conferenceData2020r },
+  { season: '2021', conferenceData: conferenceData2021 },
+  { season: '2022', conferenceData: conferenceData2022 },
+  { season: '2023', conferenceData: conferenceData2023 },
+  { season: '2024', conferenceData: conferenceData2024 },
+  { season: '2025', conferenceData: conferenceData2025 }
 ];

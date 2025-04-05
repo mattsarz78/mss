@@ -8,7 +8,8 @@ const Season = () => import('@/views/SeasonView.vue');
 const ConferenceGameList = () => import('@/views/ConferenceGames.vue');
 const TvWindowsView = () => import('@/views/TvWindowsView.vue');
 const WeeklyScheduleView = () => import('@/views/WeeklyScheduleView.vue');
-const WeeklyTextScheduleView = () => import('@/views/WeeklyTextScheduleView.vue');
+const WeeklyTextScheduleView = () =>
+  import('@/views/WeeklyTextScheduleView.vue');
 const DailyScheduleView = () => import('@/views/DailyScheduleView.vue');
 const DailyTextScheduleView = () => import('@/views/DailyTextScheduleView.vue');
 
@@ -19,9 +20,13 @@ const twitterMetaTags = [
   { name: 'twitter:title', content: "Matt's College Sports on TV" },
   {
     name: 'twitter:description',
-    content: "Since 2005, college football and men's college basketball television & webcast schedules."
+    content:
+      "Since 2005, college football and men's college basketball television & webcast schedules."
   },
-  { name: 'twitter:image', content: 'https://mattsarzsports.com/images/tvnets.jpg' }
+  {
+    name: 'twitter:image',
+    content: 'https://mattsarzsports.com/images/tvnets.jpg'
+  }
 ];
 
 const baseOpenGraphMetaTags = [
@@ -29,16 +34,22 @@ const baseOpenGraphMetaTags = [
   { property: 'og:title', content: '' },
   {
     property: 'og:description',
-    content: "Since 2005, college football and men's college basketball television & webcast schedules."
+    content:
+      "Since 2005, college football and men's college basketball television & webcast schedules."
   },
-  { property: 'og:image', content: 'https://mattsarzsports.com/images/tvnets.jpg' },
+  {
+    property: 'og:image',
+    content: 'https://mattsarzsports.com/images/tvnets.jpg'
+  },
   { property: 'og:url', content: 'https://mattsarzsports.com' }
 ];
 
 // Utility function to generate meta tags
 const generateMetaTags = (title: string) => [
   ...twitterMetaTags,
-  ...baseOpenGraphMetaTags.map((tag) => (tag.property === 'og:title' ? { ...tag, content: title } : tag))
+  ...baseOpenGraphMetaTags.map((tag) =>
+    tag.property === 'og:title' ? { ...tag, content: title } : tag
+  )
 ];
 
 // Routes definition
@@ -70,35 +81,23 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/season/:sport/:year',
-    meta: {
-      title: 'Contents',
-      metaTags: generateMetaTags('Contents')
-    },
+    meta: { title: 'Contents', metaTags: generateMetaTags('Contents') },
     component: Season
   },
   {
     path: '/contract/:conference/:year',
-    meta: {
-      title: 'Contract',
-      metaTags: generateMetaTags('Contract')
-    },
+    meta: { title: 'Contract', metaTags: generateMetaTags('Contract') },
     component: ConferenceGameList
   },
   {
     path: '/tv-windows/:year',
-    meta: {
-      title: 'TV Windows',
-      metaTags: generateMetaTags('TV Windows')
-    },
+    meta: { title: 'TV Windows', metaTags: generateMetaTags('TV Windows') },
     component: TvWindowsView
   },
   {
     path: '/schedule/:sport/:year/:week',
     name: 'Weekly',
-    meta: {
-      title: 'Weekly',
-      metaTags: generateMetaTags('Weekly')
-    },
+    meta: { title: 'Weekly', metaTags: generateMetaTags('Weekly') },
     props: (route) => ({
       sport: route.params.sport,
       year: route.params.year,
@@ -109,10 +108,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/schedule/:sport/:year/:week/text',
     name: 'Weekly Text',
-    meta: {
-      title: 'Weekly Text',
-      metaTags: generateMetaTags('Weekly Text')
-    },
+    meta: { title: 'Weekly Text', metaTags: generateMetaTags('Weekly Text') },
     props: (route) => ({
       sport: route.params.sport,
       year: route.params.year,
@@ -122,18 +118,12 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/schedule/:sport/daily',
-    meta: {
-      title: 'Daily',
-      metaTags: generateMetaTags('Daily')
-    },
+    meta: { title: 'Daily', metaTags: generateMetaTags('Daily') },
     component: DailyScheduleView
   },
   {
     path: '/schedule/:sport/daily/text',
-    meta: {
-      title: 'Daily Text',
-      metaTags: generateMetaTags('Daily Text')
-    },
+    meta: { title: 'Daily Text', metaTags: generateMetaTags('Daily Text') },
     component: DailyTextScheduleView
   }
 ];
