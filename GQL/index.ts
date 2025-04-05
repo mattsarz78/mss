@@ -82,7 +82,9 @@ async function startServer() {
     console.log(`Server is running`);
   });
 
-  process.on('SIGTERM', () => {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  process.on('SIGTERM', async () => {
+    await db.$disconnect();
     httpServer.close(() => {
       console.log('Server closed');
     });

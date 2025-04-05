@@ -10,6 +10,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint .",
+    "lintFix": "eslint . --fix",
     "format": "prettier --write ./"
   },
   "dependencies": {
