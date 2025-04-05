@@ -6,5 +6,5 @@ export default defineConfigWithVueTs(
     ignores: ['node_modules/**/*', 'dist/**/*']
   },
   pluginVue.configs[('flat/essential', 'flat/recommended', 'flat/strongly-recommended')],
-  vueTsConfigs.recommendedTypeChecked
+  vueTsConfigs.strict
 );

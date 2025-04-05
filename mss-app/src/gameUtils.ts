@@ -22,7 +22,12 @@ export const updatedTvOptions = (game: NoTvGame): string => {
 };
 
 export const formatGame = (game: TvGame | ConferenceGame): string => {
-  return game.visitingTeam?.map((team, index) => `${team} ${game.location ? 'vs.' : 'at'} ${game.homeTeam![index]}`).join('<br>OR ') ?? '';
+  return game.visitingTeam?.map((team, index) => {
+    if (!game.homeTeam) {
+      throw new Error('homeTeam is undefined');
+    }
+    return `${team} ${game.location ? 'vs.' : 'at'} ${game.homeTeam[index]}`;
+  }).join('<br>OR ') ?? '';
 };
 
 export const formatTime = (timeWithOffset: string): string => {

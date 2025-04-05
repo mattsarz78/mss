@@ -18,8 +18,12 @@ const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, season } = props;
 const datesList = computed(() => {
   const dates = new Set<string>();
   tvGames.forEach((value) => {
-    const date = DateTime.fromISO(value.timeWithOffset!).toLocal().toISODate()!;
-    dates.add(date);
+    if (value.timeWithOffset) {
+      const date = DateTime.fromISO(value.timeWithOffset).toLocal().toISODate();
+      if (date) {
+        dates.add(date);
+      }
+    }
   });
   return Array.from(dates);
 });
@@ -27,7 +31,7 @@ const datesList = computed(() => {
 const tvGamesByDate = computed(() => {
   const gamesByDate: Record<string, TvGame[]> = {};
   datesList.value.forEach(date => {
-    gamesByDate[date] = tvGames.filter(game => DateTime.fromISO(game.timeWithOffset!).toLocal().toISODate() === date);
+    gamesByDate[date] = tvGames.filter(game => game.timeWithOffset && DateTime.fromISO(game.timeWithOffset).toLocal().toISODate() === date);
   });
   return gamesByDate;
 });

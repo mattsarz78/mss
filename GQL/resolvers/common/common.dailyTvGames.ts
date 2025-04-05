@@ -1,13 +1,15 @@
 import { IContext } from '../../context';
 import { DateTime } from 'luxon';
 import { DailyTvGamesInput, TvGame } from '../../__generated__/graphql';
-import { endOfDay, zeroHour } from '../../utils/constants';
 import { CommonServiceKey } from '../../database/common';
 import { basketball, football } from '__generated__/prisma';
 
 export type DailyTvGamesArgs = {
   input: DailyTvGamesInput;
 };
+
+const zeroHour = { hour: 0, minute: 0, seconds: 0, milliseconds: 0 };
+const endOfDay = { hour: 4, minute: 59, seconds: 59, milliseconds: 0 };
 
 export const getDailyTvGames = async (
   _1: unknown,

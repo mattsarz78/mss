@@ -6,5 +6,8 @@
     "ts": "npm start"
   },
   "watch": ["resolvers/**", "utils", "database"],
-  "ext": ".ts, .graphql"
+  "ext": ".ts, .graphql",
+  "env": {
+    "NODE_ENV": "development"
+  }
 }

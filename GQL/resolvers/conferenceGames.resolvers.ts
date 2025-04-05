@@ -27,7 +27,7 @@ export const conferenceGamesResolver = async (
       visitingTeam: conferenceGame.visitingteam?.trim().split(',') ?? [],
       homeTeam: conferenceGame.hometeam?.trim().split(',') ?? [],
       location: conferenceGame.location?.trim() ?? '',
-      timeWithOffset: DateTime.fromJSDate(conferenceGame.timewithoffset as Date).toISO()!,
+      timeWithOffset: DateTime.fromJSDate(conferenceGame.timewithoffset as Date).toISO() || '',
       mediaIndicator: conferenceGame.mediaindicator?.trim() ?? '',
       network: conferenceGame.networkjpg?.trim() ?? '',
       tvtype: conferenceGame.tvtype?.trim() ?? '',

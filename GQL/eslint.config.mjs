@@ -9,12 +9,15 @@ export default [
   {
     languageOptions: {
       globals: globals.browser,
+      parser: tseslint.parser,
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname
+        tsconfigRootDir: import.meta.dirname,
+        sourceType: 'module',
+        ecmaVersion: 'latest'
       }
     }
   },
   pluginJs.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked
+  ...tseslint.configs.strict
 ];

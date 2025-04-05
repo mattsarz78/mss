@@ -181,8 +181,13 @@ function getImageUrl(
     for (const image of imageArray) {
       if (image.yearEnd) {
         const years = image.yearEnd.split('|');
-        const yearToCompare = years.find((x) => x.length === season.length)![0];
-        if (parseInt(season) <= parseInt(yearToCompare)) {
+        const yearToCompare = years.find((x) => x.length === season.length);
+        if (yearToCompare) {
+          if (parseInt(season) <= parseInt(yearToCompare[0])) {
+            return image.image;
+          }
+        }
+        if (yearToCompare && parseInt(season) <= parseInt(yearToCompare)) {
           return image.image;
         }
       } else {

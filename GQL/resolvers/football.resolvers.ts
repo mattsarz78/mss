@@ -22,7 +22,7 @@ export const getNoTvGames = async (
       location: result.location?.trim() ?? '',
       conference: result.conference?.trim() ?? '',
       tvOptions: result.tvoptions?.trim() ?? '',
-      timeWithOffset: DateTime.fromJSDate(result.timewithoffset!).toISODate()!,
+      timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISODate() ?? '') : '',
       fcs: result.fcs?.trim() ?? ''
     }));
   } catch (err: unknown) {

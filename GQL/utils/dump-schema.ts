@@ -26,17 +26,18 @@ function printSchemasWithDirectives(schema: GraphQLSchema): string {
     .filter((typeName) => !typeName.startsWith('__'))
     .map((typeName) => {
       const type = typeMap[typeName];
-      return !isSpecifiedScalarType(type) ? print(type.astNode!) : '';
+      return !isSpecifiedScalarType(type) && type.astNode ? print(type.astNode) : '';
     })
     .join('\n');
 
   const directiveStrings = schema
     .getDirectives()
     .filter((directive) => !isSpecifiedDirective(directive))
-    .map((directive) => print(directive.astNode!))
+    .map((directive) => (directive.astNode ? print(directive.astNode) : ''))
     .join('\n');
 
-  return `${print(schema.astNode!)}\n${typeStrings}\n${directiveStrings}`;
+  const schemaAstNode = schema.astNode ? print(schema.astNode) : '';
+  return `${schemaAstNode}\n${typeStrings}\n${directiveStrings}`;
 }
 
 const schemaPath =

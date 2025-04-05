@@ -10,8 +10,10 @@ const { noTvGames } = props;
 const datesList = computed(() => {
   const dates = new Set<string>();
   noTvGames.forEach((value) => {
-    const date = DateTime.fromISO(value.timeWithOffset).toLocal().toISODate()!;
-    dates.add(date);
+    const date = DateTime.fromISO(value.timeWithOffset).toLocal().toISODate();
+    if (date) {
+      dates.add(date);
+    }
   });
   return Array.from(dates);
 });

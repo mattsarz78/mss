@@ -14,7 +14,11 @@ const { conference, year } = route.params as { conference: string; year: string 
 
 const flexLink = flexScheduleLink(year);
 
-const { cased, lookup } = getConferenceCasingBySlug(conference)!;
+const conferenceCasing = getConferenceCasingBySlug(conference);
+if (!conferenceCasing) {
+  throw new Error(`Invalid conference slug: ${conference}`);
+}
+const { cased, lookup } = conferenceCasing;
 
 const contractTvData =
   conference !== 'independents' ? getConferenceContractData(getConferenceCasingBySlug(conference)?.id!, year)! : ''; // eslint-disable-line

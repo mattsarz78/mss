@@ -11,7 +11,7 @@ const { games, year } = props;
 const formattedGames = computed(() =>
   games.map(game => ({
     ...game,
-    formattedNetwork: formatNetworkJpgAndCoverage(game.network!, year),
+    formattedNetwork: game.network ? formatNetworkJpgAndCoverage(game.network, year) : '',
     formattedTime: {
       day: DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('cccc'),
       date: DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('LL/dd'),
