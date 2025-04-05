@@ -18,16 +18,22 @@ export const updatedTvOptions = (game: NoTvGame): string => {
     }
   };
 
-  return conferenceOptions[game.conference](game);
+  const conferenceOption = conferenceOptions[game.conference];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return conferenceOption ? conferenceOption(game) : game.tvOptions;
 };
 
 export const formatGame = (game: TvGame | ConferenceGame): string => {
-  return game.visitingTeam?.map((team, index) => {
-    if (!game.homeTeam) {
-      throw new Error('homeTeam is undefined');
-    }
-    return `${team} ${game.location ? 'vs.' : 'at'} ${game.homeTeam[index]}`;
-  }).join('<br>OR ') ?? '';
+  return (
+    game.visitingTeam
+      ?.map((team, index) => {
+        if (!game.homeTeam) {
+          throw new Error('homeTeam is undefined');
+        }
+        return `${team} ${game.location ? 'vs.' : 'at'} ${game.homeTeam[index]}`;
+      })
+      .join('<br>OR ') ?? ''
+  );
 };
 
 export const formatTime = (timeWithOffset: string): string => {
