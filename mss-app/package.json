@@ -25,13 +25,12 @@
     "vue-router": "^4.5.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vitejs/plugin-vue-jsx": "^4.1.2",
-    "vite-plugin-vue-devtools": "^7.7.2",
-    "rollup-plugin-visualizer": "^5.14.0",
     "vite-plugin-compression": "^0.5.1",
     "@tsconfig/node20": "^20.1.5",
     "@vue/tsconfig": "^0.7.0"
   },
   "devDependencies": {
+    "vite-plugin-vue-devtools": "^7.7.2",
     "@rushstack/eslint-patch": "^1.11.0",
     "@types/luxon": "^3.6.0",
     "@types/node": "^22.13.17",
