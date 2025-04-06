@@ -13,7 +13,11 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    plugins: [vue(), vueJsx(), viteCompression({ filter: /\.(js|mjs|json|css|html|png|jpg|jpeg|gif|svg)$/i })],
+    // eslint-disable-next-line prettier/prettier
+    plugins: [vue(), vueJsx(), viteCompression({ 
+      algorithm: 'brotliCompress' ,
+      filter: /\.(js|mjs|json|css|html|png|jpg|jpeg|gif|svg)$/i })
+    ],
     // plugins: [vue(), vueJsx(), vueDevTools(), visualizer({ open: true }), viteCompression()],
     resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
     build: {
