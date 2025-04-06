@@ -70,8 +70,6 @@ async function startServer() {
 
   app.use(
     '/graphql',
-    cors({ origin: '*' }),
-    express.json(),
     expressMiddleware<IContext>(apolloServer, {
       context: async ({ req, res }) =>
         Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req, response: res })
