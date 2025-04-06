@@ -27,6 +27,10 @@ model football {
   fcs            String?
   tvtype         String?
   timewithoffset DateTime? @default(dbgenerated("'9999-12-31 00:00:00+00'::timestamp with time zone")) @db.Timestamp(6)
+
+  @@index([conference], map: "idx_fb_conference")
+  @@index([mediaindicator, timewithoffset], map: "idx_fb_mi_timeoffset")
+  @@index([season, week], map: "idx_fb_season_week")
 }
 
 model basketball {
@@ -48,6 +52,10 @@ model basketball {
   fcs            String?
   tvtype         String?
   timewithoffset DateTime? @default(dbgenerated("'9999-12-31 00:00:00+00'::timestamp with time zone")) @db.Timestamp(6)
+
+  @@index([conference], map: "idx_mbb_conference")
+  @@index([mediaindicator, timewithoffset], map: "idx_mbb_mi_timeoffset")
+  @@index([season, week], map: "idx_mbb_season_week")
 }
 
 model availabletv {
@@ -77,4 +85,5 @@ model weeklydates {
   postseasonind String?
 
   @@id([season, week])
+  @@index([season], map: "idx_wkly_dates_season")
 }
