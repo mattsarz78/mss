@@ -4,10 +4,9 @@ import { RouterLink, useRoute } from 'vue-router';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 import { flexScheduleLink, getIndependentSchools } from '@/utils';
 import { getConferenceCasingBySlug, getConferenceContractData } from '@/conferenceUtils';
-import { CONFERENCE_GAMES, type ConferenceGame } from '@/graphQl';
-import { useQuery } from '@vue/apollo-composable';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/IndependentsGameList.vue';
+import { useConferenceGames } from '@/composables/useConferenceGames';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
@@ -31,9 +30,7 @@ const contractTvData =
       })()
     : '';
 
-const { result, loading, error } = useQuery<{ conferenceGames: ConferenceGame[] }>(CONFERENCE_GAMES, {
-  input: { season: year, conference: conference === 'independents' ? getIndependentSchools(year) : lookup }
-});
+const { result, loading, error } = useConferenceGames(year, conference, lookup);
 
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));

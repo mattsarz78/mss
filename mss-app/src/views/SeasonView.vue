@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { useQuery } from '@vue/apollo-composable';
-import { SEASON_CONTENTS, type WeekInfo } from '@/graphQl';
 import { defineAsyncComponent, onMounted, ref, watch } from 'vue';
 import { conferenceListBase, getBasketballSeason } from '@/utils';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
+import { useSeasonContents } from '@/composables/useSeasonContents';
 
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 
@@ -14,9 +13,7 @@ const sport = route.params.sport as string;
 const paramYear = route.params.year as string;
 const year = sport === 'football' ? paramYear : getBasketballSeason(paramYear);
 
-const { result, loading, error } = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, {
-  input: { season: year }
-});
+const { result, loading, error } = useSeasonContents(year);
 
 const conferenceList = conferenceListBase(sport, year);
 
