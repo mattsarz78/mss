@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, type RouteLocationNormalizedGeneric } from 'vue-router';
 import { routes } from './routes';
-import { getConferenceCasingBySlug } from '@/conferenceUtils';
+import { getConferenceCasingBySlug } from '@/utils/conference';
 import { DateTime } from 'luxon';
 
 const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes });

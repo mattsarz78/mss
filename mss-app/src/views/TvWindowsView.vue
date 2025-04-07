@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { flexScheduleLink } from '@/utils';
-import { adjustNavBar } from '@/domUtils';
+import { flexScheduleLink } from '@/utils/base';
+import { adjustNavBar } from '@/utils/dom';
 import { defineAsyncComponent, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 

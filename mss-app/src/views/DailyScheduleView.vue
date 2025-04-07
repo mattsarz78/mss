@@ -4,8 +4,8 @@ import { useRoute } from 'vue-router';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 import WeeklyBase from '@/components/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
-import { shouldShowPpvColumn } from '@/conferenceUtils';
-import { adjustWebExclusives } from '@/domUtils';
+import { shouldShowPpvColumn } from '@/utils/conference';
+import { adjustWebExclusives } from '@/utils/dom';
 
 const route = useRoute();
 const { sport } = route.params as { sport: string };

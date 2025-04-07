@@ -1,4 +1,4 @@
-import { coverageMapLinks } from './constants/coverageMapLinks';
+import { coverageMapLinks } from '../constants/coverageMapLinks';
 import {
   AFFILIATES,
   BLACKOUTMAP,
@@ -7,9 +7,9 @@ import {
   COVERAGEMAP506,
   imagesForUrls,
   SPECIALCOVERAGENOTE
-} from './constants/imagesForUrls';
-import { specialCoverageNotes } from './constants/specialCoverageNotes';
-import { syndicationLinks } from './constants/syndicationLinks';
+} from '../constants/imagesForUrls';
+import { specialCoverageNotes } from '../constants/specialCoverageNotes';
+import { syndicationLinks } from '../constants/syndicationLinks';
 
 const seasonMap: Record<string, string> = { '2020r': '2020', '2021s': '2020' };
 

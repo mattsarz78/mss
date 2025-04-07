@@ -3,8 +3,8 @@ import { defineAsyncComponent } from 'vue';
 import WeekTextBase from './WeekTextBase.vue';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
-import { checkAllTextRows, clearAllSelectedTextRows } from '@/domUtils';
-import { shouldShowPpvColumn } from '@/conferenceUtils';
+import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/dom';
+import { shouldShowPpvColumn } from '@/utils/conference';
 
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));

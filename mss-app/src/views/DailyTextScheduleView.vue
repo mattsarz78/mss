@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDailyTvTextGames } from '@/composables/useDailyTvTextGames';
-import { clearAllSelectedTextRows, checkAllTextRows } from '@/domUtils';
-import { shouldShowPpvColumn } from '@/conferenceUtils';
+import { clearAllSelectedTextRows, checkAllTextRows } from '@/utils/dom';
+import { shouldShowPpvColumn } from '@/utils/conference';
 import WeekTextBase from '@/components/WeekTextBase.vue';
 
 const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate } =

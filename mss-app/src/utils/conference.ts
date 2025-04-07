@@ -1,6 +1,6 @@
-import { validSportYears } from './constants/validSportYears';
-import { conferenceCasing } from './constants/conferenceCasing';
-import { contractData } from './constants/conference-data';
+import { validSportYears } from '../constants/validSportYears';
+import { conferenceCasing } from '../constants/conferenceCasing';
+import { contractData } from '../constants/conference-data';
 
 export const getConferenceCasing = (conference: string) => conferenceCasing.find((x) => x.id === conference);
 

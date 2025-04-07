@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { adjustNavBar } from '@/domUtils';
+import { adjustNavBar } from '@/utils/dom';
 import WeekTextTable from './WeekTextTable.vue';
 import type { TvGame } from '@/graphQl';
 

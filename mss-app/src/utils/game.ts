@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import type { NoTvGame, TvGame, ConferenceGame, WeekInfo } from './graphQl';
+import type { NoTvGame, TvGame, ConferenceGame, WeekInfo } from '../graphQl';
 
 export const updatedTvOptions = (game: NoTvGame): string => {
   const conferenceOptions: Record<string, (game: NoTvGame) => string> = {

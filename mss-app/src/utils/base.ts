@@ -1,6 +1,6 @@
-import { validSportYears } from './constants/validSportYears';
-import { flexScheduleLinks } from './constants/flexScheduleLinks';
-import type { WeekInfo } from './graphQl';
+import { validSportYears } from '../constants/validSportYears';
+import { flexScheduleLinks } from '../constants/flexScheduleLinks';
+import type { WeekInfo } from '../graphQl';
 
 export const conferenceListBase = (sport: string, year: string): string => {
   return sport === 'football' && year !== '2021s'

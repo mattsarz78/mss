@@ -4,7 +4,7 @@ import BackToTopButton from './shared/BackToTopButton.vue';
 import WeeklyBase from './WeeklyBase.vue';
 import NoTvGames from './noTVGames/NoTvGames.vue';
 import { useWeekSchedule } from '@/composables/useWeekSchedule';
-import { adjustWebExclusives } from '@/domUtils';
+import { adjustWebExclusives } from '@/utils/dom';
 
 const GoogleSearch = defineAsyncComponent(() => import('./shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('./shared/BackToTopScript.vue'));

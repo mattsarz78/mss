@@ -2,8 +2,8 @@
 import { defineAsyncComponent } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
-import { flexScheduleLink, getIndependentSchools } from '@/utils';
-import { getConferenceCasingBySlug, getConferenceContractData } from '@/conferenceUtils';
+import { flexScheduleLink, getIndependentSchools } from '@/utils/base';
+import { getConferenceCasingBySlug, getConferenceContractData } from '@/utils/conference';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/IndependentsGameList.vue';
 import { useConferenceGames } from '@/composables/useConferenceGames';

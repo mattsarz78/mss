@@ -8,9 +8,9 @@ import {
   isFirstWeek,
   isNextWeekBasketballPostseason,
   isNextWeekBowlGameWeek
-} from '@/utils';
-import { hasNoTVGames, shouldShowPpvColumn } from '@/conferenceUtils';
-import { isBasketballPostseason, isBowlGameWeek } from '@/gameUtils';
+} from '@/utils/base';
+import { hasNoTVGames, shouldShowPpvColumn } from '@/utils/conference';
+import { isBasketballPostseason, isBowlGameWeek } from '@/utils/game';
 
 export function useWeekSchedule(sport: string, paramYear: string, week: string) {
   const weekInt = parseInt(week);
