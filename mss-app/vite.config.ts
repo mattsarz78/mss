@@ -15,7 +15,8 @@ export default defineConfig(({ mode }) => {
   return {
     // eslint-disable-next-line prettier/prettier
     plugins: [vue(), vueJsx(), viteCompression({ 
-      algorithm: 'brotliCompress' ,
+      algorithm: 'gzip',
+      ext: '.gz',
       filter: /\.(js|mjs|json|css|html|png|jpg|jpeg|gif|svg)$/i })
     ],
     // plugins: [vue(), vueJsx(), vueDevTools(), visualizer({ open: true }), viteCompression()],
