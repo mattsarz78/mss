@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:22.14.0-bookworm-slim AS build
+FROM node:23.11.0-bookworm-slim AS build
 
 ENV NODE_ENV=development
 WORKDIR /app
@@ -23,7 +23,7 @@ COPY . /app
 RUN npm run prismaGen && npm run graphQlGen && npm run prismaFormat
 
 # Stage 2: Production
-FROM node:22.14.0-bookworm-slim AS production
+FROM node:23.11.0-bookworm-slim AS production
 
 # Set environment variables
 ARG DATABASE_URL
