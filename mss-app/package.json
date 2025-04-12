@@ -14,7 +14,7 @@
     "format": "prettier --write ./"
   },
   "dependencies": {
-    "@apollo/client": "^3.13.5",
+    "@apollo/client": "^3.13.7",
     "@vue/apollo-composable": "^4.2.2",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
@@ -31,14 +31,14 @@
   "devDependencies": {
     "vite-plugin-vue-devtools": "^7.7.2",
     "@rushstack/eslint-patch": "^1.11.0",
-    "@types/luxon": "^3.6.0",
-    "@types/node": "^22.13.17",
+    "@types/luxon": "^3.6.2",
+    "@types/node": "^22.14.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.0",
-    "eslint": "^9.23.0",
+    "eslint": "^9.24.0",
     "eslint-plugin-vue": "^10.0.0",
     "prettier": "^3.5.3",
-    "typescript": "~5.8.2",
+    "typescript": "~5.8.3",
     "vue-tsc": "^2.2.8"
   }
 }
