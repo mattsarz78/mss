@@ -13,7 +13,15 @@ updates:
     directory: '/GQL' # Location of package manifests
     schedule:
       interval: 'monthly'
+  - package-ecosystem: 'docker' # See documentation for possible values
+    directory: '/GQL' # Location of package manifests
+    schedule:
+      interval: 'monthly'
   - package-ecosystem: 'npm' # See documentation for possible values
     directory: '/mss-app' # Location of package manifests
+    schedule:
+      interval: 'monthly'
+  - package-ecosystem: 'docker-compose' # See documentation for possible values
+    directory: '/db' # Location of package manifests
     schedule:
       interval: 'monthly'
