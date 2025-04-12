@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   db:
     image: postgres:latest
@@ -7,6 +5,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: postgres
+      TZ: 'GMT'
     ports:
       - "5432:5432"
     expose:
@@ -20,6 +19,7 @@ services:
 
   adminer:
     image: adminer
+    container_name: adminer
     depends_on: 
       - db
     ports:
@@ -27,6 +27,7 @@ services:
     environment:
       ADMINER_DEFAULT_SERVER: db.mattsarzsport.com
       ADMINER_PLUGINS: tables-filter tinymce table-indexes-structure table-structure
+      ADMINER_DESIGN: 'pepa-linha'
 
 volumes:
   db-data-postgres:
