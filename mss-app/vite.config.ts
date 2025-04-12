@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 // import vueDevTools from 'vite-plugin-vue-devtools';
 // import { visualizer } from 'rollup-plugin-visualizer';
-import viteCompression from 'vite-plugin-compression';
+// import viteCompression from 'vite-plugin-compression';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -14,12 +14,13 @@ export default defineConfig(({ mode }) => {
 
   return {
     // eslint-disable-next-line prettier/prettier
-    plugins: [vue(), vueJsx(), viteCompression({ 
-        algorithm: 'brotliCompress',
-        ext: '.br',
-        deleteOriginFile: false,
-        filter: /\.(js|mjs|json|css|html|png|jpg|jpeg|gif|svg)$/i
-      })
+    plugins: [vue(), vueJsx(), 
+      // viteCompression({
+      //   algorithm: 'brotliCompress',
+      //   ext: '.br',
+      //   deleteOriginFile: false,
+      //   filter: /\.(js|mjs|json|css|html|png|jpg|jpeg|gif|svg)$/i
+      // })
     ],
     // plugins: [vue(), vueJsx(), vueDevTools(), visualizer({ open: true }), viteCompression()],
     resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
