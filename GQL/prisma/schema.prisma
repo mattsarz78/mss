@@ -31,6 +31,7 @@ model football {
   @@index([conference], map: "idx_fb_conference")
   @@index([mediaindicator, timewithoffset], map: "idx_fb_mi_timeoffset")
   @@index([season, week], map: "idx_fb_season_week")
+  @@index([hometeam, visitingteam], map: "idx_football_teams")
 }
 
 model basketball {
@@ -56,6 +57,7 @@ model basketball {
   @@index([conference], map: "idx_mbb_conference")
   @@index([mediaindicator, timewithoffset], map: "idx_mbb_mi_timeoffset")
   @@index([season, week], map: "idx_mbb_season_week")
+  @@index([hometeam, visitingteam], map: "idx_basketball_teams")
 }
 
 model availabletv {
