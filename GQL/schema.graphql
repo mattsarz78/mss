@@ -1,3 +1,6 @@
+schema {
+  query: Query
+}
 type Query {
   availableTv(input: AvailableTvInput): [AvailableTv]!
   tvGames(input: TvGamesInput): [TvGame]!
@@ -8,11 +11,13 @@ type Query {
   rsnList(input: RsnInput): [RsnGame]!
   seasonContents(input: SeasonContentsInput): [SeasonContents]!
 }
+
 input AvailableTvInput {
   season: String!
   conference: String!
   week: Int!
 }
+
 type AvailableTv {
   season: String!
   conference: String!
@@ -88,7 +93,4 @@ type SeasonContents {
   startDate: String!
   endDate: String!
   postseasonInd: String
-}
-schema {
-  query: Query
 }
