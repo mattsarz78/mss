@@ -1,14 +1,16 @@
 # Stage 1: Build
-FROM node:22.14.0-bookworm-slim AS build
+FROM node:22-alpine AS build
 
 ENV NODE_ENV=development
 WORKDIR /app
 
 # Install dependencies and tools
-RUN apt-get update -y && apt-get install -y --no-install-recommends openssl && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apk update && apk add --no-cache openssl && rm -rf rm /var/cache/apk/*
 
 # Copy package files first to leverage Docker cache
-COPY ./package.json ./package-lock.json /app/
+COPY ./package*.json /app/
+
+RUN npm install -g npm@11.3.0
 
 # Install dependencies
 RUN npm ci --omit=dev \
@@ -23,19 +25,19 @@ COPY . /app
 RUN npm run prismaGen && npm run graphQlGen && npm run prismaFormat
 
 # Stage 2: Production
-FROM node:22.14.0-bookworm-slim AS production
+FROM node:22-alpine AS production
 
 # Set environment variables
 ARG DATABASE_URL
 ARG VALID_CORS_ORIGINS
 ENV DATABASE_URL=$DATABASE_URL
 ENV VALID_CORS_ORIGINS=$VALID_CORS_ORIGINS
-ENV NODE_ENV=production
+ENV NODE_ENV= 
 
 WORKDIR /app
 
 # Install openssl and clean up
-RUN apt-get update -y && apt-get install -y --no-install-recommends openssl && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apk update && apk add --no-cache openssl && rm -rf rm /var/cache/apk/*
 
 # Copy production dependencies and application files
 COPY --from=build /opt/node_modules.prod ./node_modules
