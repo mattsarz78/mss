@@ -120,7 +120,7 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
   }
 
   #Main {
-    padding-top: 56px;
+    padding-top: 36px;
   }
 }
 
@@ -137,7 +137,7 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
   }
 
   #Main {
-    padding-top: 61px;
+    padding-top: 21px;
   }
 }
 </style>
