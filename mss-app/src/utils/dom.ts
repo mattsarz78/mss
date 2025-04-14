@@ -2,7 +2,7 @@ export const adjustNavBar = (): void => {
   const navbar = document.querySelector('.navbar');
   const main = document.querySelector('#Main');
   if (navbar && main) {
-    const widthAddition = window.innerWidth >= 641 ? 3 : 8;
+    const widthAddition = -7;
     const paddingAddition = navbar.clientHeight + widthAddition;
     main.setAttribute('style', `padding-top: ${paddingAddition.toString()}px`);
   }
