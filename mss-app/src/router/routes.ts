@@ -14,8 +14,9 @@ const DailyTextScheduleView = () => import('@/views/DailyTextScheduleView.vue');
 
 // Base meta tags
 const twitterMetaTags = [
-  { name: 'twitter:card', content: 'summary_large_image' },
+  { name: 'twitter:card', content: 'summary' },
   { name: 'twitter:site', content: '@mattsarz' },
+  { name: 'twitter:creator', content: '@mattsarz' },
   { name: 'twitter:title', content: "Matt's College Sports on TV" },
   {
     name: 'twitter:description',
