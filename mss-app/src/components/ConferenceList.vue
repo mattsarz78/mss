@@ -14,9 +14,9 @@ const conferenceLinks = computed(() => {
     { key: 'ind', link: getConferenceCasing('ind') },
     { key: 'mac', link: getConferenceCasing('mac') },
     { key: 'mw', link: getConferenceCasing('mw') },
+    { key: 'pac', link: conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12') },
     { key: 'sec', link: getConferenceCasing('sec') },
-    { key: 'sbc', link: getConferenceCasing('sbc') },
-    { key: 'pac', link: conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12') }
+    { key: 'sbc', link: getConferenceCasing('sbc') }
   ];
 
   if (conferenceList === 'ListBase3') {
