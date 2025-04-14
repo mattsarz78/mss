@@ -27,6 +27,8 @@ const twitterMetaTags = [
 const baseOpenGraphMetaTags = [
   { property: 'og:type', content: 'website' },
   { property: 'og:title', content: '' },
+  { property: 'og:site_name', content: "Matt's College Sports on TV" },
+  { property: 'og:locale', content: 'en_US' },
   {
     property: 'og:description',
     content: "Since 2005, college football and men's college basketball television & webcast schedules."
