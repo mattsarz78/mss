@@ -16,6 +16,7 @@ import { FootballService, FootballServiceKey } from './database/football';
 import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDates';
 import { CommonService, CommonServiceKey } from './database/common';
 import { RsnListService, RsnListServiceKey } from './database/rsnList';
+import bodyParser from 'body-parser';
 
 const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
@@ -35,7 +36,7 @@ const corsOptions: cors.CorsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(express.json());
+app.use(bodyParser.json());
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
