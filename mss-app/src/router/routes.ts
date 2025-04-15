@@ -14,7 +14,7 @@ const DailyTextScheduleView = () => import('@/views/DailyTextScheduleView.vue');
 
 // Base meta tags
 const twitterMetaTags = [
-  { name: 'twitter:card', content: 'summary' },
+  { name: 'twitter:card', content: 'summary_large_image' },
   { name: 'twitter:site', content: '@mattsarz' },
   { name: 'twitter:creator', content: '@mattsarz' },
   { name: 'twitter:title', content: "Matt's College Sports on TV" },
@@ -22,7 +22,7 @@ const twitterMetaTags = [
     name: 'twitter:description',
     content: "Since 2005, college football and men's college basketball television & webcast schedules."
   },
-  { name: 'twitter:image', content: 'https://mattsarzsports.com/images/tvnets.jpg' }
+  { name: 'twitter:image', content: 'https://www.mattsarzsports.com/images/tvnets.jpg' }
 ];
 
 const baseOpenGraphMetaTags = [
@@ -34,7 +34,7 @@ const baseOpenGraphMetaTags = [
     property: 'og:description',
     content: "Since 2005, college football and men's college basketball television & webcast schedules."
   },
-  { property: 'og:image', content: 'https://mattsarzsports.com/images/tvnets.jpg' },
+  { property: 'og:image', content: 'https://www.mattsarzsports.com/images/tvnets.jpg' },
   { property: 'og:url', content: 'https://mattsarzsports.com' }
 ];
 
