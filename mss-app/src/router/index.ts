@@ -79,15 +79,8 @@ function updateMetaTags(
       `meta[name="${tag.name ?? ''}"], meta[property="${tag.property ?? ''}"]`
     );
     if (existingMeta) {
-      existingMeta.remove();
+      existingMeta.replaceWith(Object.assign(existingMeta, { content }));
     }
-
-    // Create and append new meta tag
-    const meta = document.createElement('meta');
-    if (tag.name) meta.name = tag.name;
-    if (tag.property) meta.setAttribute('property', tag.property);
-    meta.content = content ?? '';
-    document.head.appendChild(meta);
   });
 }
 
