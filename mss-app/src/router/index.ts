@@ -97,7 +97,7 @@ function generateMetaContent(
   to: RouteLocationNormalizedGeneric,
   url: string
 ): string | undefined {
-  if (tag.property === 'og:title') {
+  if (tag.property === 'og:title' || tag.name === 'twitter:title') {
     return generateTitle(to.meta.title as string, to);
   }
   if (tag.property === 'og:url') {
