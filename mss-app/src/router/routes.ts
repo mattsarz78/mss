@@ -40,7 +40,7 @@ const baseOpenGraphMetaTags = [
 
 // Utility function to generate meta tags
 const generateMetaTags = (title: string) => [
-  ...twitterMetaTags,
+  ...twitterMetaTags.map((tag) => (tag.name === 'twitter:title' ? { ...tag, content: title } : tag)),
   ...baseOpenGraphMetaTags.map((tag) => (tag.property === 'og:title' ? { ...tag, content: title } : tag))
 ];
 
