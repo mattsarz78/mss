@@ -7,9 +7,17 @@ import { getConferenceCasingBySlug, getConferenceContractData } from '@/utils/co
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/IndependentsGameList.vue';
 import { useConferenceGames } from '@/composables/useConferenceGames';
+import { useSeoMeta } from '@unhead/vue';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
+
+useSeoMeta({
+  title: `${year} ${getConferenceCasingBySlug(conference)?.cased ?? 'Unknown Conference'} Controlled Games`,
+  twitterTitle: `${year} ${getConferenceCasingBySlug(conference)?.cased ?? 'Unknown Conference'} Controlled Games`,
+  ogTitle: `${year} ${getConferenceCasingBySlug(conference)?.cased ?? 'Unknown Conference'} Controlled Games`,
+  ogUrl: window.location.href
+});
 
 const flexLink = flexScheduleLink(year);
 

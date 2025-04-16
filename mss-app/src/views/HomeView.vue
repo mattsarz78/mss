@@ -5,6 +5,7 @@ import { useSeoMeta } from '@unhead/vue';
 
 useSeoMeta({
   title: "Matt's College Sports on TV",
+  twitterTitle: "Matt's College Sports on TV",
   ogTitle: "Matt's College Sports on TV",
   ogUrl: window.location.href
 });

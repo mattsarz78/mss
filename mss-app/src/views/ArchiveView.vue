@@ -3,7 +3,12 @@ import { RouterLink } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
 import { useSeoMeta } from '@unhead/vue';
 
-useSeoMeta({ title: 'Archive Listings', ogTitle: 'Archive Listings', ogUrl: window.location.href });
+useSeoMeta({
+  title: 'Archive Listings',
+  twitterTitle: 'Archive Listings',
+  ogTitle: 'Archive Listings',
+  ogUrl: window.location.href
+});
 
 const footballSeasons = [
   '2019',

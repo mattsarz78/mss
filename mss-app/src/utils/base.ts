@@ -33,3 +33,13 @@ export const isNextWeekBowlGameWeek = (sport: string, contents: WeekInfo[], week
   const nextWeek = week + 1;
   return sport === 'football' && contents[contents.length - 1].week === nextWeek;
 };
+
+export const createTitle = (sport: string, year: string): string => {
+  const capitalized = `${sport.charAt(0).toUpperCase()}${sport.slice(1)}`;
+  return `${year} ${capitalized} Season`;
+};
+
+export function generateWeeklyTitle(sport: string, week: string, year: string, isText: boolean): string {
+  const capitalizedSport = `${sport.charAt(0).toUpperCase()}${sport.slice(1)}`;
+  return `${capitalizedSport} ${isText ? 'Weekly Text Schedule' : 'Weekly Schedule'} for ${year} Week ${week}`;
+}

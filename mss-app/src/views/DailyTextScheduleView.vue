@@ -3,6 +3,15 @@ import { useDailyTvTextGames } from '@/composables/useDailyTvTextGames';
 import { clearAllSelectedTextRows, checkAllTextRows } from '@/utils/dom';
 import { shouldShowPpvColumn } from '@/utils/conference';
 import WeekTextBase from '@/components/WeekTextBase.vue';
+import { useSeoMeta } from '@unhead/vue';
+import { DateTime } from 'luxon';
+
+useSeoMeta({
+  title: `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`,
+  twitterTitle: `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`,
+  ogTitle: `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`,
+  ogUrl: window.location.href
+});
 
 const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate } =
   useDailyTvTextGames();

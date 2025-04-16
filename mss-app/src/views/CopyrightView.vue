@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
+import { useSeoMeta } from '@unhead/vue';
+
+useSeoMeta({
+  title: 'Copyright and Disclaimer',
+  twitterTitle: 'Copyright and Disclaimer',
+  ogTitle: 'Copyright and Disclaimer',
+  ogUrl: window.location.href
+});
 
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 </script>
