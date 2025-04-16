@@ -2,13 +2,11 @@
 import { RouterLink } from 'vue-router';
 import { defineAsyncComponent, nextTick, onMounted, ref } from 'vue';
 import { useSeoMeta } from '@unhead/vue';
-import { baseSeoMeta } from '@/constants/baseSeoMeta';
 
 useSeoMeta({
   title: "Matt's College Sports on TV",
   ogTitle: "Matt's College Sports on TV",
-  ogUrl: window.location.href,
-  ...(typeof baseSeoMeta === 'object' ? baseSeoMeta : {})
+  ogUrl: window.location.href
 });
 
 const linksRef = ref<HTMLElement | null>(null);
