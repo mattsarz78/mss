@@ -4,7 +4,6 @@ import router from './router';
 import { DefaultApolloClient } from '@vue/apollo-composable';
 import { apolloClient } from './apolloClient'; // Import Apollo Client setup
 import { createHead } from '@unhead/vue/client';
-import { InferSeoMetaPlugin } from '@unhead/vue/plugins';
 
 // Create the Vue app
 const app = createApp({
@@ -16,7 +15,7 @@ const app = createApp({
   render: () => h(App)
 });
 
-const head = createHead({ plugins: [InferSeoMetaPlugin()] });
+const head = createHead();
 app.use(head);
 
 // Use the router and mount the app
