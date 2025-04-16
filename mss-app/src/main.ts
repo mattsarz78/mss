@@ -15,7 +15,11 @@ const app = createApp({
   render: () => h(App)
 });
 
-const head = createHead();
+const head = createHead({
+  init: [
+    { title: "Matt's College Sports on TV", meta: [{ name: 'twitter:title', content: "Matt's College Sports on TV" }] }
+  ]
+});
 app.use(head);
 
 // Use the router and mount the app
