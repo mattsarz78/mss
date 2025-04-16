@@ -1,6 +1,7 @@
 import { validSportYears } from '../constants/validSportYears';
 import { flexScheduleLinks } from '../constants/flexScheduleLinks';
 import type { WeekInfo } from '../graphQl';
+import { useHead } from '@unhead/vue';
 
 export const conferenceListBase = (sport: string, year: string): string => {
   return sport === 'football' && year !== '2021s'
@@ -43,3 +44,14 @@ export function generateWeeklyTitle(sport: string, week: string, year: string, i
   const capitalizedSport = `${sport.charAt(0).toUpperCase()}${sport.slice(1)}`;
   return `${capitalizedSport} ${isText ? 'Weekly Text Schedule' : 'Weekly Schedule'} for ${year} Week ${week}`;
 }
+
+export const addMetaTags = (title: string) => {
+  useHead({
+    title,
+    meta: [
+      { name: 'twitter:title', content: title },
+      { name: 'og:title', content: title },
+      { name: 'og:url', content: window.location.href }
+    ]
+  });
+};

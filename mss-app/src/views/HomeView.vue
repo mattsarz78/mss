@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { defineAsyncComponent, nextTick, onMounted, ref } from 'vue';
-import { useSeoMeta } from '@unhead/vue';
+import { addMetaTags } from '@/utils/base';
 
-useSeoMeta({
-  title: "Matt's College Sports on TV",
-  twitterTitle: "Matt's College Sports on TV",
-  ogTitle: "Matt's College Sports on TV",
-  ogUrl: window.location.href
-});
+const title = "Matt's College Sports on TV";
+
+addMetaTags(title);
 
 const linksRef = ref<HTMLElement | null>(null);
 const contentRef = ref<HTMLElement | null>(null);

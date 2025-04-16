@@ -6,18 +6,15 @@ import WeeklyBase from '@/components/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
 import { shouldShowPpvColumn } from '@/utils/conference';
 import { adjustWebExclusives } from '@/utils/dom';
-import { useSeoMeta } from '@unhead/vue';
 import { DateTime } from 'luxon';
+import { addMetaTags } from '@/utils/base';
 
 const route = useRoute();
 const { sport } = route.params as { sport: string };
 
-useSeoMeta({
-  title: `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`,
-  twitterTitle: `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`,
-  ogTitle: `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`,
-  ogUrl: window.location.href
-});
+const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
+
+addMetaTags(title);
 
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { defineAsyncComponent, onMounted, ref, watch } from 'vue';
-import { conferenceListBase, createTitle, getBasketballSeason } from '@/utils/base';
+import { addMetaTags, conferenceListBase, createTitle, getBasketballSeason } from '@/utils/base';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
 import { useSeasonContents } from '@/composables/useSeasonContents';
-import { useSeoMeta } from '@unhead/vue';
 
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 
@@ -16,7 +15,7 @@ const year = sport === 'football' ? paramYear : getBasketballSeason(paramYear);
 
 const title = createTitle(sport, paramYear);
 
-useSeoMeta({ title, twitterTitle: title, ogTitle: title, ogUrl: window.location.href });
+addMetaTags(title);
 
 const { result, loading, error } = useSeasonContents(year);
 

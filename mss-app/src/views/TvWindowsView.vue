@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { flexScheduleLink } from '@/utils/base';
+import { addMetaTags, flexScheduleLink } from '@/utils/base';
 import { adjustNavBar } from '@/utils/dom';
-import { useSeoMeta } from '@unhead/vue';
 import { defineAsyncComponent, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -10,7 +9,7 @@ const { year } = route.params as { year: string };
 
 const title = `Football TV Windows for ${year}`;
 
-useSeoMeta({ title, twitterTitle: title, ogTitle: title, ogUrl: window.location.href });
+addMetaTags(title);
 
 const flexLink = `${flexScheduleLink(year)}/pubhtml?widget=true&amp;headers=false`;
 

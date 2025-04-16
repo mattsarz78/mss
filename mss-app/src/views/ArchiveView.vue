@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
-import { useSeoMeta } from '@unhead/vue';
+import { addMetaTags } from '@/utils/base';
 
-useSeoMeta({
-  title: 'Archive Listings',
-  twitterTitle: 'Archive Listings',
-  ogTitle: 'Archive Listings',
-  ogUrl: window.location.href
-});
+const title = 'Archive Listings';
+
+addMetaTags(title);
 
 const footballSeasons = [
   '2019',

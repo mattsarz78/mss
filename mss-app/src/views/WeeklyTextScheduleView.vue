@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { generateWeeklyTitle } from '@/utils/base';
-import { useSeoMeta } from '@unhead/vue';
+import { addMetaTags, generateWeeklyTitle } from '@/utils/base';
 import { defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -9,7 +8,7 @@ const { week, sport, year: paramYear } = route.params as { week: string; sport: 
 
 const title = generateWeeklyTitle(sport, week, paramYear, true);
 
-useSeoMeta({ title, twitterTitle: title, ogTitle: title, ogUrl: window.location.href });
+addMetaTags(title);
 
 const WeekTextSchedule = defineAsyncComponent(() => import('@/components/WeekTextSchedule.vue'));
 </script>
