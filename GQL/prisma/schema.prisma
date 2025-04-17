@@ -69,16 +69,6 @@ model availabletv {
   @@id([season, conference, week])
 }
 
-model rsnlist {
-  id           BigInt  @id
-  season       String?
-  gametitle    String?
-  visitingteam String?
-  hometeam     String?
-  location     String?
-  keyvalue     String?
-}
-
 model weeklydates {
   season        String
   week          Int       @db.SmallInt

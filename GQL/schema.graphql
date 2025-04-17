@@ -8,7 +8,6 @@ type Query {
   conferenceGames(input: ConferenceGamesInput): [ConferenceGame]!
   noTvGames(input: NoTvGamesInput): [NoTvGame]!
   health: String!
-  rsnList(input: RsnInput): [RsnGame]!
   seasonContents(input: SeasonContentsInput): [SeasonContents]!
 }
 
@@ -74,16 +73,6 @@ type NoTvGame {
   tvOptions: String!
   timeWithOffset: String!
   fcs: String
-}
-input RsnInput {
-  season: String!
-}
-type RsnGame {
-  KeyValue: String!
-  GameTitle: String
-  VisitingTeam: String
-  HomeTeam: String
-  Location: String
 }
 input SeasonContentsInput {
   season: String!

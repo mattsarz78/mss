@@ -15,7 +15,6 @@ import { IContext } from './context';
 import { FootballService, FootballServiceKey } from './database/football';
 import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDates';
 import { CommonService, CommonServiceKey } from './database/common';
-import { RsnListService, RsnListServiceKey } from './database/rsnList';
 import bodyParser from 'body-parser';
 
 const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
@@ -48,8 +47,7 @@ async function startServer() {
     [AvailableTvServiceKey]: new AvailableTvService(db),
     [FootballServiceKey]: new FootballService(db),
     [CommonServiceKey]: new CommonService(db),
-    [WeeklyDatesServiceKey]: new WeeklyDatesService(db),
-    [RsnListServiceKey]: new RsnListService(db)
+    [WeeklyDatesServiceKey]: new WeeklyDatesService(db)
   };
   const gqlSchema = loadSchemaSync('./schemas/*.graphql', { loaders: [new GraphQLFileLoader()] });
   const typeDefs = mergeTypeDefs([gqlSchema]);
