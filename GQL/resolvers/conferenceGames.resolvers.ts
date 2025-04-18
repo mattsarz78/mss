@@ -3,6 +3,7 @@ import { ConferenceGame, ConferenceGamesInput } from '../__generated__/graphql';
 import { FootballServiceKey } from '../database/football';
 import { football } from '../__generated__/prisma';
 import { DateTime } from 'luxon';
+import { handleError, BadRequestError } from '../utils/errorHandler';
 
 export interface ConferenceGamesArgs {
   input: ConferenceGamesInput;
@@ -12,8 +13,12 @@ export const conferenceGamesResolver = async (
   _1: unknown,
   { input }: ConferenceGamesArgs,
   context: IContext
-): Promise<ConferenceGame[] | string> => {
+): Promise<ConferenceGame[]> => {
   try {
+    if (!input.conference || !input.season) {
+      throw new BadRequestError('Conference and season are required');
+    }
+
     const conferences = input.conference.split('|');
 
     const conferenceResults = await Promise.all(
@@ -40,8 +45,7 @@ export const conferenceGamesResolver = async (
 
     return conferenceGames;
   } catch (err: unknown) {
-    console.error(`Error fetching conference games: ${(err as Error).message}`);
-    return (err as Error).message;
+    throw handleError(err);
   }
 };
 

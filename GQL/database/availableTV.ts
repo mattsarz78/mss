@@ -1,8 +1,9 @@
-import { AvailableTvInput } from '__generated__/graphql';
+import { AvailableTvInput } from '../__generated__/graphql';
 import { PrismaClient, availabletv } from '../__generated__/prisma';
 import { DatabaseService } from './services';
+import { DatabaseError } from '../utils/errorHandler';
 
-export const AvailableTvServiceKey = Symbol.for('IAvailableTVService');
+export const AvailableTvServiceKey = Symbol.for('IAvailableTvService');
 
 export interface IAvailableTvService extends DatabaseService<IAvailableTvService> {
   getAvailableTv(request: AvailableTvInput): Promise<availabletv[]>;
@@ -17,11 +18,7 @@ export class AvailableTvService implements IAvailableTvService {
         where: { season: request.season, conference: request.conference, week: request.week }
       });
     } catch (error) {
-      console.error(
-        `Error fetching available TV for season: ${request.season}, conference: ${request.conference}, week: ${request.week.toString()}`,
-        error
-      );
-      throw error;
+      throw new DatabaseError('Failed to fetch available TV listings', error as Error);
     }
   }
 

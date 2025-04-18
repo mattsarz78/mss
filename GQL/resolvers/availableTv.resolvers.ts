@@ -1,29 +1,32 @@
-import { AvailableTvServiceKey } from '../database/availableTV';
-import { AvailableTvInput, AvailableTv } from '../__generated__/graphql';
-import { availabletv } from '../__generated__/prisma';
 import { IContext } from '../context';
+import { AvailableTv, AvailableTvInput } from '../__generated__/graphql';
+import { AvailableTvServiceKey } from '../database/availableTV';
+import { handleError, BadRequestError } from '../utils/errorHandler';
 
 export interface AvailableTvArgs {
   input: AvailableTvInput;
 }
 
-export const availableTvResolver = async (
+export const getAvailableTv = async (
   _1: unknown,
   { input }: AvailableTvArgs,
   context: IContext
-): Promise<AvailableTv[] | string> => {
+): Promise<AvailableTv[]> => {
   try {
+    if (!input.season || !input.conference || !input.week) {
+      throw new BadRequestError('Season, conference, and week are required');
+    }
+
     const results = await context.services[AvailableTvServiceKey].getAvailableTv(input);
-    return results.map((availableTV: availabletv) => ({
-      season: availableTV.season.trim(),
-      conference: availableTV.conference.trim(),
-      week: availableTV.week,
-      tvOptions: availableTV.tvoptions?.trim() ?? ''
+    return results.map((result) => ({
+      season: result.season,
+      conference: result.conference,
+      week: result.week,
+      tvOptions: result.tvoptions ?? ''
     }));
   } catch (err: unknown) {
-    console.error(`Error fetching available TV: ${(err as Error).message}`);
-    return (err as Error).message;
+    throw handleError(err);
   }
 };
 
-export default { Query: { availableTv: availableTvResolver } };
+export default { Query: { availableTv: getAvailableTv } };

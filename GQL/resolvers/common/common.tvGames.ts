@@ -3,17 +3,18 @@ import { DateTime } from 'luxon';
 import { TvGame, TvGamesInput } from '../../__generated__/graphql';
 import { CommonServiceKey } from '../../database/common';
 import { basketball, football } from '__generated__/prisma';
+import { handleError, BadRequestError } from '../../utils/errorHandler';
 
 export interface TvGamesArgs {
   input: TvGamesInput;
 }
 
-export const getTvGames = async (
-  _1: unknown,
-  { input }: TvGamesArgs,
-  context: IContext
-): Promise<TvGame[] | string> => {
+export const getTvGames = async (_1: unknown, { input }: TvGamesArgs, context: IContext): Promise<TvGame[]> => {
   try {
+    if (!input.season || !input.sport || !input.week) {
+      throw new BadRequestError('Season, sport, and week are required');
+    }
+
     const results = await context.services[CommonServiceKey].getTvGames(input);
 
     return results.map((result: football | basketball) => ({
@@ -29,9 +30,8 @@ export const getTvGames = async (
       mediaIndicator: result.mediaindicator?.trim() ?? '',
       timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
     }));
-  } catch (error: unknown) {
-    console.error(`Error fetching TV games: ${(error as Error).message}`);
-    return (error as Error).message;
+  } catch (err: unknown) {
+    throw handleError(err);
   }
 };
 

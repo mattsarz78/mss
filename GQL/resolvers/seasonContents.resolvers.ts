@@ -1,6 +1,7 @@
 import { WeeklyDatesServiceKey } from '../database/weeklyDates';
 import { SeasonContents, SeasonContentsInput } from '../__generated__/graphql';
 import { IContext } from '../context';
+import { handleError, BadRequestError } from '../utils/errorHandler';
 
 export interface SeasonContentsArgs {
   input: SeasonContentsInput;
@@ -10,10 +11,13 @@ export const getSeasonContents = async (
   _1: unknown,
   { input }: SeasonContentsArgs,
   context: IContext
-): Promise<SeasonContents[] | string> => {
+): Promise<SeasonContents[]> => {
   try {
-    const results = await context.services[WeeklyDatesServiceKey].getConferenceGames(input.season);
+    if (!input.season) {
+      throw new BadRequestError('Season is required');
+    }
 
+    const results = await context.services[WeeklyDatesServiceKey].getConferenceGames(input.season);
     return results.map((result) => ({
       week: result.week,
       startDate: result.startdate?.toISOString() ?? '',
@@ -21,8 +25,7 @@ export const getSeasonContents = async (
       postseasonInd: result.postseasonind
     }));
   } catch (err: unknown) {
-    console.error(`Error fetching season contents: ${(err as Error).message}`);
-    return (err as Error).message;
+    throw handleError(err);
   }
 };
 

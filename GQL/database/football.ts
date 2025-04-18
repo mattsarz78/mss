@@ -1,6 +1,7 @@
 import { NoTvGamesInput } from '../__generated__/graphql';
 import { PrismaClient, football } from '../__generated__/prisma';
 import { DatabaseService } from './services';
+import { DatabaseError } from '../utils/errorHandler';
 
 export const FootballServiceKey = Symbol.for('IFootballService');
 
@@ -35,11 +36,7 @@ export class FootballService implements IFootballService {
         orderBy: { timewithoffset: 'asc' }
       });
     } catch (error) {
-      console.error(
-        `Error fetching conference games for season: ${request.season}, conference: ${request.conference}`,
-        error
-      );
-      throw error;
+      throw new DatabaseError('Failed to fetch conference games', error as Error);
     }
   }
 
@@ -56,11 +53,7 @@ export class FootballService implements IFootballService {
           AND fb.mediaindicator = 'N'
         ORDER BY fb.timewithoffset, fb.conference;`;
     } catch (error) {
-      console.error(
-        `Error fetching no TV games for week: ${request.week.toString()}, season: ${request.season}`,
-        error
-      );
-      throw error;
+      throw new DatabaseError('Failed to fetch no TV games', error as Error);
     }
   }
 

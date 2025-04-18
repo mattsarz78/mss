@@ -2,17 +2,25 @@ import { createApp, provide, h } from 'vue';
 import App from './App.vue';
 import router from './router';
 import { DefaultApolloClient } from '@vue/apollo-composable';
-import { apolloClient } from './apolloClient'; // Import Apollo Client setup
+import { apolloClient } from './apolloClient';
 import { createHead } from '@unhead/vue/client';
 import { InferSeoMetaPlugin } from '@unhead/vue/plugins';
+import { registerSW } from 'virtual:pwa-register';
+
+// Register service worker
+const updateSW = registerSW({
+  onNeedRefresh() {
+    if (confirm('New content available. Reload?')) {
+      void updateSW(); // explicitly mark Promise as ignored with void
+    }
+  }
+});
 
 // Create the Vue app
 const app = createApp({
   setup() {
-    // Provide the Apollo Client to the app
     provide(DefaultApolloClient, apolloClient);
   },
-
   render: () => h(App)
 });
 

@@ -1,0 +1,31 @@
+enum ErrorCode {
+  NOT_FOUND
+  BAD_REQUEST
+  UNAUTHORIZED
+  INTERNAL_SERVER
+  DATABASE_ERROR
+}
+
+interface Error {
+  message: String!
+  code: ErrorCode!
+  timestamp: String!
+}
+
+type NotFoundError implements Error {
+  message: String!
+  code: ErrorCode!
+  timestamp: String!
+}
+
+type BadRequestError implements Error {
+  message: String!
+  code: ErrorCode!
+  timestamp: String!
+}
+
+type DatabaseError implements Error {
+  message: String!
+  code: ErrorCode!
+  timestamp: String!
+}

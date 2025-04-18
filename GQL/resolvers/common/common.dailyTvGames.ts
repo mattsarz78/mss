@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { DailyTvGamesInput, TvGame } from '../../__generated__/graphql';
 import { CommonServiceKey } from '../../database/common';
 import { basketball, football } from '__generated__/prisma';
+import { handleError, BadRequestError } from '../../utils/errorHandler';
 
 export interface DailyTvGamesArgs {
   input: DailyTvGamesInput;
@@ -15,11 +16,15 @@ export const getDailyTvGames = async (
   _1: unknown,
   { input }: DailyTvGamesArgs,
   context: IContext
-): Promise<TvGame[] | string> => {
-  const startDate = DateTime.fromISO(input.startDate).set(zeroHour).toJSDate();
-  const endDate = DateTime.fromISO(input.startDate).plus({ days: 1 }).set(endOfDay).toJSDate();
-
+): Promise<TvGame[]> => {
   try {
+    if (!input.startDate || !input.sport) {
+      throw new BadRequestError('Start date and sport are required');
+    }
+
+    const startDate = DateTime.fromISO(input.startDate).set(zeroHour).toJSDate();
+    const endDate = DateTime.fromISO(input.startDate).plus({ days: 1 }).set(endOfDay).toJSDate();
+
     const results = await context.services[CommonServiceKey].getDailyTvGames({
       startDate,
       endDate,
@@ -39,9 +44,8 @@ export const getDailyTvGames = async (
       mediaIndicator: result.mediaindicator?.trim() ?? '',
       timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
     }));
-  } catch (error: unknown) {
-    console.error(`Error fetching daily TV games: ${(error as Error).message}`);
-    return (error as Error).message;
+  } catch (err: unknown) {
+    throw handleError(err);
   }
 };
 

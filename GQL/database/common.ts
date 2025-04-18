@@ -1,6 +1,7 @@
 import { TvGamesInput } from '../__generated__/graphql';
 import { Prisma, PrismaClient, football, basketball } from '../__generated__/prisma';
 import { DatabaseService } from './services';
+import { DatabaseError } from '../utils/errorHandler';
 
 export const CommonServiceKey = Symbol.for('ICommonService');
 
@@ -15,56 +16,58 @@ export interface GetDailyTvGamesRequest {
   endDate: Date;
 }
 
+type SportType = 'football' | 'basketball';
+type FindManyArgs<T extends SportType> = T extends 'football'
+  ? Prisma.footballFindManyArgs
+  : Prisma.basketballFindManyArgs;
+
 export class CommonService implements ICommonService {
   constructor(private client: PrismaClient) {}
 
-  private buildCriteria(request: GetDailyTvGamesRequest | TvGamesInput, isDaily: boolean) {
-    const baseCriteria = {
-      where: {
-        mediaindicator: { in: ['T', 'W'] },
-        timewithoffset: undefined as unknown as { lte?: Date; gte?: Date },
-        season: undefined as unknown as string,
-        week: undefined as unknown as number
-      },
-      orderBy: [{ timewithoffset: Prisma.SortOrder.asc }, { listorder: Prisma.SortOrder.asc }]
-    };
+  private buildCriteria<T extends SportType>(
+    request: GetDailyTvGamesRequest | TvGamesInput,
+    isDaily: boolean
+  ): FindManyArgs<T> {
+    const where = { mediaindicator: { in: ['T', 'W'] as const } };
 
     if (isDaily) {
-      baseCriteria.where.timewithoffset = {
-        lte: (request as GetDailyTvGamesRequest).endDate,
-        gte: (request as GetDailyTvGamesRequest).startDate
-      };
+      const dailyRequest = request as GetDailyTvGamesRequest;
+      Object.assign(where, { timewithoffset: { gte: dailyRequest.startDate, lte: dailyRequest.endDate } });
     } else {
-      baseCriteria.where.week = (request as TvGamesInput).week;
-      baseCriteria.where.season = (request as TvGamesInput).season;
+      const weeklyRequest = request as TvGamesInput;
+      Object.assign(where, { season: weeklyRequest.season, week: weeklyRequest.week });
     }
 
-    return baseCriteria;
+    return { where, orderBy: [{ timewithoffset: 'asc' } as const] } as unknown as FindManyArgs<T>;
   }
 
   public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(football | basketball)[]> {
-    const criteria = this.buildCriteria(request, true);
-
     try {
+      const criteria =
+        request.sport === 'football'
+          ? this.buildCriteria<'football'>(request, true)
+          : this.buildCriteria<'basketball'>(request, true);
+
       return request.sport === 'football'
-        ? await this.client.football.findMany(criteria)
-        : await this.client.basketball.findMany(criteria);
+        ? await this.client.football.findMany(criteria as Prisma.footballFindManyArgs)
+        : await this.client.basketball.findMany(criteria as Prisma.basketballFindManyArgs);
     } catch (error) {
-      console.error('Error fetching daily TV games:', error);
-      throw error;
+      throw new DatabaseError('Failed to fetch daily TV games', error as Error);
     }
   }
 
   public async getTvGames(request: TvGamesInput): Promise<(football | basketball)[]> {
-    const criteria = this.buildCriteria(request, false);
-
     try {
+      const criteria =
+        request.sport === 'football'
+          ? this.buildCriteria<'football'>(request, false)
+          : this.buildCriteria<'basketball'>(request, false);
+
       return request.sport === 'football'
-        ? await this.client.football.findMany(criteria)
-        : await this.client.basketball.findMany(criteria);
+        ? await this.client.football.findMany(criteria as Prisma.footballFindManyArgs)
+        : await this.client.basketball.findMany(criteria as Prisma.basketballFindManyArgs);
     } catch (error) {
-      console.error('Error fetching TV games:', error);
-      throw error;
+      throw new DatabaseError('Failed to fetch TV games', error as Error);
     }
   }
 
