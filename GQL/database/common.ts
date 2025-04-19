@@ -38,7 +38,7 @@ export class CommonService implements ICommonService {
       Object.assign(where, { season: weeklyRequest.season, week: weeklyRequest.week });
     }
 
-    return { where, orderBy: [{ timewithoffset: 'asc' } as const] } as unknown as FindManyArgs<T>;
+    return { where, orderBy: [{ timewithoffset: 'asc', listorder: 'asc' } as const] } as unknown as FindManyArgs<T>;
   }
 
   public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(football | basketball)[]> {
