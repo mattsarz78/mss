@@ -13,7 +13,7 @@ export const getAvailableTv = async (
   context: IContext
 ): Promise<AvailableTv[]> => {
   try {
-    if (!input.season || !input.conference || !input.week) {
+    if (!input.season || !input.conference || (!input.week && input.week !== 0)) {
       throw new BadRequestError('Season, conference, and week are required');
     }
 

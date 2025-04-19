@@ -10,7 +10,7 @@ export interface NoTvGamesArgs {
 
 export const getNoTvGames = async (_1: unknown, { input }: NoTvGamesArgs, context: IContext): Promise<NoTvGame[]> => {
   try {
-    if (!input.season) {
+    if (!input.season || (!input.week && input.week !== 0)) {
       throw new BadRequestError('Season is required');
     }
 
@@ -23,8 +23,7 @@ export const getNoTvGames = async (_1: unknown, { input }: NoTvGamesArgs, contex
       conference: result.conference?.trim() ?? '',
       tvOptions: result.tvoptions?.trim() ?? '',
       timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : '',
-      season: input.season,
-      week: input.week
+      fcs: result.fcs?.trim() ?? ''
     }));
   } catch (err: unknown) {
     throw handleError(err);
