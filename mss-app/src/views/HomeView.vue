@@ -57,7 +57,9 @@ const TwitterRetrieval = defineAsyncComponent(() => import('@/components/Twitter
         </p>
       </div>
       <div id="Twitter">
-        <a class="twitter-timeline" href="https://twitter.com/mattsarz" data-height="300"> Tweets by @mattsarz </a>
+        <a class="twitter-timeline" href="https://twitter.com/mattsarz" data-height="300" data-tweet-limit="5">
+          Tweets by @mattsarz
+        </a>
         <TwitterRetrieval />
       </div>
     </div>
