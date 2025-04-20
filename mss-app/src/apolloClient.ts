@@ -3,7 +3,7 @@ import { connectApolloClientToVSCodeDevTools } from '@apollo/client-devtools-vsc
 
 // HTTP connection to the API
 const httpLink = createHttpLink({
-  uri: process.env.API_URL ?? 'http://localhost:8020/graphql' // Fallback to localhost if API_URL is not set
+  uri: import.meta.env.API_URL ?? 'http://localhost:8020/graphql' // Fallback to localhost if API_URL is not set
 });
 
 // Cache implementation
@@ -12,7 +12,7 @@ const cache = new InMemoryCache();
 // Create and export the Apollo Client
 export const apolloClient = new ApolloClient({ link: httpLink, cache });
 
-if (process.env.NODE_ENV !== 'production') {
+if (!import.meta.env.PROD) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const devtoolsRegistration = connectApolloClientToVSCodeDevTools(
     apolloClient,

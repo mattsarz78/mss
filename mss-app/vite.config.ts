@@ -45,8 +45,6 @@ export default defineConfig(({ mode }) => {
         }
       }
     },
-    define: {
-      'process.env': env // Define environment variables
-    }
+    define: { 'import.meta.env.API_URL': JSON.stringify(env.API_URL) }
   };
 });
