@@ -3,7 +3,7 @@
     "install:all": "concurrently \"npm run install:gql\" \"npm run install:web\"",
     "start:all": "concurrently \"npm run start:gql\" \"npm run start:web\"",
     "prettier:all": "concurrently \"npm run prettier:gql\" \"npm run prettier:web\"",
-    "start:gql": "cd GQL && npm run startDev",
+    "start:gql": "cd GQL && npm run startDocker",
     "start:web": "cd mss-app && npm run dev",
     "prettier:gql": "cd GQL && npm run prettier",
     "prettier:web": "cd mss-app && npm run format",

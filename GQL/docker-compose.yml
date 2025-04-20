@@ -1,0 +1,11 @@
+services:
+  gql:
+    image: mattsarz78/graphql:latest
+    platform: linux/amd64
+    build: ./
+    container_name: gql
+    ports:
+      - "8020:8020"
+    env_file:
+      - .env
+    command: ['npm', 'run', 'start']
