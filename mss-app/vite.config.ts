@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
       vueJsx(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+        includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
         manifest: {
           name: 'MSS App',
           short_name: 'MSS',
