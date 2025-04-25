@@ -118,15 +118,6 @@ const {
   display: inline-block;
 }
 
-.back-to-top {
-  position: fixed;
-  bottom: 2em;
-  right: 0;
-  text-decoration: none;
-  padding: 1em;
-  display: none;
-}
-
 .filters {
   margin: 0;
 }

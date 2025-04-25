@@ -101,10 +101,6 @@ watch(result, updateStyles);
 }
 
 @media only screen and (max-width: 640px) {
-  body {
-    font-size: 0.85em;
-  }
-
   #SeasonLinks {
     width: 100%;
   }

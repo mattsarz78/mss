@@ -53,9 +53,7 @@ const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.
   border-width: thin;
 }
 
-.coverage a img,
-.coverageppv a img,
-.network a img {
+a img {
   border: 0;
 }
 

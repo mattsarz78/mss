@@ -66,17 +66,3 @@ const filteredGames = computed(() => {
     </template>
   </div>
 </template>
-
-<style scoped>
-@media all and (min-width: 641px) {
-  #Main {
-    padding-top: 56px;
-  }
-}
-
-@media only screen and (max-width: 640px) {
-  #Main {
-    padding-top: 61px;
-  }
-}
-</style>

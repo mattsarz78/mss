@@ -89,10 +89,6 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
     display: inline;
   }
 
-  body {
-    font-size: 0.85em;
-  }
-
   #Main {
     padding-top: 48px;
   }

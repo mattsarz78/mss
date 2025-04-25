@@ -63,21 +63,8 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
   margin-right: 3px;
 }
 
-.back-to-top {
-  position: fixed;
-  bottom: 2em;
-  right: 0;
-  text-decoration: none;
-  padding: 1em;
-  display: none;
-}
-
 #TextNav {
   margin: 0;
-}
-
-#Directions {
-  margin-top: 0;
 }
 
 .navbar {

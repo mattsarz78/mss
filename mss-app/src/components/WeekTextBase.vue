@@ -46,12 +46,8 @@ onMounted(() => {
 </template>
 
 <style scoped>
-#TextNav {
-  margin: 0;
-}
-
 #Directions {
-  margin-top: 0;
+  margin-top: 3px;
 }
 
 .navbar {

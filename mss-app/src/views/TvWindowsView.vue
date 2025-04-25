@@ -36,46 +36,8 @@ onMounted(adjustNavBar);
 </template>
 
 <style scoped>
-.coverage a img,
-.network a img {
+a img {
   border: 0;
-}
-
-.network {
-  text-align: center;
-  border: medium solid Gray;
-  border-width: thin;
-}
-
-.coverage {
-  border: medium solid Gray;
-  border-width: thin;
-  empty-cells: show;
-  text-align: center;
-}
-
-.time {
-  width: 60px;
-  text-align: right;
-  border: medium solid Gray;
-  border-width: thin;
-  padding: 2px;
-}
-
-.conference {
-  width: 100px;
-  text-align: center;
-  border: medium solid Gray;
-  border-width: thin;
-  padding: 5px;
-}
-
-.telecast {
-  width: 400px;
-  text-align: center;
-  border: medium solid Gray;
-  border-width: thin;
-  padding: 5px;
 }
 
 .navbar {
@@ -87,15 +49,6 @@ onMounted(adjustNavBar);
 }
 
 @media all and (min-width: 641px) {
-  .network {
-    width: 135px;
-    padding: 2px;
-  }
-
-  .coverage {
-    width: 189px;
-  }
-
   .tvFrame {
     width: 700px;
   }
@@ -107,15 +60,6 @@ onMounted(adjustNavBar);
 }
 
 @media only screen and (max-width: 640px) {
-  .network {
-    width: 90px;
-    padding: 0;
-  }
-
-  .coverage {
-    width: 105px;
-  }
-
   .blockspan {
     display: block;
     padding-bottom: 3px;

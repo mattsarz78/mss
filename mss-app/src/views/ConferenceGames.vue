@@ -80,43 +80,11 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
 </template>
 
 <style scoped>
-.network,
-.time {
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
-  border-width: thin;
-}
-
-.network {
-  text-align: center;
-}
-
-.time {
-  width: 60px;
-  text-align: right;
-  padding: 2px;
-}
-
-.back-to-top {
-  position: fixed;
-  bottom: 2em;
-  right: 0;
-  text-decoration: none;
-  padding: 1em;
-  display: none;
-}
-
 .navbar {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 @media all and (min-width: 641px) {
-  .network {
-    width: 135px;
-    padding: 2px;
-  }
-
   .homelink,
   .seasonhome {
     display: block;
@@ -128,11 +96,6 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
 }
 
 @media only screen and (max-width: 640px) {
-  .network {
-    width: 90px;
-    padding: 0;
-  }
-
   .homelink,
   .seasonhome {
     display: inline-block;

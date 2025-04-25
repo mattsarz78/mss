@@ -18,14 +18,6 @@ const WeekTextSchedule = defineAsyncComponent(() => import('@/components/WeekTex
 </template>
 
 <style scoped>
-#TextNav {
-  margin: 0;
-}
-
-#Directions {
-  margin-top: 0;
-}
-
 @media only screen and (max-width: 640px) {
   .DONTPrint a {
     line-height: 13px;

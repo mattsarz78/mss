@@ -63,8 +63,4 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
   border-collapse: collapse;
   font-family: Arial;
 }
-
-.navbar {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
 </style>

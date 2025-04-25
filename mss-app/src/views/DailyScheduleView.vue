@@ -83,65 +83,8 @@ const {
   display: inline-block;
 }
 
-.coverage a img,
-.network a img {
+a img {
   border: 0;
-}
-
-.network {
-  text-align: center;
-  border: medium;
-  border-style: solid;
-  border-color: Gray;
-  border-width: thin;
-}
-
-.coverage {
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  empty-cells: show;
-  text-align: center;
-}
-
-.time {
-  width: 60px;
-  text-align: right;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  padding: 2px;
-}
-
-.conference {
-  width: 100px;
-  text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  padding: 5px;
-}
-
-.telecast {
-  width: 400px;
-  text-align: center;
-  border: medium;
-  border-color: Gray;
-  border-style: solid;
-  border-width: thin;
-  padding: 5px;
-}
-
-.back-to-top {
-  position: fixed;
-  bottom: 2em;
-  right: 0;
-  text-decoration: none;
-  padding: 1em;
-  display: none;
 }
 
 .filters {
@@ -153,15 +96,6 @@ const {
 }
 
 @media all and (min-width: 641px) {
-  .network {
-    width: 135px;
-    padding: 2px;
-  }
-
-  .coverage {
-    width: 189px;
-  }
-
   .mobilespan {
     display: block;
   }
@@ -172,15 +106,6 @@ const {
 }
 
 @media only screen and (max-width: 640px) {
-  .network {
-    width: 90px;
-    padding: 0;
-  }
-
-  .coverage {
-    width: 105px;
-  }
-
   .mobilespan {
     display: inline-block;
     padding-right: 10px;

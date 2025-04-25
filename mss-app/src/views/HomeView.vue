@@ -125,10 +125,6 @@ const TwitterRetrieval = defineAsyncComponent(() => import('@/components/Twitter
 }
 
 @media only screen and (max-width: 640px) {
-  body {
-    font-size: 0.85em;
-  }
-
   #Facebook {
     height: 100px;
     width: 300px;

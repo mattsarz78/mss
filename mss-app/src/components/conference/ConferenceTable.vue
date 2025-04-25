@@ -107,10 +107,6 @@ const formattedGames = computed(() =>
     height: 40px;
     width: 55px;
   }
-
-  #Main {
-    padding-top: 56px;
-  }
 }
 
 @media only screen and (max-width: 640px) {
@@ -126,10 +122,6 @@ const formattedGames = computed(() =>
   :deep(.imageDimensions) {
     height: 29px;
     width: 40px;
-  }
-
-  #Main {
-    padding-top: 61px;
   }
 }
 </style>
