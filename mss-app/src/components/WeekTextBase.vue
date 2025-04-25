@@ -62,5 +62,9 @@ onMounted(() => {
   .DONTPrint a {
     line-height: 13px;
   }
+
+  #Directions {
+    margin-top: 6px;
+  }
 }
 </style>
