@@ -92,7 +92,6 @@ const toggleRow = (event: Event) => {
   border-width: 2px;
   border-spacing: 1px;
   border-collapse: collapse;
-  font-family: Arial;
 }
 
 .networkcell {

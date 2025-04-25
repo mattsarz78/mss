@@ -70,7 +70,6 @@ const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD')
   border: 2px ridge #fff;
   border-spacing: 1px;
   border-collapse: collapse;
-  font-family: Arial;
 }
 
 .conference,

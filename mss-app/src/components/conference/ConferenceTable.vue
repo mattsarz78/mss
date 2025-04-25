@@ -84,7 +84,6 @@ const formattedGames = computed(() =>
   border: 2px ridge #fff;
   border-spacing: 1px;
   border-collapse: collapse;
-  font-family: Arial;
 }
 
 :deep(.linkblock) {

@@ -58,11 +58,6 @@ header {
     margin: 8px;
     font-size: 12px;
   }
-
-  input,
-  select {
-    font-size: 12px;
-  }
 }
 
 @media only screen and (max-width: 640px) {
@@ -70,12 +65,6 @@ header {
     font-size: 0.636em;
     margin: 3px;
   }
-
-  input,
-  select {
-    font-size: 1em;
-  }
-
   .search {
     max-width: 120px;
   }
