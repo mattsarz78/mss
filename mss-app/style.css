@@ -56,12 +56,12 @@ header {
 @media all and (min-width: 641px) {
   body {
     margin: 8px;
-    font-size: 11px;
+    font-size: 12px;
   }
 
   input,
   select {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 

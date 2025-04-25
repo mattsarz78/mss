@@ -116,7 +116,7 @@ const toggleRow = (event: Event) => {
 
 @media all and (min-width: 641px) {
   .tableborder {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .rowStyle {
