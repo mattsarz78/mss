@@ -24,14 +24,14 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   const { images, imageHyperlinks, textHyperlinks, infoLinks, strings } = validateFieldData(networks);
 
   images.forEach((image) => {
-    imagesString.push(`<img class="imageDimensions" src="/images/${image}" />`);
+    imagesString.push(`<img loading="lazy" class="imageDimensions" src="/images/${image}" />`);
   });
 
   imageHyperlinks.forEach((imageHyperlink) => {
     const imageArray = imagesForUrls.filter((x) => imageHyperlink.includes(x.link));
     const imageUrl = getImageUrl(imageArray, season);
     imageHyperlinkString.push(
-      `<a href="${imageHyperlink}" target="_blank" ><img class="imageDimensions" src="/images/${imageUrl}" /></a>`
+      `<a href="${imageHyperlink}" target="_blank" ><img loading="lazy" class="imageDimensions" src="/images/${imageUrl}" /></a>`
     );
   });
 
