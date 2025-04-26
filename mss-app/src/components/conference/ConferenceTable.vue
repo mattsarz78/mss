@@ -102,8 +102,8 @@ const formattedGames = computed(() =>
   }
 
   :deep(.imageDimensions) {
-    height: 40px;
-    width: 55px;
+    height: 47.5px;
+    width: 62.7px;
   }
 }
 
@@ -118,8 +118,8 @@ const formattedGames = computed(() =>
   }
 
   :deep(.imageDimensions) {
-    height: 29px;
-    width: 40px;
+    width: 42.966px;
+    height: 32.55px;
   }
 }
 </style>

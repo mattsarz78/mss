@@ -57,15 +57,28 @@ const TwitterRetrieval = defineAsyncComponent(() => import('@/components/Twitter
         </p>
       </div>
       <div id="Twitter">
-        <a class="twitter-timeline" href="https://twitter.com/mattsarz?ref_src=twsrc%5Etfw" data-height="300"
-          data-tweet-limit="5">Tweets by mattsarz</a>
+        <a
+          class="twitter-timeline"
+          href="https://twitter.com/mattsarz?ref_src=twsrc%5Etfw"
+          data-height="300"
+          data-tweet-limit="5"
+          >Tweets by mattsarz</a
+        >
         <TwitterRetrieval />
       </div>
     </div>
-    <iframe id="Facebook" ref="facebookRef" lazy="true"
+    <iframe
+      id="Facebook"
+      ref="facebookRef"
+      lazy="true"
       src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmattsarzsports%2F&tabs&height=80&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
-      height="80" style="border: none; overflow: hidden" scrolling="no" frameborder="0" allowfullscreen="true"
-      allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" />
+      height="80"
+      style="border: none; overflow: hidden"
+      scrolling="no"
+      frameborder="0"
+      allowfullscreen="true"
+      allowtransparency="true"
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" />
     <p>
       Got a question, complaint, comment or know a game not listed here?
       <a href="mailto:footballsked@gmail.com"> Send it here </a>
