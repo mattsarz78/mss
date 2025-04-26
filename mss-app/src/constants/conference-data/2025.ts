@@ -92,7 +92,7 @@ export const conferenceData: ConferenceData[] = [
       <p>TNT Sports has entered the picture on a multi-year agreement. It appears that they will choose games after both CBS Sports and FOX Sports. It appears most of these games will air on TruTV.</p>
       <p>Also, Hawai'i has a separate contract through Spectrum Cable to air most of their Mountain West games via pay-per-view on the islands after both national partners choose up to four Hawai'i games. These games are usually streamed to the mainland with no restrictions.</p>
       <p>Both the FOX Sports and CBS Sports agreements end after the 2025-26 athletic year.  The expectation is the TNT Sports agreement ends at this time as well.</p>
-      <p>Source: <a href="https://themw.com/documents/2020/1/9//MW_Media_Rights_Agreements_Fact_Sheet.pdf" target="_blank">MWC</a>, <a href="https://press.wbd.com/us/media-release/tnt-sports-and-mountain-west-reach-multi-year-college-football-agreement-beginning" target="_blank">TNT Sports</a></p>
+      <p>Source: <a href="https://mwwire.com/2020/01/13/mountain-west-media-rights-fact-sheet/" target="_blank">MW Wire</a>, <a href="https://press.wbd.com/us/media-release/tnt-sports-and-mountain-west-reach-multi-year-college-football-agreement-beginning" target="_blank">TNT Sports</a></p>
     `
   },
   {
