@@ -37,9 +37,35 @@ export default defineConfig(({ mode }) => {
       target: 'esnext',
       rollupOptions: {
         output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return 'vendor'; // Create a separate vendor chunk for node_modules
+          manualChunks(id, { getModuleInfo }) {
+            const match = /.*\.strings\.(\w+)\.js/.exec(id);
+            if (match) {
+              const language = match[1]; // e.g. "en"
+              const dependentEntryPoints = [];
+
+              // we use a Set here so we handle each module at most once. This
+              // prevents infinite loops in case of circular dependencies
+              const idsToHandle = new Set(getModuleInfo(id)?.dynamicImporters);
+
+              for (const moduleId of idsToHandle) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                const { isEntry, dynamicImporters, importers } = getModuleInfo(moduleId)!;
+                if (isEntry || dynamicImporters.length > 0) dependentEntryPoints.push(moduleId);
+
+                // The Set iterator is intelligent enough to iterate over
+                // elements that are added during iteration
+                for (const importerId of importers) idsToHandle.add(importerId);
+              }
+
+              // If there is a unique entry, we put it into a chunk based on the
+              // entry name
+              if (dependentEntryPoints.length === 1) {
+                return `${dependentEntryPoints[0].split('/').slice(-1)[0].split('.')[0]}.strings.${language}`;
+              }
+              // For multiple entries, we put it into a "shared" chunk
+              if (dependentEntryPoints.length > 1) {
+                return `shared.strings.${language}`;
+              }
             }
           }
         }
