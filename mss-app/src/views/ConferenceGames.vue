@@ -61,10 +61,10 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
           NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
           non-conference games fall under the home team's telecast rights.
         </p>
-        <!-- eslint-disable-next-line -->
         <div v-if="conference !== 'independents'" v-html="contractTvData" />
-        <!-- eslint-disable-next-line -->
-        <IndependentsGameList v-if="conference === 'independents'" :games="result.conferenceGames"
+        <IndependentsGameList
+          v-if="conference === 'independents'"
+          :games="result.conferenceGames"
           :schools="getIndependentSchools(year).split('|')"
           :year="year" />
         <ConferenceGameList v-else :year="year" :games="result.conferenceGames" />

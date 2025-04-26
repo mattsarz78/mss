@@ -26,7 +26,6 @@ const updatedTvOptions = (game: NoTvGame): string => {
   };
 
   const conferenceOption = conferenceOptions[game.conference];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return conferenceOption ? conferenceOption(game) : game.tvOptions;
 };
 </script>

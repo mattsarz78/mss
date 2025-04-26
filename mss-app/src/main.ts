@@ -7,16 +7,14 @@ import { createHead } from '@unhead/vue/client';
 import { InferSeoMetaPlugin } from '@unhead/vue/plugins';
 import { registerSW } from 'virtual:pwa-register';
 
-// Register service worker
 const updateSW = registerSW({
   onNeedRefresh() {
     if (confirm('New content available. Reload?')) {
-      void updateSW(); // explicitly mark Promise as ignored with void
+      void updateSW();
     }
   }
 });
 
-// Create the Vue app
 const app = createApp({
   setup() {
     provide(DefaultApolloClient, apolloClient);
@@ -27,7 +25,6 @@ const app = createApp({
 const head = createHead({ init: [{ title: "Matt's College Sports on TV" }], plugins: [InferSeoMetaPlugin()] });
 app.use(head);
 
-// Use the router and mount the app
 app.use(router);
 
 router

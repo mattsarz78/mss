@@ -57,12 +57,10 @@ const toggleRow = (event: Event) => {
               {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
             </template>
             <template v-else>
-              <!-- eslint-disable-next-line -->
               <div v-html="formatGame(tvGame)" />
             </template>
             <template v-if="tvGame.location"> (at {{ tvGame.location }}) </template>
           </td>
-          <!-- eslint-disable-next-line -->
           <td class="tablecell networkcell" v-html="tvGame.network" />
           <td v-if="showPpvColumn" class="tablecell ppvcell">
             {{ tvGame.ppv === 'X' ? 'PPV' : '' }}

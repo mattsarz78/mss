@@ -32,9 +32,7 @@ const coverageHtml = computed(() =>
       </template>
     </template>
   </td>
-  <!-- eslint-disable-next-line -->
   <td class="network" v-html="networkHtml" />
-  <!-- eslint-disable-next-line -->
   <td class="coverage" v-html="coverageHtml" />
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}

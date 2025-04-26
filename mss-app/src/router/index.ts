@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
 
-// Dynamic imports for views
 const Home = () => import('@/views/HomeView.vue');
 const Copyright = () => import('@/views/CopyrightView.vue');
 const Archive = () => import('@/views/ArchiveView.vue');
@@ -13,7 +12,6 @@ const WeeklyTextScheduleView = () => import('@/views/WeeklyTextScheduleView.vue'
 const DailyScheduleView = () => import('@/views/DailyScheduleView.vue');
 const DailyTextScheduleView = () => import('@/views/DailyTextScheduleView.vue');
 
-// Routes definition
 export const routes: RouteRecordRaw[] = [
   { path: '/', name: 'home', component: Home },
   { path: '/copyright', component: Copyright },
