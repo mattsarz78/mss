@@ -45,12 +45,13 @@ a img {
 }
 
 .tvFrame {
-  height: 400px;
+  height: 450px;
+  margin-top: 10px;
 }
 
 @media all and (min-width: 641px) {
   .tvFrame {
-    width: 700px;
+    width: 800px;
   }
 
   .homelink,
@@ -66,7 +67,7 @@ a img {
   }
 
   .tvFrame {
-    width: 90%;
+    width: 97%;
   }
 
   .homelink,
