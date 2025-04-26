@@ -112,10 +112,5 @@ const formattedGames = computed(() =>
     width: 90px;
     padding: 0;
   }
-
-  :deep(.imageDimensions) {
-    width: 42.966px;
-    height: 32.55px;
-  }
 }
 </style>

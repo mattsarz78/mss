@@ -107,10 +107,5 @@ const coverageHtml = computed(() =>
   .coverage {
     width: 105px;
   }
-
-  :deep(.imageDimensions) {
-    width: 42.966px;
-    height: 32.55px;
-  }
 }
 </style>

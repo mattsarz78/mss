@@ -24,14 +24,26 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   const { images, imageHyperlinks, textHyperlinks, infoLinks, strings } = validateFieldData(networks);
 
   images.forEach((image) => {
-    imagesString.push(`<img loading="lazy" class="imageDimensions" src="/images/${image}" />`);
+    imagesString.push(
+      `<picture>
+        <source media="(min-width: 641px)" srcset="/images/${image}" />
+        <source media="(max-width: 640px)" srcset="/images/${image.replace('.jpg', '-small.jpg')}" />
+        <img loading="lazy" src="/images/${image}" srcset="/images/${image.replace('.jpg', '-small.jpg')},/images/${image}" sizes="(min-width: 641px)" />
+      </picture>`
+    );
   });
 
   imageHyperlinks.forEach((imageHyperlink) => {
     const imageArray = imagesForUrls.filter((x) => imageHyperlink.includes(x.link));
     const imageUrl = getImageUrl(imageArray, season);
     imageHyperlinkString.push(
-      `<a href="${imageHyperlink}" target="_blank" ><img loading="lazy" class="imageDimensions" src="/images/${imageUrl}" /></a>`
+      `<a href="${imageHyperlink}" target="_blank">
+      <picture>
+        <source media="(min-width: 641px)" srcset="/images/${imageUrl}" />
+        <source media="(max-width: 640px)" srcset="/images/${imageUrl.replace('.jpg', '-small.jpg')}" />
+        <img loading="lazy" sizes="(min-width: 641px)" src="/images/${imageUrl}" srcset="/images/${imageUrl.replace('.jpg', '-small.jpg')},/images/${imageUrl}" />
+      </picture>
+      </a>`
     );
   });
 

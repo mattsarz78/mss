@@ -137,10 +137,5 @@ a img {
   .time {
     width: 62px;
   }
-
-  :deep(.imageDimensions) {
-    width: 42.966px;
-    height: 32.55px;
-  }
 }
 </style>
