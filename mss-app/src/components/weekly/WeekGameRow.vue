@@ -44,7 +44,7 @@ const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.
 }
 
 .game {
-  width: 243px;
+  width: 270px;
   border: medium solid Gray;
   border-width: thin;
 }
@@ -75,7 +75,7 @@ a img {
 }
 
 .time {
-  width: 60px;
+  width: 70px;
   text-align: right;
   border: medium solid Gray;
   border-width: thin;
@@ -94,31 +94,27 @@ a img {
   }
 
   .network {
-    width: 135px;
+    width: 150px;
     padding: 2px;
   }
 
   .coverage {
-    width: 189px;
+    width: 210px;
   }
 
   .coverageppv {
-    width: 260px;
+    width: 288.89px;
   }
 
   .ppv {
-    width: 135px;
-  }
-
-  :deep(.imageDimensions) {
-    height: 47.5px;
-    width: 62.7px;
+    width: 150px;
   }
 }
 
 @media only screen and (max-width: 640px) {
   .game {
     padding: 1px;
+    width: 245px;
   }
 
   .network {
@@ -135,7 +131,11 @@ a img {
   }
 
   .coverageppv {
-    width: 189px;
+    width: 135px;
+  }
+
+  .time {
+    width: 62px;
   }
 
   :deep(.imageDimensions) {

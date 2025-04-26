@@ -41,7 +41,7 @@ const coverageHtml = computed(() =>
 
 <style scoped>
 .game {
-  width: 243px;
+  width: 270px;
   border: medium solid Gray;
   border-width: thin;
 }
@@ -65,7 +65,7 @@ const coverageHtml = computed(() =>
 }
 
 .time {
-  width: 60px;
+  width: 70px;
   text-align: right;
   border: medium solid Gray;
   border-width: thin;
@@ -81,20 +81,16 @@ const coverageHtml = computed(() =>
 @media all and (min-width: 641px) {
   .game {
     padding: 2px;
+    width: 245px;
   }
 
   .network {
-    width: 135px;
+    width: 150px;
     padding: 2px;
   }
 
   .coverage {
-    width: 189px;
-  }
-
-  :deep(.imageDimensions) {
-    height: 47.5px;
-    width: 62.7px;
+    width: 210px;
   }
 }
 

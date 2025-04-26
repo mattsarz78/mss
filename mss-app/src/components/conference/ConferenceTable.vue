@@ -69,13 +69,13 @@ const formattedGames = computed(() =>
 }
 
 .time {
-  width: 60px;
+  width: 70px;
   text-align: right;
   padding: 2px;
 }
 
 .game {
-  width: 243px;
+  width: 270px;
 }
 
 .noTVTable {
@@ -97,19 +97,15 @@ const formattedGames = computed(() =>
   }
 
   .network {
-    width: 135px;
+    width: 150px;
     padding: 2px;
-  }
-
-  :deep(.imageDimensions) {
-    height: 47.5px;
-    width: 62.7px;
   }
 }
 
 @media only screen and (max-width: 640px) {
   .game {
     padding: 1px;
+    width: 245px;
   }
 
   .network {
