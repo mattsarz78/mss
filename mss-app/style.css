@@ -58,13 +58,22 @@ header {
     margin: 8px;
     font-size: 12px;
   }
+
+  input {
+    font-size: 12px;
+  }
 }
 
 @media only screen and (max-width: 640px) {
   body {
-    font-size: 0.636em;
+    font-size: 0.66em;
     margin: 3px;
   }
+
+  input {
+    font-size: 0.9em;
+  }
+
   .search {
     max-width: 120px;
   }

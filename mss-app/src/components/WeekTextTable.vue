@@ -114,20 +114,12 @@ const toggleRow = (event: Event) => {
 }
 
 @media all and (min-width: 641px) {
-  .tableborder {
-    font-size: 12px;
-  }
-
   .rowStyle {
     width: 580px;
   }
 }
 
 @media only screen and (max-width: 640px) {
-  .tableborder {
-    font-size: 7pt;
-  }
-
   .DONTPrint a {
     line-height: 13px;
   }
