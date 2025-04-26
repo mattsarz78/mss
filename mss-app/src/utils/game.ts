@@ -1,27 +1,5 @@
 import { DateTime } from 'luxon';
-import type { NoTvGame, TvGame, ConferenceGame, WeekInfo } from '../graphQl';
-
-export const updatedTvOptions = (game: NoTvGame): string => {
-  const conferenceOptions: Record<string, (game: NoTvGame) => string> = {
-    American: (game) =>
-      game.homeTeam === 'Navy' || game.homeTeam === 'Army West Point'
-        ? game.tvOptions.replace(' or ESPN+', ' or CBS Sports Network')
-        : game.tvOptions,
-    MWC: (game) => {
-      if (game.homeTeam === "Hawai'i" || game.visitingTeam === "Hawai'i") {
-        return game.tvOptions.replace('MW Network', 'Spectrum PPV');
-      }
-      if (game.visitingTeam === 'Boise State') {
-        return 'CBS or CBS Sports Network';
-      }
-      return game.homeTeam === 'Boise State' ? 'FOX, FS1 or FS2' : game.tvOptions;
-    }
-  };
-
-  const conferenceOption = conferenceOptions[game.conference];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return conferenceOption ? conferenceOption(game) : game.tvOptions;
-};
+import type { TvGame, ConferenceGame, WeekInfo } from '../graphQl';
 
 export const formatGame = (game: TvGame | ConferenceGame): string => {
   return (

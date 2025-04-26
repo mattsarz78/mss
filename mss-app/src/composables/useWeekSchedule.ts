@@ -9,8 +9,13 @@ import {
   isNextWeekBasketballPostseason,
   isNextWeekBowlGameWeek
 } from '@/utils/base';
-import { hasNoTVGames, shouldShowPpvColumn } from '@/utils/conference';
+import { shouldShowPpvColumn } from '@/utils/conference';
 import { isBasketballPostseason, isBowlGameWeek } from '@/utils/game';
+import { validSportYears } from '@/constants/validSportYears';
+
+const hasNoTVGames = (year: string): boolean => {
+  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasNoTVGames ?? false;
+};
 
 export function useWeekSchedule(sport: string, paramYear: string, week: string) {
   const weekInt = parseInt(week);

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { getConferenceCasing } from '@/utils/conference';
+import { conferenceCasing } from '../constants/conferenceCasing';
 import { computed } from 'vue';
 
 const props = defineProps<{ conferenceList: string; year: string }>();
 const { conferenceList, year } = props;
+
+const getConferenceCasing = (conference: string) => conferenceCasing.find((x) => x.id === conference);
 
 const conferenceLinks = computed(() => {
   const links = [

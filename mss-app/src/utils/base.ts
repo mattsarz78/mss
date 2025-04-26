@@ -3,12 +3,6 @@ import { flexScheduleLinks } from '../constants/flexScheduleLinks';
 import type { WeekInfo } from '../graphQl';
 import { useHead } from '@unhead/vue';
 
-export const conferenceListBase = (sport: string, year: string): string => {
-  return sport === 'football' && year !== '2021s'
-    ? (validSportYears.find((validSportYear) => validSportYear.season === year)?.conferenceListBase ?? '')
-    : '';
-};
-
 export const getIndependentSchools = (year: string): string => {
   return validSportYears.find((validSportYear) => validSportYear.season === year)?.independents ?? '';
 };
@@ -33,11 +27,6 @@ export const isNextWeekBasketballPostseason = (sport: string, contents: WeekInfo
 export const isNextWeekBowlGameWeek = (sport: string, contents: WeekInfo[], week: number): boolean => {
   const nextWeek = week + 1;
   return sport === 'football' && contents[contents.length - 1].week === nextWeek;
-};
-
-export const createTitle = (sport: string, year: string): string => {
-  const capitalized = `${sport.charAt(0).toUpperCase()}${sport.slice(1)}`;
-  return `${year} ${capitalized} Season`;
 };
 
 export function generateWeeklyTitle(sport: string, week: string, year: string, isText: boolean): string {

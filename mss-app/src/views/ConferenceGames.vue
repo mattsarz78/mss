@@ -3,24 +3,26 @@ import { defineAsyncComponent } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 import { addMetaTags, flexScheduleLink, getIndependentSchools } from '@/utils/base';
-import { getConferenceCasingBySlug, getConferenceContractData } from '@/utils/conference';
+import { getConferenceContractData } from '@/utils/conference';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/IndependentsGameList.vue';
 import { useConferenceGames } from '@/composables/useConferenceGames';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
-const title = `${year} ${getConferenceCasingBySlug(conference)?.cased ?? 'Unknown Conference'} Controlled Games`;
 
-addMetaTags(title);
-
-const flexLink = flexScheduleLink(year);
-
-const conferenceCasing = getConferenceCasingBySlug(conference);
+const conferenceCasing = conferenceCasing.find((x) => x.slug === conference);
 if (!conferenceCasing) {
   throw new Error(`Invalid conference slug: ${conference}`);
 }
 const { cased, lookup } = conferenceCasing;
+
+// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+const title = `${year} ${cased ?? 'Unknown Conference'} Controlled Games`;
+
+addMetaTags(title);
+
+const flexLink = flexScheduleLink(year);
 
 const contractTvData =
   conference !== 'independents'

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { WeekInfo } from '@/graphQl';
-import { hasBasketballPostseason } from '@/utils/conference';
 import { DateTime } from 'luxon';
 import WeekLink from '@/components/WeekLink.vue';
 import { computed } from 'vue';
@@ -8,6 +7,10 @@ import { computed } from 'vue';
 const props = defineProps<{ contents: WeekInfo[]; sport: string; paramYear: string; year: string }>();
 
 const { contents, sport, paramYear, year } = props;
+
+const hasBasketballPostseason = (year: string): boolean => {
+  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasPostseason ?? false;
+};
 
 const lastContent = contents[contents.length - 1];
 

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { NoTvGame } from '@/graphQl';
-import { updatedTvOptions } from '@/utils/game';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
@@ -8,6 +7,28 @@ const props = defineProps<{ noTvGamesForDate: NoTvGame[]; noTvDate: string }>();
 const { noTvGamesForDate, noTvDate } = props;
 
 const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD'));
+
+const updatedTvOptions = (game: NoTvGame): string => {
+  const conferenceOptions: Record<string, (game: NoTvGame) => string> = {
+    American: (game) =>
+      game.homeTeam === 'Navy' || game.homeTeam === 'Army West Point'
+        ? game.tvOptions.replace(' or ESPN+', ' or CBS Sports Network')
+        : game.tvOptions,
+    MWC: (game) => {
+      if (game.homeTeam === "Hawai'i" || game.visitingTeam === "Hawai'i") {
+        return game.tvOptions.replace('MW Network', 'Spectrum PPV');
+      }
+      if (game.visitingTeam === 'Boise State') {
+        return 'CBS or CBS Sports Network';
+      }
+      return game.homeTeam === 'Boise State' ? 'FOX, FS1 or FS2' : game.tvOptions;
+    }
+  };
+
+  const conferenceOption = conferenceOptions[game.conference];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return conferenceOption ? conferenceOption(game) : game.tvOptions;
+};
 </script>
 
 <template>

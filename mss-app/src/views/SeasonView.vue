@@ -1,10 +1,21 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { defineAsyncComponent, onMounted, ref, watch } from 'vue';
-import { addMetaTags, conferenceListBase, createTitle, getBasketballSeason } from '@/utils/base';
+import { addMetaTags, getBasketballSeason } from '@/utils/base';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
 import { useSeasonContents } from '@/composables/useSeasonContents';
+
+const conferenceListBase = (sport: string, year: string): string => {
+  return sport === 'football' && year !== '2021s'
+    ? (validSportYears.find((validSportYear) => validSportYear.season === year)?.conferenceListBase ?? '')
+    : '';
+};
+
+const createTitle = (sport: string, year: string): string => {
+  const capitalized = `${sport.charAt(0).toUpperCase()}${sport.slice(1)}`;
+  return `${year} ${capitalized} Season`;
+};
 
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 
