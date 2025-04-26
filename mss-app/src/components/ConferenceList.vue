@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getConferenceCasing } from '@/utils/conference';
 import { conferenceCasing } from '../constants/conferenceCasing';
 import { computed } from 'vue';
 

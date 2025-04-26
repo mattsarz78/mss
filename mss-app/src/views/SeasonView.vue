@@ -5,6 +5,7 @@ import { addMetaTags, getBasketballSeason } from '@/utils/base';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
 import { useSeasonContents } from '@/composables/useSeasonContents';
+import { validSportYears } from '@/constants/validSportYears';
 
 const conferenceListBase = (sport: string, year: string): string => {
   return sport === 'football' && year !== '2021s'

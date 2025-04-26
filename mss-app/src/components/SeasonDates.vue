@@ -3,6 +3,7 @@ import type { WeekInfo } from '@/graphQl';
 import { DateTime } from 'luxon';
 import WeekLink from '@/components/WeekLink.vue';
 import { computed } from 'vue';
+import { validSportYears } from '@/constants/validSportYears';
 
 const props = defineProps<{ contents: WeekInfo[]; sport: string; paramYear: string; year: string }>();
 

@@ -7,18 +7,18 @@ import { getConferenceContractData } from '@/utils/conference';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/IndependentsGameList.vue';
 import { useConferenceGames } from '@/composables/useConferenceGames';
+import { conferenceCasing } from '../constants/conferenceCasing';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
 
-const conferenceCasing = conferenceCasing.find((x) => x.slug === conference);
-if (!conferenceCasing) {
+const conferenceData = conferenceCasing.find((x) => x.slug === conference);
+if (!conferenceData) {
   throw new Error(`Invalid conference slug: ${conference}`);
 }
-const { cased, lookup } = conferenceCasing;
+const { cased, lookup, id } = conferenceData;
 
-// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-const title = `${year} ${cased ?? 'Unknown Conference'} Controlled Games`;
+const title = `${year} ${cased} Controlled Games`;
 
 addMetaTags(title);
 
@@ -27,11 +27,10 @@ const flexLink = flexScheduleLink(year);
 const contractTvData =
   conference !== 'independents'
     ? (() => {
-        const casing = getConferenceCasingBySlug(conference);
-        if (!casing?.id) {
+        if (!id) {
           throw new Error(`Invalid conference casing or ID for slug: ${conference}`);
         }
-        return getConferenceContractData(casing.id, year);
+        return getConferenceContractData(id, year);
       })()
     : '';
 
