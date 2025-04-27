@@ -62,7 +62,11 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
 
     <div id="Main">
       <div id="head">
-        <p>{{ cased }} Broadcast Schedule<br /><b>All start times displayed are based on your device's location.</b></p>
+        <p>
+          {{ cased }} Broadcast Schedule<br /><strong
+            >All start times displayed are based on your device's location.</strong
+          >
+        </p>
         <p>
           NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
           non-conference games fall under the home team's telecast rights.

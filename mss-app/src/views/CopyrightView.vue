@@ -17,14 +17,14 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
       <div>
         <p>Copyright © 2005 MattSarzSports.com</p>
         <p>
-          <b>Credit</b>
+          <strong>Credit</strong>
         </p>
         <p>
           This document was created using a Contractology template available at
           <a href="http://www.freenetlaw.com"> FreeNetLaw.com. </a>
         </p>
         <p>
-          <b>Ownership of copyright</b>
+          <strong>Ownership of copyright</strong>
         </p>
         <p>
           The copyright in this website and the material on this website (including without limitation the text,
@@ -32,7 +32,7 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
           on this website) is owned by MattSarzSports.com.
         </p>
         <p>
-          <b>Copyright license</b>
+          <strong>Copyright license</strong>
         </p>
         <p>MattSarzSports.com grants to you a worldwide non-exclusive royalty-free revocable license to:</p>
         <ul>
@@ -50,18 +50,18 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
           (in any form or media) without MattSarzSports.com's prior written permission.
         </p>
         <p>
-          <b>Data mining</b>
+          <strong>Data mining</strong>
         </p>
         <p>The automated and/or systematic collection of data from this website is prohibited.</p>
         <p>
-          <b>Permissions</b>
+          <strong>Permissions</strong>
         </p>
         <p>
           You may request permission to use the copyright materials on this website by writing to
           <a href="mailto:footballsked@gmail.com">footballsked@@gmail.com</a>.
         </p>
         <p>
-          <b>Enforcement of copyright</b>
+          <strong>Enforcement of copyright</strong>
         </p>
         <p>
           MattSarzSports.com takes the protection of its copyright very seriously. If MattSarzSports.com discovers that
@@ -72,7 +72,7 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
           <a href="mailto:footballsked@gmail.com">footballsked@@gmail.com</a>.
         </p>
         <p>
-          <b>Infringing material</b>
+          <strong>Infringing material</strong>
         </p>
         <p>
           If you become aware of any material on the website that you believe infringes your or any other person's

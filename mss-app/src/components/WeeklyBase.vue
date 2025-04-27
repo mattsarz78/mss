@@ -51,7 +51,7 @@ onMounted(() => {
       </template>
       <template v-else>
         <p>
-          <b>All start times displayed are based on your device's location.</b>
+          <strong>All start times displayed are based on your device's location.</strong>
         </p>
         <div v-for="(weekDate, index) in datesList" :key="index">
           <WeekGamesTable
