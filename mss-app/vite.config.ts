@@ -15,11 +15,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
-      viteCompression({
-        filter: /\.(js|mjs|json|css|html|png|jpg|jpeg|gif|svg|txt|xml)$/i,
-        algorithm: 'brotliCompress',
-        threshold: 5
-      }),
+      viteCompression({ filter: /\.(js|mjs|json|css|html|txt|xml)$/i, algorithm: 'brotliCompress', threshold: 5 }),
       VitePWA({
         registerType: 'autoUpdate',
         minify: true,
