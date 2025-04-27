@@ -14,7 +14,6 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
-      // vueJsx(),
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
@@ -29,10 +28,10 @@ export default defineConfig(({ mode }) => {
         }
       })
     ],
-    // plugins: [vue(), vueJsx(), vueDevTools(), visualizer({ open: true })],
     resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
     build: {
-      minify: 'esbuild',
+      cssMinify: 'lightningcss',
+      minify: 'terser',
       target: 'esnext',
       rollupOptions: {
         output: {
