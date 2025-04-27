@@ -25,8 +25,8 @@ const app = express();
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const compress = compression({
-  level: 7,
-  threshold: 100,
+  level: 9,
+  threshold: 0,
   filter: (req: Request, res: Response) => {
     if (req.headers['x-no-compression']) {
       return false;

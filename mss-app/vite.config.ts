@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
+import viteCompression from 'vite-plugin-compression';
 // import vueDevTools from 'vite-plugin-vue-devtools';
 // import { visualizer } from 'rollup-plugin-visualizer';
 
@@ -14,8 +15,14 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
+      viteCompression({
+        filter: /\.(js|mjs|json|css|html|png|jpg|jpeg|gif|svg|txt|xml)$/i,
+        algorithm: 'brotliCompress',
+        threshold: 5
+      }),
       VitePWA({
         registerType: 'autoUpdate',
+        minify: true,
         includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
         manifest: {
           name: 'MSS App',
