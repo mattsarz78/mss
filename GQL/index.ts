@@ -16,11 +16,28 @@ import { FootballService, FootballServiceKey } from './database/football';
 import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDates';
 import { CommonService, CommonServiceKey } from './database/common';
 import bodyParser from 'body-parser';
+import compression from 'compression';
 
 const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
 
 const app = express();
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+const compress = compression({
+  level: 7,
+  threshold: 100,
+  filter: (req, res) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (req.headers['x-no-compression']) {
+      return false;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    return compression.filter(req, res);
+  }
+});
+
+app.use(compress);
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void): void => {
