@@ -22,6 +22,7 @@ const showNoTV = ref(false);
 
 const toggleNoTV = () => {
   const button = document.getElementById('btnConferenceGames');
+  if (!button) return;
   button.innerText = showNoTV.value ? 'Show Non-Televised Games' : 'Hide Non-Televised Games';
   showNoTV.value = !showNoTV.value;
 };
