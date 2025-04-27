@@ -16,9 +16,8 @@ const coverageHtml = computed(() =>
 <template>
   <td class="game">
     <template v-if="tvGame.gameTitle">
-      <b
-        ><i>{{ tvGame.gameTitle }}</i></b
-      ><br />
+      <span class="gameTitle">{{ tvGame.gameTitle }}</span>
+      <br />
     </template>
     <template v-if="tvGame.location">
       <template v-if="tvGame.visitingTeam?.length">
@@ -76,6 +75,11 @@ const coverageHtml = computed(() =>
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
+}
+
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
 }
 
 @media all and (min-width: 641px) {

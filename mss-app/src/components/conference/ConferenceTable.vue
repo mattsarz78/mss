@@ -34,9 +34,8 @@ const formattedGames = computed(() =>
       <tr v-for="(game, index) in formattedGames" :key="index">
         <td class="game">
           <template v-if="game.gameTitle">
-            <b
-              ><i>{{ game.gameTitle }}</i></b
-            ><br />
+            <span class="gameTitle">{{ game.gameTitle }}</span>
+            <br />
           </template>
           <template v-if="game.visitingTeam.length === 0" />
           <template v-else-if="game.visitingTeam.length === 1 && game.homeTeam.length === 1">
@@ -89,6 +88,11 @@ const formattedGames = computed(() =>
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
+}
+
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
 }
 
 @media all and (min-width: 641px) {

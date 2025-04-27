@@ -47,9 +47,8 @@ const toggleRow = (event: Event) => {
           </td>
           <td class="tablecell gamecell">
             <template v-if="tvGame.gameTitle">
-              <b
-                ><i>{{ tvGame.gameTitle }}</i></b
-              ><br />
+              <span class="gameTitle">{{ tvGame.gameTitle }}</span>
+              <br />
             </template>
             <template v-if="tvGame.visitingTeam?.length === 0" />
             <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
@@ -109,6 +108,11 @@ const toggleRow = (event: Event) => {
 
 .gamecell {
   width: 250px;
+}
+
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
 }
 
 @media all and (min-width: 641px) {

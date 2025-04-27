@@ -25,8 +25,7 @@ const updatedTvOptions = (game: NoTvGame): string => {
     }
   };
 
-  const conferenceOption = conferenceOptions[game.conference];
-  return conferenceOption ? conferenceOption(game) : game.tvOptions;
+  return conferenceOptions.hasOwnProperty(game.conference) ? conferenceOptions[game.conference](game) : game.tvOptions;
 };
 </script>
 
@@ -45,9 +44,8 @@ const updatedTvOptions = (game: NoTvGame): string => {
         <tr v-for="(noTvGameForDate, index) in noTvGamesForDate" :key="index" :class="{ fcsgame: noTvGameForDate.fcs }">
           <td class="game">
             <template v-if="noTvGameForDate.gameTitle">
-              <b
-                ><i>{{ noTvGameForDate.gameTitle }}</i></b
-              ><br />
+              <span class="gameTitle">{{ noTvGameForDate.gameTitle }}</span>
+              <br />
             </template>
             <template v-if="noTvGameForDate.location">
               <template v-if="noTvGameForDate.visitingTeam">
@@ -108,6 +106,11 @@ const updatedTvOptions = (game: NoTvGame): string => {
 
 .telecast {
   width: 400px;
+}
+
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
 }
 
 @media all and (min-width: 641px) {
