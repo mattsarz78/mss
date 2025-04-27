@@ -21,18 +21,15 @@ const datesList = computed(() => {
 const showNoTV = ref(false);
 
 const toggleNoTV = () => {
+  const button = document.getElementById('btnConferenceGames');
+  button.innerText = showNoTV.value ? 'Show Non-Televised Games' : 'Hide Non-Televised Games';
   showNoTV.value = !showNoTV.value;
 };
 </script>
 
 <template>
   <div>
-    <input
-      id="btnConferenceGames"
-      type="button"
-      :value="showNoTV ? 'Hide Non-Televised Games' : 'Show Non-Televised Games'"
-      class="show_hideNoTV"
-      @click="toggleNoTV" />
+    <button id="btnConferenceGames" class="show_hideNoTV" @click="toggleNoTV">Show Non-Televised Games</button>
     <div v-show="showNoTV" class="slidingNoTVDiv">
       <p v-if="!noTvGames.length">All FBS games scheduled for this week are being televised or shown online</p>
       <NoTvGamesTable

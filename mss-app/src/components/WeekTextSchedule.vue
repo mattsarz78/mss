@@ -62,13 +62,9 @@ const {
             </div>
             <br />
             <p id="TextNav" class="DONTPrint">
-              <input
-                id="ClearAll"
-                type="button"
-                value="Clear All Games"
-                class="inputpad"
-                @click="clearAllSelectedTextRows" />
-              <input id="CheckAll" type="button" value="Check All Games" class="inputpad" @click="checkAllTextRows" />
+              <button id="ClearAll" class="inputpad" @click="clearAllSelectedTextRows">Clear All Games</button>
+
+              <button id="CheckAll" class="inputpad" @click="checkAllTextRows">Check All Games</button>
             </p>
           </div>
         </div>

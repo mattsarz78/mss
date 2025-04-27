@@ -29,13 +29,9 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
             <RouterLink class="DONTPrint" :to="`/schedule/${sport}/daily`"> Daily Schedule </RouterLink>
             <br />
             <p id="TextNav" class="pad DONTPrint">
-              <input
-                id="ClearAll"
-                type="button"
-                value="Clear All Games"
-                class="inputpad"
-                @click="clearAllSelectedTextRows()" />
-              <input id="CheckAll" type="button" value="Check All Games" class="inputpad" @click="checkAllTextRows()" />
+              <button id="ClearAll" class="inputpad" @click="clearAllSelectedTextRows">Clear All Games</button>
+
+              <button id="CheckAll" class="inputpad" @click="checkAllTextRows">Check All Games</button>
             </p>
           </div>
         </div>

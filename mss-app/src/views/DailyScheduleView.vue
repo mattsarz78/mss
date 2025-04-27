@@ -51,12 +51,13 @@ const {
             </span>
             <br />
             <div v-if="dailyTvGameResult" class="filters">
-              <input
+              <button
+                v-if="!isBowlWeek && !isMbkPostseason"
                 id="btnWebGames"
-                type="button"
-                value="Hide Web Exclusive Games"
                 class="show_hideWeb"
-                @click="adjustWebExclusives()" />
+                @click="adjustWebExclusives">
+                Hide Web Exclusive Games
+              </button>
             </div>
           </div>
         </div>

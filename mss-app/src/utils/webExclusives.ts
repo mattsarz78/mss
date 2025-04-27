@@ -1,15 +1,15 @@
 export const adjustWebExclusives = (): void => {
   const webGames = document.querySelectorAll<HTMLElement>('.webGame');
-  const button = document.querySelector('#btnWebGames');
-  const buttonTitle = button?.getAttribute('value');
+  const button = document.getElementById('btnWebGames');
+
+  if (!button) {
+    return;
+  }
+  const buttonTitle = button.innerText;
 
   webGames.forEach((webgame) => {
     webgame.style.display = webgame.style.display === 'none' ? '' : 'none';
   });
 
-  if (buttonTitle?.startsWith('Show')) {
-    button?.setAttribute('value', 'Hide Web Exclusive Games');
-  } else {
-    button?.setAttribute('value', 'Show Web Exclusive Games');
-  }
+  button.innerText = buttonTitle.startsWith('Show') ? 'Hide Web Exclusive Games' : 'Show Web Exclusive Games';
 };
