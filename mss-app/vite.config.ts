@@ -2,7 +2,6 @@ import { fileURLToPath, URL } from 'node:url';
 
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
 import { VitePWA } from 'vite-plugin-pwa';
 // import vueDevTools from 'vite-plugin-vue-devtools';
 // import { visualizer } from 'rollup-plugin-visualizer';
@@ -15,7 +14,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
-      vueJsx(),
+      // vueJsx(),
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
