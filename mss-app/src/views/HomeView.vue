@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { defineAsyncComponent, nextTick, onMounted, ref } from 'vue';
-import { addMetaTags } from '@/utils/base';
+import { addMetaTags } from '@/utils/metaTags';
 
 const title = "Matt's College Sports on TV";
 

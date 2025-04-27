@@ -1,8 +1,8 @@
 import { DAILY_TV_GAMES, type TvGame } from '@/graphQl';
+import { flexScheduleLink } from '@/utils/flexSchedule';
 import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
-import { flexScheduleLink } from '@/utils/base';
 
 export function useDailyTvGames(sport: string) {
   const startDate = DateTime.now().setZone('America/New_York').toISODate();

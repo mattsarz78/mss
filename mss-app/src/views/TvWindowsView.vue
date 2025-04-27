@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { addMetaTags, flexScheduleLink } from '@/utils/base';
-import { adjustNavBar } from '@/utils/dom';
+import { addMetaTags } from '@/utils/metaTags';
+import { adjustNavBar } from '@/utils/navBar';
+import { flexScheduleLink } from '@/utils/flexSchedule';
 import { defineAsyncComponent, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 

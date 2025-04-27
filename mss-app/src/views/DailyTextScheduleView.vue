@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useDailyTvTextGames } from '@/composables/useDailyTvTextGames';
-import { clearAllSelectedTextRows, checkAllTextRows } from '@/utils/dom';
-import { shouldShowPpvColumn } from '@/utils/conference';
+import { clearAllSelectedTextRows, checkAllTextRows } from '@/utils/domText';
+import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import WeekTextBase from '@/components/WeekTextBase.vue';
 import { DateTime } from 'luxon';
-import { addMetaTags } from '@/utils/base';
+import { addMetaTags } from '@/utils/metaTags';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
 

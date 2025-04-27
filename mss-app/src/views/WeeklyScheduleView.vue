@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
-import { addMetaTags, generateWeeklyTitle } from '@/utils/base';
+import { addMetaTags } from '@/utils/metaTags';
+import { generateWeeklyTitle } from '@/utils/weeklyTitle';
 
 const route = useRoute();
 const { week, sport, year: paramYear } = route.params as { week: string; sport: string; year: string };

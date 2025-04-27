@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
-import { addMetaTags } from '@/utils/base';
+import { addMetaTags } from '@/utils/metaTags';
 
 const title = 'Archive Listings';
 

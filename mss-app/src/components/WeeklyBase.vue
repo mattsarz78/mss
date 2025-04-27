@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { adjustNavBar } from '@/utils/dom';
+import { adjustNavBar } from '@/utils/navBar';
 import { DateTime } from 'luxon';
 import { computed, onMounted } from 'vue';
 import WeekGamesTable from '@/components/weekly/WeekGamesTable.vue';

@@ -1,8 +1,14 @@
 import { SEASON_CONTENTS, TV_GAMES, type TvGame, type WeekInfo } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
 import { computed } from 'vue';
-import { getBasketballSeason, isFirstWeek, isNextWeekBasketballPostseason, isNextWeekBowlGameWeek } from '@/utils/base';
-import { isBasketballPostseason, isBowlGameWeek } from '@/utils/game';
+import {
+  getBasketballSeason,
+  isFirstWeek,
+  isNextWeekBasketballPostseason,
+  isNextWeekBowlGameWeek,
+  isBasketballPostseason,
+  isBowlGameWeek
+} from '@/utils/base';
 
 export function useWeekTextSchedule(sport: string, paramYear: string, week: string) {
   const weekInt = parseInt(week);

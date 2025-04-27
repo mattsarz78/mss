@@ -4,10 +4,10 @@ import { useRoute } from 'vue-router';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 import WeeklyBase from '@/components/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
-import { shouldShowPpvColumn } from '@/utils/conference';
-import { adjustWebExclusives } from '@/utils/dom';
+import { shouldShowPpvColumn } from '@/utils/ppvColumn';
+import { adjustWebExclusives } from '@/utils/webExclusives';
 import { DateTime } from 'luxon';
-import { addMetaTags } from '@/utils/base';
+import { addMetaTags } from '@/utils/metaTags';
 
 const route = useRoute();
 const { sport } = route.params as { sport: string };

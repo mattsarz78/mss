@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { addMetaTags, generateWeeklyTitle } from '@/utils/base';
+import { addMetaTags } from '@/utils/metaTags';
+import { generateWeeklyTitle } from '@/utils/weeklyTitle';
 import { defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
 

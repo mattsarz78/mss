@@ -2,12 +2,14 @@
 import { defineAsyncComponent } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
-import { addMetaTags, flexScheduleLink, getIndependentSchools } from '@/utils/base';
+import { addMetaTags } from '@/utils/metaTags';
 import { getConferenceContractData } from '@/utils/conference';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/IndependentsGameList.vue';
 import { useConferenceGames } from '@/composables/useConferenceGames';
 import { conferenceCasing } from '../constants/conferenceCasing';
+import { validSportYears } from '@/constants/validSportYears';
+import { flexScheduleLink } from '@/utils/flexSchedule';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
@@ -24,6 +26,10 @@ addMetaTags(title);
 
 const flexLink = flexScheduleLink(year);
 
+const getIndependentSchools = (year: string): string => {
+  return validSportYears.find((validSportYear) => validSportYear.season === year)?.independents ?? '';
+};
+
 const contractTvData =
   conference !== 'independents'
     ? (() => {
@@ -34,7 +40,7 @@ const contractTvData =
       })()
     : '';
 
-const { result, loading, error } = useConferenceGames(year, conference, lookup);
+const { result, loading, error } = useConferenceGames(year, conference, lookup, getIndependentSchools);
 
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));

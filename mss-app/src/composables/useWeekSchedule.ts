@@ -4,14 +4,15 @@ import { DateTime } from 'luxon';
 import { computed } from 'vue';
 import {
   getBasketballSeason,
-  flexScheduleLink,
   isFirstWeek,
   isNextWeekBasketballPostseason,
-  isNextWeekBowlGameWeek
+  isNextWeekBowlGameWeek,
+  isBasketballPostseason,
+  isBowlGameWeek
 } from '@/utils/base';
-import { shouldShowPpvColumn } from '@/utils/conference';
-import { isBasketballPostseason, isBowlGameWeek } from '@/utils/game';
+import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import { validSportYears } from '@/constants/validSportYears';
+import { flexScheduleLink } from '@/utils/flexSchedule';
 
 const hasNoTVGames = (year: string): boolean => {
   return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasNoTVGames ?? false;
