@@ -28,6 +28,10 @@ export default defineConfig(({ mode }) => {
             { src: '/192x192.png', sizes: '192x192', type: 'image/png' },
             { src: '/512x512.png', sizes: '512x512', type: 'image/png' }
           ]
+        },
+        workbox: {
+          // defining cached files formats
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest}']
         }
       })
     ],
