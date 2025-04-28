@@ -1,4 +1,4 @@
-import { SEASON_CONTENTS, TV_GAMES, type TvGame, type WeekInfo } from '@/graphQl';
+import { TV_GAMES, type TvGame } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
@@ -13,6 +13,7 @@ import {
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import { validSportYears } from '@/constants/validSportYears';
 import { flexScheduleLink } from '@/utils/flexSchedule';
+import { useSeasonContents } from './useSeasonContents';
 
 const hasNoTVGames = (year: string): boolean => {
   return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasNoTVGames ?? false;
@@ -34,7 +35,7 @@ export function useWeekSchedule(sport: string, paramYear: string, week: string) 
     result: seasonContentsResult,
     loading: seasonContentsLoading,
     error: seasonContentsError
-  } = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, { input: { season: year.value } });
+  } = useSeasonContents(year.value);
 
   const nextWeek = computed(() => weekInt + 1);
   const previousWeek = computed(() => weekInt - 1);

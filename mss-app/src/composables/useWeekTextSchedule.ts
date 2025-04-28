@@ -1,4 +1,4 @@
-import { SEASON_CONTENTS, TV_GAMES, type TvGame, type WeekInfo } from '@/graphQl';
+import { TV_GAMES, type TvGame } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
 import { computed } from 'vue';
 import {
@@ -9,6 +9,7 @@ import {
   isBasketballPostseason,
   isBowlGameWeek
 } from '@/utils/base';
+import { useSeasonContents } from './useSeasonContents';
 
 export function useWeekTextSchedule(sport: string, paramYear: string, week: string) {
   const weekInt = parseInt(week);
@@ -27,7 +28,7 @@ export function useWeekTextSchedule(sport: string, paramYear: string, week: stri
     result: seasonContentsResult,
     loading: seasonContentsLoading,
     error: seasonContentsError
-  } = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, { input: { season: year.value } });
+  } = useSeasonContents(year.value);
 
   const isBowlWeek = computed(() => isBowlGameWeek(sport, seasonContentsResult.value?.seasonContents ?? [], weekInt));
   const isMbkPostseason = computed(() =>
