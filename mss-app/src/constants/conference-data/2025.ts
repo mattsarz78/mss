@@ -53,7 +53,7 @@ export const conferenceData: ConferenceData[] = [
   {
     id: 'b12',
     data: `
-      <p>The Big 12 have a pair of contracts with ESPN and FOX Sports, plus a sublicense agreement for games between ESPN and TNT Sports. All contracts expire after the 2030-31 athletic year.</p>
+      <p>The Big 12 has a pair of contracts with ESPN and FOX Sports, plus a sublicense agreement for games between ESPN and TNT Sports. All contracts expire after the 2030-31 athletic year.</p>
       <p>ESPN is considered the primary television partner. FOX's deal is for at least 27 games (27 games was based on a conference composition of 12 schools). ESPN has the rights to the conference championship game to air on ABC or ESPN.</p>
       <p>Thirteen games will be sublicensed from ESPN to TNT Sports. It is unknown where these games fall in an order of selections. At least 10 of the 13 games will be intraconference games. The games will air on TNT or TBS.</p>
       <p>Big 12 selection order for each week will be determined via a draft of weeks before the season. ESPN will have the top four picks of the draft.</p>
@@ -106,8 +106,8 @@ export const conferenceData: ConferenceData[] = [
     id: 'sec',
     data: `
       <p>The SEC has a TV contract with ESPN for all SEC-owned content. Games will appear on ABC, all ESPN linear TV platforms, SEC Network and SEC+/ESPN+.</p>
-      <p>Per ESPN, the intention is to have a "late afternoon" game regularly on ABC along with SEC games airing on ABC in primetime. The SEC championship game will now air on ABC as well.</p>
-      <p>Starting with the 2021 season, each school could have one non-conference game chosen to air on ESPN+. This is part of an updated agreement with the conference that will eventually see all SEC controlled football games move over to ESPN platforms. In 2021, these games will also be streamed through the SEC+ online portal.</p>
+      <p>Per ESPN, the intention is to have a "late afternoon" game regularly on ABC along with SEC games airing on ABC at other times, including Black Friday. The SEC championship game will now air on ABC as well.</p>
+      <p>Starting with the 2021 season, each school could have one non-conference game chosen to air on ESPN+. These games will also be streamed through the SEC+ online portal.</p>
       <p>Source: <a href="https://espnpressroom.com/us/press-releases/2013/05/the-southeastern-conference-and-espn-announce-new-tv-network-and-digital-platform/" target="_blank">SEC Network from ESPN PressRoom</a>, <a href="https://espnpressroom.com/us/press-releases/2020/12/espn-and-southeastern-conference-reach-a-new-10-year-agreement/" target="_blank">2024 Agreement with 2021 ESPN+</a></p>
     `
   },

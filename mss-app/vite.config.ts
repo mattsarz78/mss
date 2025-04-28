@@ -3,7 +3,6 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
-import viteCompression from 'vite-plugin-compression';
 // import vueDevTools from 'vite-plugin-vue-devtools';
 // import { visualizer } from 'rollup-plugin-visualizer';
 
@@ -14,8 +13,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
-      vue(),
-      viteCompression({ filter: /\.(js|mjs|json|css|html|txt|xml)$/i, algorithm: 'brotliCompress', threshold: 5 }),
+      vue({ isProduction: true, features: { optionsAPI: false } }),
       VitePWA({
         registerType: 'autoUpdate',
         minify: true,
@@ -31,7 +29,7 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           // defining cached files formats
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest}']
+          globPatterns: ['**/*.{js,css,html,txt,xml,ico,png,svg,webmanifest}']
         }
       })
     ],
