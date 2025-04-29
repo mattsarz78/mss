@@ -26,9 +26,8 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   images.forEach((image) => {
     imagesString.push(
       `<picture>
-        <source media="all and (min-width: 641px)" srcset="/images/${image}" />
         <source media="only screen and (max-width: 640px)" srcset="/images/${image.replace('.jpg', '-small.jpg')}" />
-        <img loading="lazy" src="/images/${image}" srcset="/images/${image.replace('.jpg', '-small.jpg')},/images/${image}"/>
+        <img loading="lazy" src="/images/${image}"/>
       </picture>`
     );
   });
@@ -39,9 +38,8 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
     imageHyperlinkString.push(
       `<a href="${imageHyperlink}" target="_blank">
       <picture>
-        <source media="all and (min-width: 641px)" srcset="/images/${imageUrl}" />
         <source media="only screen and (max-width: 640px)" srcset="/images/${imageUrl.replace('.jpg', '-small.jpg')}" />
-        <img loading="lazy" src="/images/${imageUrl}" srcset="/images/${imageUrl.replace('.jpg', '-small.jpg')},/images/${imageUrl}" />
+        <img loading="lazy" src="/images/${imageUrl}" />
       </picture>
       </a>`
     );
