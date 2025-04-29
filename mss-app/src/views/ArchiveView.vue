@@ -2,6 +2,7 @@
 import { RouterLink } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
 import { addMetaTags } from '@/utils/metaTags';
+import Copyright from '@/components/shared/CopyrightLink.vue';
 
 const title = 'Archive Listings';
 
@@ -42,6 +43,7 @@ const basketballSeasons = [
   '2006-07',
   '2005-06'
 ];
+
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 </script>
 
@@ -67,6 +69,7 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
     </div>
     <GoogleSearch />
   </div>
+  <Copyright />
 </template>
 
 <style scoped>

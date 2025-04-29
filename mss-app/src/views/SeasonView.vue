@@ -7,6 +7,7 @@ import SeasonDates from '@/components/SeasonDates.vue';
 import { useSeasonContents } from '@/composables/useSeasonContents';
 import { validSportYears } from '@/constants/validSportYears';
 import { addMetaTags } from '@/utils/metaTags';
+import Copyright from '@/components/shared/CopyrightLink.vue';
 
 const conferenceListBase = (sport: string, year: string): string => {
   return sport === 'football' && year !== '2021s'
@@ -80,6 +81,7 @@ watch(result, updateStyles);
       </p>
     </div>
     <GoogleSearch />
+    <Copyright />
   </div>
 </template>
 

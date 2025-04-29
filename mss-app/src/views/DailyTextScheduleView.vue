@@ -5,6 +5,7 @@ import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import WeekTextBase from '@/components/WeekTextBase.vue';
 import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
+import Copyright from '@/components/shared/CopyrightLink.vue';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
 
@@ -49,6 +50,7 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
         </p>
         <GoogleSearch />
       </template>
+      <Copyright />
     </template>
   </div>
 </template>

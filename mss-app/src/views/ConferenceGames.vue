@@ -10,6 +10,7 @@ import { useConferenceGames } from '@/composables/useConferenceGames';
 import { conferenceCasing } from '../constants/conferenceCasing';
 import { validSportYears } from '@/constants/validSportYears';
 import { flexScheduleLink } from '@/utils/flexSchedule';
+import Copyright from '@/components/shared/CopyrightLink.vue';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
@@ -85,6 +86,7 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
         <GoogleSearch />
       </div>
     </div>
+    <Copyright />
   </template>
   <template v-if="loading">{{ cased }} Games Loading...</template>
   <template v-if="error">Got a problem. Let Matt know.</template>

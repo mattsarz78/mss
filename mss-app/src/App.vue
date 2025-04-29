@@ -13,9 +13,6 @@ const AdsByGoogle = defineAsyncComponent(() => import('./adsByGoogle.vue'));
     <div v-if="!isOnline" class="offline-banner">You are currently offline</div>
     <RouterView />
     <div class="DONTPrint">
-      <p><a href="/copyright">Website Copyright</a></p>
-    </div>
-    <div class="DONTPrint">
       <ins
         class="adsbygoogle"
         style="display: block"

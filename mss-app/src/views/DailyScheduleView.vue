@@ -8,6 +8,7 @@ import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import { adjustWebExclusives } from '@/utils/webExclusives';
 import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
+import Copyright from '@/components/shared/CopyrightLink.vue';
 
 const route = useRoute();
 const { sport } = route.params as { sport: string };
@@ -71,6 +72,7 @@ const {
         </p>
         <GoogleSearch />
       </template>
+      <Copyright />
     </template>
   </div>
 </template>

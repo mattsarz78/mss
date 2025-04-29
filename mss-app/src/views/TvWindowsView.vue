@@ -4,6 +4,7 @@ import { adjustNavBar } from '@/utils/navBar';
 import { flexScheduleLink } from '@/utils/flexSchedule';
 import { defineAsyncComponent, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import Copyright from '@/components/shared/CopyrightLink.vue';
 
 const route = useRoute();
 const { year } = route.params as { year: string };
@@ -34,6 +35,7 @@ onMounted(adjustNavBar);
     <iframe class="tvFrame" :src="flexLink" />
     <GoogleSearch />
   </div>
+  <Copyright />
 </template>
 
 <style scoped>
