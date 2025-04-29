@@ -30,14 +30,15 @@ FROM node:22-alpine AS production
 # Set environment variables
 ARG DATABASE_URL
 ARG VALID_CORS_ORIGINS
+ARG NODE_ENV
 ENV DATABASE_URL=$DATABASE_URL
 ENV VALID_CORS_ORIGINS=$VALID_CORS_ORIGINS
-ENV NODE_ENV= 
+ENV NODE_ENV=$NODE_ENV
 
 WORKDIR /app
 
 # Install openssl and clean up
-RUN apk update && apk add --no-cache openssl && rm -rf rm /var/cache/apk/*
+RUN apk update && apk add --no-cache openssl && rm -rf /var/cache/apk/*
 
 # Copy production dependencies and application files
 COPY --from=build /opt/node_modules.prod ./node_modules
