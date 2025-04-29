@@ -22,23 +22,25 @@ const toggleNoTV = () => {
 <template>
   <div>
     <button id="btnConferenceGames" class="show_hideNoTV" @click="toggleNoTV">Show Non-Televised Games</button>
-    <div v-if="noTvGamesLoading">Loading Week {{ week }} for {{ year }}</div>
-    <div v-if="noTvGamesError">Sorry. Got a bit of a problem. Let Matt know.</div>
-    <div v-show="showNoTV && noTvGamesResults" class="slidingNoTVDiv">
-      <p v-if="!noTvGamesResults?.noTvGames.length">
-        All FBS games scheduled for this week are being televised or shown online
-      </p>
-      <NoTvGamesTable
-        v-for="(noTVDate, index) in datesList"
-        :key="index"
-        :no-tv-date="noTVDate"
-        :no-tv-games-for-date="
-          noTvGamesResults?.noTvGames.filter(
-            (x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate
-          ) || []
-        " />
-      <br />
-    </div>
+    <template v-if="noTvGamesLoading">Loading Week {{ week }} for {{ year }}</template>
+    <template v-if="noTvGamesError">Sorry. Got a bit of a problem. Let Matt know.</template>
+    <template v-if="showNoTV && noTvGamesResults">
+      <div class="slidingNoTVDiv">
+        <p v-if="!noTvGamesResults?.noTvGames.length">
+          All FBS games scheduled for this week are being televised or shown online
+        </p>
+        <NoTvGamesTable
+          v-for="(noTVDate, index) in datesList"
+          :key="index"
+          :no-tv-date="noTVDate"
+          :no-tv-games-for-date="
+            noTvGamesResults?.noTvGames.filter(
+              (x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate
+            ) || []
+          " />
+        <br />
+      </div>
+    </template>
   </div>
 </template>
 

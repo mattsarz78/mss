@@ -36,9 +36,9 @@ const {
 
 <template>
   <div>
-    <div v-if="seasonContentsLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}</div>
-    <div v-if="seasonContentsError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</div>
-    <div v-if="seasonContentsResult && tvGameResult">
+    <template v-if="seasonContentsLoading || tvGameLoading"> Loading Week {{ week }} for {{ paramYear }} </template>
+    <template v-if="seasonContentsError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</template>
+    <template v-if="seasonContentsResult && tvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
@@ -97,14 +97,14 @@ const {
           :is-bowl-week="isBowlWeek"
           :is-mbk-postseason="isMbkPostseason"
           :show-ppv-column="showPpvColumn" />
-        <NoTvGames v-if="!isBowlWeek && showNoTvGames" :year="year.valueOf()" :week="week" />
+        <NoTvGames v-if="!isBowlWeek && showNoTvGames" :sport="sport" :year="year" :week="week" />
         <p>
           <BackToTopScript />
           <BackToTopButton />
         </p>
         <GoogleSearch />
       </template>
-    </div>
+    </template>
   </div>
 </template>
 

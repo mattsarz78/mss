@@ -16,9 +16,9 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
 
 <template>
   <div>
-    <div v-if="dailyTvGameLoading">Loading {{ sport }} for {{ startDate }}</div>
-    <div v-if="dailyTvGameError">Got a problem. Let Matt know.</div>
-    <div v-if="dailyTvGameResult">
+    <template v-if="dailyTvGameLoading">Loading {{ sport }} for {{ startDate }}</template>
+    <template v-if="dailyTvGameError">Got a problem. Let Matt know.</template>
+    <template v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
@@ -49,7 +49,7 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
         </p>
         <GoogleSearch />
       </template>
-    </div>
+    </template>
   </div>
 </template>
 

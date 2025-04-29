@@ -31,9 +31,9 @@ const {
 
 <template>
   <div>
-    <div v-if="dailyTvGameLoading">Loading {{ sport }} for {{ startDate }}</div>
-    <div v-if="dailyTvGameError">Got a problem. Let Matt know.</div>
-    <div v-if="dailyTvGameResult">
+    <template v-if="dailyTvGameLoading">Loading {{ sport }} for {{ startDate }}</template>
+    <template v-if="dailyTvGameError">Got a problem. Let Matt know.</template>
+    <template v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
@@ -51,11 +51,7 @@ const {
             </span>
             <br />
             <div v-if="dailyTvGameResult" class="filters">
-              <button
-                v-if="!isBowlWeek && !isMbkPostseason"
-                id="btnWebGames"
-                class="show_hideWeb"
-                @click="adjustWebExclusives">
+              <button id="btnWebGames" class="show_hideWeb" @click="adjustWebExclusives">
                 Hide Web Exclusive Games
               </button>
             </div>
@@ -75,7 +71,7 @@ const {
         </p>
         <GoogleSearch />
       </template>
-    </div>
+    </template>
   </div>
 </template>
 

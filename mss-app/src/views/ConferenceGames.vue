@@ -47,7 +47,7 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
 </script>
 
 <template>
-  <div v-if="result">
+  <template v-if="result">
     <nav class="navbar DONTPrint">
       <div class="container">
         <div>
@@ -85,9 +85,9 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
         <GoogleSearch />
       </div>
     </div>
-  </div>
-  <div v-if="loading">{{ cased }} Games Loading...</div>
-  <div v-if="error">There's an error.</div>
+  </template>
+  <template v-if="loading">{{ cased }} Games Loading...</template>
+  <template v-if="error">Got a problem. Let Matt know.</template>
 </template>
 
 <style scoped>
