@@ -98,8 +98,8 @@ export const conferenceData: ConferenceData[] = [
   {
     id: 'p12',
     data: `
-      <p>Pac-12 schools Oregon State and Washington State placed most of their games on CW in 2024 with two games airing on FOX.  2025 TV plans are forthcoming.</p>
-      <p>Source: <a href="https://pac-12.com/article/2024/05/14/pac-12-football-be-featured-nationally-across-cw-network-fox-sports-2024" target="_blank">Pac-12</a></p>
+      <p>Pac-12 schools Oregon State and Washington State have placed most of their games on CW in 2025, with two games on ESPN and two on CBS.  2026 TV plans are forthcoming.</p>
+      <p>Source: <a href="https://pac-12.com/news/2025/4/23/2025-pac-12-football-to-be-featured-nationally-across-cbs-the-cw-and-espn.aspx" target="_blank">Pac-12</a></p>
     `
   },
   {
