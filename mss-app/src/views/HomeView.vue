@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { defineAsyncComponent, nextTick, onMounted, ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 import { addMetaTags } from '@/utils/metaTags';
 
 const title = "Matt's College Sports on TV";
@@ -11,7 +11,7 @@ const linksRef = ref<HTMLElement | null>(null);
 const contentRef = ref<HTMLElement | null>(null);
 const facebookRef = ref<HTMLElement | null>(null);
 
-const adjustLayout = () => {
+const adjustLayout = (): void => {
   if (linksRef.value && contentRef.value && facebookRef.value) {
     const linksHeight = linksRef.value.clientHeight;
     const windowWidth = window.innerWidth - 6;
@@ -21,10 +21,7 @@ const adjustLayout = () => {
   }
 };
 
-onMounted(async () => {
-  await nextTick();
-  adjustLayout();
-});
+adjustLayout();
 
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 const TwitterRetrieval = defineAsyncComponent(() => import('@/components/TwitterRetrieval.vue'));

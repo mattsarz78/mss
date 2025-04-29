@@ -38,9 +38,7 @@ const tvGamesByDate = computed(() => {
   return gamesByDate;
 });
 
-onMounted(() => {
-  adjustNavBar();
-});
+onMounted(adjustNavBar);
 </script>
 
 <template v-if="datesList.length">

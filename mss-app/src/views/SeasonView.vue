@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { defineAsyncComponent, onMounted, ref, watch } from 'vue';
+import { defineAsyncComponent, ref, watch } from 'vue';
 import { getBasketballSeason } from '@/utils/base';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
@@ -52,7 +52,6 @@ const updateStyles = () => {
   }
 };
 
-onMounted(updateStyles);
 watch(result, updateStyles);
 </script>
 
