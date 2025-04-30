@@ -6,8 +6,13 @@ import WeekTextBase from '@/components/WeekTextBase.vue';
 import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
+import { defineAsyncComponent } from 'vue';
+import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
+
+const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
+const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 addMetaTags(title);
 

@@ -9,6 +9,7 @@ import { adjustWebExclusives } from '@/utils/webExclusives';
 import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
+import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 
 const route = useRoute();
 const { sport } = route.params as { sport: string };
@@ -71,6 +72,7 @@ const {
           <BackToTopButton />
         </p>
         <GoogleSearch />
+        <AdsByGoogle />
       </template>
       <Copyright />
     </template>

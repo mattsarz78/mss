@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router';
 import { defineAsyncComponent, ref } from 'vue';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
+import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 
 const title = "Matt's College Sports on TV";
 
@@ -82,6 +83,7 @@ const TwitterRetrieval = defineAsyncComponent(() => import('@/components/Twitter
       <a href="mailto:footballsked@gmail.com"> Send it here </a>
     </p>
     <GoogleSearch />
+    <AdsByGoogle />
   </div>
   <Copyright />
 </template>

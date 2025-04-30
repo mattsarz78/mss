@@ -6,6 +6,7 @@ import NoTvGames from './noTVGames/NoTvGames.vue';
 import { useWeekSchedule } from '@/composables/useWeekSchedule';
 import { adjustWebExclusives } from '@/utils/webExclusives';
 import Copyright from './shared/CopyrightLink.vue';
+import AdsByGoogle from './shared/AdsByGoogle.vue';
 
 const GoogleSearch = defineAsyncComponent(() => import('./shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('./shared/BackToTopScript.vue'));
@@ -104,6 +105,7 @@ const {
           <BackToTopButton />
         </p>
         <GoogleSearch />
+        <AdsByGoogle />
         <Copyright />
       </template>
     </template>

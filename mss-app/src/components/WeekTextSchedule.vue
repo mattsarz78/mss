@@ -6,6 +6,7 @@ import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
 import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import Copyright from './shared/CopyrightLink.vue';
+import AdsByGoogle from './shared/AdsByGoogle.vue';
 
 const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
@@ -82,6 +83,7 @@ const {
           <BackToTopButton />
         </p>
         <GoogleSearch />
+        <AdsByGoogle />
         <Copyright />
       </template>
     </template>
