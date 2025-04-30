@@ -25,7 +25,6 @@ const adjustLayout = (): void => {
 
 adjustLayout();
 
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 const TwitterRetrieval = defineAsyncComponent(() => import('@/components/TwitterRetrieval.vue'));
 </script>
 
@@ -82,7 +81,6 @@ const TwitterRetrieval = defineAsyncComponent(() => import('@/components/Twitter
       Got a question, complaint, comment or know a game not listed here?
       <a href="mailto:footballsked@gmail.com"> Send it here </a>
     </p>
-    <GoogleSearch />
     <AdsByGoogle />
   </div>
   <Copyright />

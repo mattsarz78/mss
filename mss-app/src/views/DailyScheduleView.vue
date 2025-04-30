@@ -18,7 +18,6 @@ const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
 
 addMetaTags(title);
 
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 const {
@@ -71,7 +70,6 @@ const {
           <BackToTopScript />
           <BackToTopButton />
         </p>
-        <GoogleSearch />
         <AdsByGoogle />
       </template>
       <Copyright />

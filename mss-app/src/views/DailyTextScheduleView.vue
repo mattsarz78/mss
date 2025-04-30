@@ -8,10 +8,10 @@ import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import { defineAsyncComponent } from 'vue';
 import BackToTopButton from '@/components/shared/BackToTopButton.vue';
+import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
 
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 addMetaTags(title);
@@ -53,7 +53,7 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
           <BackToTopScript />
           <BackToTopButton />
         </p>
-        <GoogleSearch />
+        <AdsByGoogle />
       </template>
       <Copyright />
     </template>

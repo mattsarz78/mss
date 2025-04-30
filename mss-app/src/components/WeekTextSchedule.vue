@@ -8,7 +8,6 @@ import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
 
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
@@ -82,7 +81,6 @@ const {
           <BackToTopScript />
           <BackToTopButton />
         </p>
-        <GoogleSearch />
         <AdsByGoogle />
         <Copyright />
       </template>

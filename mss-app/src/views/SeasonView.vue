@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { defineAsyncComponent, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { getBasketballSeason } from '@/utils/base';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
@@ -20,8 +20,6 @@ const createTitle = (sport: string, year: string): string => {
   const capitalized = `${sport.charAt(0).toUpperCase()}${sport.slice(1)}`;
   return `${year} ${capitalized} Season`;
 };
-
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 
 const route = useRoute();
 const sport = route.params.sport as string;
@@ -81,7 +79,6 @@ watch(result, updateStyles);
         ><a id="HyperLink32" href="mailto:footballsked@gmail.com">Send it here</a>
       </p>
     </div>
-    <GoogleSearch />
     <AdsByGoogle />
     <Copyright />
   </div>

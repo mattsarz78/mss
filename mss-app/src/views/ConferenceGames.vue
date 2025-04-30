@@ -45,7 +45,6 @@ const contractTvData =
 const { result, loading, error } = useConferenceGames(year, conference, lookup, getIndependentSchools);
 
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 </script>
 
 <template>
@@ -84,7 +83,6 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
           <BackToTopScript />
           <BackToTopButton />
         </p>
-        <GoogleSearch />
         <AdsByGoogle />
       </div>
     </div>

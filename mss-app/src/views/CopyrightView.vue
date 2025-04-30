@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { defineAsyncComponent } from 'vue';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
@@ -8,8 +7,6 @@ import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 const title = 'Copyright and Disclaimer';
 
 addMetaTags(title);
-
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 </script>
 
 <template>
@@ -83,7 +80,6 @@ const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/Goog
         </p>
       </div>
     </div>
-    <GoogleSearch />
     <AdsByGoogle />
   </div>
   <Copyright />

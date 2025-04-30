@@ -2,10 +2,13 @@
 import { defineAsyncComponent } from 'vue';
 
 const AdsByGoogleScript = defineAsyncComponent(() => import('./AdsByGoogleScript.vue'));
+const GoogleSearchBar = defineAsyncComponent(() => import('./GoogleSearchBar.vue'));
 </script>
 
 <template>
   <div class="DONTPrint">
+    <GoogleSearchBar />
+    <div class="gcse-search" />
     <AdsByGoogleScript />
     <ins
       class="adsbygoogle"

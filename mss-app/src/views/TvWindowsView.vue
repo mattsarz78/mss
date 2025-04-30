@@ -2,7 +2,7 @@
 import { addMetaTags } from '@/utils/metaTags';
 import { adjustNavBar } from '@/utils/navBar';
 import { flexScheduleLink } from '@/utils/flexSchedule';
-import { defineAsyncComponent, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
@@ -15,8 +15,6 @@ const title = `Football TV Windows for ${year}`;
 addMetaTags(title);
 
 const flexLink = `${flexScheduleLink(year)}/pubhtml?widget=true&amp;headers=false`;
-
-const GoogleSearch = defineAsyncComponent(() => import('@/components/shared/GoogleSearchBar.vue'));
 
 onMounted(adjustNavBar);
 </script>
@@ -34,7 +32,6 @@ onMounted(adjustNavBar);
   </nav>
   <div id="Main">
     <iframe class="tvFrame" :src="flexLink" />
-    <GoogleSearch />
     <AdsByGoogle />
   </div>
   <Copyright />
