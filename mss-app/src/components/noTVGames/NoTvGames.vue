@@ -23,7 +23,9 @@ const toggleNoTV = () => {
   <div>
     <button id="btnConferenceGames" class="show_hideNoTV" @click="toggleNoTV">Show Non-Televised Games</button>
     <template v-if="noTvGamesLoading">Loading Week {{ week }} for {{ year }}</template>
-    <template v-if="noTvGamesError">Sorry. Got a bit of a problem. Let Matt know.</template>
+    <template v-if="noTvGamesError">
+      <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+    </template>
     <template v-if="showNoTV && noTvGamesResults">
       <div class="slidingNoTVDiv">
         <p v-if="!noTvGamesResults?.noTvGames.length">

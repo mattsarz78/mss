@@ -42,19 +42,17 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
           </div>
         </div>
       </nav>
-      <template v-if="dailyTvGameResult">
-        <WeekTextBase
-          :season="paramYear"
-          :tv-games="dailyTvGameResult.dailyTvGames"
-          :is-bowl-week="false"
-          :is-mbk-postseason="false"
-          :show-ppv-column="shouldShowPpvColumn(paramYear)" />
-        <p>
-          <BackToTopScript />
-          <BackToTopButton />
-        </p>
-        <AdsByGoogle />
-      </template>
+      <WeekTextBase
+        :season="paramYear"
+        :tv-games="dailyTvGameResult.dailyTvGames"
+        :is-bowl-week="false"
+        :is-mbk-postseason="false"
+        :show-ppv-column="shouldShowPpvColumn(paramYear)" />
+      <p>
+        <BackToTopScript />
+        <BackToTopButton />
+      </p>
+      <AdsByGoogle />
       <Copyright />
     </template>
   </div>

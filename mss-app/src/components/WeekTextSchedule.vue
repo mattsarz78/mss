@@ -34,8 +34,10 @@ const {
 <template>
   <div>
     <template v-if="seasonContentsLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}</template>
-    <template v-if="seasonContentsError || tvGameError">Sorry. Got a bit of a problem. Let Matt know.</template>
-    <template v-if="seasonContentsResult && tvGameResult">
+    <template v-if="seasonContentsError || tvGameError">
+      <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+    </template>
+    <template v-if="seasonContentsResult && !(tvGameError || seasonContentsError)">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div>
@@ -70,20 +72,21 @@ const {
           </div>
         </div>
       </nav>
-      <template v-if="tvGameResult">
-        <WeekTextBase
-          :season="year"
-          :tv-games="tvGameResult.tvGames"
-          :is-bowl-week="isBowlWeek"
-          :is-mbk-postseason="isMbkPostseason"
-          :show-ppv-column="shouldShowPpvColumn(year)" />
-        <p>
-          <BackToTopScript />
-          <BackToTopButton />
-        </p>
-        <AdsByGoogle />
-        <Copyright />
-      </template>
+    </template>
+
+    <template v-if="tvGameResult">
+      <WeekTextBase
+        :season="year"
+        :tv-games="tvGameResult.tvGames"
+        :is-bowl-week="isBowlWeek"
+        :is-mbk-postseason="isMbkPostseason"
+        :show-ppv-column="shouldShowPpvColumn(year)" />
+      <p>
+        <BackToTopScript />
+        <BackToTopButton />
+      </p>
+      <AdsByGoogle />
+      <Copyright />
     </template>
   </div>
 </template>

@@ -59,19 +59,17 @@ const {
           </div>
         </div>
       </nav>
-      <template v-if="dailyTvGameResult">
-        <WeeklyBase
-          :season="season"
-          :tv-games="dailyTvGameResult.dailyTvGames"
-          :is-bowl-week="false"
-          :is-mbk-postseason="false"
-          :show-ppv-column="shouldShowPpvColumn(season)" />
-        <p>
-          <BackToTopScript />
-          <BackToTopButton />
-        </p>
-        <AdsByGoogle />
-      </template>
+      <WeeklyBase
+        :season="season"
+        :tv-games="dailyTvGameResult.dailyTvGames"
+        :is-bowl-week="false"
+        :is-mbk-postseason="false"
+        :show-ppv-column="shouldShowPpvColumn(season)" />
+      <p>
+        <BackToTopScript />
+        <BackToTopButton />
+      </p>
+      <AdsByGoogle />
       <Copyright />
     </template>
   </div>
