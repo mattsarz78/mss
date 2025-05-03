@@ -5,24 +5,24 @@ ENV NODE_ENV=development
 WORKDIR /app
 
 # Install dependencies and tools
+RUN corepack enable
 RUN apk update && apk add --no-cache openssl && rm -rf rm /var/cache/apk/*
 
 # Copy package files first to leverage Docker cache
-COPY ./package*.json /app/
-
-RUN npm install -g npm@11.3.0
+COPY ./package.json /app/
+COPY ./pnpm-*.yaml /app/
 
 # Install dependencies
-RUN npm ci --omit=dev \
+RUN pnpm i --frozen-lockfile --prod \
   && mv node_modules /opt/node_modules.prod \
-  && npm ci \
-  && npm cache clean --force
+  && pnpm i --frozen-lockfile \
+  && pnpm cache delete 
 
 # Copy the rest of the application
 COPY . /app
 
 # Generate Prisma and GraphQL files
-RUN npm run prismaGen && npm run graphQlGen && npm run prismaFormat
+RUN pnpm run prismaGen && pnpm run graphQlGen && pnpm run prismaFormat
 
 # Stage 2: Production
 FROM node:22-alpine AS production
@@ -56,4 +56,4 @@ COPY --from=build /app/context.ts ./context.ts
 EXPOSE 8020
 
 # Start the application
-CMD ["npm", "run", "start"]
+CMD ["pnpm", "run", "start"]

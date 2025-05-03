@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dumpSchema": "node -r ts-node/register ./utils/dump-schema.ts",
     "graphQlGen": "graphql-codegen --config codegen.yml",
     "prettier": "prettier --write './**/*.{ts,js,graphql}'",

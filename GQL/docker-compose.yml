@@ -8,4 +8,4 @@ services:
       - "8020:8020"
     env_file:
       - .env
-    command: ['npm', 'run', 'start']
+    command: node -r ts-node/register ./index.ts
