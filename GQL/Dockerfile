@@ -58,4 +58,4 @@ COPY --from=build /app/context.ts ./context.ts
 EXPOSE 8020
 
 # Start the application
-CMD ["pnpm", "run", "start"]
+CMD ["node", "-r", "ts-node/register", "./index.ts"]
