@@ -6,8 +6,7 @@ WORKDIR /app
 
 # Install dependencies and tools
 RUN npm install -g corepack
-RUN corepack enable
-RUN corepack prepare pnpm --activate
+RUN corepack enable pnpm && corepack install -g pnpm
 RUN apk update && apk add --no-cache openssl && rm -rf rm /var/cache/apk/*
 
 # Copy package files first to leverage Docker cache
@@ -15,9 +14,10 @@ COPY ./package.json /app/
 COPY ./pnpm-*.yaml /app/
 
 # Install dependencies
-RUN pnpm i --frozen-lockfile --prod \
+RUN pnpm fetch --prod \
+  && pnpm i -r --offline --prod \
   && mv node_modules /opt/node_modules.prod \
-  && pnpm i --frozen-lockfile \
+  && pnpm i -r \
   && pnpm cache delete 
 
 # Copy the rest of the application
