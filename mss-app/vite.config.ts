@@ -39,6 +39,7 @@ export default defineConfig(({ mode }) => {
       minify: 'terser',
       target: 'esnext',
       rollupOptions: {
+        external: ['workbox-window'],
         output: {
           manualChunks(id, { getModuleInfo }) {
             const match = /.*\.strings\.(\w+)\.js/.exec(id);
