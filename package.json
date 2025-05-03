@@ -1,15 +1,15 @@
 {
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "install:all": "concurrently \"npm run install:gql\" \"npm run install:web\"",
-    "start:all": "concurrently \"npm run start:gql\" \"npm run start:web\"",
-    "prettier:all": "concurrently \"npm run prettier:gql\" \"npm run prettier:web\"",
-    "start:gql": "cd GQL && npm run startDocker",
-    "start:web": "cd mss-app && npm run dev",
-    "prettier:gql": "cd GQL && npm run prettier",
-    "prettier:web": "cd mss-app && npm run format",
-    "install:gql": "cd GQL && npm ci",
-    "install:web": "cd mss-app && npm ci"
+    "install:all": "concurrently \"pnpm run install:gql\" \"pnpm run install:web\"",
+    "start:all": "concurrently \"pnpm run start:gql\" \"pnpm run start:web\"",
+    "prettier:all": "concurrently \"pnpm run prettier:gql\" \"pnpm run prettier:web\"",
+    "start:gql": "cd GQL && pnpm run startDocker",
+    "start:web": "cd mss-app && pnpm run dev",
+    "prettier:gql": "cd GQL && pnpm run prettier",
+    "prettier:web": "cd mss-app && pnpm run format",
+    "install:gql": "cd GQL && pnpm i --frozen-lockfile",
+    "install:web": "cd mss-app && pnpm i --frozen-lockfile"
   },
   "dependencies": {
     "concurrently": "^9.1.2"
