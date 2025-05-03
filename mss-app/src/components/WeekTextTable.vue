@@ -117,7 +117,7 @@ const toggleRow = (event: Event) => {
 
 @media all and (min-width: 641px) {
   .rowStyle {
-    width: 650px;
+    width: 660px;
   }
 }
 
