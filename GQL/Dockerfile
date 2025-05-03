@@ -17,14 +17,13 @@ COPY ./pnpm-*.yaml /app/
 RUN pnpm fetch --prod \
   && pnpm i -r --offline --prod \
   && mv node_modules /opt/node_modules.prod \
-  && pnpm i -r \
   && pnpm cache delete 
 
 # Copy the rest of the application
 COPY . /app
 
 # Generate Prisma and GraphQL files
-RUN pnpm run prismaGen && pnpm run graphQlGen && pnpm run prismaFormat
+RUN pnpm prismaGen && pnpm graphQlGen && pnpm prismaFormat
 
 # Stage 2: Production
 FROM node:22-alpine AS production

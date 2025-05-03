@@ -23,14 +23,14 @@
     "@vue/apollo-composable": "^4.2.2",
     "@vue/tsconfig": "^0.7.0",
     "@vueuse/core": "^13.1.0",
-    "graphql": "^16.10.0",
+    "graphql": "^16.11.0",
     "graphql-tag": "^2.12.6",
     "luxon": "^3.6.1",
     "npm-run-all2": "^7.0.2",
     "vite": "^6.3.4",
     "vite-plugin-pwa": "^1.0.0",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.11.0",
@@ -38,14 +38,14 @@
     "@types/node": "^22.15.3",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.0",
-    "eslint": "^9.25.0",
+    "eslint": "^9.26.0",
     "eslint-plugin-vue": "^10.1.0",
     "lightningcss": "^1.29.3",
     "prettier": "^3.5.3",
     "terser": "^5.39.0",
     "typescript": "~5.8.3",
     "vite-plugin-vue-devtools": "^7.7.6",
-    "vue-tsc": "^2.2.8"
+    "vue-tsc": "^2.2.10"
   },
   "graphql": {
     "schema": "./schema.graphql",
