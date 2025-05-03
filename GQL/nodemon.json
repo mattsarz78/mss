@@ -3,7 +3,7 @@
   "ignore": [".git", "node_modules/**/node_modules"],
   "verbose": true,
   "execMap": {
-    "ts": "npm start"
+    "ts": "pnpm start"
   },
   "watch": ["resolvers/**", "utils", "database"],
   "ext": ".ts, .graphql",
