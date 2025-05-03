@@ -7,6 +7,7 @@ import { useWeekSchedule } from '@/composables/useWeekSchedule';
 import { adjustWebExclusives } from '@/utils/webExclusives';
 import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
+import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 
 const BackToTopScript = defineAsyncComponent(() => import('./shared/BackToTopScript.vue'));
 
@@ -14,15 +15,9 @@ const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
 
 const {
-  tvGameResult,
-  tvGameLoading,
-  tvGameError,
   seasonContentsResult,
   seasonContentsLoading,
   seasonContentsError,
-  year,
-  flexLink,
-  showNoTvGames,
   nextWeek,
   previousWeek,
   isBowlWeek,
@@ -31,8 +26,13 @@ const {
   isWeekOne,
   isNextWeekMbkPostseason,
   isNextWeekBowlWeek,
-  showPpvColumn
-} = useWeekSchedule(sport, paramYear, week);
+  showPpvColumn,
+  weekInt,
+  year,
+  flexLink
+} = useWeekScheduleNav(sport, paramYear, week);
+
+const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSchedule(sport, year.value, weekInt);
 </script>
 
 <template>

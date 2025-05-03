@@ -7,6 +7,7 @@ import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
+import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 
 const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
@@ -14,21 +15,21 @@ const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
 
 const {
-  tvGameResult,
-  tvGameLoading,
-  tvGameError,
   seasonContentsResult,
   seasonContentsLoading,
   seasonContentsError,
-  year,
   nextWeek,
   previousWeek,
   isBowlWeek,
   isMbkPostseason,
   isWeekOne,
   isNextWeekMbkPostseason,
-  isNextWeekBowlWeek
-} = useWeekTextSchedule(sport, paramYear, week);
+  isNextWeekBowlWeek,
+  weekInt,
+  year
+} = useWeekScheduleNav(sport, paramYear, week);
+
+const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, year.value, weekInt);
 </script>
 
 <template>

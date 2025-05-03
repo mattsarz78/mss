@@ -1,90 +1,20 @@
 import { TV_GAMES, type TvGame } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
-import { DateTime } from 'luxon';
 import { computed } from 'vue';
-import {
-  getBasketballSeason,
-  isFirstWeek,
-  isNextWeekBasketballPostseason,
-  isNextWeekBowlGameWeek,
-  isBasketballPostseason,
-  isBowlGameWeek
-} from '@/utils/base';
-import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import { validSportYears } from '@/constants/validSportYears';
-import { flexScheduleLink } from '@/utils/flexSchedule';
-import { useSeasonContents } from './useSeasonContents';
 
 const hasNoTVGames = (year: string): boolean => {
   return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasNoTVGames ?? false;
 };
 
-export function useWeekSchedule(sport: string, paramYear: string, week: string) {
-  const weekInt = parseInt(week);
-  const year = computed(() => (sport === 'football' ? paramYear : getBasketballSeason(paramYear)));
-  const flexLink = computed(() => flexScheduleLink(year.value));
-  const showNoTvGames = computed(() => hasNoTVGames(year.value));
+export function useWeekSchedule(sport: string, year: string, week: number) {
+  const showNoTvGames = computed(() => hasNoTVGames(year));
 
   const {
     result: tvGameResult,
     loading: tvGameLoading,
     error: tvGameError
-  } = useQuery<{ tvGames: TvGame[] }>(TV_GAMES, { input: { season: year.value, sport, week: weekInt } });
+  } = useQuery<{ tvGames: TvGame[] }>(TV_GAMES, { input: { season: year, sport, week } });
 
-  const {
-    result: seasonContentsResult,
-    loading: seasonContentsLoading,
-    error: seasonContentsError
-  } = useSeasonContents(year.value);
-
-  const nextWeek = computed(() => weekInt + 1);
-  const previousWeek = computed(() => weekInt - 1);
-
-  const isBowlWeek = computed(() =>
-    seasonContentsResult.value?.seasonContents
-      ? isBowlGameWeek(sport, seasonContentsResult.value.seasonContents, weekInt)
-      : false
-  );
-  const isMbkPostseason = computed(() =>
-    isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents ?? [], weekInt)
-  );
-  const gamesToday = computed(() => {
-    return (
-      seasonContentsResult.value?.seasonContents
-        .filter((x) => x.week === weekInt)
-        .some((x) => {
-          const dateToCompare = DateTime.now().setZone('America/New_York');
-          return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare;
-        }) ?? false
-    );
-  });
-  const isWeekOne = computed(() => isFirstWeek(seasonContentsResult.value?.seasonContents ?? [], weekInt));
-  const isNextWeekMbkPostseason = computed(() =>
-    isNextWeekBasketballPostseason(sport, seasonContentsResult.value?.seasonContents ?? [], weekInt)
-  );
-  const isNextWeekBowlWeek = computed(() =>
-    isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents ?? [], weekInt)
-  );
-  const showPpvColumn = computed(() => shouldShowPpvColumn(year.value));
-
-  return {
-    tvGameResult,
-    tvGameLoading,
-    tvGameError,
-    seasonContentsResult,
-    seasonContentsLoading,
-    seasonContentsError,
-    year,
-    flexLink,
-    showNoTvGames,
-    nextWeek,
-    previousWeek,
-    isBowlWeek,
-    isMbkPostseason,
-    gamesToday,
-    isWeekOne,
-    isNextWeekMbkPostseason,
-    isNextWeekBowlWeek,
-    showPpvColumn
-  };
+  return { tvGameResult, tvGameLoading, tvGameError, showNoTvGames };
 }

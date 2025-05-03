@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { ref, watch } from 'vue';
-import { getBasketballSeason } from '@/utils/base';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
 import { useSeasonContents } from '@/composables/useSeasonContents';
@@ -24,7 +23,7 @@ const createTitle = (sport: string, year: string): string => {
 const route = useRoute();
 const sport = route.params.sport as string;
 const paramYear = route.params.year as string;
-const year = sport === 'football' ? paramYear : getBasketballSeason(paramYear);
+const year = sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`;
 
 const title = createTitle(sport, paramYear);
 

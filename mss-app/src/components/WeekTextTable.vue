@@ -92,7 +92,7 @@ const toggleRow = (event: Event) => {
 }
 
 .networkcell {
-  width: 165px;
+  width: 195px;
   text-align: center;
 }
 
@@ -107,7 +107,7 @@ const toggleRow = (event: Event) => {
 }
 
 .gamecell {
-  width: 250px;
+  width: 270px;
 }
 
 .gameTitle {
@@ -117,7 +117,7 @@ const toggleRow = (event: Event) => {
 
 @media all and (min-width: 641px) {
   .rowStyle {
-    width: 580px;
+    width: 650px;
   }
 }
 
