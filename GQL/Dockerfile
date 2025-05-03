@@ -5,7 +5,9 @@ ENV NODE_ENV=development
 WORKDIR /app
 
 # Install dependencies and tools
+RUN npm install -g corepack
 RUN corepack enable
+RUN corepack prepare pnpm --activate
 RUN apk update && apk add --no-cache openssl && rm -rf rm /var/cache/apk/*
 
 # Copy package files first to leverage Docker cache
