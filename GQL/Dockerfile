@@ -5,8 +5,7 @@ ENV NODE_ENV=development
 WORKDIR /app
 
 # Install dependencies and tools
-RUN npm install -g corepack
-RUN corepack enable pnpm && corepack install -g pnpm
+RUN corepack enable pnpm
 RUN apk update && apk add --no-cache openssl && rm -rf rm /var/cache/apk/*
 
 # Copy package files first to leverage Docker cache
@@ -39,6 +38,7 @@ ENV NODE_ENV=$NODE_ENV
 WORKDIR /app
 
 # Install openssl and clean up
+RUN corepack enable pnpm
 RUN apk update && apk add --no-cache openssl && rm -rf /var/cache/apk/*
 
 # Copy production dependencies and application files
@@ -57,4 +57,4 @@ COPY --from=build /app/context.ts ./context.ts
 EXPOSE 8020
 
 # Start the application
-CMD ["node", "-r", "ts-node/register", "./index.ts"]
+CMD ["pnpm", "start"]

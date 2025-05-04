@@ -2,10 +2,12 @@ services:
   gql:
     image: mattsarz78/graphql:latest
     platform: linux/amd64
-    build: ./
+    build: 
+      context: ./
+      dockerfile: Dockerfile
     container_name: gql
     ports:
       - "8020:8020"
     env_file:
       - .env    
-    command: node -r ts-node/register ./index.ts
+    command: pnpm start
