@@ -18,7 +18,7 @@ services:
           - db.mattsarzsport.com
 
   adminer:
-    image: adminer
+    image: adminer:latest
     container_name: adminer
     depends_on: 
       - db
