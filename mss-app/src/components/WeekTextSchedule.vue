@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
 import WeekTextBase from './WeekTextBase.vue';
-import BackToTopButton from '@/components/shared/BackToTopButton.vue';
+import BackToTop from '@/components/shared/BackToTop.vue';
 import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
 import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
-
-const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
@@ -82,10 +79,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
         :is-bowl-week="isBowlWeek"
         :is-mbk-postseason="isMbkPostseason"
         :show-ppv-column="shouldShowPpvColumn(year)" />
-      <p>
-        <BackToTopScript />
-        <BackToTopButton />
-      </p>
+        <BackToTop />
       <AdsByGoogle />
       <Copyright />
     </template>

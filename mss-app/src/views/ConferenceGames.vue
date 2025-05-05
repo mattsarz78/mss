@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
-import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 import { addMetaTags } from '@/utils/metaTags';
 import { getConferenceContractData } from '@/utils/conference';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
@@ -12,6 +10,7 @@ import { validSportYears } from '@/constants/validSportYears';
 import { flexScheduleLink } from '@/utils/flexSchedule';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
+import BackToTop from '@/components/shared/BackToTop.vue';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
@@ -35,16 +34,14 @@ const getIndependentSchools = (year: string): string => {
 const contractTvData =
   conference !== 'independents'
     ? (() => {
-        if (!id) {
-          throw new Error(`Invalid conference casing or ID for slug: ${conference}`);
-        }
-        return getConferenceContractData(id, year);
-      })()
+      if (!id) {
+        throw new Error(`Invalid conference casing or ID for slug: ${conference}`);
+      }
+      return getConferenceContractData(id, year);
+    })()
     : '';
 
 const { result, loading, error } = useConferenceGames(year, conference, lookup, getIndependentSchools);
-
-const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 </script>
 
 <template>
@@ -64,25 +61,18 @@ const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/B
     <div id="Main">
       <div id="head">
         <p>
-          {{ cased }} Broadcast Schedule<br /><strong
-            >All start times displayed are based on your device's location.</strong
-          >
+          {{ cased }} Broadcast Schedule<br /><strong>All start times displayed are based on your device's
+            location.</strong>
         </p>
         <p>
           NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
           non-conference games fall under the home team's telecast rights.
         </p>
         <div v-if="conference !== 'independents'" v-html="contractTvData" />
-        <IndependentsGameList
-          v-if="conference === 'independents'"
-          :games="result.conferenceGames"
-          :schools="getIndependentSchools(year).split('|')"
-          :year="year" />
+        <IndependentsGameList v-if="conference === 'independents'" :games="result.conferenceGames"
+          :schools="getIndependentSchools(year).split('|')" :year="year" />
         <ConferenceGameList v-else :year="year" :games="result.conferenceGames" />
-        <p>
-          <BackToTopScript />
-          <BackToTopButton />
-        </p>
+        <BackToTop />
         <AdsByGoogle />
       </div>
     </div>
@@ -98,6 +88,7 @@ const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/B
 }
 
 @media all and (min-width: 641px) {
+
   .homelink,
   .seasonhome {
     display: block;
@@ -109,6 +100,7 @@ const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/B
 }
 
 @media only screen and (max-width: 640px) {
+
   .homelink,
   .seasonhome {
     display: inline-block;

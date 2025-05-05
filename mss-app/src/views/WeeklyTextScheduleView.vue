@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { addMetaTags } from '@/utils/metaTags';
 import { generateWeeklyTitle } from '@/utils/weeklyTitle';
-import { defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
+import WeekTextSchedule from '@/components/WeekTextSchedule.vue';
 
 const route = useRoute();
 const { week, sport, year: paramYear } = route.params as { week: string; sport: string; year: string };
@@ -10,8 +10,6 @@ const { week, sport, year: paramYear } = route.params as { week: string; sport: 
 const title = generateWeeklyTitle(sport, week, paramYear, true);
 
 addMetaTags(title);
-
-const WeekTextSchedule = defineAsyncComponent(() => import('@/components/WeekTextSchedule.vue'));
 </script>
 
 <template>

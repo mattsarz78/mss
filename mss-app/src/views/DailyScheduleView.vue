@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
-import BackToTopButton from '@/components/shared/BackToTopButton.vue';
+import BackToTop from '@/components/shared/BackToTop.vue';
 import WeeklyBase from '@/components/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
@@ -17,8 +16,6 @@ const { sport } = route.params as { sport: string };
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
 
 addMetaTags(title);
-
-const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 const {
   result: dailyTvGameResult,
@@ -65,10 +62,7 @@ const {
         :is-bowl-week="false"
         :is-mbk-postseason="false"
         :show-ppv-column="shouldShowPpvColumn(season)" />
-      <p>
-        <BackToTopScript />
-        <BackToTopButton />
-      </p>
+        <BackToTop />
       <AdsByGoogle />
       <Copyright />
     </template>

@@ -6,13 +6,10 @@ import WeekTextBase from '@/components/WeekTextBase.vue';
 import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
-import { defineAsyncComponent } from 'vue';
-import BackToTopButton from '@/components/shared/BackToTopButton.vue';
+import BackToTop from '@/components/shared/BackToTop.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
-
-const BackToTopScript = defineAsyncComponent(() => import('@/components/shared/BackToTopScript.vue'));
 
 addMetaTags(title);
 
@@ -42,16 +39,9 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
           </div>
         </div>
       </nav>
-      <WeekTextBase
-        :season="paramYear"
-        :tv-games="dailyTvGameResult.dailyTvGames"
-        :is-bowl-week="false"
-        :is-mbk-postseason="false"
-        :show-ppv-column="shouldShowPpvColumn(paramYear)" />
-      <p>
-        <BackToTopScript />
-        <BackToTopButton />
-      </p>
+      <WeekTextBase :season="paramYear" :tv-games="dailyTvGameResult.dailyTvGames" :is-bowl-week="false"
+        :is-mbk-postseason="false" :show-ppv-column="shouldShowPpvColumn(paramYear)" />
+      <BackToTop />
       <AdsByGoogle />
       <Copyright />
     </template>
@@ -77,6 +67,7 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
 }
 
 @media all and (min-width: 641px) {
+
   .homelink,
   .seasonhome {
     display: block;

@@ -41,36 +41,57 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         external: ['workbox-window'],
         output: {
-          manualChunks(id, { getModuleInfo }) {
-            const match = /.*\.strings\.(\w+)\.js/.exec(id);
-            if (match) {
-              const language = match[1]; // e.g. "en"
-              const dependentEntryPoints = [];
-
-              // we use a Set here so we handle each module at most once. This
-              // prevents infinite loops in case of circular dependencies
-              const idsToHandle = new Set(getModuleInfo(id)?.dynamicImporters);
-
-              for (const moduleId of idsToHandle) {
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                const { isEntry, dynamicImporters, importers } = getModuleInfo(moduleId)!;
-                if (isEntry || dynamicImporters.length > 0) dependentEntryPoints.push(moduleId);
-
-                // The Set iterator is intelligent enough to iterate over
-                // elements that are added during iteration
-                for (const importerId of importers) idsToHandle.add(importerId);
-              }
-
-              // If there is a unique entry, we put it into a chunk based on the
-              // entry name
-              if (dependentEntryPoints.length === 1) {
-                return `${dependentEntryPoints[0].split('/').slice(-1)[0].split('.')[0]}.strings.${language}`;
-              }
-              // For multiple entries, we put it into a "shared" chunk
-              if (dependentEntryPoints.length > 1) {
-                return `shared.strings.${language}`;
-              }
-            }
+          manualChunks: {
+            'ads-group': [
+              './src/components/shared/CopyrightLink.vue',
+              './src/components/shared/AdsByGoogle.vue',
+              './src/components/shared/AdsByGoogleScript.vue',
+              './src/components/shared/GoogleSearchBar.vue',
+            ],
+            'group-home': [
+              './src/views/HomeView.vue',
+              './src/components/TwitterRetrieval.vue',
+            ],
+            'group-archive': [
+              './src/views/ArchiveView.vue',
+            ],
+            'group-season': [
+              './src/views/SeasonView.vue',
+              './src/components/SeasonDates.vue',
+              './src/components/ConferenceList.vue',
+              './src/components/WeekLink.vue',
+            ],
+            'group-conference-games': [
+              './src/views/ConferenceGames.vue',
+              './src/components/conference/ConferenceGameList.vue',
+              './src/components/conference/ConferenceTable.vue',
+              './src/components/IndependentsGameList.vue',
+            ],
+            'group-weekly-base': [
+              './src/components/WeeklyBase.vue',
+              './src/components/weekly/WeekGamesTable.vue',
+              './src/components/weekly/PostseasonMbkEvent.vue',
+              './src/components/weekly/WeekGameRow.vue',
+            ],
+            'group-weekly-text': [
+              './src/views/WeeklyTextScheduleView.vue',
+              './src/components/WeekTextSchedule.vue',
+            ],
+            'group-weekly-text-base': [
+              './src/components/WeekTextBase.vue',
+              './src/components/WeekTextTable.vue',
+            ],
+            'group-back-to-top': [
+              './src/components/shared/BackToTop.vue',
+              './src/components/shared/BackToTopButton.vue',
+              './src/components/shared/BackToTopScript.vue',
+            ],
+            'group-week-schedule-view': [
+              './src/views/WeeklyScheduleView.vue',
+              './src/components/WeekSchedule.vue',
+              './src/components/noTVGames/NoTvGames.vue',
+              './src/components/noTVGames/NoTvGamesTable.vue',
+            ]
           }
         }
       }
