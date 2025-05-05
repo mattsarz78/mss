@@ -6,8 +6,8 @@ const BackToTopScript = defineAsyncComponent(() => import('./BackToTopScript.vue
 </script>
 
 <template>
-    <p>
-        <BackToTopScript />
-        <BackToTopButton />
-    </p>
+  <p>
+    <BackToTopScript />
+    <BackToTopButton />
+  </p>
 </template>

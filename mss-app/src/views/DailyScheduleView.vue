@@ -41,11 +41,9 @@ const {
             </span>
             <span class="blockspan">
               <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${season}`" target="_blank">
-                Available TV Windows</RouterLink
-              >
+                Available TV Windows</RouterLink>
               <RouterLink class="mobilespan" :to="`/schedule/${sport}/daily/text`">
-                Customizable Text-Only Page</RouterLink
-              >
+                Customizable Text-Only Page</RouterLink>
             </span>
             <br />
             <div v-if="dailyTvGameResult" class="filters">
@@ -56,13 +54,9 @@ const {
           </div>
         </div>
       </nav>
-      <WeeklyBase
-        :season="season"
-        :tv-games="dailyTvGameResult.dailyTvGames"
-        :is-bowl-week="false"
-        :is-mbk-postseason="false"
-        :show-ppv-column="shouldShowPpvColumn(season)" />
-        <BackToTop />
+      <WeeklyBase :season="season" :tv-games="dailyTvGameResult.dailyTvGames" :is-bowl-week="false"
+        :is-mbk-postseason="false" :show-ppv-column="shouldShowPpvColumn(season)" />
+      <BackToTop />
       <AdsByGoogle />
       <Copyright />
     </template>

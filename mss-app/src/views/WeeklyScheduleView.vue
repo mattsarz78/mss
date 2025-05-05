@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router';
 import { addMetaTags } from '@/utils/metaTags';
 import { generateWeeklyTitle } from '@/utils/weeklyTitle';
-import WeekSchedule from '@/components/WeekSchedule.vue'
+import WeekSchedule from '@/components/WeekSchedule.vue';
 
 const route = useRoute();
 const { week, sport, year: paramYear } = route.params as { week: string; sport: string; year: string };
