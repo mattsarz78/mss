@@ -45,14 +45,17 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
             <span class="blockspan">
               <RouterLink class="mobilespan" to="/">Home</RouterLink>
               <RouterLink class="mobilespan" :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
-              <RouterLink v-if="gamesToday" class="mobilespan" :to="`/schedule/${sport}/daily`">Today's Schedule
+              <RouterLink v-if="gamesToday" class="mobilespan" :to="`/schedule/${sport}/daily`"
+                >Today's Schedule
               </RouterLink>
             </span>
             <span class="blockspan">
-              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank">Available
-                TV Windows</RouterLink>
-              <RouterLink class="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`">Customizable Text-Only
-                Page</RouterLink>
+              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank"
+                >Available TV Windows</RouterLink
+              >
+              <RouterLink class="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`"
+                >Customizable Text-Only Page</RouterLink
+              >
             </span>
             <div v-if="!isMbkPostseason && !isBowlWeek" class="pad">
               <template v-if="isWeekOne">
@@ -62,11 +65,13 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
               </template>
               <template v-else>
                 <span style="float: left">
-                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }">Previous Week
+                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }"
+                    >Previous Week
                   </RouterLink>
                 </span>
                 <span v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek" style="float: right">
-                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }">Next Week
+                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }"
+                    >Next Week
                   </RouterLink>
                 </span>
               </template>
@@ -74,7 +79,10 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
             </div>
             <br />
             <div v-if="tvGameResult" class="filters">
-              <button v-if="!isBowlWeek && !isMbkPostseason" id="btnWebGames" class="show_hideWeb"
+              <button
+                v-if="!isBowlWeek && !isMbkPostseason"
+                id="btnWebGames"
+                class="show_hideWeb"
                 @click="adjustWebExclusives">
                 Hide Web Exclusive Games
               </button>
@@ -84,8 +92,12 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
       </nav>
     </template>
     <template v-if="tvGameResult">
-      <WeeklyBase :season="year" :tv-games="tvGameResult.tvGames" :is-bowl-week="isBowlWeek"
-        :is-mbk-postseason="isMbkPostseason" :show-ppv-column="showPpvColumn" />
+      <WeeklyBase
+        :season="year"
+        :tv-games="tvGameResult.tvGames"
+        :is-bowl-week="isBowlWeek"
+        :is-mbk-postseason="isMbkPostseason"
+        :show-ppv-column="showPpvColumn" />
       <NoTvGames v-if="!isBowlWeek && showNoTvGames" :sport="sport" :year="year" :week="week" />
       <BackToTop />
       <AdsByGoogle />

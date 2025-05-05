@@ -73,8 +73,12 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
     </template>
 
     <template v-if="tvGameResult">
-      <WeekTextBase :season="year" :tv-games="tvGameResult.tvGames" :is-bowl-week="isBowlWeek"
-        :is-mbk-postseason="isMbkPostseason" :show-ppv-column="shouldShowPpvColumn(year)" />
+      <WeekTextBase
+        :season="year"
+        :tv-games="tvGameResult.tvGames"
+        :is-bowl-week="isBowlWeek"
+        :is-mbk-postseason="isMbkPostseason"
+        :show-ppv-column="shouldShowPpvColumn(year)" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />
@@ -101,7 +105,6 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
 }
 
 @media all and (min-width: 641px) {
-
   .homelink,
   .seasonhome {
     display: block;

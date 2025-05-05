@@ -39,8 +39,12 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
           </div>
         </div>
       </nav>
-      <WeekTextBase :season="paramYear" :tv-games="dailyTvGameResult.dailyTvGames" :is-bowl-week="false"
-        :is-mbk-postseason="false" :show-ppv-column="shouldShowPpvColumn(paramYear)" />
+      <WeekTextBase
+        :season="paramYear"
+        :tv-games="dailyTvGameResult.dailyTvGames"
+        :is-bowl-week="false"
+        :is-mbk-postseason="false"
+        :show-ppv-column="shouldShowPpvColumn(paramYear)" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />
@@ -67,7 +71,6 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
 }
 
 @media all and (min-width: 641px) {
-
   .homelink,
   .seasonhome {
     display: block;
