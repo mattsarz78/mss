@@ -41,50 +41,50 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         external: ['workbox-window'],
         output: {
-          manualChunks: {
-            'ads-group': [
-              './src/components/shared/CopyrightLink.vue',
-              './src/components/shared/AdsByGoogle.vue',
-              './src/components/shared/AdsByGoogleScript.vue',
-              './src/components/shared/GoogleSearchBar.vue'
-            ],
-            'group-home': ['./src/views/HomeView.vue', './src/components/TwitterRetrieval.vue'],
-            'group-archive': ['./src/views/ArchiveView.vue'],
-            'group-season': [
-              './src/views/SeasonView.vue',
-              './src/components/SeasonDates.vue',
-              './src/components/ConferenceList.vue',
-              './src/components/WeekLink.vue'
-            ],
-            'group-conference-games': [
-              './src/views/ConferenceGames.vue',
-              './src/components/conference/ConferenceGameList.vue',
-              './src/components/conference/ConferenceTable.vue',
-              './src/components/IndependentsGameList.vue'
-            ],
-            'group-weekly-base': [
-              './src/components/WeeklyBase.vue',
-              './src/components/weekly/WeekGamesTable.vue',
-              './src/components/weekly/PostseasonMbkEvent.vue',
-              './src/components/weekly/WeekGameRow.vue'
-            ],
-            'group-weekly-text': ['./src/views/WeeklyTextScheduleView.vue', './src/components/WeekTextSchedule.vue'],
-            'group-weekly-text-base': ['./src/components/WeekTextBase.vue', './src/components/WeekTextTable.vue'],
-            'group-back-to-top': [
-              './src/components/shared/BackToTop.vue',
-              './src/components/shared/BackToTopButton.vue',
-              './src/components/shared/BackToTopScript.vue'
-            ],
-            'group-week-schedule-view': [
-              './src/views/WeeklyScheduleView.vue',
-              './src/components/WeekSchedule.vue',
-              './src/components/noTVGames/NoTvGames.vue',
-              './src/components/noTVGames/NoTvGamesTable.vue'
-            ]
-          }
-        }
+          manualChunks: chunks
       }
-    },
+    }},
     define: { 'import.meta.env.API_URL': JSON.stringify(env.API_URL) }
-  };
+  }
 });
+
+const chunks: Record<string,string[]> = {
+  'ads-group': [
+    './src/components/shared/CopyrightLink.vue',
+    './src/components/shared/AdsByGoogle.vue',
+    './src/components/shared/AdsByGoogleScript.vue',
+    './src/components/shared/GoogleSearchBar.vue'
+  ],
+  'group-home': ['./src/views/HomeView.vue', './src/components/TwitterRetrieval.vue'],
+  'group-season': [
+    './src/views/SeasonView.vue',
+    './src/components/SeasonDates.vue',
+    './src/components/ConferenceList.vue',
+    './src/components/WeekLink.vue'
+  ],
+  'group-conference-games': [
+    './src/views/ConferenceGames.vue',
+    './src/components/conference/ConferenceGameList.vue',
+    './src/components/conference/ConferenceTable.vue',
+    './src/components/IndependentsGameList.vue'
+  ],
+  'group-weekly-base': [
+    './src/components/WeeklyBase.vue',
+    './src/components/weekly/WeekGamesTable.vue',
+    './src/components/weekly/PostseasonMbkEvent.vue',
+    './src/components/weekly/WeekGameRow.vue'
+  ],
+  'group-weekly-text': ['./src/views/WeeklyTextScheduleView.vue', './src/components/WeekTextSchedule.vue'],
+  'group-weekly-text-base': ['./src/components/WeekTextBase.vue', './src/components/WeekTextTable.vue'],
+  'group-back-to-top': [
+    './src/components/shared/BackToTop.vue',
+    './src/components/shared/BackToTopButton.vue',
+    './src/components/shared/BackToTopScript.vue'
+  ],
+  'group-week-schedule-view': [
+    './src/views/WeeklyScheduleView.vue',
+    './src/components/WeekSchedule.vue',
+    './src/components/noTVGames/NoTvGames.vue',
+    './src/components/noTVGames/NoTvGamesTable.vue'
+  ]
+}
