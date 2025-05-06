@@ -2,3 +2,4 @@ packages:
   - apps/**
   - packages/**
 useNodeVersion: 22.15.0
+ignoreWorkspaceRootCheck: true

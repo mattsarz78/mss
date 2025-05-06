@@ -25,13 +25,13 @@ const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.
       {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
     </template>
     <template v-else>
-      <div v-html="formatGame(tvGame)" />
+      <div v-dompurify-html="formatGame(tvGame)" />
     </template>
     <template v-if="tvGame.location"> (at {{ tvGame.location }}) </template>
   </td>
-  <td class="network" v-html="networkHtml"></td>
-  <td :class="showPPVColumn ? 'coverage' : 'coverageppv'" v-html="coverageHtml"></td>
-  <td v-if="showPPVColumn" class="ppv" v-html="ppvHtml"></td>
+  <td v-dompurify-html="networkHtml" class="network"></td>
+  <td v-dompurify-html="coverageHtml" :class="showPPVColumn ? 'coverage' : 'coverageppv'"></td>
+  <td v-if="showPPVColumn" v-dompurify-html="ppvHtml" class="ppv"></td>
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>

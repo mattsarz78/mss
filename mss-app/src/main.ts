@@ -6,6 +6,7 @@ import { apolloClient } from './apolloClient';
 import { createHead } from '@unhead/vue/client';
 import { InferSeoMetaPlugin } from '@unhead/vue/plugins';
 import { registerSW } from 'virtual:pwa-register';
+import VueDOMPurifyHTML from 'vue-dompurify-html';
 
 const updateSW = registerSW({
   onNeedRefresh() {
@@ -24,6 +25,7 @@ const app = createApp({
 
 const head = createHead({ init: [{ title: "Matt's College Sports on TV" }], plugins: [InferSeoMetaPlugin()] });
 app.use(head);
+app.use(VueDOMPurifyHTML);
 
 app.use(router);
 

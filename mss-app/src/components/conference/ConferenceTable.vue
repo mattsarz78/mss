@@ -46,7 +46,7 @@ const formattedGames = computed(() =>
           </template>
           <template v-if="game.location"> (at {{ game.location }}) </template>
         </td>
-        <td class="network" v-html="game.formattedNetwork" />
+        <td v-dompurify-html="game.formattedNetwork" class="network" />
         <td class="time">
           {{ game.formattedTime.day }}<br />{{ game.formattedTime.date }}<br />{{ game.formattedTime.time }}
         </td>

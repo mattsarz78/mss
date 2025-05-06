@@ -31,8 +31,8 @@ const coverageHtml = computed(() =>
       </template>
     </template>
   </td>
-  <td class="network" v-html="networkHtml" />
-  <td class="coverage" v-html="coverageHtml" />
+  <td v-dompurify-html="networkHtml" class="network" />
+  <td v-dompurify-html="coverageHtml" class="coverage" />
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>

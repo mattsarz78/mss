@@ -69,7 +69,7 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
           NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
           non-conference games fall under the home team's telecast rights.
         </p>
-        <div v-if="conference !== 'independents'" v-html="contractTvData" />
+        <div v-if="conference !== 'independents'" v-dompurify-html="contractTvData" />
         <IndependentsGameList
           v-if="conference === 'independents'"
           :games="result.conferenceGames"
