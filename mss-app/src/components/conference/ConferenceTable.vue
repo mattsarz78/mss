@@ -63,6 +63,10 @@ const formattedGames = computed(() =>
   border-width: thin;
 }
 
+.header {
+  text-align: center;
+}
+
 .network {
   text-align: center;
 }

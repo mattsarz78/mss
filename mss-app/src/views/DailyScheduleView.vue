@@ -41,11 +41,9 @@ const {
             </span>
             <span class="blockspan">
               <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${season}`" target="_blank">
-                Available TV Windows</RouterLink
-              >
+                Available TV Windows</RouterLink>
               <RouterLink class="mobilespan" :to="`/schedule/${sport}/daily/text`">
-                Customizable Text-Only Page</RouterLink
-              >
+                Customizable Text-Only Page</RouterLink>
             </span>
             <br />
             <div v-if="dailyTvGameResult" class="filters">
@@ -56,12 +54,8 @@ const {
           </div>
         </div>
       </nav>
-      <WeeklyBase
-        :season="season"
-        :tv-games="dailyTvGameResult.dailyTvGames"
-        :is-bowl-week="false"
-        :is-mbk-postseason="false"
-        :show-ppv-column="shouldShowPpvColumn(season)" />
+      <WeeklyBase :season="season" :tv-games="dailyTvGameResult.dailyTvGames" :is-bowl-week="false"
+        :is-mbk-postseason="false" :show-ppv-column="shouldShowPpvColumn(season)" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />
@@ -83,7 +77,20 @@ a img {
 }
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  background-color: white;
+  padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 @media all and (min-width: 641px) {
@@ -93,6 +100,10 @@ a img {
 
   .filters {
     margin-top: 10px;
+  }
+
+  button {
+    font-size: 14px;
   }
 }
 
@@ -109,6 +120,16 @@ a img {
 
   .filters {
     margin-top: 5px;
+  }
+
+  button {
+    font-size: 0.9em;
+  }
+}
+
+@media print {
+  .DONTPrint {
+    display: none;
   }
 }
 </style>

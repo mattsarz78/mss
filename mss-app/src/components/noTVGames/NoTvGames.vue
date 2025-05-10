@@ -54,4 +54,16 @@ const toggleNoTV = () => {
 .show_hideNoTV {
   display: inline-block;
 }
+
+@media only screen and (max-width: 640px) {
+  button {
+    font-size: 0.9em;
+  }
+}
+
+@media all and (min-width: 641px) {
+  button {
+    font-size: 14px;
+  }
+}
 </style>

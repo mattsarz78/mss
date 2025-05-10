@@ -76,6 +76,10 @@ const updatedTvOptions = (game: NoTvGame): string => {
   background-color: #ff0;
 }
 
+.header {
+  text-align: center;
+}
+
 .game,
 .conference,
 .telecast {

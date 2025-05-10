@@ -126,4 +126,14 @@ const toggleRow = (event: Event) => {
     line-height: 13px;
   }
 }
+
+@media print {
+  .DONTPrint {
+    display: none;
+  }
+
+  .DOPrint {
+    display: table;
+  }
+}
 </style>

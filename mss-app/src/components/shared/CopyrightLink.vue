@@ -5,3 +5,11 @@
     </p>
   </div>
 </template>
+
+<style scoped>
+@media print {
+  .DONTPrint {
+    display: none;
+  }
+}
+</style>

@@ -102,6 +102,23 @@ watch(result, updateStyles);
   display: inline-block;
 }
 
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  background-color: white;
+  padding: 2px 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 @media all and (min-width: 641px) {
   #SeasonLinks {
     width: 55%;
@@ -120,6 +137,12 @@ watch(result, updateStyles);
 
   .DONTPrint a {
     line-height: 13px;
+  }
+}
+
+@media print {
+  .DONTPrint {
+    display: none;
   }
 }
 </style>

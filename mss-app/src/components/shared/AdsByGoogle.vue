@@ -20,3 +20,11 @@ const GoogleSearchBar = defineAsyncComponent(() => import('./GoogleSearchBar.vue
     <component :is="'script'"> (adsbygoogle = window.adsbygoogle || []).push({}); </component>
   </div>
 </template>
+
+<style scoped>
+@media print {
+  .DONTPrint {
+    display: none;
+  }
+}
+</style>

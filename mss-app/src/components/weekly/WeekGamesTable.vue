@@ -53,6 +53,9 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
 .webGame {
   display: table-row;
 }
+.header {
+  text-align: center;
+}
 
 .noTVTable {
   background-color: #fff;

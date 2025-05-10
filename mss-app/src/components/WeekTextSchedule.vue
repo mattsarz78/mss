@@ -92,11 +92,24 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
   margin-right: 3px;
 }
 
+.container {
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 #TextNav {
   margin: 0;
 }
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  background-color: white;
+  padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
@@ -104,10 +117,19 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
   padding: 5px 0;
 }
 
+@media print {
+  .DONTPrint {
+    display: none;
+  }
+}
+
 @media all and (min-width: 641px) {
   .homelink,
   .seasonhome {
     display: block;
+  }
+  button {
+    font-size: 14px;
   }
 }
 
@@ -124,6 +146,10 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
 
   .mobilehide {
     display: none;
+  }
+
+  button {
+    font-size: 0.9em;
   }
 }
 </style>
