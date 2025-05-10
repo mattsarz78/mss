@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
+import { Rollup } from 'vite';
 // import vueDevTools from 'vite-plugin-vue-devtools';
 // import { visualizer } from 'rollup-plugin-visualizer';
 
@@ -41,50 +42,81 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         external: ['workbox-window'],
         output: {
-          manualChunks: chunks
+          manualChunks: (id) => {
+            return chunkGroup(id);
+          }
+        }
       }
-    }},
+    },
     define: { 'import.meta.env.API_URL': JSON.stringify(env.API_URL) }
-  }
+  };
 });
 
-const chunks: Record<string,string[]> = {
-  'ads-group': [
-    './src/components/shared/CopyrightLink.vue',
-    './src/components/shared/AdsByGoogle.vue',
-    './src/components/shared/AdsByGoogleScript.vue',
-    './src/components/shared/GoogleSearchBar.vue'
-  ],
-  'group-home': ['./src/views/HomeView.vue', './src/components/TwitterRetrieval.vue'],
-  'group-season': [
-    './src/views/SeasonView.vue',
-    './src/components/SeasonDates.vue',
-    './src/components/ConferenceList.vue',
-    './src/components/WeekLink.vue'
-  ],
-  'group-conference-games': [
-    './src/views/ConferenceGames.vue',
-    './src/components/conference/ConferenceGameList.vue',
-    './src/components/conference/ConferenceTable.vue',
-    './src/components/IndependentsGameList.vue'
-  ],
-  'group-weekly-base': [
-    './src/components/WeeklyBase.vue',
-    './src/components/weekly/WeekGamesTable.vue',
-    './src/components/weekly/PostseasonMbkEvent.vue',
-    './src/components/weekly/WeekGameRow.vue'
-  ],
-  'group-weekly-text': ['./src/views/WeeklyTextScheduleView.vue', './src/components/WeekTextSchedule.vue'],
-  'group-weekly-text-base': ['./src/components/WeekTextBase.vue', './src/components/WeekTextTable.vue'],
-  'group-back-to-top': [
-    './src/components/shared/BackToTop.vue',
-    './src/components/shared/BackToTopButton.vue',
-    './src/components/shared/BackToTopScript.vue'
-  ],
-  'group-week-schedule-view': [
-    './src/views/WeeklyScheduleView.vue',
-    './src/components/WeekSchedule.vue',
-    './src/components/noTVGames/NoTvGames.vue',
-    './src/components/noTVGames/NoTvGamesTable.vue'
-  ]
+function chunkGroup(id: string): string | Rollup.NullValue {
+  const adsGroup = [
+    'src/components/shared/CopyrightLink.vue',
+    'src/components/shared/AdsByGoogle.vue',
+    'src/components/shared/AdsByGoogleScript.vue',
+    'src/components/shared/GoogleSearchBar.vue'
+  ];
+
+  const homeGroup = ['src/views/HomeView.vue', 'src/components/TwitterRetrieval.vue'];
+
+  const seasonGroup = [
+    'src/views/SeasonView.vue',
+    'src/components/SeasonDates.vue',
+    'src/components/ConferenceList.vue',
+    'src/components/WeekLink.vue'
+  ];
+
+  const conferenceGames = [
+    'src/views/ConferenceGames.vue',
+    'src/components/conference/ConferenceGameList.vue',
+    'src/components/conference/ConferenceTable.vue',
+    'src/components/IndependentsGameList.vue'
+  ];
+
+  const weeklyBase = [
+    'src/components/WeeklyBase.vue',
+    'src/components/weekly/WeekGamesTable.vue',
+    'src/components/weekly/PostseasonMbkEvent.vue',
+    'src/components/weekly/WeekGameRow.vue'
+  ];
+
+  const weeklyText = ['src/views/WeeklyTextScheduleView.vue', 'src/components/WeekTextSchedule.vue'];
+
+  const weeklyTextBase = ['src/components/WeekTextBase.vue', 'src/components/WeekTextTable.vue'];
+
+  const backToTop = [
+    'src/components/shared/BackToTop.vue',
+    'src/components/shared/BackToTopButton.vue',
+    'src/components/shared/BackToTopScript.vue'
+  ];
+
+  const weekScheduleView = [
+    'src/views/WeeklyScheduleView.vue',
+    'src/components/WeekSchedule.vue',
+    'src/components/noTVGames/NoTvGames.vue',
+    'src/components/noTVGames/NoTvGamesTable.vue'
+  ];
+
+  if (adsGroup.some((x) => id.includes(x))) return 'ads-group';
+
+  if (homeGroup.some((x) => id.includes(x))) return 'group-home';
+
+  if (seasonGroup.some((x) => id.includes(x))) return 'group-season';
+
+  if (weeklyBase.some((x) => id.includes(x))) return 'group-weekly-base';
+
+  if (weeklyText.some((x) => id.includes(x))) return 'group-weekly-text';
+
+  if (weeklyTextBase.some((x) => id.includes(x))) return 'group-weekly-text-base';
+
+  if (backToTop.some((x) => id.includes(x))) return 'group-back-to-top';
+
+  if (weekScheduleView.some((x) => id.includes(x))) return 'group-week-schedule-view';
+
+  if (conferenceGames.some((x) => id.includes(x))) return 'group-conference-games';
+
+  if (id.includes('node_modules')) return 'vendor';
 }
