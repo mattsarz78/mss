@@ -128,10 +128,6 @@ const toggleRow = (event: Event) => {
 }
 
 @media print {
-  .DONTPrint {
-    display: none;
-  }
-
   .DOPrint {
     display: table;
   }

@@ -93,12 +93,6 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
   }
 }
 
-@media print {
-  .DONTPrint {
-    display: none;
-  }
-}
-
 @media only screen and (max-width: 640px) {
   .DONTPrint a {
     line-height: 13px;

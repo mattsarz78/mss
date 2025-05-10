@@ -126,10 +126,4 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
     padding-top: 21px;
   }
 }
-
-@media print {
-  .DONTPrint {
-    display: none;
-  }
-}
 </style>

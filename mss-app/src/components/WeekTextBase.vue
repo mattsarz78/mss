@@ -61,12 +61,6 @@ onMounted(() => {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-@media print {
-  .DONTPrint {
-    display: none;
-  }
-}
-
 @media only screen and (max-width: 640px) {
   .DONTPrint a {
     line-height: 13px;

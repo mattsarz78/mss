@@ -117,12 +117,6 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
   padding: 5px 0;
 }
 
-@media print {
-  .DONTPrint {
-    display: none;
-  }
-}
-
 @media all and (min-width: 641px) {
   .homelink,
   .seasonhome {

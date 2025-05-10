@@ -91,10 +91,4 @@ a img {
     padding-right: 10px;
   }
 }
-
-@media print {
-  .DONTPrint {
-    display: none;
-  }
-}
 </style>

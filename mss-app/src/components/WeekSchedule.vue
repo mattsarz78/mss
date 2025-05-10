@@ -145,12 +145,6 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   }
 }
 
-@media print {
-  .DONTPrint {
-    display: none;
-  }
-}
-
 @media only screen and (max-width: 640px) {
   .mobilespan {
     display: inline-block;

@@ -139,10 +139,4 @@ watch(result, updateStyles);
     line-height: 13px;
   }
 }
-
-@media print {
-  .DONTPrint {
-    display: none;
-  }
-}
 </style>

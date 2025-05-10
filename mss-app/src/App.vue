@@ -15,6 +15,12 @@ const { isOnline } = useAppUtils();
 </template>
 
 <style>
+@media print {
+  .DONTPrint {
+    display: none;
+  }
+}
+
 .maincontainer {
   max-width: 800px;
   margin: 0 auto;
