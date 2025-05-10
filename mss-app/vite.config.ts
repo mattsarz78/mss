@@ -1,18 +1,14 @@
 import { fileURLToPath, URL } from 'node:url';
-
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, PluginOption, UserConfigExport, Rollup } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
-import { Rollup } from 'vite';
-// import vueDevTools from 'vite-plugin-vue-devtools';
-// import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // Load environment variables
   const env = loadEnv(mode, process.cwd(), '');
 
-  return {
+  const config: UserConfigExport = {
     plugins: [
       vue({ isProduction: true, features: { optionsAPI: false } }),
       VitePWA({
@@ -50,6 +46,12 @@ export default defineConfig(({ mode }) => {
     },
     define: { 'import.meta.env.API_URL': JSON.stringify(env.API_URL) }
   };
+
+  if (process.env.NODE_ENV === 'development') {
+    config.plugins?.push(loadVisualizer());
+    config.plugins?.push(loadVueDevTools());
+  }
+  return config;
 });
 
 function chunkGroup(id: string): string | Rollup.NullValue {
@@ -119,4 +121,14 @@ function chunkGroup(id: string): string | Rollup.NullValue {
   if (conferenceGames.some((x) => id.includes(x))) return 'group-conference-games';
 
   if (id.includes('node_modules')) return 'vendor';
+}
+
+async function loadVueDevTools() {
+  const vueDevTools = await import('vite-plugin-vue-devtools');
+  return vueDevTools.default();
+}
+
+async function loadVisualizer() {
+  const { visualizer } = await import('rollup-plugin-visualizer');
+  return visualizer({ open: true }) as PluginOption;
 }

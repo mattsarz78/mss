@@ -44,8 +44,10 @@
     "eslint-plugin-vue": "^10.1.0",
     "lightningcss": "^1.29.3",
     "prettier": "^3.5.3",
+    "rollup-plugin-visualizer": "^5.14.0",
     "terser": "^5.39.0",
     "typescript": "~5.8.3",
+    "vite-plugin-vue-devtools": "^7.7.6",
     "vue-tsc": "^2.2.10"
   },
   "graphql": {
