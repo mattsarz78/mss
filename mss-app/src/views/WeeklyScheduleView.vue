@@ -15,9 +15,3 @@ addMetaTags(title);
 <template>
   <WeekSchedule :key="route.fullPath" v-reset-adsense-height :week="week" :sport="sport" :param-year="paramYear" />
 </template>
-
-<style scoped>
-a img {
-  border: 0;
-}
-</style>

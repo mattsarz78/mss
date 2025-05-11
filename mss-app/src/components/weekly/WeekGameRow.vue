@@ -49,7 +49,7 @@ const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.
   border-width: thin;
 }
 
-a img {
+:deep(.imgBorder) {
   border: 0;
 }
 

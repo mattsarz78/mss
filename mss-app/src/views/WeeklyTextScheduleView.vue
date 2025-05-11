@@ -15,11 +15,3 @@ addMetaTags(title);
 <template>
   <WeekTextSchedule :key="route.fullPath" v-reset-adsense-height :week="week" :sport="sport" :param-year="paramYear" />
 </template>
-
-<style scoped>
-@media only screen and (max-width: 640px) {
-  .DONTPrint a {
-    line-height: 13px;
-  }
-}
-</style>

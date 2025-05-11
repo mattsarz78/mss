@@ -74,7 +74,7 @@ const {
   display: inline-block;
 }
 
-a img {
+:deep(.imgBorder) {
   border: 0;
 }
 

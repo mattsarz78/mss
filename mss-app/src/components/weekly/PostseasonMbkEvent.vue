@@ -45,8 +45,7 @@ const coverageHtml = computed(() =>
   border-width: thin;
 }
 
-.coverage a img,
-.network a img {
+:deep(.imgBorder) {
   border: 0;
 }
 

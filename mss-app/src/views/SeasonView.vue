@@ -134,9 +134,5 @@ watch(result, updateStyles);
   #SeasonLinks {
     width: 100%;
   }
-
-  .DONTPrint a {
-    line-height: 13px;
-  }
 }
 </style>

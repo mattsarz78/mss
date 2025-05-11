@@ -36,7 +36,7 @@ onUnmounted(() => {
   transition: opacity 0.3s ease-in-out;
 }
 
-#backToTopBtn.show {
+.show {
   display: block;
   opacity: 1;
 }

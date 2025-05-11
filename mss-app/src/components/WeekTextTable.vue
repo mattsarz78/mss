@@ -121,12 +121,6 @@ const toggleRow = (event: Event) => {
   }
 }
 
-@media only screen and (max-width: 640px) {
-  .DONTPrint a {
-    line-height: 13px;
-  }
-}
-
 @media print {
   .DOPrint {
     display: table;

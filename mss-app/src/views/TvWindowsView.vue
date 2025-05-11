@@ -38,10 +38,6 @@ onMounted(adjustNavBar);
 </template>
 
 <style scoped>
-a img {
-  border: 0;
-}
-
 .navbar {
   position: fixed;
   top: 0;

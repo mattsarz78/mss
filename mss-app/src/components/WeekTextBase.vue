@@ -50,22 +50,7 @@ onMounted(() => {
   margin-top: 3px;
 }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  width: 100%;
-  background-color: white;
-  padding: 2px 0;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
 @media only screen and (max-width: 640px) {
-  .DONTPrint a {
-    line-height: 13px;
-  }
-
   #Directions {
     margin-top: 6px;
   }
