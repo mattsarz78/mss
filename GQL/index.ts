@@ -17,11 +17,19 @@ import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDate
 import { CommonService, CommonServiceKey } from './database/common';
 import bodyParser from 'body-parser';
 import compression from 'compression';
+import { Application } from 'express-serve-static-core';
 
 const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
 
 const app = express();
+
+// Express 5 shim
+app.use((req, res, next) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  req.body = req.body ?? {};
+  next();
+});
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const compress = compression({
@@ -71,6 +79,7 @@ async function startServer() {
   const resolversArray = loadFilesSync('./resolvers/**/*.resolvers.ts');
   const resolvers = mergeResolvers(resolversArray);
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const httpServer = http.createServer(app);
 
   const apolloServer = new ApolloServer<IContext>({
@@ -87,8 +96,13 @@ async function startServer() {
     '/graphql',
     expressMiddleware<IContext>(apolloServer, {
       context: async ({ req, res }) =>
-        Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req, response: res })
-    })
+        Promise.resolve({
+          db,
+          services: getDatabaseServices(databaseServices),
+          request: req,
+          response: res
+        } as unknown as IContext)
+    }) as Application
   );
 
   httpServer.listen(8020, () => {
