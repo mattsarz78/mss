@@ -22,9 +22,12 @@ const { isOnline } = useAppUtils();
 }
 
 .maincontainer {
+  font-family: 'Roboto', Arial;
+  background-color: White;
   max-width: 800px;
   margin: 0 auto;
   zoom: 1;
+  font-weight: 400;
 }
 
 .offline-banner {
@@ -37,5 +40,18 @@ const { isOnline } = useAppUtils();
   left: 0;
   right: 0;
   z-index: 1000;
+}
+
+@media all and (min-width: 641px) {
+  .maincontainer {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .maincontainer {
+    font-size: 0.75em;
+    margin: 2px;
+  }
 }
 </style>
