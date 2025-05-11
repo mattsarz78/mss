@@ -6,10 +6,8 @@ const { isOnline } = useAppUtils();
 </script>
 
 <template>
-  <div>
-    <div class="maincontainer">
-      <div v-if="!isOnline" class="offline-banner">You are currently offline</div>
-      <RouterView />
-    </div>
+  <div v-reset-adsense-height class="maincontainer">
+    <div v-if="!isOnline" class="offline-banner">You are currently offline</div>
+    <RouterView />
   </div>
 </template>

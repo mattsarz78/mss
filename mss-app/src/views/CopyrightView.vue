@@ -10,7 +10,7 @@ addMetaTags(title);
 </script>
 
 <template>
-  <div id="Main">
+  <div id="Main" v-reset-adsense-height>
     <div id="content">
       <div id="Links"><RouterLink to="/"> Home </RouterLink><br /></div>
       <div>

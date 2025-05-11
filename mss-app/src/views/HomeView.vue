@@ -29,7 +29,7 @@ const TwitterRetrieval = defineAsyncComponent(() => import('@/components/Twitter
 </script>
 
 <template>
-  <div id="Main">
+  <div id="Main" v-reset-adsense-height>
     <div><img id="imgtitle" loading="lazy" alt="Matt's College Sports" src="/images/logo.jpg" /><br /></div>
     <div id="content" ref="contentRef">
       <div id="Links" ref="linksRef">

@@ -23,6 +23,16 @@ const app = createApp({
   render: () => h(App)
 });
 
+app.directive('reset-adsense-height', {
+  created: (el: HTMLElement) => {
+    const observer = new MutationObserver(() => {
+      el.style.height = '';
+      el.style.minHeight = '';
+    });
+    observer.observe(el, { attributes: true, attributeFilter: ['style'] });
+  }
+});
+
 const head = createHead({ init: [{ title: "Matt's College Sports on TV" }], plugins: [InferSeoMetaPlugin()] });
 app.use(head);
 app.use(VueDOMPurifyHTML);

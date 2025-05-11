@@ -30,7 +30,7 @@ onMounted(adjustNavBar);
       </div>
     </div>
   </nav>
-  <div id="Main">
+  <div id="Main" v-reset-adsense-height>
     <iframe class="tvFrame" :src="flexLink" />
     <AdsByGoogle />
   </div>

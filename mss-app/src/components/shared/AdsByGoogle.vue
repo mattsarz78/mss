@@ -6,7 +6,7 @@ const GoogleSearchBar = defineAsyncComponent(() => import('./GoogleSearchBar.vue
 </script>
 
 <template>
-  <div class="DONTPrint">
+  <div v-reset-adsense-height class="DONTPrint">
     <GoogleSearchBar />
     <div class="gcse-search" />
     <AdsByGoogleScript />

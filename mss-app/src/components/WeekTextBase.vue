@@ -30,7 +30,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="Main">
+  <div id="Main" v-reset-adsense-height>
     <p id="Directions" class="DONTPrint">
       All start times displayed are based on your device's location. If you have trouble selecting &amp; printing games,
       please try selecting games, changing your print settings to "Print to PDF", print, then open the PDF file and

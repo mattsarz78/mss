@@ -13,7 +13,7 @@ addMetaTags(title);
 </script>
 
 <template>
-  <WeekTextSchedule :key="route.fullPath" :week="week" :sport="sport" :param-year="paramYear" />
+  <WeekTextSchedule :key="route.fullPath" v-reset-adsense-height :week="week" :sport="sport" :param-year="paramYear" />
 </template>
 
 <style scoped>

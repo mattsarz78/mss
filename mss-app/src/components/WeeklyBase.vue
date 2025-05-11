@@ -44,7 +44,7 @@ onMounted(() => {
 </script>
 
 <template v-if="datesList.length">
-  <div id="Main">
+  <div id="Main" v-reset-adsense-height>
     <div id="WeeksBase">
       <template v-if="tvGames.length === 0">
         <p>There are no televised games at this time</p>

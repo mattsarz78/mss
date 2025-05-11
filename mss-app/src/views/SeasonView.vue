@@ -60,7 +60,7 @@ watch(result, updateStyles);
       <div><RouterLink to="/"> Home </RouterLink><br /></div>
     </div>
   </nav>
-  <div id="Main">
+  <div id="Main" v-reset-adsense-height>
     <p>{{ title }}</p>
     <template v-if="error">Got a problem. Let Matt know.</template>
     <template v-if="loading">Loading...</template>

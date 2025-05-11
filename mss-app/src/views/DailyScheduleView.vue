@@ -28,7 +28,7 @@ const {
 </script>
 
 <template>
-  <div>
+  <div v-reset-adsense-height>
     <template v-if="dailyTvGameLoading">Loading {{ sport }} for {{ startDate }}</template>
     <template v-if="dailyTvGameError">Got a problem. Let Matt know.</template>
     <template v-if="dailyTvGameResult">

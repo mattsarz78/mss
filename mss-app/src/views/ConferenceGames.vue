@@ -58,8 +58,8 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
       </div>
     </nav>
 
-    <div id="Main">
-      <div id="head">
+    <div id="Main" v-reset-adsense-height>
+      <div id="head" v-reset-adsense-height>
         <p>
           {{ cased }} Broadcast Schedule<br /><strong
             >All start times displayed are based on your device's location.</strong
