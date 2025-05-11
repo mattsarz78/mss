@@ -82,7 +82,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
               <button
                 v-if="!isBowlWeek && !isMbkPostseason"
                 id="btnWebGames"
-                class="show_hideWeb"
+                class="show_hideWeb buttonfont"
                 @click="adjustWebExclusives">
                 Hide Web Exclusive Games
               </button>
@@ -140,7 +140,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   .mobilespan {
     display: block;
   }
-  button {
+  .buttonfont {
     font-size: 14px;
   }
 }
@@ -159,7 +159,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   .mobilehide {
     display: none;
   }
-  button {
+  .buttonfont {
     font-size: 0.9em;
   }
 }

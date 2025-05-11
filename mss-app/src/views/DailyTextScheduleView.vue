@@ -32,9 +32,11 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
             <RouterLink class="DONTPrint" :to="`/schedule/${sport}/daily`"> Daily Schedule </RouterLink>
             <br />
             <p id="TextNav" class="pad DONTPrint">
-              <button id="ClearAll" class="inputpad" @click="clearAllSelectedTextRows">Clear All Games</button>
+              <button id="ClearAll" class="inputpad buttonfont" @click="clearAllSelectedTextRows">
+                Clear All Games
+              </button>
 
-              <button id="CheckAll" class="inputpad" @click="checkAllTextRows">Check All Games</button>
+              <button id="CheckAll" class="inputpad buttonfont" @click="checkAllTextRows">Check All Games</button>
             </p>
           </div>
         </div>
@@ -88,7 +90,8 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
   .seasonhome {
     display: block;
   }
-  button {
+
+  .buttonfont {
     font-size: 14px;
   }
 }
@@ -107,7 +110,8 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
   .mobilehide {
     display: none;
   }
-  button {
+
+  .buttonfont {
     font-size: 0.9em;
   }
 }

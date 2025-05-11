@@ -21,7 +21,9 @@ const toggleNoTV = () => {
 
 <template>
   <div>
-    <button id="btnConferenceGames" class="show_hideNoTV" @click="toggleNoTV">Show Non-Televised Games</button>
+    <button id="btnConferenceGames" class="show_hideNoTV buttonfont" @click="toggleNoTV">
+      Show Non-Televised Games
+    </button>
     <template v-if="noTvGamesLoading">Loading Week {{ week }} for {{ year }}</template>
     <template v-if="noTvGamesError">
       <p>Sorry. Got a bit of a problem. Let Matt know.</p>
@@ -56,13 +58,13 @@ const toggleNoTV = () => {
 }
 
 @media only screen and (max-width: 640px) {
-  button {
+  .buttonfont {
     font-size: 0.9em;
   }
 }
 
 @media all and (min-width: 641px) {
-  button {
+  .buttonfont {
     font-size: 14px;
   }
 }

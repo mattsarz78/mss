@@ -49,7 +49,7 @@ const {
             </span>
             <br />
             <div v-if="dailyTvGameResult" class="filters">
-              <button id="btnWebGames" class="show_hideWeb" @click="adjustWebExclusives">
+              <button id="btnWebGames" class="show_hideWeb buttonfont" @click="adjustWebExclusives">
                 Hide Web Exclusive Games
               </button>
             </div>
@@ -108,7 +108,7 @@ a img {
     margin-top: 10px;
   }
 
-  button {
+  .buttonfont {
     font-size: 14px;
   }
 }
@@ -128,7 +128,7 @@ a img {
     margin-top: 5px;
   }
 
-  button {
+  .buttonfont {
     font-size: 0.9em;
   }
 }
