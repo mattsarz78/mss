@@ -1,10 +1,13 @@
 import { TV_GAMES, type TvGame } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
 import { computed } from 'vue';
-import { validSportYears } from '@/constants/validSportYears';
+import validSportYears from '@/staticData/validSportYears.json';
+import type { ValidSportYear } from '@/staticData/exportTypes';
 
 const hasNoTVGames = (year: string): boolean => {
-  return validSportYears.find((validSportYear) => validSportYear.season === year)?.hasNoTVGames ?? false;
+  return (
+    validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.hasNoTVGames ?? false
+  );
 };
 
 export function useWeekSchedule(sport: string, year: string, week: number) {

@@ -4,14 +4,16 @@ import { ref, watch } from 'vue';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
 import { useSeasonContents } from '@/composables/useSeasonContents';
-import { validSportYears } from '@/constants/validSportYears';
+import validSportYears from '@/staticData/validSportYears.json';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
+import type { ValidSportYear } from '@/staticData/exportTypes';
 
 const conferenceListBase = (sport: string, year: string): string => {
   return sport === 'football' && year !== '2021s'
-    ? (validSportYears.find((validSportYear) => validSportYear.season === year)?.conferenceListBase ?? '')
+    ? (validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.conferenceListBase ??
+      '')
     : '';
 };
 
@@ -57,7 +59,9 @@ watch(result, updateStyles);
 <template>
   <nav class="navbar DONTPrint">
     <div class="container">
-      <div><RouterLink to="/"> Home </RouterLink><br /></div>
+      <div>
+        <RouterLink to="/"> Home </RouterLink><br />
+      </div>
     </div>
   </nav>
   <div id="Main" v-reset-adsense-height>
@@ -74,8 +78,8 @@ watch(result, updateStyles);
     </template>
     <div class="inline-block">
       <p>
-        <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span
-        ><a id="HyperLink32" href="mailto:footballsked@gmail.com">Send it here</a>
+        <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span><a id="HyperLink32"
+          href="mailto:footballsked@gmail.com">Send it here</a>
       </p>
     </div>
     <AdsByGoogle />

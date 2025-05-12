@@ -1,17 +1,23 @@
-import { coverageMapLinks } from '../constants/coverageMapLinks';
 import {
   AFFILIATES,
   BLACKOUTMAP,
   CHANNELFINDER,
   COVERAGEMAP,
   COVERAGEMAP506,
-  imagesForUrls,
-  SPECIALCOVERAGENOTE
-} from '../constants/imagesForUrls';
-import { specialCoverageNotes } from '../constants/specialCoverageNotes';
-import { syndicationLinks } from '../constants/syndicationLinks';
+  SPECIALCOVERAGENOTE,
+  specialCoverageNotes,
+  syndicationLinks,
+  coverageMapLinks
+} from '@/staticData/constants';
+import imagesForUrls from '@/staticData/imagesForUrls.json';
 
 const seasonMap: Record<string, string> = { '2020r': '2020', '2021s': '2020' };
+
+interface ImagesForUrl {
+  link: string;
+  image: string;
+  yearEnd?: string;
+}
 
 export const formatNetworkJpgAndCoverage = (input: string, season: string): string => {
   const networks = input.split(',');
@@ -33,7 +39,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   });
 
   imageHyperlinks.forEach((imageHyperlink) => {
-    const imageArray = imagesForUrls.filter((x) => imageHyperlink.includes(x.link));
+    const imageArray = imagesForUrls.filter((x: ImagesForUrl) => imageHyperlink.includes(x.link));
     const imageUrl = getImageUrl(imageArray, season);
     imageHyperlinkString.push(
       `<a href="${imageHyperlink}" target="_blank">
@@ -107,7 +113,7 @@ function isHyperlink(network: string): boolean {
 }
 
 function isImageHyperlink(network: string): boolean {
-  return imagesForUrls.some((x) => network.includes(x.link));
+  return imagesForUrls.some((x: ImagesForUrl) => network.includes(x.link));
 }
 
 function isInformationLink(network: string): boolean {
