@@ -48,6 +48,7 @@ export default defineConfig(({ mode }) => {
   };
 
   if (process.env.NODE_ENV === 'development') {
+    console.log('Add dev dependencies');
     config.plugins?.push(loadVisualizer());
     config.plugins?.push(loadVueDevTools());
   }
