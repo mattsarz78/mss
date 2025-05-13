@@ -7,26 +7,6 @@ const props = defineProps<{ noTvGamesForDate: NoTvGame[]; noTvDate: string }>();
 const { noTvGamesForDate, noTvDate } = props;
 
 const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD'));
-
-const updatedTvOptions = (game: NoTvGame): string => {
-  const conferenceOptions: Record<string, (game: NoTvGame) => string> = {
-    American: (game) =>
-      game.homeTeam === 'Navy' || game.homeTeam === 'Army West Point'
-        ? game.tvOptions.replace(' or ESPN+', ' or CBS Sports Network')
-        : game.tvOptions,
-    MWC: (game) => {
-      if (game.homeTeam === "Hawai'i" || game.visitingTeam === "Hawai'i") {
-        return game.tvOptions.replace('MW Network', 'Spectrum PPV');
-      }
-      if (game.visitingTeam === 'Boise State') {
-        return 'CBS or CBS Sports Network';
-      }
-      return game.homeTeam === 'Boise State' ? 'FOX, FS1 or FS2' : game.tvOptions;
-    }
-  };
-
-  return conferenceOptions.hasOwnProperty(game.conference) ? conferenceOptions[game.conference](game) : game.tvOptions;
-};
 </script>
 
 <template>
@@ -63,7 +43,7 @@ const updatedTvOptions = (game: NoTvGame): string => {
             {{ noTvGameForDate.conference }}
           </td>
           <td class="telecast">
-            {{ updatedTvOptions(noTvGameForDate) }}
+            {{ noTvGameForDate.tvOptions }}
           </td>
         </tr>
       </tbody>

@@ -1,4 +1,4 @@
-import { FootballServiceKey } from '../database/football';
+import { FootballServiceKey, NoTVGames } from '../database/football';
 import { IContext } from '../context';
 import { NoTvGame, NoTvGamesInput } from '../__generated__/graphql';
 import { handleError, BadRequestError } from '../utils/errorHandler';
@@ -21,13 +21,33 @@ export const getNoTvGames = async (_1: unknown, { input }: NoTvGamesArgs, contex
       homeTeam: result.hometeam?.trim() ?? '',
       location: result.location?.trim() ?? '',
       conference: result.conference?.trim() ?? '',
-      tvOptions: result.tvoptions?.trim() ?? '',
+      tvOptions: updatedTvOptions(result),
       timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : '',
       fcs: result.fcs?.trim() ?? ''
     }));
   } catch (err: unknown) {
     throw handleError(err);
   }
+};
+
+const updatedTvOptions = (game: NoTVGames): string => {
+  if (game.conference === 'American' && (game.hometeam === 'Navy' || game.hometeam === 'Army West Point')) {
+    return game.tvoptions?.replace(' or ESPN+', ' or CBS Sports Network').trim() ?? 'Unknown';
+  }
+
+  if (game.conference === 'MWC') {
+    if (game.hometeam === "Hawai'i" || game.visitingteam === "Hawai'i") {
+      return game.tvoptions?.replace('MW Network', 'Spectrum PPV').trim() ?? 'Unknown';
+    }
+
+    if (game.visitingteam === 'Boise State') {
+      return 'CBS or CBS Sports Network';
+    }
+
+    return game.hometeam === 'Boise State' ? 'FOX, FS1 or FS2' : (game.tvoptions ?? 'Unknown');
+  }
+
+  return game.tvoptions ?? 'Unknown';
 };
 
 export default { Query: { noTvGames: getNoTvGames } };
