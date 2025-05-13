@@ -10,11 +10,8 @@ const props = defineProps<{ contents: WeekInfo[]; sport: string; paramYear: stri
 
 const { contents, sport, paramYear, year } = props;
 
-const hasBasketballPostseason = (year: string): boolean => {
-  return (
-    validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.hasPostseason ?? false
-  );
-};
+const hasBasketballPostseason =
+  validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.hasPostseason ?? false;
 
 const lastContent = contents[contents.length - 1];
 
@@ -44,9 +41,12 @@ const getPostseasonLinkText = (content: WeekInfo) => {
       <WeekLink :year="paramYear" :sport="sport" :content="content" :link-text="getLinkText(content)" />
     </template>
   </div>
-  <div v-else-if="sport === 'basketball' && hasBasketballPostseason(year)">
+  <div v-else-if="sport === 'basketball' && hasBasketballPostseason">
     <template v-for="(content, index) in filteredContents" :key="index">
-      <WeekLink :sport="sport" :content="content" :year="paramYear"
+      <WeekLink
+        :sport="sport"
+        :content="content"
+        :year="paramYear"
         :link-text="`Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd')} to ${DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd')}`" />
     </template>
     <p v-if="postseasonContents.length">
@@ -57,7 +57,10 @@ const getPostseasonLinkText = (content: WeekInfo) => {
   </div>
   <div v-else>
     <template v-for="(content, index) in contents" :key="index">
-      <WeekLink :sport="sport" :year="paramYear" :content="content"
+      <WeekLink
+        :sport="sport"
+        :year="paramYear"
+        :content="content"
         :link-text="`Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd')} to ${DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd')}`" />
     </template>
   </div>

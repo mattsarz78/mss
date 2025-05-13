@@ -4,6 +4,7 @@ export const BLACKOUTMAP = 'Blackout Map';
 export const COVERAGEMAP = 'Coverage Map';
 export const COVERAGEMAP506 = 'Coverage Map Courtesy The506.com';
 export const SPECIALCOVERAGENOTE = 'See link for full coverage information';
+export const FLEXLINKSETUP = '/pubhtml?widget=true&amp;headers=false';
 
 export const coverageMapLinks = [
   'http://txmgv24xack1i8jje2nayxpr.wpengine.netdna-cdn.com/us/files/2015/08/CF_Sep19-maps-MZ2.pdf',

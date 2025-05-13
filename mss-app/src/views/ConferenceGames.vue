@@ -7,11 +7,11 @@ import IndependentsGameList from '@/components/IndependentsGameList.vue';
 import { useConferenceGames } from '@/composables/useConferenceGames';
 import conferenceCasing from '@/staticData/conferenceCasing.json';
 import validSportYears from '@/staticData/validSportYears.json';
-import { flexScheduleLink } from '@/utils/flexSchedule';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
-import type { ConferenceCasing, ValidSportYear } from '@/staticData/exportTypes';
+import type { ConferenceCasing, FlexScheduleLink, ValidSportYear } from '@/staticData/exportTypes';
+import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
@@ -26,23 +26,22 @@ const title = `${year} ${cased} Controlled Games`;
 
 addMetaTags(title);
 
-const flexLink = flexScheduleLink(year);
+const flexLink = flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year)?.url ?? '';
 
-const getIndependentSchools = (year: string): string => {
-  return validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.independents ?? '';
-};
+const independentSchools =
+  validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.independents ?? '';
 
 const contractTvData =
   conference !== 'independents'
     ? (() => {
-      if (!id) {
-        throw new Error(`Invalid conference casing or ID for slug: ${conference}`);
-      }
-      return getConferenceContractData(id, year);
-    })()
+        if (!id) {
+          throw new Error(`Invalid conference casing or ID for slug: ${conference}`);
+        }
+        return getConferenceContractData(id, year);
+      })()
     : '';
 
-const { result, loading, error } = useConferenceGames(year, conference, lookup, getIndependentSchools);
+const { result, loading, error } = useConferenceGames(year, conference, lookup, independentSchools);
 </script>
 
 <template>
@@ -62,16 +61,20 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
     <div id="Main" v-reset-adsense-height>
       <div id="head" v-reset-adsense-height>
         <p>
-          {{ cased }} Broadcast Schedule<br /><strong>All start times displayed are based on your device's
-            location.</strong>
+          {{ cased }} Broadcast Schedule<br /><strong
+            >All start times displayed are based on your device's location.</strong
+          >
         </p>
         <p>
           NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
           non-conference games fall under the home team's telecast rights.
         </p>
         <div v-if="conference !== 'independents'" v-dompurify-html="contractTvData" />
-        <IndependentsGameList v-if="conference === 'independents'" :games="result.conferenceGames"
-          :schools="getIndependentSchools(year).split('|')" :year="year" />
+        <IndependentsGameList
+          v-if="conference === 'independents'"
+          :games="result.conferenceGames"
+          :schools="independentSchools.split('|')"
+          :year="year" />
         <ConferenceGameList v-else :year="year" :games="result.conferenceGames" />
         <BackToTop />
         <AdsByGoogle />
@@ -102,7 +105,6 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
 }
 
 @media all and (min-width: 641px) {
-
   .homelink,
   .seasonhome {
     display: block;
@@ -114,7 +116,6 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
 }
 
 @media only screen and (max-width: 640px) {
-
   .homelink,
   .seasonhome {
     display: inline-block;

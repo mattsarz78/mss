@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { addMetaTags } from '@/utils/metaTags';
 import { adjustNavBar } from '@/utils/navBar';
-import { flexScheduleLink } from '@/utils/flexSchedule';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
+import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
+import type { FlexScheduleLink } from '@/staticData/exportTypes';
+import { FLEXLINKSETUP } from '@/staticData/constants';
 
 const route = useRoute();
 const { year } = route.params as { year: string };
@@ -14,7 +16,7 @@ const title = `Football TV Windows for ${year}`;
 
 addMetaTags(title);
 
-const flexLink = `${flexScheduleLink(year)}/pubhtml?widget=true&amp;headers=false`;
+const flexLink = flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year)?.url ?? '';
 
 onMounted(adjustNavBar);
 </script>
@@ -31,7 +33,7 @@ onMounted(adjustNavBar);
     </div>
   </nav>
   <div id="Main" v-reset-adsense-height>
-    <iframe class="tvFrame" :src="flexLink" />
+    <iframe class="tvFrame" :src="`${flexLink}${FLEXLINKSETUP}`" />
     <AdsByGoogle />
   </div>
   <Copyright />

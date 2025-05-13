@@ -10,30 +10,22 @@ import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import type { ValidSportYear } from '@/staticData/exportTypes';
 
-const conferenceListBase = (sport: string, year: string): string => {
-  return sport === 'football' && year !== '2021s'
-    ? (validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.conferenceListBase ??
-      '')
-    : '';
-};
-
-const createTitle = (sport: string, year: string): string => {
-  const capitalized = `${sport.charAt(0).toUpperCase()}${sport.slice(1)}`;
-  return `${year} ${capitalized} Season`;
-};
-
 const route = useRoute();
 const sport = route.params.sport as string;
 const paramYear = route.params.year as string;
 const year = sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`;
 
-const title = createTitle(sport, paramYear);
+const title = `${year} ${sport.charAt(0).toUpperCase()}${sport.slice(1)} Season`;
 
 addMetaTags(title);
 
 const { result, loading, error } = useSeasonContents(year);
 
-const conferenceList = conferenceListBase(sport, year);
+const conferenceList =
+  sport === 'football' && year !== '2021s'
+    ? (validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.conferenceListBase ??
+      '')
+    : '';
 
 const contentRef = ref<HTMLElement | null>(null);
 const seasonLinksRef = ref<HTMLElement | null>(null);
@@ -59,9 +51,7 @@ watch(result, updateStyles);
 <template>
   <nav class="navbar DONTPrint">
     <div class="container">
-      <div>
-        <RouterLink to="/"> Home </RouterLink><br />
-      </div>
+      <div><RouterLink to="/"> Home </RouterLink><br /></div>
     </div>
   </nav>
   <div id="Main" v-reset-adsense-height>
@@ -78,8 +68,8 @@ watch(result, updateStyles);
     </template>
     <div class="inline-block">
       <p>
-        <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span><a id="HyperLink32"
-          href="mailto:footballsked@gmail.com">Send it here</a>
+        <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span
+        ><a id="HyperLink32" href="mailto:footballsked@gmail.com">Send it here</a>
       </p>
     </div>
     <AdsByGoogle />

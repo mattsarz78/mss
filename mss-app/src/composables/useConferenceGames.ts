@@ -5,10 +5,10 @@ export function useConferenceGames(
   year: string,
   conference: string,
   lookup: string | undefined,
-  getIndependentSchools: (year: string) => string
+  independentSchools: string
 ) {
   const { result, loading, error } = useQuery<{ conferenceGames: ConferenceGame[] }>(CONFERENCE_GAMES, {
-    input: { season: year, conference: conference === 'independents' ? getIndependentSchools(year) : lookup }
+    input: { season: year, conference: conference === 'independents' ? independentSchools : lookup }
   });
 
   return { result, loading, error };

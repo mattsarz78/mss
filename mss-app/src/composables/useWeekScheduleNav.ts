@@ -3,7 +3,8 @@ import { DateTime } from 'luxon';
 import { computed } from 'vue';
 import { useSeasonContents } from './useSeasonContents';
 import type { WeekInfo } from '@/graphQl';
-import { flexScheduleLink } from '@/utils/flexSchedule';
+import type { FlexScheduleLink } from '@/staticData/exportTypes';
+import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
 
 const isFirstWeek = (contents: WeekInfo[], week: number): boolean => {
   return contents[0].week === week;
@@ -69,7 +70,9 @@ export function useWeekScheduleNav(sport: string, paramYear: string, week: strin
   );
   const showPpvColumn = computed(() => shouldShowPpvColumn(year.value));
 
-  const flexLink = computed(() => flexScheduleLink(year.value));
+  const flexLink = computed(
+    () => flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year.value)?.url ?? ''
+  );
 
   return {
     seasonContentsResult,
