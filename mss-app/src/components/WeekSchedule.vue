@@ -7,9 +7,6 @@ import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 import BackToTop from './shared/BackToTop.vue';
-import { formatNetworkJpgAndCoverage } from '@/utils/image';
-import type { TvGame } from '@/graphQl';
-import { watch } from 'vue';
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
@@ -33,17 +30,6 @@ const {
 } = useWeekScheduleNav(sport, paramYear, week);
 
 const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSchedule(sport, year.value, weekInt);
-
-let newTVGames: TvGame[] = [];
-watch(tvGameResult, () => {
-  newTVGames =
-    tvGameResult.value?.tvGames.map((tvGame) => {
-      const networkJpg = tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg, year.value) : '';
-      const coverageNotes = tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, year.value) : '';
-      const ppv = tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv, year.value) : '';
-      return { ...tvGame, networkJpg, coverageNotes, ppv } as TvGame;
-    }) ?? [];
-});
 </script>
 
 <template>
@@ -108,7 +94,7 @@ watch(tvGameResult, () => {
     <template v-if="tvGameResult">
       <WeeklyBase
         :season="year"
-        :tv-games="newTVGames"
+        :tv-games="tvGameResult.tvGames"
         :is-bowl-week="isBowlWeek"
         :is-mbk-postseason="isMbkPostseason"
         :show-ppv-column="showPpvColumn" />
@@ -154,7 +140,6 @@ watch(tvGameResult, () => {
   .mobilespan {
     display: block;
   }
-
   .buttonfont {
     font-size: 14px;
   }
@@ -174,7 +159,6 @@ watch(tvGameResult, () => {
   .mobilehide {
     display: none;
   }
-
   .buttonfont {
     font-size: 0.9em;
   }

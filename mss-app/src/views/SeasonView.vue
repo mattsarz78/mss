@@ -15,7 +15,7 @@ const sport = route.params.sport as string;
 const paramYear = route.params.year as string;
 const year = sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`;
 
-const title = `${year} ${sport.charAt(0).toUpperCase()}${sport.slice(1)} Season`;
+const title = `${paramYear} ${sport.charAt(0).toUpperCase()}${sport.slice(1)} Season`;
 
 addMetaTags(title);
 
