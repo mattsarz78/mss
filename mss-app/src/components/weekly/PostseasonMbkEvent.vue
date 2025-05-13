@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { formatNetworkJpgAndCoverage } from '@/utils/image';
 import { formatTime } from '@/utils/game';
-import { computed } from 'vue';
 
-const props = defineProps<{ tvGame: TvGame; season: string }>();
-const { tvGame, season } = props;
-
-const networkHtml = computed(() => (tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season) : ''));
-const coverageHtml = computed(() =>
-  tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season) : ''
-);
+const props = defineProps<{ tvGame: TvGame }>();
+const { tvGame } = props;
 </script>
 
 <template>
@@ -31,8 +24,8 @@ const coverageHtml = computed(() =>
       </template>
     </template>
   </td>
-  <td v-dompurify-html="networkHtml" class="network" />
-  <td v-dompurify-html="coverageHtml" class="coverage" />
+  <td v-dompurify-html="tvGame.networkJpg" class="network" />
+  <td v-dompurify-html="tvGame.coverageNotes" class="coverage" />
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>

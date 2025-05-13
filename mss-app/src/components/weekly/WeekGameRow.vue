@@ -1,17 +1,9 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
 import { formatGame, formatTime } from '@/utils/game';
-import { formatNetworkJpgAndCoverage } from '@/utils/image';
-import { computed } from 'vue';
 
-const props = defineProps<{ tvGame: TvGame; showPPVColumn: boolean; season: string }>();
-const { tvGame, showPPVColumn, season } = props;
-
-const networkHtml = computed(() => (tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season) : ''));
-const coverageHtml = computed(() =>
-  tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season) : ''
-);
-const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv, season) : ''));
+const props = defineProps<{ tvGame: TvGame; showPPVColumn: boolean }>();
+const { tvGame, showPPVColumn } = props;
 </script>
 
 <template>
@@ -29,9 +21,9 @@ const ppvHtml = computed(() => (tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.
     </template>
     <template v-if="tvGame.location"> (at {{ tvGame.location }}) </template>
   </td>
-  <td v-dompurify-html="networkHtml" class="network"></td>
-  <td v-dompurify-html="coverageHtml" :class="showPPVColumn ? 'coverage' : 'coverageppv'"></td>
-  <td v-if="showPPVColumn" v-dompurify-html="ppvHtml" class="ppv"></td>
+  <td v-dompurify-html="tvGame.networkJpg" class="network"></td>
+  <td v-dompurify-html="tvGame.coverageNotes" :class="showPPVColumn ? 'coverage' : 'coverageppv'"></td>
+  <td v-if="showPPVColumn" v-dompurify-html="tvGame.ppv" class="ppv"></td>
   <td class="time">
     {{ formatTime(tvGame.timeWithOffset!) }}
   </td>

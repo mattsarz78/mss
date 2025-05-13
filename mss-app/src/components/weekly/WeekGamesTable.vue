@@ -11,10 +11,9 @@ const props = defineProps<{
   isMbkPostseason: boolean;
   isBowlWeek: boolean;
   showPpvColumn: boolean;
-  season: string;
 }>();
 
-const { weekDate, tvGamesForDate, isMbkPostseason, isBowlWeek, showPpvColumn, season } = props;
+const { weekDate, tvGamesForDate, isMbkPostseason, isBowlWeek, showPpvColumn } = props;
 
 const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD'));
 </script>
@@ -36,10 +35,10 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
         <template v-for="(tvGame, index) in tvGamesForDate" :key="index">
           <tr :class="{ webGame: tvGame.mediaIndicator === 'W' }">
             <template v-if="isBowlWeek || isMbkPostseason">
-              <PostseasonMbkEvent :tv-game="tvGame" :season="season" />
+              <PostseasonMbkEvent :tv-game="tvGame" />
             </template>
             <template v-else>
-              <WeekGameRow :season="season" :show-p-p-v-column="showPpvColumn" :tv-game="tvGame" />
+              <WeekGameRow :show-p-p-v-column="showPpvColumn" :tv-game="tvGame" />
             </template>
           </tr>
         </template>
@@ -53,6 +52,7 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
 .webGame {
   display: table-row;
 }
+
 .header {
   text-align: center;
 }

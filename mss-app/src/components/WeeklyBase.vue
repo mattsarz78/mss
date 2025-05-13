@@ -4,6 +4,7 @@ import { adjustNavBar } from '@/utils/navBar';
 import { DateTime } from 'luxon';
 import { computed, onMounted } from 'vue';
 import WeekGamesTable from '@/components/weekly/WeekGamesTable.vue';
+import { formatNetworkJpgAndCoverage } from '@/utils/image';
 
 const props = defineProps<{
   tvGames: TvGame[];
@@ -15,9 +16,18 @@ const props = defineProps<{
 
 const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, season } = props;
 
+const updatedGames = computed(() =>
+  tvGames.map((tvGame) => {
+    const networkJpg = tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season) : '';
+    const coverageNotes = tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season) : '';
+    const ppv = tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv, season) : '';
+    return { ...tvGame, networkJpg, coverageNotes, ppv } as TvGame;
+  })
+);
+
 const datesList = computed(() => {
   const dates = new Set<string>();
-  tvGames.forEach((value) => {
+  updatedGames.value.forEach((value) => {
     if (value.timeWithOffset) {
       const date = DateTime.fromISO(value.timeWithOffset).toLocal().toISODate();
       if (date) {
@@ -31,7 +41,7 @@ const datesList = computed(() => {
 const tvGamesByDate = computed(() => {
   const gamesByDate: Record<string, TvGame[]> = {};
   datesList.value.forEach((date) => {
-    gamesByDate[date] = tvGames.filter(
+    gamesByDate[date] = updatedGames.value.filter(
       (game) => game.timeWithOffset && DateTime.fromISO(game.timeWithOffset).toLocal().toISODate() === date
     );
   });
@@ -55,7 +65,6 @@ onMounted(() => {
         </p>
         <div v-for="(weekDate, index) in datesList" :key="index">
           <WeekGamesTable
-            :season="season"
             :week-date="weekDate"
             :is-bowl-week="isBowlWeek"
             :is-mbk-postseason="isMbkPostseason"
