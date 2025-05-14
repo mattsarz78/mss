@@ -9,21 +9,23 @@ const props = defineProps<{ games: ConferenceGame[]; year: string }>();
 const { games, year } = props;
 
 const formattedGames = computed(() =>
-  games.map((game) => ({
-    ...game,
-    formattedNetwork: game.network ? formatNetworkJpgAndCoverage(game.network, year) : '',
-    formattedTime: {
-      day:
-        DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toFormat('t') === '12:00 AM'
-          ? DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toFormat('cccc')
-          : DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('cccc'),
-      date:
-        DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toFormat('t') === '12:00 AM'
-          ? DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toFormat('LL/dd')
-          : DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('LL/dd'),
-      time: formatTime(game.timeWithOffset)
-    }
-  }))
+  games.map((game) => {
+    const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York');
+    const isMidnightEastern = easternTime.toFormat('t') === '12:00 AM';
+    const dayFormat = 'cccc';
+    const dateFormat = 'LL/dd';
+    const timeSource = isMidnightEastern ? easternTime : DateTime.fromISO(game.timeWithOffset).toLocal();
+
+    return {
+      ...game,
+      formattedNetwork: game.network ? formatNetworkJpgAndCoverage(game.network, year) : '',
+      formattedTime: {
+        day: timeSource.toFormat(dayFormat),
+        date: timeSource.toFormat(dateFormat),
+        time: formatTime(game.timeWithOffset)
+      }
+    };
+  })
 );
 </script>
 

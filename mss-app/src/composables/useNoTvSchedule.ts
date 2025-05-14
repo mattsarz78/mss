@@ -13,23 +13,17 @@ export function useNoTvSchedule(week: string, year: string) {
   } = useQuery<{ noTvGames: NoTvGame[] }>(NO_TV_GAMES, { input: { season: year, week: weekInt } });
 
   const datesList = computed(() => {
-    const dates = new Set<string>();
-    noTvGamesResults.value?.noTvGames.forEach((value) => {
-      if (value.timeWithOffset) {
-        const easternTime = DateTime.fromISO(value.timeWithOffset).setZone('America/New_York').toFormat('t');
-        if (easternTime === '12:00 AM') {
-          const easternDate = DateTime.fromISO(value.timeWithOffset).setZone('America/New_York').toISODate();
-          if (easternDate) {
-            dates.add(easternDate);
-          }
-        } else {
-          const date = DateTime.fromISO(value.timeWithOffset).toLocal().toISODate();
-          if (date) {
-            dates.add(date);
-          }
-        }
-      }
-    });
+    const dates = new Set(
+      noTvGamesResults.value?.noTvGames
+        .filter((game) => game.timeWithOffset)
+        .map((game) => {
+          const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York');
+          return easternTime.toFormat('t') === '12:00 AM'
+            ? easternTime.toISODate()
+            : DateTime.fromISO(game.timeWithOffset).toLocal().toISODate();
+        })
+        .filter((date) => !!date) // Remove any potentially undefined dates
+    ) as Set<string>;
     return Array.from(dates);
   });
 
