@@ -29,9 +29,17 @@ const datesList = computed(() => {
   const dates = new Set<string>();
   updatedGames.value.forEach((value) => {
     if (value.timeWithOffset) {
-      const date = DateTime.fromISO(value.timeWithOffset).toLocal().toISODate();
-      if (date) {
-        dates.add(date);
+      const easternTime = DateTime.fromISO(value.timeWithOffset).setZone('America/New_York').toFormat('t');
+      if (easternTime === '12:00 AM') {
+        const easternDate = DateTime.fromISO(value.timeWithOffset).setZone('America/New_York').toISODate();
+        if (easternDate) {
+          dates.add(easternDate);
+        }
+      } else {
+        const date = DateTime.fromISO(value.timeWithOffset).toLocal().toISODate();
+        if (date) {
+          dates.add(date);
+        }
       }
     }
   });
@@ -41,9 +49,19 @@ const datesList = computed(() => {
 const tvGamesByDate = computed(() => {
   const gamesByDate: Record<string, TvGame[]> = {};
   datesList.value.forEach((date) => {
-    gamesByDate[date] = updatedGames.value.filter(
-      (game) => game.timeWithOffset && DateTime.fromISO(game.timeWithOffset).toLocal().toISODate() === date
-    );
+    gamesByDate[date] = updatedGames.value.filter((game) => {
+      if (game.timeWithOffset) {
+        const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toFormat('t');
+        if (easternTime === '12:00 AM') {
+          const easternDate = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toISODate();
+          if (easternDate) {
+            return easternDate === date;
+          }
+        } else {
+          return DateTime.fromISO(game.timeWithOffset).toLocal().toISODate() === date;
+        }
+      }
+    });
   });
   return gamesByDate;
 });

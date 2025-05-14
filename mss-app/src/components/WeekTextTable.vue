@@ -66,7 +66,9 @@ const toggleRow = (event: Event) => {
           </td>
           <td class="tablecell timecell">
             <template v-if="formatTime(tvGame.timeWithOffset!) === 'TBA'">
-              <span />{{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy') + ' TBA' }}
+              <span />{{
+                DateTime.fromISO(tvGame.timeWithOffset!).setZone('America/New_York').toFormat('MM/dd/yyyy') + ' TBA'
+              }}
             </template>
             <template v-else>
               {{ DateTime.fromISO(tvGame.timeWithOffset!).toLocal().toFormat('MM/dd/yyyy t') }}

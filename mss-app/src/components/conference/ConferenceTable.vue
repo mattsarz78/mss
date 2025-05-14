@@ -13,8 +13,14 @@ const formattedGames = computed(() =>
     ...game,
     formattedNetwork: game.network ? formatNetworkJpgAndCoverage(game.network, year) : '',
     formattedTime: {
-      day: DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('cccc'),
-      date: DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('LL/dd'),
+      day:
+        DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toFormat('t') === '12:00 AM'
+          ? DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toFormat('cccc')
+          : DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('cccc'),
+      date:
+        DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toFormat('t') === '12:00 AM'
+          ? DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toFormat('LL/dd')
+          : DateTime.fromISO(game.timeWithOffset).toLocal().toFormat('LL/dd'),
       time: formatTime(game.timeWithOffset)
     }
   }))

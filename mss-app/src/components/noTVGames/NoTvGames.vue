@@ -39,7 +39,7 @@ const toggleNoTV = () => {
           :no-tv-date="noTVDate"
           :no-tv-games-for-date="
             noTvGamesResults?.noTvGames.filter(
-              (x) => DateTime.fromISO(x.timeWithOffset).toLocal().toISODate() === noTVDate
+              (x) => DateTime.fromISO(x.timeWithOffset).setZone('America/New_York').toISODate() === noTVDate
             ) || []
           " />
         <br />
