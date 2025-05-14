@@ -35,5 +35,5 @@ export const routes: RouteRecordRaw[] = [
   { path: '/schedule/:sport/daily/text', component: DailyTextScheduleView }
 ];
 
-const router = createRouter({ history: createWebHistory(), routes });
+const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes });
 export default router;
