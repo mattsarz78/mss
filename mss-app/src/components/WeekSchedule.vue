@@ -7,9 +7,20 @@ import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 import BackToTop from './shared/BackToTop.vue';
+import { computed } from 'vue';
+import { DateTime } from 'luxon';
+import { shouldShowPpvColumn } from '@/utils/ppvColumn';
+import type { FlexScheduleLink } from '@/staticData/exportTypes';
+import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
+
+const year = computed(() =>
+  sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`
+);
+
+const weekInt = computed(() => parseInt(week));
 
 const {
   seasonContentsResult,
@@ -19,17 +30,29 @@ const {
   previousWeek,
   isBowlWeek,
   isMbkPostseason,
-  gamesToday,
   isWeekOne,
   isNextWeekMbkPostseason,
-  isNextWeekBowlWeek,
-  showPpvColumn,
-  weekInt,
-  year,
-  flexLink
-} = useWeekScheduleNav(sport, paramYear, week);
+  isNextWeekBowlWeek
+} = useWeekScheduleNav(sport, year.value, weekInt.value);
 
-const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSchedule(sport, year.value, weekInt);
+const gamesToday = computed(() => {
+  return (
+    seasonContentsResult.value?.seasonContents
+      .filter((x) => x.week === weekInt.value)
+      .some((x) => {
+        const dateToCompare = DateTime.now().setZone('America/New_York');
+        return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare;
+      }) ?? false
+  );
+});
+
+const showPpvColumn = computed(() => shouldShowPpvColumn(year.value));
+
+const flexLink = computed(
+  () => flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year.value)?.url ?? ''
+);
+
+const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSchedule(sport, year.value, weekInt.value);
 </script>
 
 <template>
@@ -140,6 +163,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   .mobilespan {
     display: block;
   }
+
   .buttonfont {
     font-size: 14px;
   }
@@ -159,6 +183,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   .mobilehide {
     display: none;
   }
+
   .buttonfont {
     font-size: 0.9em;
   }

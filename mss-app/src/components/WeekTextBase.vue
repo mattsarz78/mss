@@ -18,7 +18,7 @@ const addDontPrintClass = () => {
   const selectors = document.querySelectorAll<HTMLElement>(
     'ins.adsbygoogle,ins.adsbygoogle.adsbygoogle-noablate,.gsc-control-cse'
   );
-  selectors.forEach((selector) => {
+  Array.from(selectors).map((selector) => {
     selector.classList.add('DONTPrint');
   });
 };

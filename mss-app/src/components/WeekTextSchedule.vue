@@ -7,9 +7,16 @@ import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
+import { computed } from 'vue';
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
+
+const year = computed(() =>
+  sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`
+);
+
+const weekInt = computed(() => parseInt(week));
 
 const {
   seasonContentsResult,
@@ -21,12 +28,10 @@ const {
   isMbkPostseason,
   isWeekOne,
   isNextWeekMbkPostseason,
-  isNextWeekBowlWeek,
-  weekInt,
-  year
-} = useWeekScheduleNav(sport, paramYear, week);
+  isNextWeekBowlWeek
+} = useWeekScheduleNav(sport, year.value, weekInt.value);
 
-const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, year.value, weekInt);
+const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, year.value, weekInt.value);
 </script>
 
 <template>
@@ -124,6 +129,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
   .seasonhome {
     display: block;
   }
+
   .buttonfont {
     font-size: 14px;
   }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { formatTime } from '@/utils/game';
+import { formatTime, formatGame } from '@/utils/game';
 
 const props = defineProps<{ tvGame: TvGame }>();
 const { tvGame } = props;
@@ -12,18 +12,16 @@ const { tvGame } = props;
       <span class="gameTitle">{{ tvGame.gameTitle }}</span>
       <br />
     </template>
-    <template v-if="tvGame.location">
-      <template v-if="tvGame.visitingTeam?.length">
-        {{ tvGame.visitingTeam[0] }} vs. {{ tvGame.homeTeam![0] }}<br />
-      </template>
-      (at {{ tvGame.location }})<br />
+    <template v-if="tvGame.visitingTeam?.length === 0" />
+    <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
+      {{ tvGame.visitingTeam![0] }} {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
     </template>
     <template v-else>
-      <template v-if="tvGame.visitingTeam?.length">
-        {{ tvGame.visitingTeam[0] }} at {{ tvGame.homeTeam![0] }}<br />
-      </template>
+      <div v-dompurify-html="formatGame(tvGame)" />
     </template>
+    <template v-if="tvGame.location"> (at {{ tvGame.location }}) </template>
   </td>
+
   <td v-dompurify-html="tvGame.networkJpg" class="network" />
   <td v-dompurify-html="tvGame.coverageNotes" class="coverage" />
   <td class="time">

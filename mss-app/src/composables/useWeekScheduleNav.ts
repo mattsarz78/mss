@@ -1,10 +1,6 @@
-import { shouldShowPpvColumn } from '@/utils/ppvColumn';
-import { DateTime } from 'luxon';
 import { computed } from 'vue';
 import { useSeasonContents } from './useSeasonContents';
 import type { WeekInfo } from '@/graphQl';
-import type { FlexScheduleLink } from '@/staticData/exportTypes';
-import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
 
 const isFirstWeek = (contents: WeekInfo[], week: number): boolean => {
   return contents[0].week === week;
@@ -28,50 +24,30 @@ const isBasketballPostseason = (sport: string, contents: WeekInfo[], week: numbe
   return sport === 'basketball' && contents.some((x) => x.week === week && x.postseasonInd);
 };
 
-export function useWeekScheduleNav(sport: string, paramYear: string, week: string) {
-  const weekInt = parseInt(week);
-  const year = computed(() =>
-    sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`
-  );
-
+export function useWeekScheduleNav(sport: string, year: string, week: number) {
   const {
     result: seasonContentsResult,
     loading: seasonContentsLoading,
     error: seasonContentsError
-  } = useSeasonContents(year.value);
+  } = useSeasonContents(year);
 
-  const nextWeek = computed(() => weekInt + 1);
-  const previousWeek = computed(() => weekInt - 1);
+  const nextWeek = computed(() => week + 1);
+  const previousWeek = computed(() => week - 1);
 
   const isBowlWeek = computed(() =>
     seasonContentsResult.value?.seasonContents
-      ? isBowlGameWeek(sport, seasonContentsResult.value.seasonContents, weekInt)
+      ? isBowlGameWeek(sport, seasonContentsResult.value.seasonContents, week)
       : false
   );
   const isMbkPostseason = computed(() =>
-    isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents ?? [], weekInt)
+    isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents ?? [], week)
   );
-  const gamesToday = computed(() => {
-    return (
-      seasonContentsResult.value?.seasonContents
-        .filter((x) => x.week === weekInt)
-        .some((x) => {
-          const dateToCompare = DateTime.now().setZone('America/New_York');
-          return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare;
-        }) ?? false
-    );
-  });
-  const isWeekOne = computed(() => isFirstWeek(seasonContentsResult.value?.seasonContents ?? [], weekInt));
+  const isWeekOne = computed(() => isFirstWeek(seasonContentsResult.value?.seasonContents ?? [], week));
   const isNextWeekMbkPostseason = computed(() =>
-    isNextWeekBasketballPostseason(sport, seasonContentsResult.value?.seasonContents ?? [], weekInt)
+    isNextWeekBasketballPostseason(sport, seasonContentsResult.value?.seasonContents ?? [], week)
   );
   const isNextWeekBowlWeek = computed(() =>
-    isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents ?? [], weekInt)
-  );
-  const showPpvColumn = computed(() => shouldShowPpvColumn(year.value));
-
-  const flexLink = computed(
-    () => flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year.value)?.url ?? ''
+    isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents ?? [], week)
   );
 
   return {
@@ -82,13 +58,8 @@ export function useWeekScheduleNav(sport: string, paramYear: string, week: strin
     previousWeek,
     isBowlWeek,
     isMbkPostseason,
-    gamesToday,
     isWeekOne,
     isNextWeekMbkPostseason,
-    isNextWeekBowlWeek,
-    showPpvColumn,
-    weekInt,
-    year,
-    flexLink
+    isNextWeekBowlWeek
   };
 }
