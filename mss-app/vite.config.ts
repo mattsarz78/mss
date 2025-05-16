@@ -103,6 +103,8 @@ function chunkGroup(id: string): string | Rollup.NullValue {
     'src/components/noTVGames/NoTvGamesTable.vue'
   ];
 
+  if (id.includes('node_modules')) return 'vendor';
+
   if (adsGroup.some((x) => id.includes(x))) return 'ads-group';
 
   if (homeGroup.some((x) => id.includes(x))) return 'group-home';
@@ -120,8 +122,6 @@ function chunkGroup(id: string): string | Rollup.NullValue {
   if (weekScheduleView.some((x) => id.includes(x))) return 'group-week-schedule-view';
 
   if (conferenceGames.some((x) => id.includes(x))) return 'group-conference-games';
-
-  if (id.includes('node_modules')) return 'vendor';
 }
 
 async function loadVueDevTools() {
