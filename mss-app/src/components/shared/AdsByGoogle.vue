@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
-
-const AdsByGoogleScript = defineAsyncComponent(() => import('./AdsByGoogleScript.vue'));
-const GoogleSearchBar = defineAsyncComponent(() => import('./GoogleSearchBar.vue'));
+import AdsByGoogleScript from '@/components/shared/AdsByGoogleScript.vue';
+import GoogleSearchBar from '@/components/shared/GoogleSearchBar.vue';
 </script>
 
 <template>
@@ -17,6 +15,6 @@ const GoogleSearchBar = defineAsyncComponent(() => import('./GoogleSearchBar.vue
       data-ad-slot="9539391470"
       data-ad-format="auto"
       data-full-width-responsive="true"></ins>
-    <component :is="'script'"> (adsbygoogle = window.adsbygoogle || []).push({}); </component>
+    <component :is="'script'" async> (adsbygoogle = window.adsbygoogle || []).push({}); </component>
   </div>
 </template>

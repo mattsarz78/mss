@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
-import BackToTopButton from './BackToTopButton.vue';
+import BackToTopButton from '@/components/shared/BackToTopButton.vue';
 
-const BackToTopScript = defineAsyncComponent(() => import('./BackToTopScript.vue'));
+import BackToTopScript from '@/components/shared/BackToTopScript.vue';
 </script>
 
 <template>

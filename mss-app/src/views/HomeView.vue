@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { defineAsyncComponent, ref } from 'vue';
+import { ref } from 'vue';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
+import TwitterRetrieval from '@/components/TwitterRetrieval.vue';
 
 const title = "Matt's College Sports on TV";
 
@@ -24,8 +25,6 @@ const adjustLayout = (): void => {
 };
 
 adjustLayout();
-
-const TwitterRetrieval = defineAsyncComponent(() => import('@/components/TwitterRetrieval.vue'));
 </script>
 
 <template>
