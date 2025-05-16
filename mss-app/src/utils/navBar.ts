@@ -1,8 +1,8 @@
 export const adjustNavBar = (): void => {
-  const navbar = document.querySelector('.navbar');
-  const main = document.querySelector('#Main');
-  if (navbar && main) {
+  const navbar = document.getElementsByClassName('navbar')[0];
+  const main = document.getElementById('Main');
+  if (main) {
     const paddingAddition = navbar.clientHeight - 7;
-    main.setAttribute('style', `padding-top: ${paddingAddition.toString()}px`);
+    main.style.paddingTop = `${paddingAddition.toString()}px`;
   }
 };

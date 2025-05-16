@@ -18,7 +18,7 @@ addMetaTags(title);
 
 const flexLink = flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year)?.url ?? '';
 
-onMounted(adjustNavBar);
+onMounted(() => adjustNavBar);
 </script>
 
 <template>

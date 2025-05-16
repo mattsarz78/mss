@@ -1,5 +1,5 @@
 export const adjustWebExclusives = (): void => {
-  const webGames = document.querySelectorAll<HTMLElement>('.webGame');
+  const webGames = document.getElementsByClassName('webGame') as HTMLCollectionOf<HTMLElement>;
   const button = document.getElementById('btnWebGames');
 
   if (!button) {
@@ -7,7 +7,7 @@ export const adjustWebExclusives = (): void => {
   }
   const buttonTitle = button.innerText;
 
-  webGames.forEach((webgame) => {
+  Array.from(webGames).forEach((webgame) => {
     webgame.style.display = webgame.style.display === 'none' ? '' : 'none';
   });
 
