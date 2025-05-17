@@ -63,9 +63,9 @@ const {
         :is-mbk-postseason="false"
         :show-ppv-column="shouldShowPpvColumn(season)" />
       <BackToTop />
+      <AdsByGoogle />
+      <Copyright />
     </template>
-    <AdsByGoogle />
-    <Copyright />
   </div>
 </template>
 

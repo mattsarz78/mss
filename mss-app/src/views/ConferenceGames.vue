@@ -45,47 +45,45 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
 </script>
 
 <template>
-  <div>
-    <template v-if="result">
-      <nav class="navbar DONTPrint">
-        <div class="container">
-          <div>
-            <span>
-              <RouterLink class="homelink" to="/">Home</RouterLink>
-              <RouterLink class="seasonhome" :to="`/season/football/${year}`">Season Home</RouterLink>
-            </span>
-            <RouterLink v-if="flexLink" :to="`/tv-windows/${year}`" target="_blank"> Available TV Windows </RouterLink>
-          </div>
-        </div>
-      </nav>
-
-      <div id="Main" v-reset-adsense-height>
-        <div id="head" v-reset-adsense-height>
-          <p>
-            {{ cased }} Broadcast Schedule<br /><strong
-              >All start times displayed are based on your device's location.</strong
-            >
-          </p>
-          <p>
-            NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
-            non-conference games fall under the home team's telecast rights.
-          </p>
-          <div v-if="conference !== 'independents'" v-dompurify-html="contractTvData" />
-          <IndependentsGameList
-            v-if="conference === 'independents'"
-            :games="result.conferenceGames"
-            :schools="independentSchools.split('|')"
-            :year="year" />
-          <ConferenceGameList v-else :year="year" :games="result.conferenceGames" />
+  <template v-if="result">
+    <nav class="navbar DONTPrint">
+      <div class="container">
+        <div>
+          <span>
+            <RouterLink class="homelink" to="/">Home</RouterLink>
+            <RouterLink class="seasonhome" :to="`/season/football/${year}`">Season Home</RouterLink>
+          </span>
+          <RouterLink v-if="flexLink" :to="`/tv-windows/${year}`" target="_blank"> Available TV Windows </RouterLink>
         </div>
       </div>
-    </template>
-    <template v-if="loading">{{ cased }} Games Loading...</template>
-    <template v-if="error">Got a problem. Let Matt know.</template>
-    <BackToTop />
-    <AdsByGoogle />
-  </div>
-  <Copyright />
+    </nav>
+
+    <div id="Main" v-reset-adsense-height>
+      <div id="head" v-reset-adsense-height>
+        <p>
+          {{ cased }} Broadcast Schedule<br /><strong
+            >All start times displayed are based on your device's location.</strong
+          >
+        </p>
+        <p>
+          NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
+          non-conference games fall under the home team's telecast rights.
+        </p>
+        <div v-if="conference !== 'independents'" v-dompurify-html="contractTvData" />
+        <IndependentsGameList
+          v-if="conference === 'independents'"
+          :games="result.conferenceGames"
+          :schools="independentSchools.split('|')"
+          :year="year" />
+        <ConferenceGameList v-else :year="year" :games="result.conferenceGames" />
+        <BackToTop />
+        <AdsByGoogle />
+      </div>
+    </div>
+    <Copyright />
+  </template>
+  <template v-if="loading">{{ cased }} Games Loading...</template>
+  <template v-if="error">Got a problem. Let Matt know.</template>
 </template>
 
 <style scoped>
