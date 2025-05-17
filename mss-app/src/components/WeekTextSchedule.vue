@@ -87,9 +87,9 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
         :is-mbk-postseason="isMbkPostseason"
         :show-ppv-column="shouldShowPpvColumn(year)" />
       <BackToTop />
-      <AdsByGoogle />
-      <Copyright />
     </template>
+    <AdsByGoogle />
+    <Copyright />
   </div>
 </template>
 

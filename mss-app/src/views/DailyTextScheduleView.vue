@@ -48,9 +48,9 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
         :is-mbk-postseason="false"
         :show-ppv-column="shouldShowPpvColumn(paramYear)" />
       <BackToTop />
-      <AdsByGoogle />
-      <Copyright />
     </template>
+    <AdsByGoogle />
+    <Copyright />
   </div>
 </template>
 

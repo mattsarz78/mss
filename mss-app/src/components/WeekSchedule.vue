@@ -123,9 +123,9 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
         :show-ppv-column="showPpvColumn" />
       <NoTvGames v-if="!isBowlWeek && showNoTvGames" :sport="sport" :year="year" :week="week" />
       <BackToTop />
-      <AdsByGoogle />
-      <Copyright />
     </template>
+    <AdsByGoogle />
+    <Copyright />
   </div>
 </template>
 
