@@ -1,13 +1,13 @@
-<script setup lang="ts">
-import AdsByGoogleScript from '@/components/shared/AdsByGoogleScript.vue';
-import GoogleSearchBar from '@/components/shared/GoogleSearchBar.vue';
-</script>
-
 <template>
   <div v-reset-adsense-height class="DONTPrint">
-    <GoogleSearchBar />
+    <component :is="'script'" async src="https://cse.google.com/cse.js?cx=partner-pub-0296554708545211:rp92al-azpy" />
     <div class="gcse-search" />
-    <AdsByGoogleScript />
+    <component
+      :is="'script'"
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0296554708545211"
+      crossorigin="anonymous">
+    </component>
     <ins
       class="adsbygoogle"
       style="display: block"

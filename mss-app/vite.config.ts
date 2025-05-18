@@ -59,16 +59,20 @@ function chunkGroup(id: string): string | Rollup.NullValue {
   if (id.includes('node_modules')) return 'vendor';
 
   const chunkMap: Record<string, string> = {
+    'utils/domText.ts': 'group-dom-text',
     'src/components/shared/CopyrightLink.vue': 'ads-group',
     'src/components/shared/AdsByGoogle.vue': 'ads-group',
     'src/views/HomeView.vue': 'group-home',
     'src/components/TwitterRetrieval.vue': 'group-home',
+    'composables/useSeasonContents.ts': 'group-season',
     'src/views/SeasonView.vue': 'group-season',
     'src/components/SeasonDates.vue': 'group-season',
     'src/components/ConferenceList.vue': 'group-season',
     'src/components/WeekLink.vue': 'group-season',
+    'composables/useConferenceGames.ts': 'group-conference-games',
+    'utils/conference.ts': 'group-conference-games',
     'src/views/ConferenceGames.vue': 'group-conference-games',
-    'staticData/conference-data': 'group-conference-games',
+    'src/staticData/conference-data': 'group-conference-games',
     'src/components/conference/ConferenceGameList.vue': 'group-conference-games',
     'src/components/conference/ConferenceTable.vue': 'group-conference-games',
     'src/components/IndependentsGameList.vue': 'group-conference-games',
@@ -76,6 +80,7 @@ function chunkGroup(id: string): string | Rollup.NullValue {
     'src/components/weekly/WeekGamesTable.vue': 'group-weekly-base',
     'src/components/weekly/PostseasonMbkEvent.vue': 'group-weekly-base',
     'src/components/weekly/WeekGameRow.vue': 'group-weekly-base',
+    'composables/useWeekTextSchedule.ts': 'group-weekly-text',
     'src/views/WeeklyTextScheduleView.vue': 'group-weekly-text',
     'src/components/WeekTextSchedule.vue': 'group-weekly-text',
     'src/components/WeekTextBase.vue': 'group-weekly-text-base',
@@ -86,10 +91,14 @@ function chunkGroup(id: string): string | Rollup.NullValue {
     'src/views/TvWindowsView.vue': 'group-tv-windows-view',
     'src/views/ArchiveView.vue': 'group-archive-view',
     'src/views/DailyScheduleView.vue': 'group-daily-schedule-view',
+    'composables/useDailyTvGames.ts': 'group-daily-schedule-view',
     'src/views/DailyTextScheduleView.vue': 'group-daily-text-schedule-view',
+    'composables/useDailyTvTextGames.ts': 'group-daily-text-schedule-view',
     'src/views/CopyrightView.vue': 'group-copyright-view',
     'src/views/WeeklyScheduleView.vue': 'group-week-schedule-view',
     'src/components/WeekSchedule.vue': 'group-week-schedule-view',
+    'composables/useWeekSchedule.ts': 'group-week-schedule-view',
+    'composables/useNoTvSchedule.ts': 'group-week-schedule-view',
     'src/components/noTVGames/NoTvGames.vue': 'group-week-schedule-view',
     'src/components/noTVGames/NoTvGamesTable.vue': 'group-week-schedule-view'
   };
@@ -100,6 +109,7 @@ function chunkGroup(id: string): string | Rollup.NullValue {
     }
   }
 }
+
 async function loadVueDevTools() {
   const vueDevTools = await import('vite-plugin-vue-devtools');
   return vueDevTools.default();
