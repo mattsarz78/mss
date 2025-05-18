@@ -8,8 +8,8 @@ import {
   specialCoverageNotes,
   syndicationLinks,
   coverageMapLinks
-} from '@/staticData/constants';
-import imagesForUrls from '@/staticData/imagesForUrls.json';
+} from '../staticData/constants';
+import imagesForUrls from '../staticData/imagesForUrls.json';
 
 const seasonMap: Record<string, string> = { '2020r': '2020', '2021s': '2020' };
 
@@ -39,7 +39,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   });
 
   imageHyperlinks.forEach((imageHyperlink) => {
-    const imageArray = imagesForUrls.filter((x: ImagesForUrl) => imageHyperlink.includes(x.link));
+    const imageArray = (imagesForUrls as ImagesForUrl[]).filter((x: ImagesForUrl) => imageHyperlink.includes(x.link));
     const imageUrl = getImageUrl(imageArray, season);
     imageHyperlinkString.push(
       `<a href="${imageHyperlink}" target="_blank">
@@ -113,7 +113,7 @@ function isHyperlink(network: string): boolean {
 }
 
 function isImageHyperlink(network: string): boolean {
-  return imagesForUrls.some((x: ImagesForUrl) => network.includes(x.link));
+  return (imagesForUrls as ImagesForUrl[]).some((x: ImagesForUrl) => network.includes(x.link));
 }
 
 function isInformationLink(network: string): boolean {

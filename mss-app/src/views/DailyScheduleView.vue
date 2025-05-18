@@ -57,7 +57,6 @@ const {
         </div>
       </nav>
       <WeeklyBase
-        :season="season"
         :tv-games="dailyTvGameResult.dailyTvGames"
         :is-bowl-week="false"
         :is-mbk-postseason="false"

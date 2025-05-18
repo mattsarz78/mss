@@ -4,6 +4,7 @@ import { DailyTvGamesInput, TvGame } from '../../__generated__/graphql';
 import { CommonServiceKey } from '../../database/common';
 import { basketball, football } from '__generated__/prisma';
 import { handleError, BadRequestError } from '../../utils/errorHandler';
+import { formatNetworkJpgAndCoverage } from '../../utils/image';
 
 export interface DailyTvGamesArgs {
   input: DailyTvGamesInput;
@@ -38,9 +39,9 @@ export const getDailyTvGames = async (
       homeTeam: result.hometeam?.trim().split(',') ?? [],
       location: result.location?.trim() ?? '',
       network: result.network?.trim() ?? '',
-      networkJpg: result.networkjpg ?? '',
-      coverageNotes: result.coveragenotes?.trim() ?? '',
-      ppv: result.ppv?.trim() ?? '',
+      networkJpg: formatNetworkJpgAndCoverage(result.networkjpg?.trim() ?? '', ''),
+      coverageNotes: formatNetworkJpgAndCoverage(result.coveragenotes?.trim() ?? '', ''),
+      ppv: formatNetworkJpgAndCoverage(result.ppv?.trim() ?? '', ''),
       mediaIndicator: result.mediaindicator?.trim() ?? '',
       timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
     }));

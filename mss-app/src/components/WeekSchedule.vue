@@ -116,7 +116,6 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
     </template>
     <template v-if="tvGameResult">
       <WeeklyBase
-        :season="year"
         :tv-games="tvGameResult.tvGames"
         :is-bowl-week="isBowlWeek"
         :is-mbk-postseason="isMbkPostseason"

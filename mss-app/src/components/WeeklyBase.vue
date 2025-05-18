@@ -4,30 +4,19 @@ import { adjustNavBar } from '@/utils/navBar';
 import { DateTime } from 'luxon';
 import { computed, onMounted } from 'vue';
 import WeekGamesTable from '@/components/weekly/WeekGamesTable.vue';
-import { formatNetworkJpgAndCoverage } from '@/utils/image';
 
 const props = defineProps<{
   tvGames: TvGame[];
   isBowlWeek: boolean;
   isMbkPostseason: boolean;
   showPpvColumn: boolean;
-  season: string;
 }>();
 
-const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, season } = props;
-
-const updatedGames = computed(() =>
-  tvGames.map((tvGame) => {
-    const networkJpg = tvGame.networkJpg ? formatNetworkJpgAndCoverage(tvGame.networkJpg, season) : '';
-    const coverageNotes = tvGame.coverageNotes ? formatNetworkJpgAndCoverage(tvGame.coverageNotes, season) : '';
-    const ppv = tvGame.ppv ? formatNetworkJpgAndCoverage(tvGame.ppv, season) : '';
-    return { ...tvGame, networkJpg, coverageNotes, ppv } as TvGame;
-  })
-);
+const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn } = props;
 
 const datesList = computed(() => {
   const dates = new Set(
-    updatedGames.value
+    tvGames
       .filter((game) => game.timeWithOffset)
       .map((game) => {
         const easternTime = DateTime.fromISO(game.timeWithOffset as unknown as string).setZone('America/New_York');
@@ -43,7 +32,7 @@ const datesList = computed(() => {
 });
 
 const tvGamesByDate = computed(() => {
-  return updatedGames.value.reduce((acc: Record<string, TvGame[]>, game) => {
+  return tvGames.reduce((acc: Record<string, TvGame[]>, game) => {
     if (game.timeWithOffset) {
       const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York');
       const gameDate =
