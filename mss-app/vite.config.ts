@@ -101,9 +101,7 @@ function chunkGroup(id: string): string | Rollup.NullValue {
     'composables/useWeekSchedule.ts': 'group-week-schedule-view',
     'composables/useNoTvSchedule.ts': 'group-week-schedule-view',
     'src/components/noTVGames/NoTvGames.vue': 'group-week-schedule-view',
-    'src/components/noTVGames/NoTvGamesTable.vue': 'group-week-schedule-view',
-    'src/staticData/constants.ts': 'group-images',
-    'src/utils/image.ts': 'group-images'
+    'src/components/noTVGames/NoTvGamesTable.vue': 'group-week-schedule-view'
   };
 
   for (const [filePath, chunkName] of Object.entries(chunkMap)) {

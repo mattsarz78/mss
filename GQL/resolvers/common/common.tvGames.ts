@@ -4,6 +4,7 @@ import { TvGame, TvGamesInput } from '../../__generated__/graphql';
 import { CommonServiceKey } from '../../database/common';
 import { basketball, football } from '__generated__/prisma';
 import { handleError, BadRequestError } from '../../utils/errorHandler';
+import { formatNetworkJpgAndCoverage } from '../../utils/image';
 
 export interface TvGamesArgs {
   input: TvGamesInput;
@@ -24,9 +25,9 @@ export const getTvGames = async (_1: unknown, { input }: TvGamesArgs, context: I
       homeTeam: result.hometeam?.trim().split(',') ?? [],
       location: result.location?.trim() ?? '',
       network: result.network?.trim() ?? '',
-      networkJpg: result.networkjpg ?? '',
-      coverageNotes: result.coveragenotes?.trim() ?? '',
-      ppv: result.ppv?.trim() ?? '',
+      networkJpg: formatNetworkJpgAndCoverage(result.networkjpg?.trim() ?? '', input.season),
+      coverageNotes: formatNetworkJpgAndCoverage(result.coveragenotes?.trim() ?? '', input.season),
+      ppv: formatNetworkJpgAndCoverage(result.ppv?.trim() ?? '', input.season),
       mediaIndicator: result.mediaindicator?.trim() ?? '',
       timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
     }));

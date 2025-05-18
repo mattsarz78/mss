@@ -48,6 +48,7 @@ COPY --from=build /app/database ./database
 COPY --from=build /app/resolvers ./resolvers
 COPY --from=build /app/schemas ./schemas
 COPY --from=build /app/utils ./utils
+COPY --from=build /app/staticData ./staticData
 COPY --from=build /app/tsconfig.json ./tsconfig.json
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/index.ts ./index.ts

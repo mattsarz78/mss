@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import type { ConferenceGame } from '@/graphQl';
 import { formatGame, formatTime } from '@/utils/game';
-import { formatNetworkJpgAndCoverage } from '@/utils/image';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
-const props = defineProps<{ games: ConferenceGame[]; year: string }>();
-const { games, year } = props;
+const props = defineProps<{ games: ConferenceGame[] }>();
+const { games } = props;
 
 const formattedGames = computed(() =>
   games.map((game) => {
@@ -18,7 +17,7 @@ const formattedGames = computed(() =>
 
     return {
       ...game,
-      formattedNetwork: game.network ? formatNetworkJpgAndCoverage(game.network, year) : '',
+      formattedNetwork: game.network ?? '',
       formattedTime: {
         day: timeSource.toFormat(dayFormat),
         date: timeSource.toFormat(dateFormat),

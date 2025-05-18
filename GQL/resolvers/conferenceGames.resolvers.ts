@@ -4,6 +4,7 @@ import { FootballServiceKey } from '../database/football';
 import { football } from '../__generated__/prisma';
 import { DateTime } from 'luxon';
 import { handleError, BadRequestError } from '../utils/errorHandler';
+import { formatNetworkJpgAndCoverage } from '../utils/image';
 
 export interface ConferenceGamesArgs {
   input: ConferenceGamesInput;
@@ -38,7 +39,7 @@ export const conferenceGamesResolver = async (
           ? (DateTime.fromJSDate(conferenceGame.timewithoffset).toISO() ?? '')
           : '',
         mediaIndicator: conferenceGame.mediaindicator?.trim() ?? '',
-        network: conferenceGame.networkjpg?.trim() ?? '',
+        network: formatNetworkJpgAndCoverage(conferenceGame.networkjpg?.trim() ?? '', input.season),
         tvtype: conferenceGame.tvtype?.trim() ?? '',
         conference: conferenceGame.conference?.trim() ?? ''
       }));
