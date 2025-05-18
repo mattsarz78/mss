@@ -15,6 +15,6 @@
       data-ad-slot="9539391470"
       data-ad-format="auto"
       data-full-width-responsive="true"></ins>
-    <component :is="'script'" async> (adsbygoogle = window.adsbygoogle || []).push({}); </component>
+    <component :is="'script'"> (adsbygoogle = window.adsbygoogle || []).push({}); </component>
   </div>
 </template>
