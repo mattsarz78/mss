@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const WeekTextBase = defineAsyncComponent(() => import('./WeekTextBase.vue'));
+import WeekTextBase from './WeekTextBase.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
 import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
 import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
@@ -7,7 +7,7 @@ import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
-import { computed, defineAsyncComponent } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;

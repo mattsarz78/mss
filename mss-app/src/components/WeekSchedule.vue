@@ -1,13 +1,13 @@
 <script setup lang="ts">
-const WeeklyBase = defineAsyncComponent(() => import('./WeeklyBase.vue'));
-const NoTvGames = defineAsyncComponent(() => import('./noTVGames/NoTvGames.vue'));
+import WeeklyBase from './WeeklyBase.vue';
+import NoTvGames from './noTVGames/NoTvGames.vue';
 import { useWeekSchedule } from '@/composables/useWeekSchedule';
 import { adjustWebExclusives } from '@/utils/webExclusives';
 import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 import BackToTop from './shared/BackToTop.vue';
-import { computed, defineAsyncComponent } from 'vue';
+import { computed } from 'vue';
 import { DateTime } from 'luxon';
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import type { FlexScheduleLink } from '@/staticData/exportTypes';
