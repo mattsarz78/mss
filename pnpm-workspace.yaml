@@ -2,5 +2,5 @@ packages:
   # include packages in subfolders (change as required)
   - 'apps/**'
   - 'packages/**'
-useNodeVersion: 22.15.0
+useNodeVersion: 22.15.1
 ignoreWorkspaceRootCheck: true

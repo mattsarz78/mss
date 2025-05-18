@@ -7,12 +7,13 @@ import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
 import type { FlexScheduleLink } from '@/staticData/exportTypes';
-import { FLEXLINKSETUP } from '@/staticData/constants';
 
 const route = useRoute();
 const { year } = route.params as { year: string };
 
 const title = `Football TV Windows for ${year}`;
+
+const FLEXLINKSETUP = '/pubhtml?widget=true&amp;headers=false';
 
 addMetaTags(title);
 

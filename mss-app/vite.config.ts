@@ -73,6 +73,7 @@ function chunkGroup(id: string): string | Rollup.NullValue {
     'utils/conference.ts': 'group-conference-games',
     'src/views/ConferenceGames.vue': 'group-conference-games',
     'src/staticData/conference-data': 'group-conference-games',
+    'src/staticData/conferenceCasing.json': 'group-conference-games',
     'src/components/conference/ConferenceGameList.vue': 'group-conference-games',
     'src/components/conference/ConferenceTable.vue': 'group-conference-games',
     'src/components/IndependentsGameList.vue': 'group-conference-games',
@@ -100,7 +101,9 @@ function chunkGroup(id: string): string | Rollup.NullValue {
     'composables/useWeekSchedule.ts': 'group-week-schedule-view',
     'composables/useNoTvSchedule.ts': 'group-week-schedule-view',
     'src/components/noTVGames/NoTvGames.vue': 'group-week-schedule-view',
-    'src/components/noTVGames/NoTvGamesTable.vue': 'group-week-schedule-view'
+    'src/components/noTVGames/NoTvGamesTable.vue': 'group-week-schedule-view',
+    'src/staticData/constants.ts': 'group-images',
+    'src/utils/image.ts': 'group-images'
   };
 
   for (const [filePath, chunkName] of Object.entries(chunkMap)) {
