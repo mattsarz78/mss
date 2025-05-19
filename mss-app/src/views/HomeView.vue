@@ -14,6 +14,7 @@ const linksRef = ref<HTMLElement | null>(null);
 const contentRef = ref<HTMLElement | null>(null);
 const facebookRef = ref<HTMLElement | null>(null);
 
+// TODO: Layout handled by CSS Grid/Flexbox
 const adjustLayout = (): void => {
   if (linksRef.value && contentRef.value && facebookRef.value) {
     const linksHeight = linksRef.value.clientHeight;

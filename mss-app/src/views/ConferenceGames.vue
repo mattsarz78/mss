@@ -82,8 +82,16 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
     </div>
     <Copyright />
   </template>
-  <template v-if="loading">{{ cased }} Games Loading...</template>
-  <template v-if="error">Got a problem. Let Matt know.</template>
+  <template v-if="loading">
+    <div class="loading-container">
+      <p class="loading-text">{{ cased }} Games Loading...</p>
+    </div>
+  </template>
+  <template v-if="error">
+    <div class="error-container">
+      <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+    </div>
+  </template>
 </template>
 
 <style scoped>
@@ -91,17 +99,39 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 9999;
   width: 100%;
   background-color: white;
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  height: 54px;
+  align-items: center;
+  display: block;
 }
 
 .container {
   height: 100%;
   max-width: 800px;
   margin: 0 auto;
+}
+
+.loading-container,
+.error-container {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.loading-text {
+  font-size: 1.2em;
+  color: #666;
 }
 
 @media all and (min-width: 641px) {
@@ -124,6 +154,11 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
 
   #Main {
     padding-top: 21px;
+  }
+
+  .navbar {
+    height: 15px;
+    padding: 10px 3px;
   }
 }
 </style>

@@ -36,7 +36,8 @@ const { tvGame, showPPVColumn } = props;
 }
 
 .game {
-  width: 270px;
+  width: 35%;
+  padding: 2px;
   border: medium solid Gray;
   border-width: thin;
 }
@@ -46,6 +47,8 @@ const { tvGame, showPPVColumn } = props;
 }
 
 .network {
+  width: 20%;
+  padding: 2px;
   text-align: center;
   border: medium solid Gray;
   border-width: thin;
@@ -60,6 +63,7 @@ const { tvGame, showPPVColumn } = props;
 }
 
 .ppv {
+  width: 10%;
   border: medium solid Gray;
   border-width: thin;
   empty-cells: show;
@@ -67,7 +71,7 @@ const { tvGame, showPPVColumn } = props;
 }
 
 .time {
-  width: 70px;
+  width: 10%;
   text-align: right;
   border: medium solid Gray;
   border-width: thin;
@@ -80,54 +84,23 @@ const { tvGame, showPPVColumn } = props;
   padding-bottom: 2px;
 }
 
-@media all and (min-width: 641px) {
-  .game {
-    padding: 2px;
-  }
+/* Base styles with fixed proportions */
 
-  .network {
-    width: 150px;
-    padding: 2px;
-  }
+.coverage {
+  width: 25%;
+}
 
-  .coverage {
-    width: 210px;
-  }
-
-  .coverageppv {
-    width: 288.89px;
-  }
-
-  .ppv {
-    width: 150px;
-  }
+.coverageppv {
+  width: 30%;
 }
 
 @media only screen and (max-width: 640px) {
   .game {
     padding: 1px;
-    width: 245px;
   }
 
   .network {
-    width: 90px;
     padding: 0;
-  }
-
-  .coverage {
-    width: 105px;
-  }
-
-  .ppv {
-    width: 44.22px;
-  }
-
-  .coverageppv {
-    width: 135px;
-  }
-
-  .time {
-    width: 62px;
   }
 }
 </style>
