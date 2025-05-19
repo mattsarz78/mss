@@ -64,5 +64,8 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
   border-width: 2px;
   border-spacing: 1px;
   border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  table-layout: auto; /* Prevent column width changes */
 }
 </style>

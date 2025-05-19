@@ -75,17 +75,20 @@ const formattedGames = computed(() =>
 }
 
 .network {
+  width: 30%;
+  padding: 2px;
   text-align: center;
 }
 
 .time {
-  width: 70px;
+  width: 15%;
   text-align: right;
   padding: 2px;
 }
 
 .game {
-  width: 270px;
+  width: 55%;
+  padding: 2px;
 }
 
 .noTVTable {
@@ -93,6 +96,9 @@ const formattedGames = computed(() =>
   border: 2px ridge #fff;
   border-spacing: 1px;
   border-collapse: collapse;
+  width: 100%;
+  max-width: 550px;
+  table-layout: auto; /* Prevent column width changes */
 }
 
 :deep(.linkblock) {
@@ -106,25 +112,12 @@ const formattedGames = computed(() =>
   font-style: italic;
 }
 
-@media all and (min-width: 641px) {
-  .game {
-    padding: 2px;
-  }
-
-  .network {
-    width: 150px;
-    padding: 2px;
-  }
-}
-
 @media only screen and (max-width: 640px) {
   .game {
     padding: 1px;
-    width: 245px;
   }
 
   .network {
-    width: 90px;
     padding: 0;
   }
 }

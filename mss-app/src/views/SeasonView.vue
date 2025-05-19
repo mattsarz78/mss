@@ -57,7 +57,11 @@ watch(result, updateStyles);
   <div id="Main" v-reset-adsense-height>
     <p>{{ title }}</p>
     <template v-if="error">Got a problem. Let Matt know.</template>
-    <template v-if="loading">Loading...</template>
+    <template v-if="loading">
+      <div class="loading-container">
+        <p class="loading-text">Loading {{ paramYear }} season</p>
+      </div>
+    </template>
     <template v-if="result && result.seasonContents">
       <div id="content" ref="contentRef">
         <div id="SeasonLinks" ref="seasonLinksRef" class="DONTPrint">
@@ -100,17 +104,39 @@ watch(result, updateStyles);
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 9999;
   width: 100%;
   background-color: white;
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  height: 15px;
+  display: block;
 }
 
 .container {
   height: 100%;
   max-width: 800px;
   margin: 0 auto;
+}
+
+.loading-container,
+.error-container {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.loading-text {
+  font-size: 1.2em;
+  color: #666;
 }
 
 @media all and (min-width: 641px) {
@@ -127,6 +153,10 @@ watch(result, updateStyles);
 @media only screen and (max-width: 640px) {
   #SeasonLinks {
     width: 100%;
+  }
+
+  .navbar {
+    padding: 10px 3px;
   }
 }
 </style>

@@ -36,9 +36,15 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
 
 <template>
   <div>
-    <template v-if="seasonContentsLoading || tvGameLoading">Loading Week {{ week }} for {{ paramYear }}</template>
+    <template v-if="seasonContentsLoading || tvGameLoading">
+      <div class="loading-container">
+        <p class="loading-text">Loading Week {{ week }} for {{ paramYear }}</p>
+      </div>
+    </template>
     <template v-if="seasonContentsError || tvGameError">
-      <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+      <div class="error-container">
+        <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+      </div>
     </template>
     <template v-if="seasonContentsResult && !(tvGameError || seasonContentsError)">
       <nav class="navbar DONTPrint">
@@ -113,15 +119,37 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 9999;
   width: 100%;
   background-color: white;
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  display: block;
+  align-items: center;
+  height: 119.5px;
 }
 
 .pad {
   padding: 5px 0;
+}
+
+.loading-container,
+.error-container {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.loading-text {
+  font-size: 1.2em;
+  color: #666;
 }
 
 @media all and (min-width: 641px) {
@@ -136,6 +164,11 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
 }
 
 @media only screen and (max-width: 640px) {
+  .navbar {
+    height: 58px;
+    padding: 10px 3px;
+  }
+
   .DONTPrint a {
     line-height: 13px;
   }

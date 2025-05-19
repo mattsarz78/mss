@@ -29,8 +29,16 @@ const {
 
 <template>
   <div v-reset-adsense-height>
-    <template v-if="dailyTvGameLoading">Loading {{ sport }} for {{ startDate }}</template>
-    <template v-if="dailyTvGameError">Got a problem. Let Matt know.</template>
+    <template v-if="dailyTvGameLoading">
+      <div class="loading-container">
+        <p class="loading-text">Loading {{ sport }} for {{ startDate }}</p>
+      </div>
+    </template>
+    <template v-if="dailyTvGameError">
+      <div class="error-container">
+        <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+      </div>
+    </template>
     <template v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
@@ -90,12 +98,33 @@ const {
   background-color: white;
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  height: 135px;
+  display: block;
+  align-items: center;
 }
 
 .container {
   height: 100%;
   max-width: 800px;
   margin: 0 auto;
+}
+
+.loading-container,
+.error-container {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.loading-text {
+  font-size: 1.2em;
+  color: #666;
 }
 
 @media all and (min-width: 641px) {
@@ -129,6 +158,11 @@ const {
 
   .buttonfont {
     font-size: 0.9em;
+  }
+
+  .navbar {
+    height: 78px;
+    padding: 10px 3px;
   }
 }
 </style>

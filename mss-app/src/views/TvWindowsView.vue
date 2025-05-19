@@ -45,16 +45,20 @@ onMounted(() => adjustNavBar);
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 9999;
   width: 100%;
   background-color: white;
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  height: 55px;
+  display: block;
 }
 
 .tvFrame {
   height: 450px;
-  margin-top: 10px;
+  margin-top: 60px;
 }
 
 .container {
@@ -65,7 +69,7 @@ onMounted(() => adjustNavBar);
 
 @media all and (min-width: 641px) {
   .tvFrame {
-    width: 800px;
+    max-width: 800px;
   }
 
   .homelink,
@@ -82,6 +86,10 @@ onMounted(() => adjustNavBar);
 
   .tvFrame {
     width: 97%;
+  }
+
+  .navbar {
+    height: 35px;
   }
 
   .homelink,
