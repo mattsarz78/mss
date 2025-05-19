@@ -1,5 +1,5 @@
 <template>
-  <div v-reset-adsense-height class="DONTPrint ad-container">
+  <div v-reset-adsense-height class="DONTPrint">
     <component :is="'script'" async src="https://cse.google.com/cse.js?cx=partner-pub-0296554708545211:rp92al-azpy" />
     <div class="gcse-search" />
     <component
@@ -18,10 +18,3 @@
     <component :is="'script'"> (adsbygoogle = window.adsbygoogle || []).push({}); </component>
   </div>
 </template>
-
-<style scoped>
-.ad-container {
-  min-height: 250px; /* Common ad unit height */
-  margin: 1rem 0;
-}
-</style>
