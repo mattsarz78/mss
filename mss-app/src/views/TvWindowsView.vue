@@ -25,11 +25,14 @@ onMounted(() => adjustNavBar);
 <template>
   <nav class="navbar DONTPrint">
     <div class="container">
-      <div>
-        <span class="blockspan">
-          <RouterLink class="homelink" to="/">Home</RouterLink><br />
-          <RouterLink class="seasonhome" :to="`/season/football/${year}`">Season Home</RouterLink>
-        </span>
+      <div class="flex-container">
+        <div>
+          <RouterLink to="/">Home</RouterLink>
+        </div>
+        <div><br /></div>
+        <div>
+          <RouterLink :to="`/season/football/${year}`">Season Home</RouterLink>
+        </div>
       </div>
     </div>
   </nav>
@@ -58,6 +61,7 @@ onMounted(() => adjustNavBar);
 
 .tvFrame {
   height: 450px;
+  width: 100%;
   margin-top: 60px;
 }
 
@@ -67,29 +71,18 @@ onMounted(() => adjustNavBar);
   margin: 0 auto;
 }
 
-@media all and (min-width: 641px) {
-  .tvFrame {
-    max-width: 800px;
-  }
-
-  .homelink,
-  .seasonhome {
-    display: block;
-  }
+.flex-container {
+  display: flex;
+  flex-direction: column;
 }
 
 @media only screen and (max-width: 640px) {
-  .blockspan {
-    display: block;
-    padding-bottom: 3px;
-  }
-
   .tvFrame {
     width: 97%;
   }
 
   .navbar {
-    height: 35px;
+    height: 45px;
   }
 
   .homelink,

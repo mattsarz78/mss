@@ -48,12 +48,18 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
   <template v-if="result">
     <nav class="navbar DONTPrint">
       <div class="container">
-        <div>
-          <span>
-            <RouterLink class="homelink" to="/">Home</RouterLink>
-            <RouterLink class="seasonhome" :to="`/season/football/${year}`">Season Home</RouterLink>
-          </span>
-          <RouterLink v-if="flexLink" :to="`/tv-windows/${year}`" target="_blank"> Available TV Windows </RouterLink>
+        <div class="flex-container">
+          <div>
+            <RouterLink class="flex-row" to="/">Home</RouterLink>
+          </div>
+          <div>
+            <RouterLink class="flex-row" :to="`/season/football/${year}`">Season Home</RouterLink>
+          </div>
+          <div>
+            <RouterLink v-if="flexLink" class="flex-row" :to="`/tv-windows/${year}`" target="_blank"
+              >Available TV Windows
+            </RouterLink>
+          </div>
         </div>
       </div>
     </nav>
@@ -134,21 +140,23 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
   color: #666;
 }
 
-@media all and (min-width: 641px) {
-  .homelink,
-  .seasonhome {
-    display: block;
-  }
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
 
+@media all and (min-width: 641px) {
   #Main {
-    padding-top: 36px;
+    padding-top: 40px;
   }
 }
 
 @media only screen and (max-width: 640px) {
-  .homelink,
-  .seasonhome {
-    display: inline-block;
+  .flex-container {
+    flex-direction: row;
+  }
+
+  .flex-row {
     padding-right: 10px;
   }
 

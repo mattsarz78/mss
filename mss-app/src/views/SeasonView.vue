@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { ref, watch } from 'vue';
 import ConferenceList from '@/components/ConferenceList.vue';
 import SeasonDates from '@/components/SeasonDates.vue';
 import { useSeasonContents } from '@/composables/useSeasonContents';
@@ -26,32 +25,17 @@ const conferenceList =
     ? (validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.conferenceListBase ??
       '')
     : '';
-
-const contentRef = ref<HTMLElement | null>(null);
-const seasonLinksRef = ref<HTMLElement | null>(null);
-const conferenceRef = ref<HTMLElement | null>(null);
-
-const updateStyles = () => {
-  if (contentRef.value && seasonLinksRef.value) {
-    const contentWidth = contentRef.value.clientWidth;
-    const height = seasonLinksRef.value.clientHeight;
-
-    if (contentWidth > 640) {
-      contentRef.value.style.minHeight = `${height.toString()}px`;
-      if (conferenceRef.value) {
-        conferenceRef.value.style.minHeight = `${height.toString()}px`;
-      }
-    }
-  }
-};
-
-watch(result, updateStyles);
 </script>
 
 <template>
   <nav class="navbar DONTPrint">
     <div class="container">
-      <div><RouterLink to="/"> Home </RouterLink><br /></div>
+      <div class="flex-container">
+        <div>
+          <RouterLink class="homelink" to="/">Home</RouterLink>
+        </div>
+        <div><br /></div>
+      </div>
     </div>
   </nav>
   <div id="Main" v-reset-adsense-height>
@@ -63,7 +47,7 @@ watch(result, updateStyles);
       </div>
     </template>
     <template v-if="result && result.seasonContents">
-      <div id="content" ref="contentRef">
+      <div id="content">
         <div id="SeasonLinks" ref="seasonLinksRef" class="DONTPrint">
           <SeasonDates :contents="result.seasonContents" :param-year="paramYear" :year="year" :sport="sport" />
         </div>
@@ -111,7 +95,7 @@ watch(result, updateStyles);
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   align-items: center;
-  height: 15px;
+  height: 18px;
   display: block;
 }
 
@@ -137,6 +121,11 @@ watch(result, updateStyles);
 .loading-text {
   font-size: 1.2em;
   color: #666;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
 }
 
 @media all and (min-width: 641px) {
