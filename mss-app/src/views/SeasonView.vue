@@ -78,7 +78,6 @@ const conferenceList =
 
 #Main {
   padding-top: 29px;
-  min-height: 500px;
 }
 
 .inline-block {

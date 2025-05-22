@@ -78,12 +78,10 @@ const tvGamesByDate = computed(() => {
 <style scoped>
 .main-padding {
   padding-top: 135px;
-  min-height: 500px;
 }
 
 .short-main-padding {
   padding-top: 79.5px;
-  min-height: 500px;
 }
 
 @media only screen and (max-width: 640px) {

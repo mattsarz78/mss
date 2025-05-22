@@ -47,7 +47,6 @@ addDontPrintClass();
 
 #Main {
   padding-top: 130px;
-  min-height: 500px;
 }
 
 @media only screen and (max-width: 640px) {

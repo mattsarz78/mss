@@ -105,7 +105,6 @@ adjustLayout();
 
 #Main {
   padding-top: 37px;
-  min-height: 500px;
 }
 
 @media all and (min-width: 641px) {

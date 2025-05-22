@@ -147,7 +147,6 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
 
 #Main {
   padding-top: 40px;
-  min-height: 500px;
 }
 
 @media only screen and (max-width: 640px) {
