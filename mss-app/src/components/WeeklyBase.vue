@@ -22,8 +22,8 @@ const datesList = computed(() => {
         return easternTime.toFormat('t') === '12:00 AM'
           ? easternTime.toISODate()
           : DateTime.fromISO(game.timeWithOffset as unknown as string)
-            .toLocal()
-            .toISODate();
+              .toLocal()
+              .toISODate();
       })
       .filter((date) => !!date) // Optional: Ensure no undefined dates
   ) as Set<string>;
@@ -50,8 +50,10 @@ const tvGamesByDate = computed(() => {
 </script>
 
 <template v-if="datesList.length">
-  <div id="Main" :class="`${isMbkPostseason || isBowlWeek ? 'short-main-padding' : 'main-padding'}`"
-    v-reset-adsense-height>
+  <div
+    id="Main"
+    v-reset-adsense-height
+    :class="`${isMbkPostseason || isBowlWeek ? 'short-main-padding' : 'main-padding'}`">
     <div id="WeeksBase">
       <template v-if="tvGames.length === 0">
         <p>There are no televised games at this time</p>
@@ -61,8 +63,12 @@ const tvGamesByDate = computed(() => {
           <strong>All start times displayed are based on your device's location.</strong>
         </p>
         <div v-for="(weekDate, index) in datesList" :key="index">
-          <WeekGamesTable :week-date="weekDate" :is-bowl-week="isBowlWeek" :is-mbk-postseason="isMbkPostseason"
-            :show-ppv-column="showPpvColumn" :tv-games-for-date="tvGamesByDate[weekDate]" />
+          <WeekGamesTable
+            :week-date="weekDate"
+            :is-bowl-week="isBowlWeek"
+            :is-mbk-postseason="isMbkPostseason"
+            :show-ppv-column="showPpvColumn"
+            :tv-games-for-date="tvGamesByDate[weekDate]" />
         </div>
       </template>
     </div>
@@ -72,10 +78,12 @@ const tvGamesByDate = computed(() => {
 <style scoped>
 .main-padding {
   padding-top: 135px;
+  min-height: 500px;
 }
 
 .short-main-padding {
   padding-top: 79.5px;
+  min-height: 500px;
 }
 
 @media only screen and (max-width: 640px) {

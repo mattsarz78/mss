@@ -80,6 +80,7 @@ const basketballSeasons = [
 
   #Main {
     padding-top: 37px;
+    min-height: 500px;
   }
 }
 

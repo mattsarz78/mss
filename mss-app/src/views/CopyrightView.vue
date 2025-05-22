@@ -88,6 +88,7 @@ addMetaTags(title);
 <style scoped>
 #Main {
   padding-top: 37px;
+  min-height: 500px;
 }
 
 @media only screen and (max-width: 640px) {

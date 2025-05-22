@@ -145,10 +145,9 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
   flex-direction: column;
 }
 
-@media all and (min-width: 641px) {
-  #Main {
-    padding-top: 40px;
-  }
+#Main {
+  padding-top: 40px;
+  min-height: 500px;
 }
 
 @media only screen and (max-width: 640px) {
