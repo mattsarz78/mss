@@ -49,7 +49,7 @@ onMounted(() => {
 }
 
 #Main {
-  margin-top: 130px;
+  padding-top: 130px;
 }
 
 @media only screen and (max-width: 640px) {
@@ -58,7 +58,7 @@ onMounted(() => {
   }
 
   #Main {
-    margin-top: 100px;
+    padding-top: 100px;
   }
 }
 </style>

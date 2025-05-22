@@ -98,13 +98,11 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
             </template>
             <template v-else>
               <div class="flex-row-left">
-                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }"
-                  >Previous Week
+                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }">Previous Week
                 </RouterLink>
               </div>
               <div v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek" class="flex-row-right">
-                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }"
-                  >Next Week
+                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }">Next Week
                 </RouterLink>
               </div>
             </template>
@@ -112,10 +110,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
           </div>
           <br />
           <div v-if="tvGameResult" class="filters">
-            <button
-              v-if="!isBowlWeek && !isMbkPostseason"
-              id="btnWebGames"
-              class="show_hideWeb buttonfont"
+            <button v-if="!isBowlWeek && !isMbkPostseason" id="btnWebGames" class="show_hideWeb buttonfont"
               @click="adjustWebExclusives">
               Hide Web Exclusive Games
             </button>
@@ -124,10 +119,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
       </nav>
     </template>
     <template v-if="tvGameResult">
-      <WeeklyBase
-        :tv-games="tvGameResult.tvGames"
-        :is-bowl-week="isBowlWeek"
-        :is-mbk-postseason="isMbkPostseason"
+      <WeeklyBase :tv-games="tvGameResult.tvGames" :is-bowl-week="isBowlWeek" :is-mbk-postseason="isMbkPostseason"
         :show-ppv-column="showPpvColumn" />
       <NoTvGames v-if="!isBowlWeek && showNoTvGames" :sport="sport" :year="year" :week="week" />
       <BackToTop />
@@ -151,7 +143,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   background-color: white;
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  min-height: 70px;
+  height: 140px;
   display: block;
   align-items: center;
 }
@@ -245,7 +237,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   }
 
   .navbar {
-    min-height: 48px;
+    height: 88px;
     padding: 10px 3px;
   }
 }
