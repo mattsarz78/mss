@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import WeekTextTable from './WeekTextTable.vue';
 import type { TvGame } from '@/graphQl';
 
@@ -22,9 +21,7 @@ const addDontPrintClass = () => {
   });
 };
 
-onMounted(() => {
-  addDontPrintClass();
-});
+addDontPrintClass();
 </script>
 
 <template>
