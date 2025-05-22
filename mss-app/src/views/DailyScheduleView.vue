@@ -42,25 +42,27 @@ const {
     <template v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
-          <div>
-            <span class="blockspan">
-              <RouterLink class="mobilespan" to="/">Home</RouterLink>
-              <RouterLink v-if="season" class="mobilespan" :to="`/season/${sport}/${season}`">Season Home </RouterLink>
-            </span>
-            <span class="blockspan">
-              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${season}`" target="_blank">
-                Available TV Windows</RouterLink
-              >
-              <RouterLink class="mobilespan" :to="`/schedule/${sport}/daily/text`">
-                Customizable Text-Only Page</RouterLink
-              >
-            </span>
-            <br />
-            <div v-if="dailyTvGameResult" class="filters">
-              <button id="btnWebGames" class="show_hideWeb buttonfont" @click="adjustWebExclusives">
-                Hide Web Exclusive Games
-              </button>
+          <div class="flex-container">
+            <div class="flex-row">
+              <RouterLink to="/">Home</RouterLink>
             </div>
+            <div v-if="season" class="flex-row">
+              <RouterLink :to="`/season/${sport}/${season}`">Season Home</RouterLink>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div v-if="flexLink" class="flex-row">
+              <RouterLink :to="`/tv-windows/${season}`" target="_blank">Available TV Windows </RouterLink>
+            </div>
+            <div class="flex-row">
+              <RouterLink :to="`/schedule/${sport}/${season}/daily/text`">Customizable Text-Only Page </RouterLink>
+            </div>
+            <br />
+          </div>
+          <div v-if="dailyTvGameResult" class="filters">
+            <button id="btnWebGames" class="show_hideWeb buttonfont" @click="adjustWebExclusives">
+              Hide Web Exclusive Games
+            </button>
           </div>
         </div>
       </nav>
@@ -98,7 +100,7 @@ const {
   background-color: white;
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  height: 135px;
+  min-height: 70px;
   display: block;
   align-items: center;
 }
@@ -127,11 +129,12 @@ const {
   color: #666;
 }
 
-@media all and (min-width: 641px) {
-  .mobilespan {
-    display: block;
-  }
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
 
+@media all and (min-width: 641px) {
   .filters {
     margin-top: 10px;
   }
@@ -142,8 +145,12 @@ const {
 }
 
 @media only screen and (max-width: 640px) {
-  .mobilespan {
-    display: inline-block;
+  .flex-container {
+    flex-direction: row;
+    padding-bottom: 4px;
+  }
+
+  .flex-row {
     padding-right: 10px;
   }
 
@@ -161,7 +168,7 @@ const {
   }
 
   .navbar {
-    height: 78px;
+    height: 58px;
     padding: 10px 3px;
   }
 }

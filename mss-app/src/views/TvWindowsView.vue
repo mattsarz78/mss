@@ -84,11 +84,5 @@ onMounted(() => adjustNavBar);
   .navbar {
     height: 45px;
   }
-
-  .homelink,
-  .seasonhome {
-    display: inline-block;
-    padding-right: 10px;
-  }
 }
 </style>

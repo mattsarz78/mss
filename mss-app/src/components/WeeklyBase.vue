@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { adjustNavBar } from '@/utils/navBar';
 import { DateTime } from 'luxon';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import WeekGamesTable from '@/components/weekly/WeekGamesTable.vue';
 
 const props = defineProps<{
@@ -48,10 +47,6 @@ const tvGamesByDate = computed(() => {
     return acc;
   }, {});
 });
-
-onMounted(() => {
-  adjustNavBar();
-});
 </script>
 
 <template v-if="datesList.length">
@@ -76,3 +71,15 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+#Main {
+  padding-top: 135px;
+}
+
+@media only screen and (max-width: 640px) {
+  #Main {
+    padding-top: 110px;
+  }
+}
+</style>

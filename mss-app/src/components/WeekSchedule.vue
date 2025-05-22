@@ -70,52 +70,59 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
     <template v-if="seasonContentsResult && !(tvGameError || seasonContentsError)">
       <nav class="navbar DONTPrint">
         <div class="container">
-          <div>
-            <span class="blockspan">
-              <RouterLink class="mobilespan" to="/">Home</RouterLink>
-              <RouterLink class="mobilespan" :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
-              <RouterLink v-if="gamesToday" class="mobilespan" :to="`/schedule/${sport}/daily`"
-                >Today's Schedule
-              </RouterLink>
-            </span>
-            <span class="blockspan">
-              <RouterLink v-if="flexLink" class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank"
+          <div class="flex-container">
+            <div class="flex-row">
+              <RouterLink to="/">Home</RouterLink>
+            </div>
+            <div class="flex-row">
+              <RouterLink :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
+            </div>
+            <div v-if="gamesToday" class="flex-row">
+              <RouterLink :to="`/schedule/${sport}/daily`">Today's Schedule </RouterLink>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div v-if="flexLink" class="flex-row">
+              <RouterLink class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank"
                 >Available TV Windows</RouterLink
               >
+            </div>
+            <div class="flex-row">
               <RouterLink class="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`"
                 >Customizable Text-Only Page</RouterLink
               >
-            </span>
-            <div v-if="!isMbkPostseason && !isBowlWeek" class="pad">
-              <template v-if="isWeekOne">
-                <span style="float: left">
-                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}` }">Next Week</RouterLink>
-                </span>
-              </template>
-              <template v-else>
-                <span style="float: left">
-                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }"
-                    >Previous Week
-                  </RouterLink>
-                </span>
-                <span v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek" style="float: right">
-                  <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }"
-                    >Next Week
-                  </RouterLink>
-                </span>
-              </template>
-              <br class="mobilehide" />
             </div>
-            <br />
-            <div v-if="tvGameResult" class="filters">
-              <button
-                v-if="!isBowlWeek && !isMbkPostseason"
-                id="btnWebGames"
-                class="show_hideWeb buttonfont"
-                @click="adjustWebExclusives">
-                Hide Web Exclusive Games
-              </button>
-            </div>
+          </div>
+
+          <div v-if="!isMbkPostseason && !isBowlWeek" class="flex-container-row pad">
+            <template v-if="isWeekOne">
+              <div class="flex-row-left">
+                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}` }">Next Week</RouterLink>
+              </div>
+            </template>
+            <template v-else>
+              <div class="flex-row-left">
+                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }"
+                  >Previous Week
+                </RouterLink>
+              </div>
+              <div v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek" class="flex-row-right">
+                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }"
+                  >Next Week
+                </RouterLink>
+              </div>
+            </template>
+            <br class="mobilehide" />
+          </div>
+          <br />
+          <div v-if="tvGameResult" class="filters">
+            <button
+              v-if="!isBowlWeek && !isMbkPostseason"
+              id="btnWebGames"
+              class="show_hideWeb buttonfont"
+              @click="adjustWebExclusives">
+              Hide Web Exclusive Games
+            </button>
           </div>
         </div>
       </nav>
@@ -149,7 +156,6 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   min-height: 70px;
-  /* height: 135px; */
   display: block;
   align-items: center;
 }
@@ -186,6 +192,25 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   color: #666;
 }
 
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-container-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flex-row-left {
+  margin-right: 40%;
+}
+
+.flex-row-right {
+  margin-left: 40%;
+}
+
 @media all and (min-width: 641px) {
   .mobilespan {
     display: block;
@@ -197,6 +222,23 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
 }
 
 @media only screen and (max-width: 640px) {
+  .flex-container {
+    flex-direction: row;
+    padding-bottom: 4px;
+  }
+
+  .flex-row {
+    padding-right: 10px;
+  }
+
+  .flex-row-left {
+    margin-right: 30%;
+  }
+
+  .flex-row-right {
+    margin-left: 30%;
+  }
+
   .mobilespan {
     display: inline-block;
     padding-right: 10px;
