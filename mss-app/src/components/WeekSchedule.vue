@@ -68,7 +68,7 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
       </div>
     </template>
     <template v-if="seasonContentsResult && !(tvGameError || seasonContentsError)">
-      <nav class="navbar DONTPrint">
+      <nav :class="`navbar DONTPrint ${isMbkPostseason || isBowlWeek ? 'short-height' : 'navbar-height'}`">
         <div class="container">
           <div class="flex-container">
             <div class="flex-row">
@@ -143,9 +143,16 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   background-color: white;
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  height: 140px;
   display: block;
   align-items: center;
+}
+
+.navbar-height {
+  height: 140px;
+}
+
+.short-height {
+  height: 69.5px;
 }
 
 .container {
@@ -206,6 +213,14 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
 }
 
 @media only screen and (max-width: 640px) {
+  .short-height {
+    height: 39.5px;
+  }
+
+  .navbar-height {
+    height: 88px;
+  }
+
   .flex-container {
     flex-direction: row;
     padding-bottom: 4px;
@@ -237,7 +252,6 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
   }
 
   .navbar {
-    height: 88px;
     padding: 10px 3px;
   }
 }
