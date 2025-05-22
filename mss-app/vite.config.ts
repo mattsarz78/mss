@@ -9,6 +9,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   const config: UserConfigExport = {
+    optimizeDeps: { include: ['vue', 'luxon'], exclude: ['@vueuse/core'] },
+    esbuild: { drop: mode === 'production' ? ['console', 'debugger'] : [], legalComments: 'none' },
     plugins: [
       vue({ isProduction: true, features: { optionsAPI: false } }),
       VitePWA({
@@ -35,6 +37,7 @@ export default defineConfig(({ mode }) => {
       cssMinify: 'lightningcss',
       minify: 'terser',
       target: 'esnext',
+      dynamicImportVarsOptions: { warnOnError: true, exclude: [] },
       rollupOptions: {
         external: ['workbox-window'],
         output: {
@@ -56,9 +59,14 @@ export default defineConfig(({ mode }) => {
 });
 
 function chunkGroup(id: string): string | Rollup.NullValue {
-  if (id.includes('node_modules')) return 'vendor';
-
+  if (id.includes('node_modules')) {
+    if (id.includes('luxon')) return 'vendor-dates';
+    if (id.includes('vue')) return 'vendor-vue';
+    return 'vendor-other';
+  }
   const chunkMap: Record<string, string> = {
+    'utils/game.ts': 'group-game',
+    'utils/ppvColumn.ts': 'group-ppv-column',
     'utils/domText.ts': 'group-dom-text',
     'src/components/shared/CopyrightLink.vue': 'ads-group',
     'src/components/shared/AdsByGoogle.vue': 'ads-group',

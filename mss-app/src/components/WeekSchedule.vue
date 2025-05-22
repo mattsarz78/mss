@@ -2,7 +2,7 @@
 import WeeklyBase from './WeeklyBase.vue';
 import NoTvGames from './noTVGames/NoTvGames.vue';
 import { useWeekSchedule } from '@/composables/useWeekSchedule';
-import { adjustWebExclusives } from '@/utils/webExclusives';
+import { useWebExclusives } from '@/composables/webExclusives';
 import Copyright from './shared/CopyrightLink.vue';
 import AdsByGoogle from './shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
@@ -19,6 +19,8 @@ const { week, sport, paramYear } = props;
 const year = computed(() =>
   sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`
 );
+
+const { buttonText, toggleWebExclusives } = useWebExclusives();
 
 const weekInt = computed(() => parseInt(week));
 
@@ -116,8 +118,8 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
               v-if="!isBowlWeek && !isMbkPostseason"
               id="btnWebGames"
               class="show_hideWeb buttonfont"
-              @click="adjustWebExclusives">
-              Hide Web Exclusive Games
+              @click="toggleWebExclusives">
+              {{ buttonText }}
             </button>
           </div>
         </div>

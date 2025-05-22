@@ -51,6 +51,11 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
 <style scoped>
 .webGame {
   display: table-row;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.webGame[style*='display: none'] {
+  opacity: 0;
 }
 
 .header {
@@ -66,6 +71,7 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
   border-collapse: collapse;
   width: 100%;
   max-width: 800px;
-  table-layout: auto; /* Prevent column width changes */
+  table-layout: auto;
+  /* Prevent column width changes */
 }
 </style>

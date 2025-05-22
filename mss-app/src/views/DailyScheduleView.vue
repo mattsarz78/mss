@@ -4,7 +4,7 @@ import BackToTop from '@/components/shared/BackToTop.vue';
 import WeeklyBase from '@/components/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
-import { adjustWebExclusives } from '@/utils/webExclusives';
+import { useWebExclusives } from '@/composables/webExclusives';
 import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
@@ -14,6 +14,8 @@ const route = useRoute();
 const { sport } = route.params as { sport: string };
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
+
+const { buttonText, toggleWebExclusives } = useWebExclusives();
 
 addMetaTags(title);
 
@@ -60,8 +62,8 @@ const {
             <br />
           </div>
           <div v-if="dailyTvGameResult" class="filters">
-            <button id="btnWebGames" class="show_hideWeb buttonfont" @click="adjustWebExclusives">
-              Hide Web Exclusive Games
+            <button id="btnWebGames" class="show_hideWeb buttonfont" @click="toggleWebExclusives">
+              {{ buttonText }}
             </button>
           </div>
         </div>
