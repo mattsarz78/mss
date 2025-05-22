@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { addMetaTags } from '@/utils/metaTags';
-import { adjustNavBar } from '@/utils/navBar';
-import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
@@ -18,8 +16,6 @@ const FLEXLINKSETUP = '/pubhtml?widget=true&amp;headers=false';
 addMetaTags(title);
 
 const flexLink = flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year)?.url ?? '';
-
-onMounted(() => adjustNavBar);
 </script>
 
 <template>

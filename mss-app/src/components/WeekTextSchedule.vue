@@ -49,38 +49,45 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
     <template v-if="seasonContentsResult && !(tvGameError || seasonContentsError)">
       <nav class="navbar DONTPrint">
         <div class="container">
-          <div>
-            <span>
-              <RouterLink class="homelink" to="/">Home</RouterLink>
-              <RouterLink class="seasonhome" :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
-            </span>
-            <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}`"> Weekly Schedule </RouterLink>
-            <br />
-            <div v-if="!isMbkPostseason && !isBowlWeek" class="pad">
-              <template v-if="isWeekOne">
-                <span style="float: left">
-                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week</RouterLink>
-                </span>
-              </template>
-              <template v-else>
-                <span style="float: left">
-                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${previousWeek}/text`">Previous Week</RouterLink>
-                </span>
-                <span v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek" style="float: right">
-                  <RouterLink :to="`/schedule/${sport}/${paramYear}/${nextWeek}/text`">Next Week</RouterLink>
-                </span>
-              </template>
-              <br class="mobilehide" />
+          <div class="flex-container">
+            <div class="flex-row">
+              <RouterLink to="/">Home</RouterLink>
             </div>
-            <br />
-            <p id="TextNav" class="DONTPrint">
-              <button id="ClearAll" class="inputpad buttonfont" @click="clearAllSelectedTextRows">
-                Clear All Games
-              </button>
-
-              <button id="CheckAll" class="inputpad buttonfont" @click="checkAllTextRows">Check All Games</button>
-            </p>
+            <div class="flex-row">
+              <RouterLink :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
+            </div>
+            <div class="flex-row">
+              <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}`">
+                Weekly Schedule
+              </RouterLink>
+            </div>
           </div>
+          <div v-if="!isMbkPostseason && !isBowlWeek" class="flex-container-row pad">
+            <template v-if="isWeekOne">
+              <div class="flex-row-left">
+                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}` }">Next Week</RouterLink>
+              </div>
+            </template>
+            <template v-else>
+              <div class="flex-row-left">
+                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${previousWeek}` }"
+                  >Previous Week
+                </RouterLink>
+              </div>
+              <div v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek" class="flex-row-right">
+                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }"
+                  >Next Week
+                </RouterLink>
+              </div>
+            </template>
+            <br class="mobilehide" />
+          </div>
+          <br />
+          <p id="TextNav" class="DONTPrint">
+            <button id="ClearAll" class="inputpad buttonfont" @click="clearAllSelectedTextRows">Clear All Games</button>
+
+            <button id="CheckAll" class="inputpad buttonfont" @click="checkAllTextRows">Check All Games</button>
+          </p>
         </div>
       </nav>
     </template>
@@ -152,31 +159,56 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
   color: #666;
 }
 
-@media all and (min-width: 641px) {
-  .homelink,
-  .seasonhome {
-    display: block;
-  }
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
 
+.flex-container-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flex-row-left {
+  margin-right: 40%;
+}
+
+.flex-row-right {
+  margin-left: 40%;
+}
+
+@media all and (min-width: 641px) {
   .buttonfont {
     font-size: 14px;
   }
 }
 
 @media only screen and (max-width: 640px) {
+  .flex-container {
+    flex-direction: row;
+    padding-bottom: 4px;
+  }
+
+  .flex-row {
+    padding-right: 10px;
+  }
+
+  .flex-row-left {
+    margin-right: 30%;
+  }
+
+  .flex-row-right {
+    margin-left: 30%;
+  }
+
   .navbar {
-    height: 58px;
+    height: 70px;
     padding: 10px 3px;
   }
 
   .DONTPrint a {
     line-height: 13px;
-  }
-
-  .homelink,
-  .seasonhome {
-    display: inline-block;
-    padding-right: 10px;
   }
 
   .mobilehide {

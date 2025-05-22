@@ -32,21 +32,23 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
     <template v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
-          <div>
-            <span>
-              <RouterLink class="homelink" to="/">Home</RouterLink>
-              <RouterLink class="seasonhome" :to="`/season/${sport}/${season}`">Season Home </RouterLink>
-            </span>
-            <RouterLink class="DONTPrint" :to="`/schedule/${sport}/daily`"> Daily Schedule </RouterLink>
-            <br />
-            <p id="TextNav" class="pad DONTPrint">
-              <button id="ClearAll" class="inputpad buttonfont" @click="clearAllSelectedTextRows">
-                Clear All Games
-              </button>
-
-              <button id="CheckAll" class="inputpad buttonfont" @click="checkAllTextRows">Check All Games</button>
-            </p>
+          <div class="flex-container">
+            <div class="flex-row">
+              <RouterLink to="/">Home</RouterLink>
+            </div>
+            <div class="flex-row">
+              <RouterLink :to="`/season/${sport}/${season}`">Season Home </RouterLink>
+            </div>
+            <div class="flex-row">
+              <RouterLink class="DONTPrint" :to="`/schedule/${sport}/daily`"> Daily Schedule </RouterLink>
+            </div>
           </div>
+          <br />
+          <p id="TextNav" class="pad DONTPrint">
+            <button id="ClearAll" class="inputpad buttonfont" @click="clearAllSelectedTextRows">Clear All Games</button>
+
+            <button id="CheckAll" class="inputpad buttonfont" @click="checkAllTextRows">Check All Games</button>
+          </p>
         </div>
       </nav>
       <WeekTextBase
@@ -116,11 +118,6 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
 }
 
 @media all and (min-width: 641px) {
-  .homelink,
-  .seasonhome {
-    display: block;
-  }
-
   .buttonfont {
     font-size: 14px;
   }
@@ -128,18 +125,12 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
 
 @media only screen and (max-width: 640px) {
   .navbar {
-    height: 58px;
+    height: 60px;
     padding: 10px 3px;
   }
 
   .DONTPrint a {
     line-height: 13px;
-  }
-
-  .homelink,
-  .seasonhome {
-    display: inline-block;
-    padding-right: 10px;
   }
 
   .mobilehide {

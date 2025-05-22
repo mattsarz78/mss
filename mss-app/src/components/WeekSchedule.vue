@@ -83,14 +83,10 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
           </div>
           <div class="flex-container">
             <div v-if="flexLink" class="flex-row">
-              <RouterLink class="mobilespan" :to="`/tv-windows/${paramYear}`" target="_blank"
-                >Available TV Windows</RouterLink
-              >
+              <RouterLink :to="`/tv-windows/${paramYear}`" target="_blank">Available TV Windows</RouterLink>
             </div>
             <div class="flex-row">
-              <RouterLink class="mobilespan" :to="`/schedule/${sport}/${paramYear}/${week}/text`"
-                >Customizable Text-Only Page</RouterLink
-              >
+              <RouterLink :to="`/schedule/${sport}/${paramYear}/${week}/text`">Customizable Text-Only Page</RouterLink>
             </div>
           </div>
 
@@ -212,10 +208,6 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
 }
 
 @media all and (min-width: 641px) {
-  .mobilespan {
-    display: block;
-  }
-
   .buttonfont {
     font-size: 14px;
   }
@@ -237,11 +229,6 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
 
   .flex-row-right {
     margin-left: 30%;
-  }
-
-  .mobilespan {
-    display: inline-block;
-    padding-right: 10px;
   }
 
   .blockspan {

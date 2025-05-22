@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { adjustNavBar } from '@/utils/navBar';
 import WeekTextTable from './WeekTextTable.vue';
 import type { TvGame } from '@/graphQl';
 
@@ -24,7 +23,6 @@ const addDontPrintClass = () => {
 };
 
 onMounted(() => {
-  adjustNavBar();
   addDontPrintClass();
 });
 </script>
@@ -50,9 +48,17 @@ onMounted(() => {
   margin-top: 3px;
 }
 
+#Main {
+  margin-top: 130px;
+}
+
 @media only screen and (max-width: 640px) {
   #Directions {
     margin-top: 6px;
+  }
+
+  #Main {
+    margin-top: 100px;
   }
 }
 </style>
