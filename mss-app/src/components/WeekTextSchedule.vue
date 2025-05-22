@@ -36,7 +36,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
 
 <template>
   <div>
-    <template v-if="seasonContentsLoading || tvGameLoading">
+    <template v-if="seasonContentsLoading && tvGameLoading">
       <div class="loading-container">
         <p class="loading-text">Loading Week {{ week }} for {{ paramYear }}</p>
       </div>
