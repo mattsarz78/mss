@@ -1,7 +1,7 @@
 import { NoTvGamesInput } from '../__generated__/graphql';
 import { PrismaClient, football } from '../__generated__/prisma';
-import { DatabaseService } from './services';
 import { DatabaseError } from '../utils/errorHandler';
+import { DatabaseService } from './services';
 
 export const FootballServiceKey = Symbol.for('IFootballService');
 

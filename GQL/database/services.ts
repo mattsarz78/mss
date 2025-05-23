@@ -1,8 +1,8 @@
 import { Prisma } from '../__generated__/prisma';
 import { AvailableTvServiceKey, IAvailableTvService } from './availableTV';
+import { CommonServiceKey, ICommonService } from './common';
 import { FootballServiceKey, IFootballService } from './football';
 import { IWeeklyDatesService, WeeklyDatesServiceKey } from './weeklyDates';
-import { ICommonService, CommonServiceKey } from './common';
 
 export interface DatabaseService<T> {
   transaction(client: Prisma.TransactionClient): T;

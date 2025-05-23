@@ -1,5 +1,6 @@
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
+import fs from 'fs';
 import {
   getIntrospectionQuery,
   graphql,
@@ -8,7 +9,6 @@ import {
   isSpecifiedScalarType,
   print
 } from 'graphql';
-import fs from 'fs';
 import path from 'path';
 import prettier from 'prettier';
 

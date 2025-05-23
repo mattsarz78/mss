@@ -1,7 +1,7 @@
-import { WeeklyDatesServiceKey } from '../database/weeklyDates';
 import { SeasonContents, SeasonContentsInput } from '../__generated__/graphql';
 import { IContext } from '../context';
-import { handleError, BadRequestError } from '../utils/errorHandler';
+import { WeeklyDatesServiceKey } from '../database/weeklyDates';
+import { BadRequestError, handleError } from '../utils/errorHandler';
 
 export interface SeasonContentsArgs {
   input: SeasonContentsInput;

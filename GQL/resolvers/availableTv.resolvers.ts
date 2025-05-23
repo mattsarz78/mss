@@ -1,7 +1,7 @@
-import { IContext } from '../context';
 import { AvailableTv, AvailableTvInput } from '../__generated__/graphql';
+import { IContext } from '../context';
 import { AvailableTvServiceKey } from '../database/availableTV';
-import { handleError, BadRequestError } from '../utils/errorHandler';
+import { BadRequestError, handleError } from '../utils/errorHandler';
 
 export interface AvailableTvArgs {
   input: AvailableTvInput;

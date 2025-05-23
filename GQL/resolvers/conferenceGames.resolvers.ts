@@ -1,9 +1,9 @@
-import { IContext } from '../context';
-import { ConferenceGame, ConferenceGamesInput } from '../__generated__/graphql';
-import { FootballServiceKey } from '../database/football';
-import { football } from '../__generated__/prisma';
 import { DateTime } from 'luxon';
-import { handleError, BadRequestError } from '../utils/errorHandler';
+import { ConferenceGame, ConferenceGamesInput } from '../__generated__/graphql';
+import { football } from '../__generated__/prisma';
+import { IContext } from '../context';
+import { FootballServiceKey } from '../database/football';
+import { BadRequestError, handleError } from '../utils/errorHandler';
 import { formatNetworkJpgAndCoverage } from '../utils/image';
 
 export interface ConferenceGamesArgs {

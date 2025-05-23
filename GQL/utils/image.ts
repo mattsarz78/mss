@@ -4,10 +4,10 @@ import {
   CHANNELFINDER,
   COVERAGEMAP,
   COVERAGEMAP506,
+  coverageMapLinks,
   SPECIALCOVERAGENOTE,
   specialCoverageNotes,
-  syndicationLinks,
-  coverageMapLinks
+  syndicationLinks
 } from '../staticData/constants';
 import imagesForUrls from '../staticData/imagesForUrls.json';
 

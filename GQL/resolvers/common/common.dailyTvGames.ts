@@ -1,9 +1,9 @@
-import { IContext } from '../../context';
+import { basketball, football } from '__generated__/prisma';
 import { DateTime } from 'luxon';
 import { DailyTvGamesInput, TvGame } from '../../__generated__/graphql';
+import { IContext } from '../../context';
 import { CommonServiceKey } from '../../database/common';
-import { basketball, football } from '__generated__/prisma';
-import { handleError, BadRequestError } from '../../utils/errorHandler';
+import { BadRequestError, handleError } from '../../utils/errorHandler';
 import { formatNetworkJpgAndCoverage } from '../../utils/image';
 
 export interface DailyTvGamesArgs {

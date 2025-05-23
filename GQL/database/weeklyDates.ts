@@ -1,6 +1,6 @@
 import { PrismaClient, weeklydates } from '../__generated__/prisma';
-import { DatabaseService } from './services';
 import { DatabaseError } from '../utils/errorHandler';
+import { DatabaseService } from './services';
 
 export const WeeklyDatesServiceKey = Symbol.for('IWeeklyDatesService');
 
