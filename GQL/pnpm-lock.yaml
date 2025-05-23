@@ -44,9 +44,6 @@ importers:
       graphql:
         specifier: ^16.11.0
         version: 16.11.0
-      graphql-http:
-        specifier: ^1.22.4
-        version: 1.22.4(graphql@16.11.0)
       luxon:
         specifier: ^3.6.1
         version: 3.6.1
@@ -1494,12 +1491,6 @@ packages:
     peerDependenciesMeta:
       cosmiconfig-toml-loader:
         optional: true
-
-  graphql-http@1.22.4:
-    resolution: {integrity: sha512-OC3ucK988teMf+Ak/O+ZJ0N2ukcgrEurypp8ePyJFWq83VzwRAmHxxr+XxrMpxO/FIwI4a7m/Fzv3tWGJv0wPA==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      graphql: '>=0.11 <=16'
 
   graphql-request@6.1.0:
     resolution: {integrity: sha512-p+XPfS4q7aIpKVcgmnZKhMNqhltk20hfXtkaIkTfjjmiKMJ5xrt5c743cL03y/K7y1rg3WrIC49xGiEQ4mxdNw==}
@@ -4394,10 +4385,6 @@ snapshots:
       - typescript
       - uWebSockets.js
       - utf-8-validate
-
-  graphql-http@1.22.4(graphql@16.11.0):
-    dependencies:
-      graphql: 16.11.0
 
   graphql-request@6.1.0(graphql@16.11.0):
     dependencies:
