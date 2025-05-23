@@ -59,64 +59,64 @@ export default defineConfig(({ mode }) => {
 });
 
 function chunkGroup(id: string): string | Rollup.NullValue {
+  // Vendor dependencies first
   if (id.includes('node_modules')) {
-    if (id.includes('luxon')) return 'vendor-dates';
-    if (id.includes('vue')) return 'vendor-vue';
-    return 'vendor-other';
+    return getVendorChunk(id);
   }
-  const chunkMap: Record<string, string> = {
-    'utils/game.ts': 'group-game',
-    'utils/ppvColumn.ts': 'group-ppv-column',
-    'utils/domText.ts': 'group-dom-text',
-    'src/components/shared/CopyrightLink.vue': 'ads-group',
-    'src/components/shared/AdsByGoogle.vue': 'ads-group',
-    'src/views/HomeView.vue': 'group-home',
-    'src/components/TwitterRetrieval.vue': 'group-home',
-    'composables/useSeasonContents.ts': 'group-season',
-    'src/views/SeasonView.vue': 'group-season',
-    'src/components/SeasonDates.vue': 'group-season',
-    'src/components/ConferenceList.vue': 'group-season',
-    'src/components/WeekLink.vue': 'group-season',
-    'composables/useConferenceGames.ts': 'group-conference-games',
-    'utils/conference.ts': 'group-conference-games',
-    'src/views/ConferenceGames.vue': 'group-conference-games',
-    'src/staticData/conference-data': 'group-conference-games',
-    'src/staticData/conferenceCasing.json': 'group-conference-games',
-    'src/components/conference/ConferenceGameList.vue': 'group-conference-games',
-    'src/components/conference/ConferenceTable.vue': 'group-conference-games',
-    'src/components/IndependentsGameList.vue': 'group-conference-games',
-    'src/components/WeeklyBase.vue': 'group-weekly-base',
-    'src/components/weekly/WeekGamesTable.vue': 'group-weekly-base',
-    'src/components/weekly/PostseasonMbkEvent.vue': 'group-weekly-base',
-    'src/components/weekly/WeekGameRow.vue': 'group-weekly-base',
-    'composables/useWeekTextSchedule.ts': 'group-weekly-text',
-    'src/views/WeeklyTextScheduleView.vue': 'group-weekly-text',
-    'src/components/WeekTextSchedule.vue': 'group-weekly-text',
-    'src/components/WeekTextBase.vue': 'group-weekly-text-base',
-    'src/components/WeekTextTable.vue': 'group-weekly-text-base',
-    'src/components/shared/BackToTop.vue': 'group-back-to-top',
-    'src/components/shared/BackToTopButton.vue': 'group-back-to-top',
-    'src/components/shared/BackToTopScript.vue': 'group-back-to-top',
-    'src/views/TvWindowsView.vue': 'group-tv-windows-view',
-    'src/views/ArchiveView.vue': 'group-archive-view',
-    'src/views/DailyScheduleView.vue': 'group-daily-schedule-view',
-    'composables/useDailyTvGames.ts': 'group-daily-schedule-view',
-    'src/views/DailyTextScheduleView.vue': 'group-daily-text-schedule-view',
-    'composables/useDailyTvTextGames.ts': 'group-daily-text-schedule-view',
-    'src/views/CopyrightView.vue': 'group-copyright-view',
-    'src/views/WeeklyScheduleView.vue': 'group-week-schedule-view',
-    'src/components/WeekSchedule.vue': 'group-week-schedule-view',
-    'composables/useWeekSchedule.ts': 'group-week-schedule-view',
-    'composables/useNoTvSchedule.ts': 'group-week-schedule-view',
-    'src/components/noTVGames/NoTvGames.vue': 'group-week-schedule-view',
-    'src/components/noTVGames/NoTvGamesTable.vue': 'group-week-schedule-view'
-  };
 
-  for (const [filePath, chunkName] of Object.entries(chunkMap)) {
-    if (id.includes(filePath)) {
-      return chunkName;
-    }
+  // Core utilities and composables
+  if (id.includes('/utils/') || id.includes('/composables/')) {
+    return getCoreChunk(id);
   }
+
+  // Feature modules
+  if (id.includes('/components/')) {
+    return getFeatureChunk(id);
+  }
+
+  // Route-based chunks
+  if (id.includes('/views/')) {
+    return getRouteChunk(id);
+  }
+
+  // Static data
+  if (id.includes('/staticData/')) {
+    return 'chunk-static';
+  }
+
+  return null;
+}
+
+function getVendorChunk(id: string): string {
+  if (id.includes('vue')) return 'vendor-vue';
+  if (id.includes('luxon')) return 'vendor-dates';
+  return 'vendor-other';
+}
+
+function getCoreChunk(id: string): string {
+  if (id.includes('/utils/game') || id.includes('/utils/ppvColumn')) {
+    return 'core-game-utils';
+  }
+  if (id.includes('/composables/use')) {
+    return 'core-composables';
+  }
+  return 'core-common';
+}
+
+function getFeatureChunk(id: string): string {
+  if (id.includes('/components/weekly/')) return 'feature-weekly';
+  if (id.includes('/components/conference/')) return 'feature-conference';
+  if (id.includes('/components/noTVGames/')) return 'feature-no-tv';
+  if (id.includes('/components/shared/')) return 'feature-shared';
+  if (id.includes('/components/season/')) return 'feature-season';
+  if (id.includes('/components/weeklyText/')) return 'feature-weekly-text';
+  return 'feature-other';
+}
+
+function getRouteChunk(id: string): string {
+  const route = /\/views\/(\w+)View/.exec(id)?.[1]?.toLowerCase();
+  if (route) return `route-${route}`;
+  return 'route-other';
 }
 
 async function loadVueDevTools() {

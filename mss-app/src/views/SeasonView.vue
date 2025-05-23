@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import ConferenceList from '@/components/ConferenceList.vue';
-import SeasonDates from '@/components/SeasonDates.vue';
+import ConferenceList from '@/components/season/ConferenceList.vue';
+import SeasonDates from '@/components/season/SeasonDates.vue';
 import { useSeasonContents } from '@/composables/useSeasonContents';
 import validSportYears from '@/staticData/validSportYears.json';
 import { addMetaTags } from '@/utils/metaTags';

@@ -4,7 +4,6 @@ import { ref } from 'vue';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import TwitterRetrieval from '@/components/TwitterRetrieval.vue';
 
 const title = "Matt's College Sports on TV";
 
@@ -62,7 +61,7 @@ adjustLayout();
           data-tweet-limit="5"
           >Tweets by mattsarz</a
         >
-        <TwitterRetrieval />
+        <component :is="'script'" async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
       </div>
     </div>
     <iframe

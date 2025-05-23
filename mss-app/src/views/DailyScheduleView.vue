@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import BackToTop from '@/components/shared/BackToTop.vue';
-import WeeklyBase from '@/components/WeeklyBase.vue';
+import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import { useWebExclusives } from '@/composables/webExclusives';

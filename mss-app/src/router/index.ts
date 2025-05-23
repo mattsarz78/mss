@@ -5,7 +5,7 @@ const Home = () => import('@/views/HomeView.vue');
 const Copyright = () => import('@/views/CopyrightView.vue');
 const Archive = () => import('@/views/ArchiveView.vue');
 const Season = () => import('@/views/SeasonView.vue');
-const ConferenceGameList = () => import('@/views/ConferenceGames.vue');
+const ConferenceGameList = () => import('@/views/ConferenceGamesView.vue');
 const TvWindowsView = () => import('@/views/TvWindowsView.vue');
 const WeeklyScheduleView = () => import('@/views/WeeklyScheduleView.vue');
 const WeeklyTextScheduleView = () => import('@/views/WeeklyTextScheduleView.vue');
