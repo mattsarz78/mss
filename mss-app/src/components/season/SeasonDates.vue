@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { WeekInfo } from '@/graphQl';
 import { DateTime } from 'luxon';
-import WeekLink from '@/components/WeekLink.vue';
+import WeekLink from '@/components/season/WeekLink.vue';
 import { computed } from 'vue';
 import validSportYears from '@/staticData/validSportYears.json';
 import type { ValidSportYear } from '@/staticData/exportTypes';

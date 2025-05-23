@@ -3,7 +3,7 @@ import { RouterLink, useRoute } from 'vue-router';
 import { addMetaTags } from '@/utils/metaTags';
 import { getConferenceContractData } from '@/utils/conference';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
-import IndependentsGameList from '@/components/IndependentsGameList.vue';
+import IndependentsGameList from '@/components/conference/IndependentsGameList.vue';
 import { useConferenceGames } from '@/composables/useConferenceGames';
 import conferenceCasing from '@/staticData/conferenceCasing.json';
 import validSportYears from '@/staticData/validSportYears.json';

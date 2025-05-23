@@ -2,7 +2,7 @@
 import { useDailyTvTextGames } from '@/composables/useDailyTvTextGames';
 import { clearAllSelectedTextRows, checkAllTextRows } from '@/utils/domText';
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
-import WeekTextBase from '@/components/WeekTextBase.vue';
+import WeekTextBase from '@/components/weeklyText/WeekTextBase.vue';
 import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';

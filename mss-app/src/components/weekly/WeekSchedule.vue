@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import WeekTextBase from './WeekTextBase.vue';
-import BackToTop from '@/components/shared/BackToTop.vue';
-import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
-import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
-import { shouldShowPpvColumn } from '@/utils/ppvColumn';
-import Copyright from './shared/CopyrightLink.vue';
-import AdsByGoogle from './shared/AdsByGoogle.vue';
+import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
+import NoTvGames from '@/components/noTVGames/NoTvGames.vue';
+import { useWeekSchedule } from '@/composables/useWeekSchedule';
+import { useWebExclusives } from '@/composables/webExclusives';
+import Copyright from '@/components/shared/CopyrightLink.vue';
+import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
+import BackToTop from '@/components/shared/BackToTop.vue';
 import { computed } from 'vue';
+import { DateTime } from 'luxon';
+import { shouldShowPpvColumn } from '@/utils/ppvColumn';
+import type { FlexScheduleLink } from '@/staticData/exportTypes';
+import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
@@ -15,6 +19,8 @@ const { week, sport, paramYear } = props;
 const year = computed(() =>
   sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`
 );
+
+const { buttonText, toggleWebExclusives } = useWebExclusives();
 
 const weekInt = computed(() => parseInt(week));
 
@@ -31,7 +37,24 @@ const {
   isNextWeekBowlWeek
 } = useWeekScheduleNav(sport, year.value, weekInt.value);
 
-const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, year.value, weekInt.value);
+const gamesToday = computed(() => {
+  return (
+    seasonContentsResult.value?.seasonContents
+      .filter((x) => x.week === weekInt.value)
+      .some((x) => {
+        const dateToCompare = DateTime.now().setZone('America/New_York');
+        return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare;
+      }) ?? false
+  );
+});
+
+const showPpvColumn = computed(() => shouldShowPpvColumn(year.value));
+
+const flexLink = computed(
+  () => flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year.value)?.url ?? ''
+);
+
+const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSchedule(sport, year.value, weekInt.value);
 </script>
 
 <template>
@@ -47,7 +70,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
       </div>
     </template>
     <template v-if="seasonContentsResult && !(tvGameError || seasonContentsError)">
-      <nav class="navbar DONTPrint">
+      <nav :class="`navbar DONTPrint ${isMbkPostseason || isBowlWeek ? 'short-height' : 'navbar-height'}`">
         <div class="container">
           <div class="flex-container">
             <div class="flex-row">
@@ -56,12 +79,19 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
             <div class="flex-row">
               <RouterLink :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
             </div>
-            <div class="flex-row">
-              <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}`">
-                Weekly Schedule
-              </RouterLink>
+            <div v-if="gamesToday" class="flex-row">
+              <RouterLink :to="`/schedule/${sport}/daily`">Today's Schedule </RouterLink>
             </div>
           </div>
+          <div class="flex-container">
+            <div v-if="flexLink" class="flex-row">
+              <RouterLink :to="`/tv-windows/${paramYear}`" target="_blank">Available TV Windows</RouterLink>
+            </div>
+            <div class="flex-row">
+              <RouterLink :to="`/schedule/${sport}/${paramYear}/${week}/text`">Customizable Text-Only Page</RouterLink>
+            </div>
+          </div>
+
           <div v-if="!isMbkPostseason && !isBowlWeek" class="flex-container-row pad">
             <template v-if="isWeekOne">
               <div class="flex-row-left">
@@ -83,22 +113,25 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
             <br class="mobilehide" />
           </div>
           <br />
-          <p id="TextNav" class="DONTPrint">
-            <button id="ClearAll" class="inputpad buttonfont" @click="clearAllSelectedTextRows">Clear All Games</button>
-
-            <button id="CheckAll" class="inputpad buttonfont" @click="checkAllTextRows">Check All Games</button>
-          </p>
+          <div v-if="tvGameResult" class="filters">
+            <button
+              v-if="!isBowlWeek && !isMbkPostseason"
+              id="btnWebGames"
+              class="show_hideWeb buttonfont"
+              @click="toggleWebExclusives">
+              {{ buttonText }}
+            </button>
+          </div>
         </div>
       </nav>
     </template>
-
     <template v-if="tvGameResult">
-      <WeekTextBase
-        :season="year"
+      <WeeklyBase
         :tv-games="tvGameResult.tvGames"
         :is-bowl-week="isBowlWeek"
         :is-mbk-postseason="isMbkPostseason"
-        :show-ppv-column="shouldShowPpvColumn(year)" />
+        :show-ppv-column="showPpvColumn" />
+      <NoTvGames v-if="!isBowlWeek && showNoTvGames" :sport="sport" :year="year" :week="week" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />
@@ -107,19 +140,8 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
 </template>
 
 <style scoped>
-.inputpad {
-  padding-left: 10px;
-  margin-right: 3px;
-}
-
-.container {
-  height: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-#TextNav {
-  margin: 0;
+.show_hideWeb {
+  display: inline-block;
 }
 
 .navbar {
@@ -128,13 +150,29 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
   left: 0;
   right: 0;
   z-index: 9999;
-  width: 100%;
   background-color: white;
   padding: 2px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   display: block;
   align-items: center;
-  height: 119.5px;
+}
+
+.navbar-height {
+  height: 140px;
+}
+
+.short-height {
+  height: 69.5px;
+}
+
+.container {
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.filters {
+  margin: 0;
 }
 
 .pad {
@@ -185,6 +223,14 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
 }
 
 @media only screen and (max-width: 640px) {
+  .short-height {
+    height: 39.5px;
+  }
+
+  .navbar-height {
+    height: 88px;
+  }
+
   .flex-container {
     flex-direction: row;
     padding-bottom: 4px;
@@ -202,13 +248,9 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
     margin-left: 30%;
   }
 
-  .navbar {
-    height: 70px;
-    padding: 10px 3px;
-  }
-
-  .DONTPrint a {
-    line-height: 13px;
+  .blockspan {
+    display: block;
+    padding-bottom: 3px;
   }
 
   .mobilehide {
@@ -217,6 +259,10 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
 
   .buttonfont {
     font-size: 0.9em;
+  }
+
+  .navbar {
+    padding: 10px 3px;
   }
 }
 </style>

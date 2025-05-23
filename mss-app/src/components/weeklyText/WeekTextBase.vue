@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import WeekTextTable from './WeekTextTable.vue';
+import WeekTextTable from '@/components/weeklyText/WeekTextTable.vue';
 import type { TvGame } from '@/graphQl';
 
 const props = defineProps<{
