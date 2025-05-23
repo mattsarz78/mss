@@ -1,5 +1,5 @@
-import type { ConferenceData } from '@/staticData/exportTypes';
 import contractData from '@/staticData/conference-data/contractData.json';
+import type { ConferenceData } from '@/staticData/exportTypes';
 
 export const getConferenceContractData = (conference: string, season: string) => {
   return (

@@ -4,7 +4,7 @@ import BackToTop from '@/components/shared/BackToTop.vue';
 import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
 import { shouldShowPpvColumn } from '@/utils/ppvColumn';
-import { useWebExclusives } from '@/composables/webExclusives';
+import { useWebExclusives } from '@/composables/useWebExclusives';
 import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';

@@ -2,7 +2,7 @@
 import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
 import NoTvGames from '@/components/noTVGames/NoTvGames.vue';
 import { useWeekSchedule } from '@/composables/useWeekSchedule';
-import { useWebExclusives } from '@/composables/webExclusives';
+import { useWebExclusives } from '@/composables/useWebExclusives';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';

@@ -1,5 +1,5 @@
-import { useQuery } from '@vue/apollo-composable';
 import { DAILY_TV_GAMES, type TvGame } from '@/graphQl';
+import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';

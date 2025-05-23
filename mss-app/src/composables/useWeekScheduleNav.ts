@@ -1,6 +1,6 @@
+import type { WeekInfo } from '@/graphQl';
 import { computed } from 'vue';
 import { useSeasonContents } from './useSeasonContents';
-import type { WeekInfo } from '@/graphQl';
 
 const isFirstWeek = (contents: WeekInfo[], week: number): boolean => {
   return contents[0].week === week;

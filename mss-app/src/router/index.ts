@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const Home = () => import('@/views/HomeView.vue');
 const Copyright = () => import('@/views/CopyrightView.vue');

@@ -1,12 +1,12 @@
-import { createApp, provide, h } from 'vue';
-import App from './App.vue';
-import router from './router';
-import { DefaultApolloClient } from '@vue/apollo-composable';
-import { apolloClient } from './apolloClient';
 import { createHead } from '@unhead/vue/client';
 import { InferSeoMetaPlugin } from '@unhead/vue/plugins';
+import { DefaultApolloClient } from '@vue/apollo-composable';
 import { registerSW } from 'virtual:pwa-register';
+import { createApp, h, provide } from 'vue';
 import VueDOMPurifyHTML from 'vue-dompurify-html';
+import { apolloClient } from './apolloClient';
+import App from './App.vue';
+import router from './router';
 
 const updateSW = registerSW({
   onNeedRefresh() {

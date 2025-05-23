@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import type { TvGame, ConferenceGame } from '../graphQl';
+import type { ConferenceGame, TvGame } from '../graphQl';
 
 export const formatGame = (game: TvGame | ConferenceGame): string => {
   return (
