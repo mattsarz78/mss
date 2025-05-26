@@ -9,7 +9,6 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
-import { Application } from 'express-serve-static-core';
 import http from 'http';
 import { PrismaClient } from './__generated__/prisma';
 import { IContext } from './context';
@@ -23,13 +22,6 @@ const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
 
 const app = express();
-
-// Express 5 shim
-app.use((req, res, next) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  req.body = req.body ?? {};
-  next();
-});
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const compress = compression({
@@ -96,13 +88,8 @@ async function startServer() {
     '/graphql',
     expressMiddleware<IContext>(apolloServer, {
       context: async ({ req, res }) =>
-        Promise.resolve({
-          db,
-          services: getDatabaseServices(databaseServices),
-          request: req,
-          response: res
-        } as unknown as IContext)
-    }) as Application
+        Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req, response: res })
+    })
   );
 
   httpServer.listen(8020, () => {
