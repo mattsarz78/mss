@@ -79,3 +79,12 @@ model weeklydates {
   @@id([season, week])
   @@index([season], map: "idx_wkly_dates_season")
 }
+
+model seasondata {
+  season             String  @id
+  hasPostseason      Boolean
+  hasNoTVGames       Boolean
+  showPPVColumn      Boolean
+  conferenceListBase String?
+  independents       String?
+}

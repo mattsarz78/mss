@@ -64,6 +64,15 @@ export interface NoTvGame {
   fcs?: string;
 }
 
+export interface SeasonData {
+  season: string;
+  hasPostseason: boolean;
+  hasNoTVGames: boolean;
+  showPPVColumn: boolean;
+  conferenceListBase?: string;
+  independents?: string;
+}
+
 export const SEASON_CONTENTS = gql`
   query seasonContents($input: SeasonContentsInput) {
     seasonContents(input: $input) {
@@ -138,6 +147,19 @@ export const NO_TV_GAMES = gql`
       tvOptions
       timeWithOffset
       fcs
+    }
+  }
+`;
+
+export const SEASON_DATA = gql`
+  query seasonData($input: SeasonContentsInput) {
+    seasonData(input: $input) {
+      season
+      hasPostseason
+      hasNoTVGames
+      showPPVColumn
+      conferenceListBase
+      independents
     }
   }
 `;

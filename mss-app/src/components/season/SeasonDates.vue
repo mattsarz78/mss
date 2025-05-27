@@ -3,15 +3,15 @@ import type { WeekInfo } from '@/graphQl';
 import { DateTime } from 'luxon';
 import WeekLink from '@/components/season/WeekLink.vue';
 import { computed } from 'vue';
-import validSportYears from '@/staticData/validSportYears.json';
-import type { ValidSportYear } from '@/staticData/exportTypes';
 
-const props = defineProps<{ contents: WeekInfo[]; sport: string; paramYear: string; year: string }>();
+const props = defineProps<{
+  contents: WeekInfo[];
+  sport: string;
+  paramYear: string;
+  hasBasketballPostseason: boolean;
+}>();
 
-const { contents, sport, paramYear, year } = props;
-
-const hasBasketballPostseason =
-  validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.hasPostseason ?? false;
+const { contents, sport, paramYear, hasBasketballPostseason } = props;
 
 const lastContent = contents[contents.length - 1];
 

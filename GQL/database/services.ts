@@ -2,6 +2,7 @@ import { Prisma } from '../__generated__/prisma';
 import { AvailableTvServiceKey, IAvailableTvService } from './availableTV';
 import { CommonServiceKey, ICommonService } from './common';
 import { FootballServiceKey, IFootballService } from './football';
+import { ISeasonService, SeasonServiceKey } from './seasonData';
 import { IWeeklyDatesService, WeeklyDatesServiceKey } from './weeklyDates';
 
 export interface DatabaseService<T> {
@@ -13,10 +14,17 @@ export interface DatabaseServices {
   [FootballServiceKey]: IFootballService;
   [WeeklyDatesServiceKey]: IWeeklyDatesService;
   [CommonServiceKey]: ICommonService;
+  [SeasonServiceKey]: ISeasonService;
 }
 
 export const getDatabaseServices = (services: Partial<DatabaseServices>): DatabaseServices => {
-  const requiredServices = [AvailableTvServiceKey, FootballServiceKey, WeeklyDatesServiceKey, CommonServiceKey];
+  const requiredServices = [
+    AvailableTvServiceKey,
+    FootballServiceKey,
+    WeeklyDatesServiceKey,
+    CommonServiceKey,
+    SeasonServiceKey
+  ];
 
   for (const serviceKey of requiredServices) {
     if (!services[serviceKey as keyof DatabaseServices]) {

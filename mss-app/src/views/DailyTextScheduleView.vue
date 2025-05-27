@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useDailyTvTextGames } from '@/composables/useDailyTvTextGames';
-import { clearAllSelectedTextRows, checkAllTextRows } from '@/utils/domText';
-import { shouldShowPpvColumn } from '@/utils/ppvColumn';
-import WeekTextBase from '@/components/weeklyText/WeekTextBase.vue';
-import { DateTime } from 'luxon';
-import { addMetaTags } from '@/utils/metaTags';
-import Copyright from '@/components/shared/CopyrightLink.vue';
-import BackToTop from '@/components/shared/BackToTop.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
+import BackToTop from '@/components/shared/BackToTop.vue';
+import Copyright from '@/components/shared/CopyrightLink.vue';
+import WeekTextBase from '@/components/weeklyText/WeekTextBase.vue';
+import { useDailyTvTextGames } from '@/composables/useDailyTvTextGames';
+import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
+import { addMetaTags } from '@/utils/metaTags';
+import { DateTime } from 'luxon';
+import { useSeasonData } from '@/composables/useSeasonData';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
 
@@ -15,21 +15,23 @@ addMetaTags(title);
 
 const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate } =
   useDailyTvTextGames();
+
+const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(season.value);
 </script>
 
 <template>
   <div v-reset-adsense-height>
-    <template v-if="dailyTvGameLoading">
+    <template v-if="dailyTvGameLoading || seasonDataLoading">
       <div class="loading-container">
         <p class="loading-text">Loading {{ sport }} for {{ startDate }}</p>
       </div>
     </template>
-    <template v-if="dailyTvGameError">
+    <template v-if="dailyTvGameError || seasonDataError">
       <div class="error-container">
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
       </div>
     </template>
-    <template v-if="dailyTvGameResult">
+    <template v-if="dailyTvGameResult && seasonDataResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div class="flex-container">
@@ -56,7 +58,7 @@ const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYe
         :tv-games="dailyTvGameResult.dailyTvGames"
         :is-bowl-week="false"
         :is-mbk-postseason="false"
-        :show-ppv-column="shouldShowPpvColumn(paramYear)" />
+        :show-ppv-column="seasonDataResult.seasonData.showPPVColumn" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />
