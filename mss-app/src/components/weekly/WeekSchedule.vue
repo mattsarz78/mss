@@ -9,9 +9,9 @@ import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 import BackToTop from '@/components/shared/BackToTop.vue';
 import { computed } from 'vue';
 import { DateTime } from 'luxon';
-import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import type { FlexScheduleLink } from '@/staticData/exportTypes';
 import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
+import { useSeasonData } from '@/composables/useSeasonData';
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
@@ -48,28 +48,27 @@ const gamesToday = computed(() => {
   );
 });
 
-const showPpvColumn = computed(() => shouldShowPpvColumn(year.value));
-
 const flexLink = computed(
   () => flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year.value)?.url ?? ''
 );
 
-const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSchedule(sport, year.value, weekInt.value);
+const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(year.value);
+const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year.value, weekInt.value);
 </script>
 
 <template>
   <div>
-    <template v-if="seasonContentsLoading && tvGameLoading">
+    <template v-if="seasonContentsLoading || tvGameLoading || seasonDataLoading">
       <div class="loading-container">
         <p class="loading-text">Loading Week {{ week }} for {{ paramYear }}</p>
       </div>
     </template>
-    <template v-if="seasonContentsError || tvGameError">
+    <template v-if="seasonContentsError || tvGameError || seasonDataError">
       <div class="error-container">
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
       </div>
     </template>
-    <template v-if="seasonContentsResult && !(tvGameError || seasonContentsError)">
+    <template v-if="seasonContentsResult && seasonDataResult && tvGameResult">
       <nav :class="`navbar DONTPrint ${isMbkPostseason || isBowlWeek ? 'short-height' : 'navbar-height'}`">
         <div class="container">
           <div class="flex-container">
@@ -125,13 +124,17 @@ const { tvGameResult, tvGameLoading, tvGameError, showNoTvGames } = useWeekSched
         </div>
       </nav>
     </template>
-    <template v-if="tvGameResult">
+    <template v-if="tvGameResult && seasonDataResult">
       <WeeklyBase
         :tv-games="tvGameResult.tvGames"
         :is-bowl-week="isBowlWeek"
         :is-mbk-postseason="isMbkPostseason"
-        :show-ppv-column="showPpvColumn" />
-      <NoTvGames v-if="!isBowlWeek && showNoTvGames" :sport="sport" :year="year" :week="week" />
+        :show-ppv-column="seasonDataResult.seasonData.showPPVColumn" />
+      <NoTvGames
+        v-if="!isBowlWeek && seasonDataResult?.seasonData.hasNoTVGames"
+        :sport="sport"
+        :year="year"
+        :week="week" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />

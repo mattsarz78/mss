@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { RouterLink, useRoute } from 'vue-router';
-import { addMetaTags } from '@/utils/metaTags';
-import { getConferenceContractData } from '@/utils/conference';
 import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
 import IndependentsGameList from '@/components/conference/IndependentsGameList.vue';
-import { useConferenceGames } from '@/composables/useConferenceGames';
-import conferenceCasing from '@/staticData/conferenceCasing.json';
-import validSportYears from '@/staticData/validSportYears.json';
-import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
-import type { ConferenceCasing, FlexScheduleLink, ValidSportYear } from '@/staticData/exportTypes';
+import Copyright from '@/components/shared/CopyrightLink.vue';
+import { useConferenceGames } from '@/composables/useConferenceGames';
+import { useSeasonData } from '@/composables/useSeasonData';
+import conferenceCasing from '@/staticData/conferenceCasing.json';
+import type { ConferenceCasing, FlexScheduleLink } from '@/staticData/exportTypes';
 import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
+import { getConferenceContractData } from '@/utils/conference';
+import { addMetaTags } from '@/utils/metaTags';
+import { computedAsync } from '@vueuse/core';
+import { RouterLink, useRoute } from 'vue-router';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
@@ -28,8 +29,11 @@ addMetaTags(title);
 
 const flexLink = flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year)?.url ?? '';
 
-const independentSchools =
-  validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.independents ?? '';
+const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(year);
+
+const independentSchools = computedAsync(() =>
+  seasonDataResult.value ? (seasonDataResult.value.seasonData.independents ?? '') : ''
+) as unknown as string;
 
 const contractTvData =
   conference !== 'independents'
@@ -45,7 +49,7 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
 </script>
 
 <template>
-  <template v-if="result">
+  <template v-if="result && seasonDataResult">
     <nav class="navbar DONTPrint">
       <div class="container">
         <div class="flex-container">
@@ -88,12 +92,12 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
     </div>
     <Copyright />
   </template>
-  <template v-if="loading">
+  <template v-if="loading || seasonDataLoading">
     <div class="loading-container">
       <p class="loading-text">{{ cased }} Games Loading...</p>
     </div>
   </template>
-  <template v-if="error">
+  <template v-if="error || seasonDataError">
     <div class="error-container">
       <p>Sorry. Got a bit of a problem. Let Matt know.</p>
     </div>

@@ -3,11 +3,11 @@ import WeekTextBase from '@/components/weeklyText/WeekTextBase.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
 import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
 import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
-import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 import { computed } from 'vue';
+import { useSeasonData } from '@/composables/useSeasonData';
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
@@ -31,22 +31,24 @@ const {
   isNextWeekBowlWeek
 } = useWeekScheduleNav(sport, year.value, weekInt.value);
 
+const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(year.value);
+
 const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, year.value, weekInt.value);
 </script>
 
 <template>
   <div>
-    <template v-if="seasonContentsLoading && tvGameLoading">
+    <template v-if="seasonContentsLoading || tvGameLoading || seasonDataLoading">
       <div class="loading-container">
         <p class="loading-text">Loading Week {{ week }} for {{ paramYear }}</p>
       </div>
     </template>
-    <template v-if="seasonContentsError || tvGameError">
+    <template v-if="seasonContentsError || seasonDataError || tvGameError">
       <div class="error-container">
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
       </div>
     </template>
-    <template v-if="seasonContentsResult && !(tvGameError || seasonContentsError)">
+    <template v-if="seasonContentsResult && seasonDataResult && tvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div class="flex-container">
@@ -92,13 +94,13 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
       </nav>
     </template>
 
-    <template v-if="tvGameResult">
+    <template v-if="tvGameResult && seasonDataResult">
       <WeekTextBase
         :season="year"
         :tv-games="tvGameResult.tvGames"
         :is-bowl-week="isBowlWeek"
         :is-mbk-postseason="isMbkPostseason"
-        :show-ppv-column="shouldShowPpvColumn(year)" />
+        :show-ppv-column="seasonDataResult.seasonData.showPPVColumn" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />

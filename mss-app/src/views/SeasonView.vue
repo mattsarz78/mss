@@ -3,11 +3,11 @@ import { useRoute } from 'vue-router';
 import ConferenceList from '@/components/season/ConferenceList.vue';
 import SeasonDates from '@/components/season/SeasonDates.vue';
 import { useSeasonContents } from '@/composables/useSeasonContents';
-import validSportYears from '@/staticData/validSportYears.json';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import type { ValidSportYear } from '@/staticData/exportTypes';
+import { useSeasonData } from '@/composables/useSeasonData';
+import { computedAsync } from '@vueuse/core';
 
 const route = useRoute();
 const sport = route.params.sport as string;
@@ -18,13 +18,13 @@ const title = `${paramYear} ${sport.charAt(0).toUpperCase()}${sport.slice(1)} Se
 
 addMetaTags(title);
 
+const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(year);
+
 const { result, loading, error } = useSeasonContents(year);
 
-const conferenceList =
-  sport === 'football' && year !== '2021s'
-    ? (validSportYears.find((validSportYear: ValidSportYear) => validSportYear.season === year)?.conferenceListBase ??
-      '')
-    : '';
+const conferenceList = computedAsync(() =>
+  sport === 'football' && year !== '2021s' ? (seasonDataResult.value?.seasonData.conferenceListBase ?? '') : ''
+) as unknown as string;
 </script>
 
 <template>
@@ -40,16 +40,20 @@ const conferenceList =
   </nav>
   <div id="Main" v-reset-adsense-height>
     <p>{{ title }}</p>
-    <template v-if="error">Got a problem. Let Matt know.</template>
-    <template v-if="loading">
+    <template v-if="error || seasonDataError">Got a problem. Let Matt know.</template>
+    <template v-if="loading || seasonDataLoading">
       <div class="loading-container">
         <p class="loading-text">Loading {{ paramYear }} season</p>
       </div>
     </template>
-    <template v-if="result && result.seasonContents">
+    <template v-if="result && result.seasonContents && seasonDataResult && seasonDataResult.seasonData">
       <div id="content">
         <div id="SeasonLinks" ref="seasonLinksRef" class="DONTPrint">
-          <SeasonDates :contents="result.seasonContents" :param-year="paramYear" :year="year" :sport="sport" />
+          <SeasonDates
+            :contents="result.seasonContents"
+            :param-year="paramYear"
+            :sport="sport"
+            :has-basketball-postseason="seasonDataResult.seasonData.hasPostseason" />
         </div>
         <ConferenceList v-if="sport === 'football'" :conference-list="conferenceList" :year="paramYear" />
       </div>

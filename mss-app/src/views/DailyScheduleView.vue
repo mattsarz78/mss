@@ -3,12 +3,12 @@ import { useRoute } from 'vue-router';
 import BackToTop from '@/components/shared/BackToTop.vue';
 import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
-import { shouldShowPpvColumn } from '@/utils/ppvColumn';
 import { useWebExclusives } from '@/composables/useWebExclusives';
 import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
+import { useSeasonData } from '@/composables/useSeasonData';
 
 const route = useRoute();
 const { sport } = route.params as { sport: string };
@@ -27,21 +27,23 @@ const {
   flexLink,
   startDate
 } = useDailyTvGames(sport);
+
+const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(season.value);
 </script>
 
 <template>
   <div v-reset-adsense-height>
-    <template v-if="dailyTvGameLoading">
+    <template v-if="dailyTvGameLoading || seasonDataLoading">
       <div class="loading-container">
         <p class="loading-text">Loading {{ sport }} for {{ startDate }}</p>
       </div>
     </template>
-    <template v-if="dailyTvGameError">
+    <template v-if="dailyTvGameError || seasonDataError">
       <div class="error-container">
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
       </div>
     </template>
-    <template v-if="dailyTvGameResult">
+    <template v-if="dailyTvGameResult && seasonDataResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div class="flex-container">
@@ -72,7 +74,7 @@ const {
         :tv-games="dailyTvGameResult.dailyTvGames"
         :is-bowl-week="false"
         :is-mbk-postseason="false"
-        :show-ppv-column="shouldShowPpvColumn(season)" />
+        :show-ppv-column="seasonDataResult.seasonData.showPPVColumn" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />

@@ -28,7 +28,7 @@ const conferenceLinks = computed(() => {
     links.splice(1, 0, { key: 'beast', link: getConferenceCasing('beast') });
   }
 
-  if (conferenceList === 'ListBase1') {
+  if (conferenceList === 'ListBase1' || conferenceList === 'ListBase2') {
     links.push({ key: 'wac', link: getConferenceCasing('wac') });
   }
 

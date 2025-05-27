@@ -1,12 +1,3 @@
-export interface ValidSportYear {
-  season: string;
-  hasPostseason: boolean;
-  hasNoTVGames: boolean;
-  showPPVColumn: boolean;
-  conferenceListBase?: string;
-  independents?: string;
-}
-
 export interface FlexScheduleLink {
   season: string;
   url: string;

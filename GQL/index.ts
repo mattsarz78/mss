@@ -15,6 +15,7 @@ import { IContext } from './context';
 import { AvailableTvService, AvailableTvServiceKey } from './database/availableTV';
 import { CommonService, CommonServiceKey } from './database/common';
 import { FootballService, FootballServiceKey } from './database/football';
+import { SeasonService, SeasonServiceKey } from './database/seasonData';
 import { DatabaseServices, getDatabaseServices } from './database/services';
 import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDates';
 
@@ -63,7 +64,8 @@ async function startServer() {
     [AvailableTvServiceKey]: new AvailableTvService(db),
     [FootballServiceKey]: new FootballService(db),
     [CommonServiceKey]: new CommonService(db),
-    [WeeklyDatesServiceKey]: new WeeklyDatesService(db)
+    [WeeklyDatesServiceKey]: new WeeklyDatesService(db),
+    [SeasonServiceKey]: new SeasonService(db)
   };
   const gqlSchema = loadSchemaSync('./schemas/*.graphql', { loaders: [new GraphQLFileLoader()] });
   const typeDefs = mergeTypeDefs([gqlSchema]);
@@ -71,7 +73,6 @@ async function startServer() {
   const resolversArray = loadFilesSync('./resolvers/**/*.resolvers.ts');
   const resolvers = mergeResolvers(resolversArray);
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const httpServer = http.createServer(app);
 
   const apolloServer = new ApolloServer<IContext>({
