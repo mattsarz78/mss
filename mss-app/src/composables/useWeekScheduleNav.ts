@@ -36,18 +36,18 @@ export function useWeekScheduleNav(sport: string, year: string, week: number) {
 
   const isBowlWeek = computed(() =>
     seasonContentsResult.value?.seasonContents
-      ? isBowlGameWeek(sport, seasonContentsResult.value.seasonContents, week)
+      ? isBowlGameWeek(sport, seasonContentsResult.value.seasonContents.seasonContents, week)
       : false
   );
   const isMbkPostseason = computed(() =>
-    isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents ?? [], week)
+    isBasketballPostseason(sport, seasonContentsResult.value?.seasonContents.seasonContents ?? [], week)
   );
-  const isWeekOne = computed(() => isFirstWeek(seasonContentsResult.value?.seasonContents ?? [], week));
+  const isWeekOne = computed(() => isFirstWeek(seasonContentsResult.value?.seasonContents.seasonContents ?? [], week));
   const isNextWeekMbkPostseason = computed(() =>
-    isNextWeekBasketballPostseason(sport, seasonContentsResult.value?.seasonContents ?? [], week)
+    isNextWeekBasketballPostseason(sport, seasonContentsResult.value?.seasonContents.seasonContents ?? [], week)
   );
   const isNextWeekBowlWeek = computed(() =>
-    isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents ?? [], week)
+    isNextWeekBowlGameWeek(sport, seasonContentsResult.value?.seasonContents.seasonContents ?? [], week)
   );
 
   return {

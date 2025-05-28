@@ -1,6 +1,5 @@
 type Query {
-  seasonContents(input: SeasonContentsInput): [SeasonContents]!
-  seasonData(input: SeasonContentsInput): SeasonData!
+  seasonContents(input: SeasonContentsInput): SeasonContentsData!
 }
 
 input SeasonContentsInput {
@@ -14,11 +13,8 @@ type SeasonContents {
   postseasonInd: String
 }
 
-type SeasonData {
-  season: String!
-  hasPostseason: Boolean!
-  hasNoTVGames: Boolean!
-  showPPVColumn: Boolean!
+type SeasonContentsData {
   conferenceListBase: String
-  independents: String
+  hasPostseason: Boolean!
+  seasonContents: [SeasonContents]!
 }

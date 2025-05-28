@@ -7,7 +7,6 @@ import { useDailyTvTextGames } from '@/composables/useDailyTvTextGames';
 import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
 import { addMetaTags } from '@/utils/metaTags';
 import { DateTime } from 'luxon';
-import { useSeasonData } from '@/composables/useSeasonData';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
 
@@ -15,23 +14,21 @@ addMetaTags(title);
 
 const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate } =
   useDailyTvTextGames();
-
-const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(season.value);
 </script>
 
 <template>
   <div v-reset-adsense-height>
-    <template v-if="dailyTvGameLoading || seasonDataLoading">
+    <template v-if="dailyTvGameLoading">
       <div class="loading-container">
         <p class="loading-text">Loading {{ sport }} for {{ startDate }}</p>
       </div>
     </template>
-    <template v-if="dailyTvGameError || seasonDataError">
+    <template v-if="dailyTvGameError">
       <div class="error-container">
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
       </div>
     </template>
-    <template v-if="dailyTvGameResult && seasonDataResult">
+    <template v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div class="flex-container">
@@ -55,10 +52,10 @@ const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(s
       </nav>
       <WeekTextBase
         :season="paramYear"
-        :tv-games="dailyTvGameResult.dailyTvGames"
+        :tv-games="dailyTvGameResult.dailyTvGames.tvGames"
         :is-bowl-week="false"
         :is-mbk-postseason="false"
-        :show-ppv-column="seasonDataResult.seasonData.showPPVColumn" />
+        :show-ppv-column="dailyTvGameResult.dailyTvGames.showPPVColumn" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />

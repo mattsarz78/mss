@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
+import Copyright from '@/components/shared/CopyrightLink.vue';
 import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
 import { useDailyTvGames } from '@/composables/useDailyTvGames';
 import { useWebExclusives } from '@/composables/useWebExclusives';
-import { DateTime } from 'luxon';
 import { addMetaTags } from '@/utils/metaTags';
-import Copyright from '@/components/shared/CopyrightLink.vue';
-import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import { useSeasonData } from '@/composables/useSeasonData';
+import { DateTime } from 'luxon';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const { sport } = route.params as { sport: string };
@@ -27,23 +26,21 @@ const {
   flexLink,
   startDate
 } = useDailyTvGames(sport);
-
-const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(season.value);
 </script>
 
 <template>
   <div v-reset-adsense-height>
-    <template v-if="dailyTvGameLoading || seasonDataLoading">
+    <template v-if="dailyTvGameLoading">
       <div class="loading-container">
         <p class="loading-text">Loading {{ sport }} for {{ startDate }}</p>
       </div>
     </template>
-    <template v-if="dailyTvGameError || seasonDataError">
+    <template v-if="dailyTvGameError">
       <div class="error-container">
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
       </div>
     </template>
-    <template v-if="dailyTvGameResult && seasonDataResult">
+    <template v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div class="flex-container">
@@ -71,10 +68,10 @@ const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(s
         </div>
       </nav>
       <WeeklyBase
-        :tv-games="dailyTvGameResult.dailyTvGames"
+        :tv-games="dailyTvGameResult.dailyTvGames.tvGames"
         :is-bowl-week="false"
         :is-mbk-postseason="false"
-        :show-ppv-column="seasonDataResult.seasonData.showPPVColumn" />
+        :show-ppv-column="dailyTvGameResult.dailyTvGames.showPPVColumn" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />

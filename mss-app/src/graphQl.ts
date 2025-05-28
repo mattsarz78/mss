@@ -20,6 +20,11 @@ export interface NoTvGamesInput {
   week: number;
 }
 
+export interface SeasonContentsData {
+  conferenceListBase?: string;
+  hasPostseason: boolean;
+  seasonContents: WeekInfo[];
+}
 export interface WeekInfo {
   startDate: string;
   endDate: string;
@@ -64,22 +69,28 @@ export interface NoTvGame {
   fcs?: string;
 }
 
-export interface SeasonData {
-  season: string;
-  hasPostseason: boolean;
-  hasNoTVGames: boolean;
+export interface TvGameData {
   showPPVColumn: boolean;
-  conferenceListBase?: string;
-  independents?: string;
+  hasNoTVGames: boolean;
+  tvGames: TvGame[];
+}
+
+export interface ConferenceGameData {
+  conferenceGames: ConferenceGame[];
+  conferences: string[];
 }
 
 export const SEASON_CONTENTS = gql`
   query seasonContents($input: SeasonContentsInput) {
     seasonContents(input: $input) {
-      startDate
-      endDate
-      week
-      postseasonInd
+      conferenceListBase
+      hasPostseason
+      seasonContents {
+        startDate
+        endDate
+        week
+        postseasonInd
+      }
     }
   }
 `;
@@ -87,15 +98,18 @@ export const SEASON_CONTENTS = gql`
 export const CONFERENCE_GAMES = gql`
   query conferenceGames($input: ConferenceGamesInput) {
     conferenceGames(input: $input) {
-      gameTitle
-      visitingTeam
-      homeTeam
-      location
-      timeWithOffset
-      mediaIndicator
-      network
-      tvtype
-      conference
+      conferences
+      conferenceGames {
+        gameTitle
+        visitingTeam
+        homeTeam
+        location
+        timeWithOffset
+        mediaIndicator
+        network
+        tvtype
+        conference
+      }
     }
   }
 `;
@@ -103,17 +117,21 @@ export const CONFERENCE_GAMES = gql`
 export const TV_GAMES = gql`
   query tvGames($input: TvGamesInput) {
     tvGames(input: $input) {
-      season
-      gameTitle
-      visitingTeam
-      homeTeam
-      location
-      network
-      networkJpg
-      coverageNotes
-      ppv
-      mediaIndicator
-      timeWithOffset
+      showPPVColumn
+      hasNoTVGames
+      tvGames {
+        season
+        gameTitle
+        visitingTeam
+        homeTeam
+        location
+        network
+        networkJpg
+        coverageNotes
+        ppv
+        mediaIndicator
+        timeWithOffset
+      }
     }
   }
 `;
@@ -121,17 +139,21 @@ export const TV_GAMES = gql`
 export const DAILY_TV_GAMES = gql`
   query dailyTvGames($input: DailyTvGamesInput) {
     dailyTvGames(input: $input) {
-      season
-      gameTitle
-      visitingTeam
-      homeTeam
-      location
-      network
-      networkJpg
-      coverageNotes
-      ppv
-      mediaIndicator
-      timeWithOffset
+      showPPVColumn
+      hasNoTVGames
+      tvGames {
+        season
+        gameTitle
+        visitingTeam
+        homeTeam
+        location
+        network
+        networkJpg
+        coverageNotes
+        ppv
+        mediaIndicator
+        timeWithOffset
+      }
     }
   }
 `;
@@ -147,19 +169,6 @@ export const NO_TV_GAMES = gql`
       tvOptions
       timeWithOffset
       fcs
-    }
-  }
-`;
-
-export const SEASON_DATA = gql`
-  query seasonData($input: SeasonContentsInput) {
-    seasonData(input: $input) {
-      season
-      hasPostseason
-      hasNoTVGames
-      showPPVColumn
-      conferenceListBase
-      independents
     }
   }
 `;

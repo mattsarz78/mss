@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
 import NoTvGames from '@/components/noTVGames/NoTvGames.vue';
-import { useWeekSchedule } from '@/composables/useWeekSchedule';
-import { useWebExclusives } from '@/composables/useWebExclusives';
-import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 import BackToTop from '@/components/shared/BackToTop.vue';
-import { computed } from 'vue';
-import { DateTime } from 'luxon';
+import Copyright from '@/components/shared/CopyrightLink.vue';
+import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
+import { useWebExclusives } from '@/composables/useWebExclusives';
+import { useWeekSchedule } from '@/composables/useWeekSchedule';
+import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 import type { FlexScheduleLink } from '@/staticData/exportTypes';
 import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
-import { useSeasonData } from '@/composables/useSeasonData';
+import { DateTime } from 'luxon';
+import { computed } from 'vue';
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
@@ -39,7 +38,7 @@ const {
 
 const gamesToday = computed(() => {
   return (
-    seasonContentsResult.value?.seasonContents
+    seasonContentsResult.value?.seasonContents.seasonContents
       .filter((x) => x.week === weekInt.value)
       .some((x) => {
         const dateToCompare = DateTime.now().setZone('America/New_York');
@@ -52,23 +51,22 @@ const flexLink = computed(
   () => flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year.value)?.url ?? ''
 );
 
-const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(year.value);
 const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year.value, weekInt.value);
 </script>
 
 <template>
   <div>
-    <template v-if="seasonContentsLoading || tvGameLoading || seasonDataLoading">
+    <template v-if="seasonContentsLoading || tvGameLoading">
       <div class="loading-container">
         <p class="loading-text">Loading Week {{ week }} for {{ paramYear }}</p>
       </div>
     </template>
-    <template v-if="seasonContentsError || tvGameError || seasonDataError">
+    <template v-if="seasonContentsError || tvGameError">
       <div class="error-container">
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
       </div>
     </template>
-    <template v-if="seasonContentsResult && seasonDataResult && tvGameResult">
+    <template v-if="seasonContentsResult && tvGameResult">
       <nav :class="`navbar DONTPrint ${isMbkPostseason || isBowlWeek ? 'short-height' : 'navbar-height'}`">
         <div class="container">
           <div class="flex-container">
@@ -124,17 +122,13 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
         </div>
       </nav>
     </template>
-    <template v-if="tvGameResult && seasonDataResult">
+    <template v-if="tvGameResult">
       <WeeklyBase
-        :tv-games="tvGameResult.tvGames"
+        :tv-games="tvGameResult.tvGames.tvGames"
         :is-bowl-week="isBowlWeek"
         :is-mbk-postseason="isMbkPostseason"
-        :show-ppv-column="seasonDataResult.seasonData.showPPVColumn" />
-      <NoTvGames
-        v-if="!isBowlWeek && seasonDataResult?.seasonData.hasNoTVGames"
-        :sport="sport"
-        :year="year"
-        :week="week" />
+        :show-ppv-column="tvGameResult.tvGames.showPPVColumn" />
+      <NoTvGames v-if="!isBowlWeek && tvGameResult.tvGames.hasNoTVGames" :sport="sport" :year="year" :week="week" />
       <BackToTop />
       <AdsByGoogle />
       <Copyright />

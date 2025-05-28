@@ -1,8 +1,8 @@
-import { SEASON_CONTENTS, type WeekInfo } from '@/graphQl';
+import { SEASON_CONTENTS, type SeasonContentsData } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
 
 export function useSeasonContents(year: string) {
-  const { result, loading, error } = useQuery<{ seasonContents: WeekInfo[] }>(SEASON_CONTENTS, {
+  const { result, loading, error } = useQuery<{ seasonContents: SeasonContentsData }>(SEASON_CONTENTS, {
     input: { season: year }
   });
 

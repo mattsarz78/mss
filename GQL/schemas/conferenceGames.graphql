@@ -1,5 +1,5 @@
 type Query {
-  conferenceGames(input: ConferenceGamesInput): [ConferenceGame]!
+  conferenceGames(input: ConferenceGamesInput): ConferenceGameData!
 }
 
 input ConferenceGamesInput {
@@ -17,4 +17,9 @@ type ConferenceGame {
   network: String
   tvtype: String
   conference: String
+}
+
+type ConferenceGameData {
+  conferenceGames: [ConferenceGame]!
+  conferences: [String]!
 }

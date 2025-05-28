@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon';
-import { ConferenceGame, ConferenceGamesInput } from '../__generated__/graphql';
+import { ConferenceGame, ConferenceGameData, ConferenceGamesInput } from '../__generated__/graphql';
 import { football } from '../__generated__/prisma';
 import { IContext } from '../context';
 import { FootballServiceKey } from '../database/football';
+import { SeasonServiceKey } from '../database/seasonData';
 import { BadRequestError, handleError } from '../utils/errorHandler';
 import { formatNetworkJpgAndCoverage } from '../utils/image';
 
@@ -14,13 +15,19 @@ export const conferenceGamesResolver = async (
   _1: unknown,
   { input }: ConferenceGamesArgs,
   context: IContext
-): Promise<ConferenceGame[]> => {
+): Promise<ConferenceGameData> => {
   try {
     if (!input.conference || !input.season) {
       throw new BadRequestError('Conference and season are required');
     }
 
-    const conferences = input.conference.split('|');
+    let conferences: string[] = [];
+    if (input.conference === 'independents') {
+      conferences =
+        (await context.services[SeasonServiceKey].getSeasonData(input.season)).independents?.split('|') ?? [];
+    } else {
+      conferences = input.conference.split('|');
+    }
 
     const conferenceResults = await Promise.all(
       conferences.map((conference) =>
@@ -44,7 +51,7 @@ export const conferenceGamesResolver = async (
         conference: conferenceGame.conference?.trim() ?? ''
       }));
 
-    return conferenceGames;
+    return { conferences, conferenceGames } as ConferenceGameData;
   } catch (err: unknown) {
     throw handleError(err);
   }

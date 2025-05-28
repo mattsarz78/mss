@@ -1,6 +1,6 @@
 type Query {
-  tvGames(input: TvGamesInput): [TvGame]!
-  dailyTvGames(input: DailyTvGamesInput): [TvGame]!
+  tvGames(input: TvGamesInput): TvGameData!
+  dailyTvGames(input: DailyTvGamesInput): TvGameData!
 }
 
 input TvGamesInput {
@@ -26,4 +26,10 @@ type TvGame {
   ppv: String
   mediaIndicator: String!
   timeWithOffset: String
+}
+
+type TvGameData {
+  showPPVColumn: Boolean!
+  hasNoTVGames: Boolean!
+  tvGames: [TvGame]!
 }

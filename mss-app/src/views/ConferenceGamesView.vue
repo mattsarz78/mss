@@ -5,13 +5,11 @@ import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import { useConferenceGames } from '@/composables/useConferenceGames';
-import { useSeasonData } from '@/composables/useSeasonData';
 import conferenceCasing from '@/staticData/conferenceCasing.json';
 import type { ConferenceCasing, FlexScheduleLink } from '@/staticData/exportTypes';
 import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
 import { getConferenceContractData } from '@/utils/conference';
 import { addMetaTags } from '@/utils/metaTags';
-import { computedAsync } from '@vueuse/core';
 import { RouterLink, useRoute } from 'vue-router';
 
 const route = useRoute();
@@ -29,12 +27,6 @@ addMetaTags(title);
 
 const flexLink = flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year)?.url ?? '';
 
-const { seasonDataResult, seasonDataLoading, seasonDataError } = useSeasonData(year);
-
-const independentSchools = computedAsync(() =>
-  seasonDataResult.value ? (seasonDataResult.value.seasonData.independents ?? '') : ''
-) as unknown as string;
-
 const contractTvData =
   conference !== 'independents'
     ? (() => {
@@ -45,11 +37,11 @@ const contractTvData =
       })()
     : '';
 
-const { result, loading, error } = useConferenceGames(year, conference, lookup, independentSchools);
+const { result, loading, error } = useConferenceGames(year, conference, lookup);
 </script>
 
 <template>
-  <template v-if="result && seasonDataResult">
+  <template v-if="result">
     <nav class="navbar DONTPrint">
       <div class="container">
         <div class="flex-container">
@@ -82,22 +74,22 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
         <div v-if="conference !== 'independents'" v-dompurify-html="contractTvData" />
         <IndependentsGameList
           v-if="conference === 'independents'"
-          :games="result.conferenceGames"
-          :schools="independentSchools.split('|')"
+          :games="result.conferenceGames.conferenceGames"
+          :schools="result.conferenceGames.conferences"
           :year="year" />
-        <ConferenceGameList v-else :year="year" :games="result.conferenceGames" />
+        <ConferenceGameList v-else :year="year" :games="result.conferenceGames.conferenceGames" />
         <BackToTop />
         <AdsByGoogle />
       </div>
     </div>
     <Copyright />
   </template>
-  <template v-if="loading || seasonDataLoading">
+  <template v-if="loading">
     <div class="loading-container">
       <p class="loading-text">{{ cased }} Games Loading...</p>
     </div>
   </template>
-  <template v-if="error || seasonDataError">
+  <template v-if="error">
     <div class="error-container">
       <p>Sorry. Got a bit of a problem. Let Matt know.</p>
     </div>

@@ -3,13 +3,12 @@ schema {
 }
 type Query {
   availableTv(input: AvailableTvInput): [AvailableTv]!
-  tvGames(input: TvGamesInput): [TvGame]!
-  dailyTvGames(input: DailyTvGamesInput): [TvGame]!
-  conferenceGames(input: ConferenceGamesInput): [ConferenceGame]!
+  tvGames(input: TvGamesInput): TvGameData!
+  dailyTvGames(input: DailyTvGamesInput): TvGameData!
+  conferenceGames(input: ConferenceGamesInput): ConferenceGameData!
   noTvGames(input: NoTvGamesInput): [NoTvGame]!
   health: String!
-  seasonContents(input: SeasonContentsInput): [SeasonContents]!
-  seasonData(input: SeasonContentsInput): SeasonData!
+  seasonContents(input: SeasonContentsInput): SeasonContentsData!
 }
 
 input AvailableTvInput {
@@ -46,6 +45,12 @@ type TvGame {
   mediaIndicator: String!
   timeWithOffset: String
 }
+type TvGameData {
+  showPPVColumn: Boolean!
+  hasNoTVGames: Boolean!
+  tvGames: [TvGame]!
+}
+
 input ConferenceGamesInput {
   season: String!
   conference: String!
@@ -60,6 +65,10 @@ type ConferenceGame {
   network: String
   tvtype: String
   conference: String
+}
+type ConferenceGameData {
+  conferenceGames: [ConferenceGame]!
+  conferences: [String]!
 }
 enum ErrorCode {
   NOT_FOUND
@@ -111,11 +120,8 @@ type SeasonContents {
   endDate: String!
   postseasonInd: String
 }
-type SeasonData {
-  season: String!
-  hasPostseason: Boolean!
-  hasNoTVGames: Boolean!
-  showPPVColumn: Boolean!
+type SeasonContentsData {
   conferenceListBase: String
-  independents: String
+  hasPostseason: Boolean!
+  seasonContents: [SeasonContents]!
 }
