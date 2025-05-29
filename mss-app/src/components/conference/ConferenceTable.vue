@@ -49,7 +49,7 @@ const formattedGames = computed(() =>
             {{ game.visitingTeam[0] }} {{ game.location ? 'vs.' : 'at' }} {{ game.homeTeam[0] }}<br />
           </template>
           <template v-else>
-            {{ formatGame(game) }}
+            <div v-dompurify-html="formatGame(game)" />
           </template>
           <template v-if="game.location"> (at {{ game.location }}) </template>
         </td>
@@ -98,7 +98,8 @@ const formattedGames = computed(() =>
   border-collapse: collapse;
   width: 100%;
   max-width: 550px;
-  table-layout: auto; /* Prevent column width changes */
+  table-layout: auto;
+  /* Prevent column width changes */
 }
 
 :deep(.linkblock) {
