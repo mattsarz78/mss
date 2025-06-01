@@ -24,6 +24,12 @@ const NODE_ENV = process.env.NODE_ENV ?? 'development';
 
 const app = express();
 
+app.use((req, res, next) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  req.body = req.body ?? {};
+  next();
+});
+
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const compress = compression({
   level: 9,
