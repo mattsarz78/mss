@@ -1,6 +1,6 @@
 import { ApolloServer } from '@apollo/server';
-import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { expressMiddleware } from '@as-integrations/express5';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { loadFilesSync } from '@graphql-tools/load-files';
@@ -23,12 +23,6 @@ const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
 
 const app = express();
-
-app.use((req, res, next) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  req.body = req.body ?? {};
-  next();
-});
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const compress = compression({
@@ -94,8 +88,7 @@ async function startServer() {
   app.use(
     '/graphql',
     expressMiddleware<IContext>(apolloServer, {
-      context: async ({ req, res }) =>
-        Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req, response: res })
+      context: async ({ req }) => Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req })
     })
   );
 
