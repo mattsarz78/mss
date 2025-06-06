@@ -73,7 +73,7 @@ async function startServer() {
   const resolversArray = loadFilesSync('./resolvers/**/*.resolvers.ts');
   const resolvers = mergeResolvers(resolversArray);
 
-  const httpServer = http.createServer(app);
+  const httpServer = http.createServer(void app);
 
   const apolloServer = new ApolloServer<IContext>({
     typeDefs,
@@ -96,9 +96,8 @@ async function startServer() {
     console.log(`Server is running`);
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  process.on('SIGTERM', async () => {
-    await db.$disconnect();
+  process.on('SIGTERM', () => {
+    void Promise.resolve(db.$disconnect());
     httpServer.close(() => {
       console.log('Server closed');
     });
