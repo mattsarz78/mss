@@ -8,7 +8,7 @@
     "startDev": "nodemon --exec ts-node -r dotenv/config ./index.ts",
     "startDocker": "docker compose up --build -d",
     "prismaPull": "prisma db pull",
-    "prismaGen": "prisma generate",
+    "prismaGen": "prisma generate --sql",
     "prismaFormat": "prisma format",
     "build": "docker buildx build --no-cache . -t mattsarz78/graphql:latest",
     "lint": "eslint .",

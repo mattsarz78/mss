@@ -1,5 +1,6 @@
 import { NoTvGamesInput } from '../__generated__/graphql';
 import { PrismaClient, football } from '../__generated__/prisma';
+import { noTvGames } from '../__generated__/prisma/sql/noTvGames';
 import { DatabaseError } from '../utils/errorHandler';
 import { DatabaseService } from './services';
 
@@ -42,16 +43,8 @@ export class FootballService implements IFootballService {
 
   public async getNoTvGames(request: NoTvGamesInput): Promise<NoTVGames[]> {
     try {
-      return await this.client.$queryRaw<NoTVGames[]>`
-        SELECT fb.gametitle, fb.visitingteam, fb.hometeam, fb.location, fb.conference, at.tvoptions, fb.timewithoffset, fb.fcs
-        FROM mattsarzsports.football fb, mattsarzsports.availabletv at
-        WHERE fb.week = ${request.week}
-          AND fb.season = ${request.season}
-          AND fb.conference = at.conference
-          AND fb.season = at.season
-          AND fb.week = at.week
-          AND fb.mediaindicator = 'N'
-        ORDER BY fb.timewithoffset, fb.conference;`;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+      return await this.client.$queryRawTyped(noTvGames(request.week, request.season));
     } catch (error) {
       throw new DatabaseError('Failed to fetch no TV games', error as Error);
     }
