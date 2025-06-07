@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import WeekGamesTable from '@/components/weekly/WeekGamesTable.vue';
 import type { TvGame } from '@/graphQl';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
-import WeekGamesTable from '@/components/weekly/WeekGamesTable.vue';
 
 const props = defineProps<{
   tvGames: TvGame[];
@@ -16,14 +16,12 @@ const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn } = props;
 const datesList = computed(() => {
   const dates = new Set(
     tvGames
-      .filter((game) => game.timeWithOffset)
+      .filter((game): game is TvGame & { timeWithOffset: string } => typeof game.timeWithOffset === 'string')
       .map((game) => {
-        const easternTime = DateTime.fromISO(game.timeWithOffset as unknown as string).setZone('America/New_York');
+        const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York');
         return easternTime.toFormat('t') === '12:00 AM'
           ? easternTime.toISODate()
-          : DateTime.fromISO(game.timeWithOffset as unknown as string)
-              .toLocal()
-              .toISODate();
+          : DateTime.fromISO(game.timeWithOffset).toLocal().toISODate();
       })
       .filter((date) => !!date) // Optional: Ensure no undefined dates
   ) as Set<string>;
@@ -32,7 +30,7 @@ const datesList = computed(() => {
 
 const tvGamesByDate = computed(() => {
   return tvGames.reduce((acc: Record<string, TvGame[]>, game) => {
-    if (game.timeWithOffset) {
+    if (typeof game.timeWithOffset === 'string') {
       const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York');
       const gameDate =
         easternTime.toFormat('t') === '12:00 AM'
