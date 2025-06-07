@@ -1,6 +1,11 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../__generated__/prisma"
+  provider               = "prisma-client"
+  output                 = "../__generated__/prisma"
+  previewFeatures        = ["driverAdapters", "typedSql"]
+  generatedFileExtension = "ts"
+  importFileExtension    = ""
+  moduleFormat           = "commonjs"
+  runtime                = "nodejs"
 }
 
 datasource db {

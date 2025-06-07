@@ -8,6 +8,7 @@ import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
+import * as dotenv from 'dotenv';
 import express from 'express';
 import http from 'http';
 import { PrismaClient } from './__generated__/prisma';
@@ -18,6 +19,8 @@ import { FootballService, FootballServiceKey } from './database/football';
 import { SeasonService, SeasonServiceKey } from './database/seasonData';
 import { DatabaseServices, getDatabaseServices } from './database/services';
 import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDates';
+
+dotenv.config();
 
 const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
@@ -73,7 +76,8 @@ async function startServer() {
   const resolversArray = loadFilesSync('./resolvers/**/*.resolvers.ts');
   const resolvers = mergeResolvers(resolversArray);
 
-  const httpServer = http.createServer(void app);
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  const httpServer = http.createServer(app);
 
   const apolloServer = new ApolloServer<IContext>({
     typeDefs,
@@ -96,8 +100,9 @@ async function startServer() {
     console.log(`Server is running`);
   });
 
-  process.on('SIGTERM', () => {
-    void Promise.resolve(db.$disconnect());
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  process.on('SIGTERM', async () => {
+    await db.$disconnect();
     httpServer.close(() => {
       console.log('Server closed');
     });
