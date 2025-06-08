@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { DateTime } from 'luxon';
-import NoTvGamesTable from './NoTvGamesTable.vue';
-import { ref } from 'vue';
 import { useNoTvSchedule } from '@/composables/useNoTvSchedule';
+import { DateTime } from 'luxon';
+import { ref } from 'vue';
+import NoTvGamesTable from './NoTvGamesTable.vue';
 
 const props = defineProps<{ week: string; year: string }>();
 const { week, year } = props;
@@ -25,9 +25,16 @@ const toggleNoTV = async () => {
     <button id="btnConferenceGames" class="show_hideNoTV buttonfont" @click="toggleNoTV">
       Show Non-Televised Games
     </button>
-    <template v-if="noTvGamesLoading">Loading Week {{ week }} for {{ year }}</template>
+    <br />
+    <template v-if="noTvGamesLoading">
+      <div class="loading-container">
+        <p class="loading-text">Loading Week {{ week }} for {{ year }}</p>
+      </div>
+    </template>
     <template v-if="noTvGamesError">
-      <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+      <div class="error-container">
+        <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+      </div>
     </template>
     <template v-if="showNoTV && noTvGamesResults">
       <div class="slidingNoTVDiv">
@@ -56,6 +63,24 @@ const toggleNoTV = async () => {
 
 .show_hideNoTV {
   display: inline-block;
+}
+
+.loading-container,
+.error-container {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.loading-text {
+  font-size: 1.2em;
+  color: #666;
 }
 
 @media only screen and (max-width: 640px) {

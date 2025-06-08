@@ -1,6 +1,6 @@
-import { fileURLToPath, URL } from 'node:url';
-import { defineConfig, loadEnv, PluginOption, UserConfigExport, Rollup } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig, loadEnv, PluginOption, Rollup, UserConfigExport } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
@@ -14,17 +14,27 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue({ isProduction: true, features: { optionsAPI: false } }),
       VitePWA({
+        injectRegister: 'auto',
         registerType: 'autoUpdate',
         minify: true,
         includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
         manifest: {
-          name: 'MSS App',
-          short_name: 'MSS',
+          description:
+            "MattSarzSports App - Your go-to source for all things college football and men's basketball on TV.",
+          name: 'MattSarzSports App',
+          short_name: 'MattSarzSports',
           theme_color: '#ffffff',
           icons: [
-            { src: '/192x192.png', sizes: '192x192', type: 'image/png' },
-            { src: '/512x512.png', sizes: '512x512', type: 'image/png' }
-          ]
+            { src: 'favicon.ico', sizes: '48x48', type: 'image/x-icon', purpose: 'favicon' },
+            { src: '192x192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+            { src: '512x512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+            { src: 'apple-touch-icon.png', sizes: '180x180', type: 'image/png', purpose: 'apple touch icon' }
+          ],
+          screenshots: [
+            { src: 'mss-wide.png', type: 'image/png', sizes: '3198x1138', form_factor: 'wide', label: 'Application' },
+            { src: 'mss-mobile.png', type: 'image/png', sizes: '966x1114', form_factor: 'narrow', label: 'Application' }
+          ],
+          start_url: '/'
         },
         workbox: {
           // defining cached files formats
