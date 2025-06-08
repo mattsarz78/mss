@@ -7,11 +7,12 @@ import { useNoTvSchedule } from '@/composables/useNoTvSchedule';
 const props = defineProps<{ week: string; year: string }>();
 const { week, year } = props;
 
-const { noTvGamesResults, noTvGamesLoading, noTvGamesError, datesList } = useNoTvSchedule(week, year);
+const { noTvGamesResults, noTvGamesLoading, noTvGamesError, datesList, load } = useNoTvSchedule(week, year);
 
 const showNoTV = ref(false);
 
-const toggleNoTV = () => {
+const toggleNoTV = async () => {
+  await load();
   const button = document.getElementById('btnConferenceGames');
   if (!button) return;
   button.innerText = showNoTV.value ? 'Show Non-Televised Games' : 'Hide Non-Televised Games';

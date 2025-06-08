@@ -1,5 +1,5 @@
 import { NO_TV_GAMES, type NoTvGame } from '@/graphQl';
-import { useQuery } from '@vue/apollo-composable';
+import { useLazyQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
@@ -9,8 +9,9 @@ export function useNoTvSchedule(week: string, year: string) {
   const {
     result: noTvGamesResults,
     loading: noTvGamesLoading,
+    load,
     error: noTvGamesError
-  } = useQuery<{ noTvGames: NoTvGame[] }>(NO_TV_GAMES, { input: { season: year, week: weekInt } });
+  } = useLazyQuery<{ noTvGames: NoTvGame[] }>(NO_TV_GAMES, { input: { season: year, week: weekInt } });
 
   const datesList = computed(() => {
     const dates = new Set(
@@ -27,5 +28,5 @@ export function useNoTvSchedule(week: string, year: string) {
     return Array.from(dates);
   });
 
-  return { noTvGamesResults, noTvGamesLoading, noTvGamesError, datesList };
+  return { noTvGamesResults, noTvGamesLoading, noTvGamesError, datesList, load };
 }
