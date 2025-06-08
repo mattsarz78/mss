@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue({ isProduction: true, features: { optionsAPI: false } }),
       VitePWA({
-        injectRegister: 'auto',
+        injectRegister: 'script-defer',
         registerType: 'autoUpdate',
         minify: true,
         includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
