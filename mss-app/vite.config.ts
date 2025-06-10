@@ -25,10 +25,10 @@ export default defineConfig(({ mode }) => {
           short_name: 'MattSarzSports',
           theme_color: '#ffffff',
           icons: [
-            { src: 'favicon.ico', sizes: '48x48', type: 'image/x-icon', purpose: 'favicon' },
-            { src: '192x192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-            { src: '512x512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-            { src: 'apple-touch-icon.png', sizes: '180x180', type: 'image/png', purpose: 'apple touch icon' }
+            { src: 'favicon.ico', sizes: '48x48', type: 'image/x-icon', purpose: 'any' },
+            { src: '192x192.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },
+            { src: '512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+            { src: 'apple-touch-icon.png', sizes: '180x180', type: 'image/png', purpose: 'maskable' }
           ],
           screenshots: [
             { src: 'mss-wide.png', type: 'image/png', sizes: '3198x1138', form_factor: 'wide', label: 'Application' },
