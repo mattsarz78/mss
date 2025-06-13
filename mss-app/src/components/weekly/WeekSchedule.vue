@@ -37,13 +37,13 @@ const {
 } = useWeekScheduleNav(sport, year.value, weekInt.value);
 
 const gamesToday = computed(() => {
+  const nowInET = DateTime.now().setZone('America/New_York');
   return (
     seasonContentsResult.value?.seasonContents.seasonContents
-      .filter((x) => x.week === weekInt.value)
-      .some((x) => {
-        const dateToCompare = DateTime.now().setZone('America/New_York');
-        return DateTime.fromISO(x.endDate) >= dateToCompare && DateTime.fromISO(x.startDate) <= dateToCompare;
-      }) ?? false
+      .filter((content) => content.week === weekInt.value)
+      .some(
+        (content) => DateTime.fromISO(content.startDate) <= nowInET && DateTime.fromISO(content.endDate) >= nowInET
+      ) ?? false
   );
 });
 

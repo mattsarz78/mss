@@ -7,24 +7,21 @@ import { computed } from 'vue';
 const props = defineProps<{ games: ConferenceGame[] }>();
 const { games } = props;
 
-const formattedGames = computed(() =>
-  games.map((game) => {
-    const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York');
-    const isMidnightEastern = easternTime.toFormat('t') === '12:00 AM';
-    const dayFormat = 'cccc';
-    const dateFormat = 'LL/dd';
-    const timeSource = isMidnightEastern ? easternTime : DateTime.fromISO(game.timeWithOffset).toLocal();
+const getTimeSource = (timeWithOffset: string) => {
+  const eastern = DateTime.fromISO(timeWithOffset).setZone('America/New_York');
+  return eastern.toFormat('t') === '12:00 AM' ? eastern : DateTime.fromISO(timeWithOffset).toLocal();
+};
 
-    return {
-      ...game,
-      formattedNetwork: game.network ?? '',
-      formattedTime: {
-        day: timeSource.toFormat(dayFormat),
-        date: timeSource.toFormat(dateFormat),
-        time: formatTime(game.timeWithOffset)
-      }
-    };
-  })
+const formattedGames = computed(() =>
+  games.map((game) => ({
+    ...game,
+    formattedNetwork: game.network ?? '',
+    formattedTime: {
+      day: getTimeSource(game.timeWithOffset).toFormat('cccc'),
+      date: getTimeSource(game.timeWithOffset).toFormat('LL/dd'),
+      time: formatTime(game.timeWithOffset)
+    }
+  }))
 );
 </script>
 

@@ -13,19 +13,28 @@ export function useNoTvSchedule(week: string, year: string) {
     error: noTvGamesError
   } = useLazyQuery<{ noTvGames: NoTvGame[] }>(NO_TV_GAMES, { input: { season: year, week: weekInt } });
 
+  const getGameDate = (timeWithOffset: string): string => {
+    const eastern = DateTime.fromISO(timeWithOffset).setZone('America/New_York');
+    return (
+      (eastern.toFormat('t') === '12:00 AM'
+        ? eastern.toISODate()
+        : DateTime.fromISO(timeWithOffset).toLocal().toISODate()) ?? ''
+    );
+  };
+
+  const hasValidTime = (game: NoTvGame): game is NoTvGame & { timeWithOffset: string } =>
+    typeof game.timeWithOffset === 'string' && game.timeWithOffset !== '';
+
   const datesList = computed(() => {
-    const dates = new Set(
-      noTvGamesResults.value?.noTvGames
-        .filter((game) => game.timeWithOffset)
-        .map((game) => {
-          const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York');
-          return easternTime.toFormat('t') === '12:00 AM'
-            ? easternTime.toISODate()
-            : DateTime.fromISO(game.timeWithOffset).toLocal().toISODate();
-        })
-        .filter((date) => !!date) // Remove any potentially undefined dates
-    ) as Set<string>;
-    return Array.from(dates);
+    const games = noTvGamesResults.value?.noTvGames ?? [];
+    return Array.from(
+      new Set(
+        games
+          .filter(hasValidTime)
+          .map((game) => getGameDate(game.timeWithOffset))
+          .filter(Boolean)
+      )
+    ).sort();
   });
 
   return { noTvGamesResults, noTvGamesLoading, noTvGamesError, datesList, load };

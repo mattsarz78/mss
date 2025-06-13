@@ -13,45 +13,35 @@ const props = defineProps<{
 
 const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn } = props;
 
-const datesList = computed(() => {
-  const dates = new Set(
-    tvGames
-      .filter((game): game is TvGame & { timeWithOffset: string } => typeof game.timeWithOffset === 'string')
-      .map((game) => {
-        const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York');
-        return easternTime.toFormat('t') === '12:00 AM'
-          ? easternTime.toISODate()
-          : DateTime.fromISO(game.timeWithOffset).toLocal().toISODate();
-      })
-      .filter((date) => !!date) // Optional: Ensure no undefined dates
-  ) as Set<string>;
-  return Array.from(dates);
-});
+const getGameDate = (timeWithOffset: string): string => {
+  const eastern = DateTime.fromISO(timeWithOffset).setZone('America/New_York');
+  return eastern.toFormat('t') === '12:00 AM'
+    ? (eastern.toISODate() ?? '')
+    : (DateTime.fromISO(timeWithOffset).toLocal().toISODate() ?? '');
+};
 
-const tvGamesByDate = computed(() => {
-  return tvGames.reduce((acc: Record<string, TvGame[]>, game) => {
-    if (typeof game.timeWithOffset === 'string') {
-      const easternTime = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York');
-      const gameDate =
-        easternTime.toFormat('t') === '12:00 AM'
-          ? easternTime.toISODate()
-          : DateTime.fromISO(game.timeWithOffset).toLocal().toISODate();
+const hasValidTime = (game: TvGame): game is TvGame & { timeWithOffset: string } =>
+  typeof game.timeWithOffset === 'string';
 
-      if (gameDate) {
-        acc[gameDate] = acc[gameDate] ?? [];
-        acc[gameDate].push(game);
-      }
+const tvGamesByDate = computed(() =>
+  tvGames.filter(hasValidTime).reduce<Record<string, TvGame[]>>((acc, game) => {
+    const date = getGameDate(game.timeWithOffset);
+    if (date) {
+      acc[date] ??= [];
+      acc[date].push(game);
     }
     return acc;
-  }, {});
-});
+  }, {})
+);
+
+const datesList = computed(() => Object.keys(tvGamesByDate.value).sort());
 </script>
 
 <template v-if="datesList.length">
   <div
     id="Main"
     v-reset-adsense-height
-    :class="`${isMbkPostseason || isBowlWeek ? 'short-main-padding' : 'main-padding'}`">
+    :class="[isMbkPostseason || isBowlWeek ? 'short-main-padding' : 'main-padding']">
     <div id="WeeksBase">
       <template v-if="tvGames.length === 0">
         <p>There are no televised games at this time</p>
@@ -60,7 +50,7 @@ const tvGamesByDate = computed(() => {
         <p>
           <strong>All start times displayed are based on your device's location.</strong>
         </p>
-        <div v-for="(weekDate, index) in datesList" :key="index">
+        <div v-for="weekDate in datesList" :key="weekDate">
           <WeekGamesTable
             :week-date="weekDate"
             :is-bowl-week="isBowlWeek"

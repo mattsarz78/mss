@@ -12,21 +12,22 @@ export function useDailyTvGames(sport: string) {
     input: { sport, startDate }
   });
 
+  const currentSeason = computed(() => result.value?.dailyTvGames.tvGames[0]?.season ?? '');
+
   const season = computed(() => {
-    if (result.value?.dailyTvGames.tvGames.length) {
-      const paramYear = result.value.dailyTvGames.tvGames[0].season;
-      return sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}-${paramYear.substring(5)}`;
-    }
-    return '';
+    const paramYear = currentSeason.value;
+    return paramYear
+      ? sport === 'football'
+        ? paramYear
+        : `${paramYear.substring(0, 4)}-${paramYear.substring(5)}`
+      : '';
   });
 
-  const flexLink = computed(() => {
-    if (result.value?.dailyTvGames.tvGames.length) {
-      const paramYear = result.value.dailyTvGames.tvGames[0].season;
-      return flexScheduleLinks.find((link: FlexScheduleLink) => link.season === paramYear)?.url ?? '';
-    }
-    return '';
-  });
+  const flexLink = computed(() =>
+    currentSeason.value
+      ? (flexScheduleLinks.find((link: FlexScheduleLink) => link.season === currentSeason.value)?.url ?? '')
+      : ''
+  );
 
   return { result, loading, error, season, flexLink, startDate };
 }
