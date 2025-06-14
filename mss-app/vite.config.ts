@@ -9,8 +9,18 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   const config: UserConfigExport = {
-    optimizeDeps: { include: ['vue', 'luxon'], exclude: ['@vueuse/core'] },
-    esbuild: { drop: mode === 'production' ? ['console', 'debugger'] : [], legalComments: 'none' },
+    optimizeDeps: {
+      include: ['vue', 'luxon', '@apollo/client/core'],
+      exclude: ['@vueuse/core'],
+      esbuildOptions: { target: 'esnext', supported: { 'top-level-await': true } }
+    },
+    esbuild: {
+      drop: mode === 'production' ? ['console', 'debugger'] : [],
+      legalComments: 'none',
+      treeShaking: true,
+      minifyIdentifiers: true,
+      minifySyntax: true
+    },
     plugins: [
       vue({ isProduction: true, features: { optionsAPI: false } }),
       VitePWA({
@@ -53,9 +63,16 @@ export default defineConfig(({ mode }) => {
         output: {
           manualChunks: (id) => {
             return chunkGroup(id);
-          }
+          },
+          inlineDynamicImports: false,
+          chunkFileNames: mode === 'production' ? 'assets/[name].[hash].js' : 'assets/[name].js',
+          assetFileNames: mode === 'production' ? 'assets/[name].[hash][extname]' : 'assets/[name][extname]',
+          entryFileNames: mode === 'production' ? 'assets/[name].[hash].js' : 'assets/[name].js'
         }
-      }
+      },
+      commonjsOptions: { include: [/node_modules/], transformMixedEsModules: true },
+      sourcemap: mode !== 'production',
+      reportCompressedSize: mode === 'production'
     },
     define: { 'import.meta.env.API_URL': JSON.stringify(env.API_URL) }
   };
@@ -100,6 +117,9 @@ function chunkGroup(id: string): string | Rollup.NullValue {
 function getVendorChunk(id: string): string {
   if (id.includes('vue')) return 'vendor-vue';
   if (id.includes('luxon')) return 'vendor-dates';
+  if (id.includes('@apollo')) return 'vendor-apollo';
+  if (id.includes('@vueuse')) return 'vendor-vueuse';
+  if (id.includes('/node_modules/lodash')) return 'vendor-utils';
   return 'vendor-other';
 }
 
