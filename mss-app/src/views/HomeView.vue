@@ -1,37 +1,19 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
-import { ref } from 'vue';
-import { addMetaTags } from '@/utils/metaTags';
-import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
+import Copyright from '@/components/shared/CopyrightLink.vue';
+import { addMetaTags } from '@/utils/metaTags';
+import { RouterLink } from 'vue-router';
 
 const title = "Matt's College Sports on TV";
 
 addMetaTags(title);
-
-const linksRef = ref<HTMLElement | null>(null);
-const contentRef = ref<HTMLElement | null>(null);
-const facebookRef = ref<HTMLElement | null>(null);
-
-// TODO: Layout handled by CSS Grid/Flexbox
-const adjustLayout = (): void => {
-  if (linksRef.value && contentRef.value && facebookRef.value) {
-    const linksHeight = linksRef.value.clientHeight;
-    const windowWidth = window.innerWidth - 6;
-
-    contentRef.value.style.height = `${linksHeight.toString()}px`;
-    facebookRef.value.style.maxWidth = `${windowWidth.toString()}px`;
-  }
-};
-
-adjustLayout();
 </script>
 
 <template>
   <div id="Main" v-reset-adsense-height>
     <div><img id="imgtitle" loading="lazy" alt="Matt's College Sports" src="/images/logo.jpg" /><br /></div>
-    <div id="content" ref="contentRef">
-      <div id="Links" ref="linksRef">
+    <div id="content">
+      <div id="Links">
         <RouterLink to="/season/football/2025"> 2025 Football </RouterLink><br />
         <br />
         <RouterLink to="/season/football/2024"> 2024 Football </RouterLink><br />
@@ -66,7 +48,6 @@ adjustLayout();
     </div>
     <iframe
       id="Facebook"
-      ref="facebookRef"
       lazy="true"
       src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmattsarzsports%2F&tabs&height=80&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
       height="80"
@@ -114,7 +95,11 @@ adjustLayout();
 
   #Links {
     width: 45%;
-    min-height: 250px;
+  }
+
+  #Links,
+  #content {
+    height: 330px;
   }
 
   #Twitter {
@@ -130,7 +115,11 @@ adjustLayout();
 
   #Links {
     width: 100%;
-    min-height: 250px;
+  }
+
+  #Links,
+  #content {
+    height: 280px;
   }
 
   #Twitter {
