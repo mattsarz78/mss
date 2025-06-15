@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:22-alpine AS build
+FROM node:24-alpine AS build
 
 ENV NODE_ENV=development
 WORKDIR /app
@@ -25,7 +25,7 @@ COPY . /app
 RUN pnpm prismaGen && pnpm graphQlGen && pnpm prismaFormat
 
 # Stage 2: Production
-FROM node:22-alpine AS production
+FROM node:24-alpine AS production
 
 # Set runtime configuration
 ARG NODE_ENV=production
