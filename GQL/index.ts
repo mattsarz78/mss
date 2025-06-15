@@ -32,9 +32,11 @@ const compress = compression({
   level: 9,
   threshold: 0,
   filter: (req: Request, res: Response) => {
-    if (req.headers['x-no-compression']) {
-      return false;
-    }
+    if (req.headers['x-no-compression']) return false;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const contentType = req.headers['content-type'] ?? '';
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    if (contentType.includes('image/') || contentType.includes('video/')) return false;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     return compression.filter(req, res);
   }
@@ -43,16 +45,18 @@ const compress = compression({
 app.use(compress);
 
 const corsOptions: cors.CorsOptions = {
-  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void): void => {
+  origin: (origin, callback) => {
     if (isValidCors(origin) || origin === undefined) {
       callback(null, true);
       return;
     }
     callback(new Error(`Not allowed by CORS: ${origin}`));
   },
-  optionsSuccessStatus: 200
+  methods: ['GET', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  maxAge: 86400 // Cache preflight requests for 24 hours
 };
-
 app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
@@ -61,7 +65,10 @@ app.get('/health', (req, res) => {
 });
 
 async function startServer() {
-  const db = new PrismaClient();
+  const db = new PrismaClient({
+    log: NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+    errorFormat: 'minimal'
+  });
 
   const databaseServices: Partial<DatabaseServices> = {
     [AvailableTvServiceKey]: new AvailableTvService(db),
@@ -84,7 +91,9 @@ async function startServer() {
     resolvers,
     introspection: NODE_ENV !== 'production',
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-    hideSchemaDetailsFromClientErrors: true
+    hideSchemaDetailsFromClientErrors: true,
+    persistedQueries: false, // Disable APQ for security
+    cache: 'bounded'
   });
 
   await apolloServer.start();
@@ -96,16 +105,42 @@ async function startServer() {
     })
   );
 
-  httpServer.listen(8020, () => {
-    console.log(`Server is running`);
-  });
+  // Graceful shutdown handler
+  const shutdown = async (signal: string) => {
+    console.log(`\n${signal} received. Starting graceful shutdown...`);
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  process.on('SIGTERM', async () => {
-    await db.$disconnect();
-    httpServer.close(() => {
-      console.log('Server closed');
-    });
+    try {
+      // Stop accepting new requests
+      await apolloServer.stop();
+      console.log('Apollo Server stopped');
+
+      // Close HTTP server and wait for existing requests to complete
+      await new Promise<void>((resolve) => {
+        httpServer.close(() => {
+          console.log('HTTP server closed');
+          resolve();
+        });
+      });
+
+      // Disconnect from database
+      await db.$disconnect();
+      console.log('Database disconnected');
+
+      console.log('Graceful shutdown completed');
+      process.exit(0);
+    } catch (error) {
+      console.error('Error during shutdown:', error);
+      process.exit(1);
+    }
+  };
+
+  // Register shutdown handlers for different signals
+  process.on('SIGTERM', () => void shutdown('SIGTERM'));
+  process.on('SIGINT', () => void shutdown('SIGINT'));
+
+  // Start HTTP server
+  httpServer.listen(8020, () => {
+    console.log(`Server is running on port 8020`);
   });
 }
 
@@ -114,18 +149,19 @@ startServer().catch((error: unknown) => {
   process.exit(1);
 });
 
+const corsCache = new Map<string, boolean>();
 const isValidCors: (origin: string | undefined) => boolean = (origin) => {
-  if (NODE_ENV === 'production') {
-    return (
-      !!origin &&
-      Array.isArray(VALID_CORS_ORIGINS) &&
-      VALID_CORS_ORIGINS.some((domain) => {
-        const regexPattern = `^${domain.replace(/\\/g, '\\\\').replace(/\*/g, '[a-z0-9-]*').replace(/\./g, '\\.')}$`;
-        const regex = new RegExp(regexPattern);
-        return regex.test(origin);
-      })
-    );
-  } else {
-    return true;
+  if (!origin || NODE_ENV !== 'production') return true;
+  if (corsCache.has(origin)) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return corsCache.get(origin)!;
   }
+
+  const isValid = VALID_CORS_ORIGINS.some((domain) => {
+    const pattern = domain.replace(/\./g, '\\.').replace(/\*/g, '[a-z0-9-]*').replace(/\\/g, '\\\\');
+    return new RegExp(`^${pattern}$`).test(origin);
+  });
+
+  corsCache.set(origin, isValid);
+  return isValid;
 };
