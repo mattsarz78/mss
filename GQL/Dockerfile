@@ -4,13 +4,13 @@ FROM node:22-alpine AS build
 ENV NODE_ENV=development
 WORKDIR /app
 
-# Install dependencies and tools
-RUN corepack enable pnpm
-RUN apk update && apk add --no-cache openssl && rm -rf rm /var/cache/apk/*
+# Install build dependencies and clean up in the same layer
+RUN apk add --no-cache openssl \
+  && rm -rf /var/cache/apk/* \
+  && corepack enable pnpm
 
-# Copy package files first to leverage Docker cache
-COPY ./package.json /app/
-COPY ./pnpm-*.yaml /app/
+# Copy only necessary files for dependency installation
+COPY package.json pnpm-*.yaml ./
 
 # Install dependencies
 RUN pnpm fetch --prod \
@@ -27,36 +27,45 @@ RUN pnpm prismaGen && pnpm graphQlGen && pnpm prismaFormat
 # Stage 2: Production
 FROM node:22-alpine AS production
 
-# Set environment variables
-ARG DATABASE_URL
-ARG VALID_CORS_ORIGINS
-ARG NODE_ENV
-ENV DATABASE_URL=$DATABASE_URL
-ENV VALID_CORS_ORIGINS=$VALID_CORS_ORIGINS
+# Set runtime configuration
+ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+ARG VALID_CORS_ORIGINS
+ENV VALID_CORS_ORIGINS=$VALID_CORS_ORIGINS
 
 WORKDIR /app
 
-# Install openssl and clean up
-RUN corepack enable pnpm
-RUN apk update && apk add --no-cache openssl && rm -rf /var/cache/apk/*
+# Install minimal runtime dependencies and set up user in one layer
+RUN apk add --no-cache openssl dumb-init \
+  && addgroup -S appgroup \
+  && adduser -S appuser -G appgroup \
+  && rm -rf /var/cache/apk/* \
+  && corepack enable pnpm
 
-# Copy production dependencies and application files
-COPY --from=build /opt/node_modules.prod ./node_modules
-COPY --from=build /app/__generated__ ./__generated__
-COPY --from=build /app/database ./database
-COPY --from=build /app/resolvers ./resolvers
-COPY --from=build /app/schemas ./schemas
-COPY --from=build /app/utils/errorHandler.ts ./utils/errorHandler.ts
-COPY --from=build /app/utils/image.ts ./utils/image.ts
-COPY --from=build /app/staticData ./staticData
-COPY --from=build /app/tsconfig.json ./tsconfig.json
-COPY --from=build /app/package.json ./package.json
-COPY --from=build /app/index.ts ./index.ts
-COPY --from=build /app/context.ts ./context.ts
+# Copy only the necessary files
+COPY --from=build --chown=appuser:appgroup /opt/node_modules.prod ./node_modules
+COPY --from=build --chown=appuser:appgroup /app/__generated__ ./__generated__
+COPY --from=build --chown=appuser:appgroup /app/database ./database
+COPY --from=build --chown=appuser:appgroup /app/resolvers ./resolvers
+COPY --from=build --chown=appuser:appgroup /app/schemas ./schemas
+COPY --from=build --chown=appuser:appgroup /app/utils/errorHandler.ts ./utils/errorHandler.ts
+COPY --from=build --chown=appuser:appgroup /app/utils/image.ts ./utils/image.ts
+COPY --from=build --chown=appuser:appgroup /app/staticData ./staticData
+COPY --from=build --chown=appuser:appgroup /app/index.ts \
+  /app/context.ts \
+  /app/tsconfig.json \
+  /app/package.json \
+  ./
+
+USER appuser
 
 # Expose the application port
 EXPOSE 8020
+
+# Use dumb-init as PID 1
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 # Start the application
 CMD ["pnpm", "start"]
