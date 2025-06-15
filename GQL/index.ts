@@ -52,6 +52,7 @@ const corsOptions: cors.CorsOptions = {
     }
     callback(new Error(`Not allowed by CORS: ${origin}`));
   },
+  optionsSuccessStatus: 200,
   methods: ['GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -158,7 +159,7 @@ const isValidCors: (origin: string | undefined) => boolean = (origin) => {
   }
 
   const isValid = VALID_CORS_ORIGINS.some((domain) => {
-    const pattern = domain.replace(/\./g, '\\.').replace(/\*/g, '[a-z0-9-]*').replace(/\\/g, '\\\\');
+    const pattern = domain.replace(/\\/g, '\\\\').replace(/\*/g, '[a-z0-9-]*').replace(/\./g, '\\.');
     return new RegExp(`^${pattern}$`).test(origin);
   });
 
