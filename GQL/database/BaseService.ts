@@ -1,4 +1,4 @@
-import { PrismaClient } from '../__generated__/prisma';
+import { PrismaClient } from '../__generated__/prisma/client';
 import { DatabaseError } from '../utils/errorHandler';
 
 export abstract class BaseService {

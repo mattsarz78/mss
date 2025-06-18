@@ -1,5 +1,5 @@
 import { AvailableTvInput } from '../__generated__/graphql';
-import { PrismaClient, availabletv } from '../__generated__/prisma';
+import { PrismaClient, availabletv } from '../__generated__/prisma/client';
 import { DatabaseError } from '../utils/errorHandler';
 import { DatabaseService } from './services';
 

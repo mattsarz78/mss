@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { ConferenceGame, ConferenceGameData, ConferenceGamesInput } from '../__generated__/graphql';
-import { football } from '../__generated__/prisma';
+import { football } from '../__generated__/prisma/client';
 import { IContext } from '../context';
 import { FootballServiceKey } from '../database/football';
 import { SeasonServiceKey } from '../database/seasonData';

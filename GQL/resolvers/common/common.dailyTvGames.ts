@@ -1,4 +1,4 @@
-import { basketball, football } from '__generated__/prisma';
+import { basketball, football } from '../../__generated__/prisma/client';
 import { DateTime } from 'luxon';
 import { DailyTvGamesInput, TvGame } from '../../__generated__/graphql';
 import { IContext } from '../../context';

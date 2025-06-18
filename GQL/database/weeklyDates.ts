@@ -1,4 +1,4 @@
-import { PrismaClient, weeklydates } from '../__generated__/prisma';
+import { PrismaClient, weeklydates } from '../__generated__/prisma/client';
 import { DatabaseError } from '../utils/errorHandler';
 import { DatabaseService } from './services';
 

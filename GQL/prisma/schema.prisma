@@ -1,7 +1,7 @@
 generator client {
   provider               = "prisma-client"
   output                 = "../__generated__/prisma"
-  previewFeatures        = ["driverAdapters", "typedSql"]
+  previewFeatures        = ["driverAdapters", "queryCompiler", "typedSql"]
   generatedFileExtension = "ts"
   importFileExtension    = ""
   moduleFormat           = "commonjs"

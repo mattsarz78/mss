@@ -1,5 +1,5 @@
 import { TvGamesInput } from '../__generated__/graphql';
-import { Prisma, PrismaClient, basketball, football } from '../__generated__/prisma';
+import { Prisma, PrismaClient, basketball, football } from '../__generated__/prisma/client';
 import { DatabaseError } from '../utils/errorHandler';
 import { DatabaseService } from './services';
 

@@ -5,13 +5,14 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
+import { PrismaPg } from '@prisma/adapter-pg';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express from 'express';
 import http from 'http';
-import { PrismaClient } from './__generated__/prisma';
+import { PrismaClient } from './__generated__/prisma/client';
 import { IContext } from './context';
 import { AvailableTvService, AvailableTvServiceKey } from './database/availableTV';
 import { CommonService, CommonServiceKey } from './database/common';
@@ -66,9 +67,12 @@ app.get('/health', (req, res) => {
 });
 
 async function startServer() {
+  const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL }, { schema: 'mattsarzsports' });
+
   const db = new PrismaClient({
     log: NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-    errorFormat: 'minimal'
+    errorFormat: 'minimal',
+    adapter
   });
 
   const databaseServices: Partial<DatabaseServices> = {
