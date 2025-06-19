@@ -17,20 +17,30 @@ export interface DatabaseServices {
   [SeasonServiceKey]: ISeasonService;
 }
 
-export const getDatabaseServices = (services: Partial<DatabaseServices>): DatabaseServices => {
+function isComplete(services: Partial<DatabaseServices>): services is DatabaseServices {
   const requiredServices = [
     AvailableTvServiceKey,
     FootballServiceKey,
     WeeklyDatesServiceKey,
     CommonServiceKey,
     SeasonServiceKey
-  ];
+  ] as const;
 
-  for (const serviceKey of requiredServices) {
-    if (!services[serviceKey as keyof DatabaseServices]) {
-      throw new Error(`Missing service: ${String(serviceKey)}`);
-    }
+  return requiredServices.every((key) => key in services && services[key] !== undefined);
+}
+
+export const getDatabaseServices = (services: Partial<DatabaseServices>): DatabaseServices => {
+  if (!isComplete(services)) {
+    const missing = [
+      AvailableTvServiceKey,
+      FootballServiceKey,
+      WeeklyDatesServiceKey,
+      CommonServiceKey,
+      SeasonServiceKey
+    ].filter((key) => !(key in services) || services[key] === undefined);
+
+    throw new Error(`Missing services: ${missing.join(', ')}`);
   }
 
-  return services as DatabaseServices;
+  return services;
 };
