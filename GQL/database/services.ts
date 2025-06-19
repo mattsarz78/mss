@@ -1,4 +1,4 @@
-import { TransactionClient } from '__generated__/prisma/internal/prismaNamespace';
+import { Prisma } from '__generated__/prisma/client';
 import { AvailableTvServiceKey, IAvailableTvService } from './availableTV';
 import { CommonServiceKey, ICommonService } from './common';
 import { FootballServiceKey, IFootballService } from './football';
@@ -6,7 +6,7 @@ import { ISeasonService, SeasonServiceKey } from './seasonData';
 import { IWeeklyDatesService, WeeklyDatesServiceKey } from './weeklyDates';
 
 export interface DatabaseService<T> {
-  transaction(client: TransactionClient): T;
+  transaction(client: Prisma.TransactionClient): T;
 }
 
 export interface DatabaseServices {
