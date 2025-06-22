@@ -29,9 +29,9 @@ const formattedGames = computed(() =>
   <table class="noTVTable">
     <thead>
       <tr class="header">
-        <th>Game</th>
-        <th>Network</th>
-        <th>Time</th>
+        <th scope="col">Game</th>
+        <th scope="col">Network</th>
+        <th scope="col">Time</th>
       </tr>
     </thead>
     <tbody>

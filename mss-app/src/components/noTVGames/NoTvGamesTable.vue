@@ -15,9 +15,9 @@ const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD')
     <table class="noTVTable">
       <thead>
         <tr class="header">
-          <th>Game</th>
-          <th>Conference</th>
-          <th>Television Options</th>
+          <th scope="col">Game</th>
+          <th scope="col">Conference</th>
+          <th scope="col">Television Options</th>
         </tr>
       </thead>
       <tbody>

@@ -33,17 +33,22 @@ const toggleRow = (event: Event) => {
     <table class="tableborder rowStyle DOPrint">
       <thead>
         <tr class="DOPrint">
-          <th />
-          <th>Game</th>
-          <th>Network</th>
-          <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">PPV</th>
-          <th>Time</th>
+          <th scope="col" />
+          <th scope="col">Game</th>
+          <th scope="col">Network</th>
+          <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn" scope="col">PPV</th>
+          <th scope="col">Time</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(tvGame, index) in tvGames" :key="index" class="gamerow DONTPrint rowStyle">
           <td class="tablecell">
-            <input class="checkBoxRow" type="checkbox" @change="toggleRow" />
+            <input
+              :id="`checkBox${index}`"
+              class="checkBoxRow"
+              type="checkbox"
+              aria-label="Select this game?"
+              @change="toggleRow" />
           </td>
           <td class="tablecell gamecell">
             <template v-if="tvGame.gameTitle">

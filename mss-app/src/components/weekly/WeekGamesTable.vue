@@ -24,11 +24,11 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
     <table class="noTVTable">
       <thead>
         <tr class="header">
-          <th>Game</th>
-          <th>Network</th>
-          <th>Coverage Notes / Network Streaming</th>
-          <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn">PPV</th>
-          <th>Time</th>
+          <th scope="col">Game</th>
+          <th scope="col">Network</th>
+          <th scope="col">Coverage Notes / Network Streaming</th>
+          <th v-if="!isBowlWeek && !isMbkPostseason && showPpvColumn" scope="col">PPV</th>
+          <th scope="col">Time</th>
         </tr>
       </thead>
       <tbody>

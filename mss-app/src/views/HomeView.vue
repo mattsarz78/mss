@@ -48,6 +48,7 @@ addMetaTags(title);
     </div>
     <iframe
       id="Facebook"
+      title="Link to MattSarzSports Facebook page"
       lazy="true"
       src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmattsarzsports%2F&tabs&height=80&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
       height="80"

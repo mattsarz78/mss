@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
+import Copyright from '@/components/shared/CopyrightLink.vue';
+import type { FlexScheduleLink } from '@/staticData/exportTypes';
+import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
 import { addMetaTags } from '@/utils/metaTags';
 import { useRoute } from 'vue-router';
-import Copyright from '@/components/shared/CopyrightLink.vue';
-import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
-import type { FlexScheduleLink } from '@/staticData/exportTypes';
 
 const route = useRoute();
 const { year } = route.params as { year: string };
@@ -33,7 +33,7 @@ const flexLink = flexScheduleLinks.find((link: FlexScheduleLink) => link.season 
     </div>
   </nav>
   <div id="Main" v-reset-adsense-height>
-    <iframe class="tvFrame" :src="`${flexLink}${FLEXLINKSETUP}`" />
+    <iframe :title="`Football TV Windows for ${year} season`" class="tvFrame" :src="`${flexLink}${FLEXLINKSETUP}`" />
     <AdsByGoogle />
   </div>
   <Copyright />
