@@ -35,16 +35,12 @@ addMetaTags(title);
           we're watching the games.
         </p>
       </div>
-      <div id="Twitter">
-        <a
-          class="twitter-timeline"
-          href="https://twitter.com/mattsarz?ref_src=twsrc%5Etfw"
-          data-height="300"
-          data-tweet-limit="5"
-          >Tweets by mattsarz</a
-        >
-        <component :is="'script'" async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
-      </div>
+    </div>
+    <div id="Twitter">
+      <a href="https://twitter.com/mattsarz?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true"
+        >Follow @mattsarz</a
+      >
+      <component :is="'script'" async src="https://platform.twitter.com/widgets.js" charset="utf-8"></component>
     </div>
     <iframe
       id="Facebook"
@@ -58,6 +54,13 @@ addMetaTags(title);
       allowfullscreen="true"
       allowtransparency="true"
       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" />
+    <br />
+    <a href="https://bsky.app/profile/mattsarz.bsky.social">
+      <img
+        alt="Follow mattsarz on Blueky"
+        src="https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff&label=Follow%20me%20on&color=0285FF" />
+    </a>
+
     <p>
       Got a question, complaint, comment or know a game not listed here?
       <a href="mailto:footballsked@gmail.com"> Send it here </a>
@@ -73,8 +76,7 @@ addMetaTags(title);
   padding-bottom: 5px;
 }
 
-#Links,
-#Twitter {
+#Links {
   float: left;
   display: inline;
 }
@@ -101,10 +103,6 @@ addMetaTags(title);
   #Links,
   #content {
     height: 330px;
-  }
-
-  #Twitter {
-    width: 55%;
   }
 }
 
