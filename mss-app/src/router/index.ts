@@ -20,6 +20,7 @@ export const routes: RouteRecordRaw[] = [
   { path: '/season/contents/:year/', redirect: { name: 'home' } }, // Redirect to home due to old URL structure
   { path: '/contract/:conference/:year', component: ConferenceGameList },
   { path: '/tv-windows/:year', component: TvWindowsView },
+  { path: '/schedule/weekly/:year/:week', redirect: { name: 'home' } }, // Redirect to home due to old URL structure
   {
     path: '/schedule/:sport/:year/:week',
     name: 'Weekly',
@@ -33,7 +34,9 @@ export const routes: RouteRecordRaw[] = [
     component: WeeklyTextScheduleView
   },
   { path: '/schedule/:sport/daily', component: DailyScheduleView },
-  { path: '/schedule/:sport/daily/text', component: DailyTextScheduleView }
+  { path: '/schedule/:sport/daily/text', component: DailyTextScheduleView },
+  // Catch-all route for 404s - must be last
+  { path: '/:pathMatch(.*)*', redirect: { name: 'home' } }
 ];
 
 const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes });
