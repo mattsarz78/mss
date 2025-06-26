@@ -16,8 +16,8 @@ export const routes: RouteRecordRaw[] = [
   { path: '/', name: 'home', component: Home },
   { path: '/copyright', component: Copyright },
   { path: '/archive', component: Archive },
-  { path: '/season/:sport/:year', component: Season },
   { path: '/season/contents/:year/', redirect: { name: 'home' } }, // Redirect to home due to old URL structure
+  { path: '/season/:sport/:year', component: Season },
   { path: '/contract/:conference/:year', component: ConferenceGameList },
   { path: '/tv-windows/:year', component: TvWindowsView },
   { path: '/schedule/weekly/:year/:week', redirect: { name: 'home' } }, // Redirect to home due to old URL structure
