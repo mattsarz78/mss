@@ -20,7 +20,10 @@ export const routes: RouteRecordRaw[] = [
   { path: '/season/:sport/:year', component: Season },
   { path: '/contract/:conference/:year', component: ConferenceGameList },
   { path: '/tv-windows/:year', component: TvWindowsView },
+  { path: '/schedule/daily/:year', redirect: { name: 'home' } }, // Redirect to home due to old URL structure
+  { path: '/schedule/dailytext/:year', redirect: { name: 'home' } }, // Redirect to home due to old URL structure
   { path: '/schedule/weekly/:year/:week', redirect: { name: 'home' } }, // Redirect to home due to old URL structure
+  { path: '/schedule/weeklytext/:year/:week', redirect: { name: 'home' } }, // Redirect to home due to old URL structure
   {
     path: '/schedule/:sport/:year/:week',
     name: 'Weekly',
