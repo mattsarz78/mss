@@ -1,8 +1,8 @@
 import { SeasonContentsData, SeasonContentsInput } from '../__generated__/graphql';
 import { IContext } from '../context';
+import { SeasonServiceKey } from '../database/seasonData';
 import { WeeklyDatesServiceKey } from '../database/weeklyDates';
 import { BadRequestError, handleError } from '../utils/errorHandler';
-import { SeasonServiceKey } from '../database/seasonData';
 
 export interface SeasonContentsArgs {
   input: SeasonContentsInput;
@@ -17,8 +17,6 @@ export const getSeasonContents = async (
     if (!input.season) {
       throw new BadRequestError('Season is required');
     }
-
-    console.log(`Fetching for context: ${JSON.stringify(context.request.headers)}`);
 
     const seasonData = await context.services[SeasonServiceKey].getSeasonData(input.season);
     const results = await context.services[WeeklyDatesServiceKey].getConferenceGames(input.season);

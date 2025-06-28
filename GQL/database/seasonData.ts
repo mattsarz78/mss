@@ -13,7 +13,11 @@ export class SeasonService implements ISeasonService {
 
   public async getSeasonData(season: string): Promise<seasondata> {
     try {
-      return await this.client.seasondata.findFirstOrThrow({ where: { season } });
+      const response = await this.client.seasondata.findFirst({ where: { season } });
+      if (!response) {
+        throw new Error(`No data found for season: ${season}`);
+      }
+      return response;
     } catch (error: unknown) {
       throw new DatabaseError('Failed to fetch season data', error as Error);
     }

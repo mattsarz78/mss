@@ -1,6 +1,6 @@
-import { basketball, football } from '../../__generated__/prisma/client';
 import { DateTime } from 'luxon';
 import { TvGameData, TvGamesInput } from '../../__generated__/graphql';
+import { basketball, football } from '../../__generated__/prisma/client';
 import { IContext } from '../../context';
 import { CommonServiceKey } from '../../database/common';
 import { SeasonServiceKey } from '../../database/seasonData';
@@ -16,8 +16,6 @@ export const getTvGames = async (_1: unknown, { input }: TvGamesArgs, context: I
     if (!input.season || !input.sport || (!input.week && input.week !== 0)) {
       throw new BadRequestError('Season, sport, and week are required');
     }
-
-    console.log(`Fetching for context: ${JSON.stringify(context.request.headers)}`);
     const seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(input.season);
     const results = await context.services[CommonServiceKey].getTvGames(input);
 

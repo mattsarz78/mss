@@ -23,8 +23,6 @@ export const conferenceGamesResolver = async (
 
     let conferences: string[] = [];
     if (input.conference === 'independents') {
-      console.log(`Fetching for context: ${JSON.stringify(context.request.headers)}`);
-
       conferences =
         (await context.services[SeasonServiceKey].getSeasonData(input.season)).independents?.split('|') ?? [];
     } else {
