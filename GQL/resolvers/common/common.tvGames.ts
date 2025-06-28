@@ -17,6 +17,7 @@ export const getTvGames = async (_1: unknown, { input }: TvGamesArgs, context: I
       throw new BadRequestError('Season, sport, and week are required');
     }
 
+    console.log(`Fetching for context: ${JSON.stringify(context.request.headers)}`);
     const seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(input.season);
     const results = await context.services[CommonServiceKey].getTvGames(input);
 

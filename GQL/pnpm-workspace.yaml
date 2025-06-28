@@ -1,5 +1,5 @@
 packages:
   - apps/**
   - packages/**
-useNodeVersion: 22.16.0
+useNodeVersion: 22.17.0
 ignoreWorkspaceRootCheck: true
