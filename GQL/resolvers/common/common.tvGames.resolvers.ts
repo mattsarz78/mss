@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon';
-import { TvGameData, TvGamesInput } from '../../__generated__/graphql';
-import { basketball, football } from '../../__generated__/prisma/client';
-import { IContext } from '../../context';
-import { CommonServiceKey } from '../../database/common';
-import { SeasonServiceKey } from '../../database/seasonData';
-import { BadRequestError, handleError } from '../../utils/errorHandler';
-import { formatNetworkJpgAndCoverage } from '../../utils/image';
+import { TvGameData, TvGamesInput } from '@generated/graphql';
+import { basketball, football } from '@generated/prisma/client';
+import { IContext } from '@/context';
+import { CommonServiceKey } from '@database/common';
+import { SeasonServiceKey } from '@database/seasonData';
+import { BadRequestError, handleError } from '@utils/errorHandler';
+import { formatNetworkJpgAndCoverage } from '@utils/image';
 
 export interface TvGamesArgs {
   input: TvGamesInput;

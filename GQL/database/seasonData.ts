@@ -1,6 +1,6 @@
-import { PrismaClient, seasondata } from '../__generated__/prisma/client';
-import { DatabaseError } from '../utils/errorHandler';
-import { DatabaseService } from './services';
+import { PrismaClient, seasondata } from '@generated/prisma/client';
+import { DatabaseError } from '@utils/errorHandler';
+import { DatabaseService } from '@database/services';
 
 export const SeasonServiceKey = Symbol.for('ISeasonService');
 

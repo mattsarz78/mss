@@ -1,7 +1,7 @@
-import { AvailableTvInput } from '../__generated__/graphql';
-import { PrismaClient, availabletv } from '../__generated__/prisma/client';
-import { DatabaseError } from '../utils/errorHandler';
-import { DatabaseService } from './services';
+import { AvailableTvInput } from '@generated/graphql';
+import { PrismaClient, availabletv } from '@generated/prisma/client';
+import { DatabaseError } from '@utils/errorHandler';
+import { DatabaseService } from '@database/services';
 
 export const AvailableTvServiceKey = Symbol.for('IAvailableTvService');
 

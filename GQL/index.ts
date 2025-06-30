@@ -1,6 +1,15 @@
+import { IContext } from '@/context';
 import { ApolloServer } from '@apollo/server';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { expressMiddleware } from '@as-integrations/express5';
+import { AvailableTvService, AvailableTvServiceKey } from '@database/availableTV';
+import { CommonService, CommonServiceKey } from '@database/common';
+import { FootballService, FootballServiceKey } from '@database/football';
+import { SeasonService, SeasonServiceKey } from '@database/seasonData';
+import { DatabaseServices, getDatabaseServices } from '@database/services';
+import { WeeklyDatesService, WeeklyDatesServiceKey } from '@database/weeklyDates';
+import dotenvx from '@dotenvx/dotenvx';
+import { PrismaClient } from '@generated/prisma/client';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { loadFilesSync } from '@graphql-tools/load-files';
@@ -11,26 +20,8 @@ import compression from 'compression';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
 import http from 'http';
-import { PrismaClient } from './__generated__/prisma/client';
-import { IContext } from './context';
-import { AvailableTvService, AvailableTvServiceKey } from './database/availableTV';
-import { CommonService, CommonServiceKey } from './database/common';
-import { FootballService, FootballServiceKey } from './database/football';
-import { SeasonService, SeasonServiceKey } from './database/seasonData';
-import { DatabaseServices, getDatabaseServices } from './database/services';
-import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDates';
 
-const account = async () => {
-  if (process.env.NODE_ENV !== 'production') {
-    const dotenv = await import('dotenv');
-    dotenv.config();
-  }
-};
-
-account().catch((error: unknown) => {
-  process.stdout.write(`Error loading environment variables: ${(error as Error).message}`);
-  process.exit(1);
-});
+dotenvx.config({ ignore: ['MISSING_ENV_FILE'] });
 
 const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
 const NODE_ENV = process.env.NODE_ENV ?? 'development';

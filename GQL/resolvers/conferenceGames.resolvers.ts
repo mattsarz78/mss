@@ -1,11 +1,11 @@
+import { IContext } from '@/context';
+import { FootballServiceKey } from '@database/football';
+import { SeasonServiceKey } from '@database/seasonData';
+import { ConferenceGame, ConferenceGameData, ConferenceGamesInput } from '@generated/graphql';
+import { football } from '@generated/prisma/client';
+import { BadRequestError, handleError } from '@utils/errorHandler';
+import { formatNetworkJpgAndCoverage } from '@utils/image';
 import { DateTime } from 'luxon';
-import { ConferenceGame, ConferenceGameData, ConferenceGamesInput } from '../__generated__/graphql';
-import { football } from '../__generated__/prisma/client';
-import { IContext } from '../context';
-import { FootballServiceKey } from '../database/football';
-import { SeasonServiceKey } from '../database/seasonData';
-import { BadRequestError, handleError } from '../utils/errorHandler';
-import { formatNetworkJpgAndCoverage } from '../utils/image';
 
 export interface ConferenceGamesArgs {
   input: ConferenceGamesInput;

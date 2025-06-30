@@ -1,10 +1,10 @@
-import { basketball, football } from '../../__generated__/prisma/client';
+import { basketball, football } from '@generated/prisma/client';
 import { DateTime } from 'luxon';
-import { DailyTvGamesInput, TvGame } from '../../__generated__/graphql';
-import { IContext } from '../../context';
-import { CommonServiceKey } from '../../database/common';
-import { BadRequestError, handleError } from '../../utils/errorHandler';
-import { formatNetworkJpgAndCoverage } from '../../utils/image';
+import { DailyTvGamesInput, TvGame } from '@generated/graphql';
+import { IContext } from '@/context';
+import { CommonServiceKey } from '@database/common';
+import { BadRequestError, handleError } from '@utils/errorHandler';
+import { formatNetworkJpgAndCoverage } from '@utils/image';
 
 export interface DailyTvGamesArgs {
   input: DailyTvGamesInput;

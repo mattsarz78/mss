@@ -17,6 +17,15 @@
     "noImplicitThis": true,
     "noEmit": true,
     "newLine": "lf",
+    "paths": {
+      "@/*": ["./*"],
+      "@staticData/*": ["staticData/*"],
+      "@schemas/*": ["schemas/*"],
+      "@resolvers/*": ["resolvers/*"],
+      "@database/*": ["database/*"],
+      "@utils/*": ["utils/*"],
+      "@generated/*": ["__generated__/*"]
+    },
     "rootDir": ".",
     "target": "es2022" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "resolveJsonModule": true,

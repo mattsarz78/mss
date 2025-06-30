@@ -1,7 +1,7 @@
-import { TvGamesInput } from '../__generated__/graphql';
-import { Prisma, PrismaClient, basketball, football } from '../__generated__/prisma/client';
-import { DatabaseError } from '../utils/errorHandler';
-import { DatabaseService } from './services';
+import { TvGamesInput } from '@generated/graphql';
+import { Prisma, PrismaClient, basketball, football } from '@generated/prisma/client';
+import { DatabaseError } from '@utils/errorHandler';
+import { DatabaseService } from '@database/services';
 
 export const CommonServiceKey = Symbol.for('ICommonService');
 
