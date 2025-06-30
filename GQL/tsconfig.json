@@ -37,6 +37,6 @@
   "ts-node": {
     "transpileOnly": true
   },
-  "include": ["**/*", "staticData/imagesForUrls.json"],
+  "include": ["**/*.ts", "**/*.json"],
   "exclude": ["node_modules"]
 }
