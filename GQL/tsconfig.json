@@ -1,28 +1,33 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "outDir": "dist",
-    "target": "es6" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "module": "commonjs" /* Specify what module code is generated. */,
+    "allowJs": true,
+    "allowUnreachableCode": false,
+    "baseUrl": ".",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-    "alwaysStrict": true /* Enable all strict type-checking options. */,
-    "sourceMap": true,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "strictPropertyInitialization": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
+    "incremental": true,
+    "lib": ["ES2022"], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "module": "NodeNext" /* Specify what module code is generated. */,
     "noImplicitThis": true,
     "noEmit": true,
-    "types": ["node"],
-    "lib": [
-      "es6",
-      "ESNext",
-      "dom"
-    ], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-    "resolveJsonModule": true
+    "newLine": "lf",
+    "rootDir": ".",
+    "target": "es2022" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "resolveJsonModule": true,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "sourceMap": true,
+    "strict": true /* Enable all strict type-checking options. */,
+    "types": ["node"]
   },
-  "include": ["./**/*.ts"],
-  "exclude": ["node_modules", "dist", "__generated__/**/*"]
+  "ts-node": {
+    "transpileOnly": true
+  },
+  "include": ["**/*", "staticData/imagesForUrls.json"],
+  "exclude": ["node_modules"]
 }

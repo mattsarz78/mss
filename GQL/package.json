@@ -30,7 +30,7 @@
     "body-parser": "^2.2.0",
     "compression": "^1.8.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
+    "dotenv": "^17.0.0",
     "express": "^5.1.0",
     "graphql": "^16.11.0",
     "luxon": "^3.6.1",
@@ -42,6 +42,7 @@
     "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-resolvers": "^4.5.1",
     "@types/body-parser": "^1.19.6",
+    "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/luxon": "^3.6.2",
@@ -59,5 +60,6 @@
   "graphql": {
     "schema": "./schema.graphql",
     "documents": "./**/*.{graphql,js,ts,jsx,tsx}"
-  }
+  },
+  "packageManager": "pnpm@10.12.4"
 }

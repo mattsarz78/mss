@@ -9,8 +9,7 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
-import * as dotenv from 'dotenv';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import http from 'http';
 import { PrismaClient } from './__generated__/prisma/client';
 import { IContext } from './context';
@@ -21,24 +20,30 @@ import { SeasonService, SeasonServiceKey } from './database/seasonData';
 import { DatabaseServices, getDatabaseServices } from './database/services';
 import { WeeklyDatesService, WeeklyDatesServiceKey } from './database/weeklyDates';
 
-dotenv.config();
+const account = async () => {
+  if (process.env.NODE_ENV !== 'production') {
+    const dotenv = await import('dotenv');
+    dotenv.config();
+  }
+};
+
+account().catch((error: unknown) => {
+  process.stdout.write(`Error loading environment variables: ${(error as Error).message}`);
+  process.exit(1);
+});
 
 const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
 
 const app = express();
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const compress = compression({
   level: 9,
   threshold: 0,
   filter: (req: Request, res: Response) => {
     if (req.headers['x-no-compression']) return false;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const contentType = req.headers['content-type'] ?? '';
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     if (contentType.includes('image/') || contentType.includes('video/')) return false;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     return compression.filter(req, res);
   }
 });
@@ -112,29 +117,29 @@ async function startServer() {
 
   // Graceful shutdown handler
   const shutdown = async (signal: string) => {
-    console.log(`\n${signal} received. Starting graceful shutdown...`);
+    process.stdout.write(`\n${signal} received. Starting graceful shutdown...`);
 
     try {
       // Stop accepting new requests
       await apolloServer.stop();
-      console.log('Apollo Server stopped');
+      process.stdout.write('Apollo Server stopped');
 
       // Close HTTP server and wait for existing requests to complete
       await new Promise<void>((resolve) => {
         httpServer.close(() => {
-          console.log('HTTP server closed');
+          process.stdout.write('HTTP server closed');
           resolve();
         });
       });
 
       // Disconnect from database
       await db.$disconnect();
-      console.log('Database disconnected');
+      process.stdout.write('Database disconnected');
 
-      console.log('Graceful shutdown completed');
+      process.stdout.write('Graceful shutdown completed');
       process.exit(0);
-    } catch (error) {
-      console.error('Error during shutdown:', error);
+    } catch (error: unknown) {
+      process.stdout.write(`Error during shutdown: ${(error as Error).message}`);
       process.exit(1);
     }
   };
@@ -145,12 +150,12 @@ async function startServer() {
 
   // Start HTTP server
   httpServer.listen(8020, () => {
-    console.log(`Server is running on port 8020`);
+    process.stdout.write(`Server is running on port 8020`);
   });
 }
 
 startServer().catch((error: unknown) => {
-  console.error('Error starting server:', (error as Error).message);
+  process.stdout.write(`Error starting server: ${(error as Error).message}`);
   process.exit(1);
 });
 

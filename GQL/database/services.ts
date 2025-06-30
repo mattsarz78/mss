@@ -1,4 +1,4 @@
-import { Prisma } from '__generated__/prisma/client';
+import { Prisma } from '../__generated__/prisma/client';
 import { AvailableTvServiceKey, IAvailableTvService } from './availableTV';
 import { CommonServiceKey, ICommonService } from './common';
 import { FootballServiceKey, IFootballService } from './football';
@@ -37,7 +37,7 @@ export const getDatabaseServices = (services: Partial<DatabaseServices>): Databa
       WeeklyDatesServiceKey,
       CommonServiceKey,
       SeasonServiceKey
-    ].filter((key) => !(key in services) || services[key] === undefined);
+    ].filter((key) => !(key in services) || services[key as keyof DatabaseServices] === undefined);
 
     throw new Error(`Missing services: ${missing.join(', ')}`);
   }
