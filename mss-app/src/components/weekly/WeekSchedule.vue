@@ -4,11 +4,11 @@ import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
-import { useWebExclusives } from '@/composables/useWebExclusives';
-import { useWeekSchedule } from '@/composables/useWeekSchedule';
-import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
 import type { FlexScheduleLink } from '@/staticData/exportTypes';
 import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
+import { useWebExclusives } from '@composables/useWebExclusives';
+import { useWeekSchedule } from '@composables/useWeekSchedule';
+import { useWeekScheduleNav } from '@composables/useWeekScheduleNav';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 

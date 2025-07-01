@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import WeekTextBase from '@/components/weeklyText/WeekTextBase.vue';
-import BackToTop from '@/components/shared/BackToTop.vue';
-import { useWeekTextSchedule } from '@/composables/useWeekTextSchedule';
-import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
-import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import { useWeekScheduleNav } from '@/composables/useWeekScheduleNav';
+import BackToTop from '@/components/shared/BackToTop.vue';
+import Copyright from '@/components/shared/CopyrightLink.vue';
+import WeekTextBase from '@/components/weeklyText/WeekTextBase.vue';
+import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
+import { useWeekScheduleNav } from '@composables/useWeekScheduleNav';
+import { useWeekTextSchedule } from '@composables/useWeekTextSchedule';
 import { computed } from 'vue';
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();

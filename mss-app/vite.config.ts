@@ -1,7 +1,12 @@
 import vue from '@vitejs/plugin-vue';
-import { fileURLToPath, URL } from 'node:url';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, loadEnv, PluginOption, Rollup, UserConfigExport } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+
+const _dirname = dirname(fileURLToPath(import.meta.url));
+
+const alias = { '@': resolve(_dirname, './src'), '@composables': resolve(_dirname, './src/composables') };
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -52,7 +57,7 @@ export default defineConfig(({ mode }) => {
         }
       })
     ],
-    resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
+    resolve: { alias },
     build: {
       cssMinify: 'lightningcss',
       minify: 'terser',

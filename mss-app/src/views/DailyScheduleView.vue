@@ -3,9 +3,9 @@ import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import WeeklyBase from '@/components/weekly/WeeklyBase.vue';
-import { useDailyTvGames } from '@/composables/useDailyTvGames';
-import { useWebExclusives } from '@/composables/useWebExclusives';
 import { addMetaTags } from '@/utils/metaTags';
+import { useDailyTvGames } from '@composables/useDailyTvGames';
+import { useWebExclusives } from '@composables/useWebExclusives';
 import { DateTime } from 'luxon';
 import { useRoute } from 'vue-router';
 
