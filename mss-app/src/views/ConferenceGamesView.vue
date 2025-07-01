@@ -4,12 +4,12 @@ import IndependentsGameList from '@/components/conference/IndependentsGameList.v
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
 import Copyright from '@/components/shared/CopyrightLink.vue';
-import { useConferenceGames } from '@/composables/useConferenceGames';
 import conferenceCasing from '@/staticData/conferenceCasing.json';
 import type { ConferenceCasing, FlexScheduleLink } from '@/staticData/exportTypes';
 import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
 import { getConferenceContractData } from '@/utils/conference';
 import { addMetaTags } from '@/utils/metaTags';
+import { useConferenceGames } from '@composables/useConferenceGames';
 import { RouterLink, useRoute } from 'vue-router';
 
 const route = useRoute();

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
 import ConferenceList from '@/components/season/ConferenceList.vue';
 import SeasonDates from '@/components/season/SeasonDates.vue';
-import { useSeasonContents } from '@/composables/useSeasonContents';
-import { addMetaTags } from '@/utils/metaTags';
-import Copyright from '@/components/shared/CopyrightLink.vue';
 import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
+import Copyright from '@/components/shared/CopyrightLink.vue';
+import { addMetaTags } from '@/utils/metaTags';
+import { useSeasonContents } from '@composables/useSeasonContents';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const sport = route.params.sport as string;

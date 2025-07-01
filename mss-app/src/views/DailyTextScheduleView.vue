@@ -3,9 +3,9 @@ import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 import BackToTop from '@/components/shared/BackToTop.vue';
 import Copyright from '@/components/shared/CopyrightLink.vue';
 import WeekTextBase from '@/components/weeklyText/WeekTextBase.vue';
-import { useDailyTvTextGames } from '@/composables/useDailyTvTextGames';
 import { checkAllTextRows, clearAllSelectedTextRows } from '@/utils/domText';
 import { addMetaTags } from '@/utils/metaTags';
+import { useDailyTvTextGames } from '@composables/useDailyTvTextGames';
 import { DateTime } from 'luxon';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
