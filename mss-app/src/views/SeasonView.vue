@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import ConferenceList from '@/components/season/ConferenceList.vue';
-import SeasonDates from '@/components/season/SeasonDates.vue';
-import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import Copyright from '@/components/shared/CopyrightLink.vue';
-import { addMetaTags } from '@/utils/metaTags';
 import { useSeasonContents } from '@composables/useSeasonContents';
+import ConferenceList from '@season/ConferenceList.vue';
+import SeasonDates from '@season/SeasonDates.vue';
+import AdsByGoogle from '@shared/AdsByGoogle.vue';
+import Copyright from '@shared/CopyrightLink.vue';
+import { addMetaTags } from '@utils/metaTags';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();

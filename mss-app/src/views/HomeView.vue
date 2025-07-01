@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import Copyright from '@/components/shared/CopyrightLink.vue';
-import { addMetaTags } from '@/utils/metaTags';
+import AdsByGoogle from '@shared/AdsByGoogle.vue';
+import Copyright from '@shared/CopyrightLink.vue';
+import { addMetaTags } from '@utils/metaTags';
 import { RouterLink } from 'vue-router';
 
 const title = "Matt's College Sports on TV";

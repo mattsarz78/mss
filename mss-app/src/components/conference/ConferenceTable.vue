@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ConferenceGame } from '@/graphQl';
-import { formatGame, formatTime } from '@/utils/game';
+import { formatGame, formatTime } from '@utils/game';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 

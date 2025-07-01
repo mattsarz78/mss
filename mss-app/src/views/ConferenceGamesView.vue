@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import ConferenceGameList from '@/components/conference/ConferenceGameList.vue';
-import IndependentsGameList from '@/components/conference/IndependentsGameList.vue';
-import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import BackToTop from '@/components/shared/BackToTop.vue';
-import Copyright from '@/components/shared/CopyrightLink.vue';
-import conferenceCasing from '@/staticData/conferenceCasing.json';
-import type { ConferenceCasing, FlexScheduleLink } from '@/staticData/exportTypes';
-import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
-import { getConferenceContractData } from '@/utils/conference';
-import { addMetaTags } from '@/utils/metaTags';
 import { useConferenceGames } from '@composables/useConferenceGames';
+import ConferenceGameList from '@conference/ConferenceGameList.vue';
+import IndependentsGameList from '@conference/IndependentsGameList.vue';
+import conferenceCasing from '@data/conferenceCasing.json';
+import type { ConferenceCasing, FlexScheduleLink } from '@data/exportTypes';
+import flexScheduleLinks from '@data/flexScheduleLinks.json';
+import AdsByGoogle from '@shared/AdsByGoogle.vue';
+import BackToTop from '@shared/BackToTop.vue';
+import Copyright from '@shared/CopyrightLink.vue';
+import { getConferenceContractData } from '@utils/conference';
+import { addMetaTags } from '@utils/metaTags';
 import { RouterLink, useRoute } from 'vue-router';
 
 const route = useRoute();

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
-import Copyright from '@/components/shared/CopyrightLink.vue';
-import type { FlexScheduleLink } from '@/staticData/exportTypes';
-import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
-import { addMetaTags } from '@/utils/metaTags';
+import type { FlexScheduleLink } from '@data/exportTypes';
+import flexScheduleLinks from '@data/flexScheduleLinks.json';
+import AdsByGoogle from '@shared/AdsByGoogle.vue';
+import Copyright from '@shared/CopyrightLink.vue';
+import { addMetaTags } from '@utils/metaTags';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();

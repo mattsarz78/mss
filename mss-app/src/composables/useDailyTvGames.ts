@@ -1,6 +1,6 @@
 import { DAILY_TV_GAMES, type TvGameData } from '@/graphQl';
-import type { FlexScheduleLink } from '@/staticData/exportTypes';
-import flexScheduleLinks from '@/staticData/flexScheduleLinks.json';
+import type { FlexScheduleLink } from '@data/exportTypes';
+import flexScheduleLinks from '@data/flexScheduleLinks.json';
 import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import conferenceCasing from '@/staticData/conferenceCasing.json';
-import type { ConferenceCasing } from '@/staticData/exportTypes';
+import conferenceCasing from '@data/conferenceCasing.json';
+import type { ConferenceCasing } from '@data/exportTypes';
 import { computed } from 'vue';
 
 const props = defineProps<{ conferenceList: string; year: string }>();

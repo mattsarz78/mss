@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
-import { formatTime, formatGame } from '@/utils/game';
+import { formatGame, formatTime } from '@utils/game';
 
 const props = defineProps<{ tvGame: TvGame }>();
 const { tvGame } = props;

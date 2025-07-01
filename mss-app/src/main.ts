@@ -4,9 +4,9 @@ import { DefaultApolloClient } from '@vue/apollo-composable';
 import { registerSW } from 'virtual:pwa-register';
 import { createApp, h, provide } from 'vue';
 import VueDOMPurifyHTML from 'vue-dompurify-html';
-import { apolloClient } from './apolloClient';
-import App from './App.vue';
-import router from './router';
+import { apolloClient } from '@/apolloClient';
+import App from '@/App.vue';
+import router from '@/router';
 
 const updateSW = registerSW({
   onNeedRefresh() {

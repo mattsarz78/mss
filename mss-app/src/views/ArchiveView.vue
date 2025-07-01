@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import AdsByGoogle from '@shared/AdsByGoogle.vue';
+import Copyright from '@shared/CopyrightLink.vue';
+import { addMetaTags } from '@utils/metaTags';
 import { RouterLink } from 'vue-router';
-import { addMetaTags } from '@/utils/metaTags';
-import Copyright from '@/components/shared/CopyrightLink.vue';
-import AdsByGoogle from '@/components/shared/AdsByGoogle.vue';
 
 const title = 'Archive Listings';
 

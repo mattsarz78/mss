@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { TvGame } from '@/graphQl';
+import PostseasonMbkEvent from '@weekly/PostseasonMbkEvent.vue';
+import WeekGameRow from '@weekly/WeekGameRow.vue';
 import { DateTime } from 'luxon';
-import PostseasonMbkEvent from '@/components/weekly/PostseasonMbkEvent.vue';
-import WeekGameRow from './WeekGameRow.vue';
 import { computed } from 'vue';
 
 const props = defineProps<{

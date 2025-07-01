@@ -6,7 +6,19 @@
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
-    "paths": { "@/*": ["./src/*"], "@composables/*": ["./src/composables/*"] },
+    "paths": { 
+      "@/*": ["./src/*"], 
+      "@composables/*": ["./src/composables/*"], 
+      "@views/*": ["./src/views/*"], 
+      "@utils/*": ["./src/utils/*"],
+      "@conference/*": ["./src/components/conference/*"],
+      "@noTv/*": ["./src/components/noTVGames/*"],
+      "@season/*": ["./src/components/season/*"],
+      "@shared/*": ["./src/components/shared/*"],
+      "@weekly/*": ["./src/components/weekly/*"],
+      "@text/*": ["./src/components/weeklyText/*"],
+      "@data/*": ["./src/staticData/*"] 
+    },
     "types": ["node"]
   }
 }

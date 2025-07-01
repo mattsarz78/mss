@@ -6,7 +6,19 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 const _dirname = dirname(fileURLToPath(import.meta.url));
 
-const alias = { '@': resolve(_dirname, './src'), '@composables': resolve(_dirname, './src/composables') };
+const alias = {
+  '@': resolve(_dirname, './src'),
+  '@composables': resolve(_dirname, './src/composables'),
+  '@views': resolve(_dirname, './src/views'),
+  '@utils': resolve(_dirname, './src/utils'),
+  '@data': resolve(_dirname, './src/staticData'),
+  '@conference': resolve(_dirname, './src/components/conference'),
+  '@noTv': resolve(_dirname, './src/components/noTVGames'),
+  '@season': resolve(_dirname, './src/components/season'),
+  '@shared': resolve(_dirname, './src/components/shared'),
+  '@weekly': resolve(_dirname, './src/components/weekly'),
+  '@text': resolve(_dirname, './src/components/weeklyText')
+};
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
