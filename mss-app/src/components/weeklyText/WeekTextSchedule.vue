@@ -74,9 +74,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
                 </RouterLink>
               </div>
               <div v-if="!isNextWeekMbkPostseason && !isNextWeekBowlWeek" class="flex-row-right">
-                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}`, force: true }"
-                  >Next Week
-                </RouterLink>
+                <RouterLink :to="{ path: `/schedule/${sport}/${paramYear}/${nextWeek}/text` }">Next Week </RouterLink>
               </div>
             </template>
             <br class="mobilehide" />
