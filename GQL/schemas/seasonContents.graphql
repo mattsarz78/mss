@@ -15,6 +15,7 @@ type SeasonContents {
 
 type SeasonContentsData {
   conferenceListBase: String
+  flexScheduleLink: String
   hasPostseason: Boolean!
   seasonContents: [SeasonContents]!
 }

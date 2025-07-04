@@ -1,8 +1,3 @@
-export interface FlexScheduleLink {
-  season: string;
-  url: string;
-}
-
 export interface ConferenceCasing {
   id: string;
   slug: string;

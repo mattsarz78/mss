@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useConferenceGames } from '@composables/useConferenceGames';
+import { useSeasonData } from '@composables/useSeasonData';
 import ConferenceGameList from '@conference/ConferenceGameList.vue';
 import IndependentsGameList from '@conference/IndependentsGameList.vue';
 import conferenceCasing from '@data/conferenceCasing.json';
-import type { ConferenceCasing, FlexScheduleLink } from '@data/exportTypes';
-import flexScheduleLinks from '@data/flexScheduleLinks.json';
+import type { ConferenceCasing } from '@data/exportTypes';
 import AdsByGoogle from '@shared/AdsByGoogle.vue';
 import BackToTop from '@shared/BackToTop.vue';
 import Copyright from '@shared/CopyrightLink.vue';
@@ -23,9 +23,9 @@ const { cased, lookup, id } = conferenceData;
 
 const title = `${year} ${cased} Controlled Games`;
 
-addMetaTags(title);
+const { result: seasonResult, loading: seasonLoading, error: seasonError } = useSeasonData(year);
 
-const flexLink = flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year)?.url ?? '';
+addMetaTags(title);
 
 const contractTvData =
   conference !== 'independents'
@@ -41,7 +41,7 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup);
 </script>
 
 <template>
-  <template v-if="result">
+  <template v-if="result && seasonResult">
     <nav class="navbar DONTPrint">
       <div class="container">
         <div class="flex-container">
@@ -52,7 +52,11 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup);
             <RouterLink class="flex-row" :to="`/season/football/${year}`">Season Home</RouterLink>
           </div>
           <div>
-            <RouterLink v-if="flexLink" class="flex-row" :to="`/tv-windows/${year}`" target="_blank"
+            <RouterLink
+              v-if="seasonResult.seasonData.flexScheduleLink"
+              class="flex-row"
+              :to="`/tv-windows/${year}`"
+              target="_blank"
               >Available TV Windows
             </RouterLink>
           </div>
@@ -84,12 +88,12 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup);
     </div>
     <Copyright />
   </template>
-  <template v-if="loading">
+  <template v-if="loading || seasonLoading">
     <div class="loading-container">
       <p class="loading-text">{{ cased }} Games Loading...</p>
     </div>
   </template>
-  <template v-if="error">
+  <template v-if="error || seasonError">
     <div class="error-container">
       <p>Sorry. Got a bit of a problem. Let Matt know.</p>
     </div>

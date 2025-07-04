@@ -20,9 +20,14 @@ export interface NoTvGamesInput {
   week: number;
 }
 
+export interface SeasonDataInput {
+  season: string;
+}
+
 export interface SeasonContentsData {
   conferenceListBase?: string;
   hasPostseason: boolean;
+  flexScheduleLink?: string;
   seasonContents: WeekInfo[];
 }
 export interface WeekInfo {
@@ -80,11 +85,16 @@ export interface ConferenceGameData {
   conferences: string[];
 }
 
+export interface SeasonData {
+  flexScheduleLink?: string;
+}
+
 export const SEASON_CONTENTS = gql`
   query seasonContents($input: SeasonContentsInput) {
     seasonContents(input: $input) {
       conferenceListBase
       hasPostseason
+      flexScheduleLink
       seasonContents {
         startDate
         endDate
@@ -169,6 +179,14 @@ export const NO_TV_GAMES = gql`
       tvOptions
       timeWithOffset
       fcs
+    }
+  }
+`;
+
+export const SEASON_DATA = gql`
+  query seasonData($input: SeasonDataInput) {
+    seasonData(input: $input) {
+      flexScheduleLink
     }
   }
 `;

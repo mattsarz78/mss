@@ -1,6 +1,4 @@
 import { DAILY_TV_GAMES, type TvGameData } from '@/graphQl';
-import type { FlexScheduleLink } from '@data/exportTypes';
-import flexScheduleLinks from '@data/flexScheduleLinks.json';
 import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
@@ -23,11 +21,5 @@ export function useDailyTvGames(sport: string) {
       : '';
   });
 
-  const flexLink = computed(() =>
-    currentSeason.value
-      ? (flexScheduleLinks.find((link: FlexScheduleLink) => link.season === currentSeason.value)?.url ?? '')
-      : ''
-  );
-
-  return { result, loading, error, season, flexLink, startDate };
+  return { result, loading, error, season, startDate };
 }

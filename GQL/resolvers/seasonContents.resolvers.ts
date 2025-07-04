@@ -22,6 +22,7 @@ export const getSeasonContents = async (
     const results = await context.services[WeeklyDatesServiceKey].getConferenceGames(input.season);
     return {
       conferenceListBase: seasonData.conferenceListBase,
+      flexScheduleLink: seasonData.flexScheduleLink,
       hasPostseason: seasonData.hasPostseason,
       seasonContents: results.map((result) => ({
         week: result.week,

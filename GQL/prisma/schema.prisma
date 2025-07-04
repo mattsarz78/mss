@@ -92,4 +92,5 @@ model seasondata {
   showPPVColumn      Boolean
   conferenceListBase String?
   independents       String?
+  flexScheduleLink   String?
 }

@@ -9,6 +9,7 @@ type Query {
   noTvGames(input: NoTvGamesInput): [NoTvGame]!
   health: String!
   seasonContents(input: SeasonContentsInput): SeasonContentsData!
+  seasonData(input: SeasonDataInput): SeasonData!
 }
 
 input AvailableTvInput {
@@ -122,6 +123,13 @@ type SeasonContents {
 }
 type SeasonContentsData {
   conferenceListBase: String
+  flexScheduleLink: String
   hasPostseason: Boolean!
   seasonContents: [SeasonContents]!
+}
+input SeasonDataInput {
+  season: String!
+}
+type SeasonData {
+  flexScheduleLink: String
 }

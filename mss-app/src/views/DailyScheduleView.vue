@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useSeasonData } from '@/composables/useSeasonData';
 import { useDailyTvGames } from '@composables/useDailyTvGames';
 import { useWebExclusives } from '@composables/useWebExclusives';
 import AdsByGoogle from '@shared/AdsByGoogle.vue';
@@ -23,24 +24,25 @@ const {
   loading: dailyTvGameLoading,
   error: dailyTvGameError,
   season,
-  flexLink,
   startDate
 } = useDailyTvGames(sport);
+
+const { result, loading, error } = useSeasonData(season.value);
 </script>
 
 <template>
   <div v-reset-adsense-height>
-    <template v-if="dailyTvGameLoading">
+    <template v-if="dailyTvGameLoading || loading">
       <div class="loading-container">
         <p class="loading-text">Loading {{ sport }} for {{ startDate }}</p>
       </div>
     </template>
-    <template v-if="dailyTvGameError">
+    <template v-if="dailyTvGameError || error">
       <div class="error-container">
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
       </div>
     </template>
-    <template v-if="dailyTvGameResult">
+    <template v-if="dailyTvGameResult && result">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div class="flex-container">
@@ -52,7 +54,7 @@ const {
             </div>
           </div>
           <div class="flex-container">
-            <div v-if="flexLink" class="flex-row">
+            <div v-if="result.seasonData.flexScheduleLink" class="flex-row">
               <RouterLink :to="`/tv-windows/${season}`" target="_blank">Available TV Windows </RouterLink>
             </div>
             <div class="flex-row">

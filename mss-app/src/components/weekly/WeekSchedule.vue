@@ -2,8 +2,6 @@
 import { useWebExclusives } from '@composables/useWebExclusives';
 import { useWeekSchedule } from '@composables/useWeekSchedule';
 import { useWeekScheduleNav } from '@composables/useWeekScheduleNav';
-import type { FlexScheduleLink } from '@data/exportTypes';
-import flexScheduleLinks from '@data/flexScheduleLinks.json';
 import NoTvGames from '@noTv/NoTvGames.vue';
 import AdsByGoogle from '@shared/AdsByGoogle.vue';
 import BackToTop from '@shared/BackToTop.vue';
@@ -47,10 +45,6 @@ const gamesToday = computed(() => {
   );
 });
 
-const flexLink = computed(
-  () => flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year.value)?.url ?? ''
-);
-
 const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year.value, weekInt.value);
 </script>
 
@@ -81,7 +75,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
             </div>
           </div>
           <div class="flex-container">
-            <div v-if="flexLink" class="flex-row">
+            <div v-if="seasonContentsResult.seasonContents.flexScheduleLink" class="flex-row">
               <RouterLink :to="`/tv-windows/${paramYear}`" target="_blank">Available TV Windows</RouterLink>
             </div>
             <div class="flex-row">

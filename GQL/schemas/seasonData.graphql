@@ -1,0 +1,11 @@
+type Query {
+  seasonData(input: SeasonDataInput): SeasonData!
+}
+
+input SeasonDataInput {
+  season: String!
+}
+
+type SeasonData {
+  flexScheduleLink: String
+}

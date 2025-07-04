@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { FlexScheduleLink } from '@data/exportTypes';
-import flexScheduleLinks from '@data/flexScheduleLinks.json';
+import { useSeasonData } from '@/composables/useSeasonData';
 import AdsByGoogle from '@shared/AdsByGoogle.vue';
 import Copyright from '@shared/CopyrightLink.vue';
 import { addMetaTags } from '@utils/metaTags';
@@ -15,28 +14,43 @@ const FLEXLINKSETUP = '/pubhtml?widget=true&amp;headers=false';
 
 addMetaTags(title);
 
-const flexLink = flexScheduleLinks.find((link: FlexScheduleLink) => link.season === year)?.url ?? '';
+const { result, loading, error } = useSeasonData(year);
 </script>
 
 <template>
-  <nav class="navbar DONTPrint">
-    <div class="container">
-      <div class="flex-container">
-        <div>
-          <RouterLink to="/">Home</RouterLink>
-        </div>
-        <div><br /></div>
-        <div>
-          <RouterLink :to="`/season/football/${year}`">Season Home</RouterLink>
+  <template v-if="result">
+    <nav class="navbar DONTPrint">
+      <div class="container">
+        <div class="flex-container">
+          <div>
+            <RouterLink to="/">Home</RouterLink>
+          </div>
+          <div><br /></div>
+          <div>
+            <RouterLink :to="`/season/football/${year}`">Season Home</RouterLink>
+          </div>
         </div>
       </div>
+    </nav>
+    <div id="Main" v-reset-adsense-height>
+      <iframe
+        :title="`Football TV Windows for ${year} season`"
+        class="tvFrame"
+        :src="`${result.seasonData.flexScheduleLink}${FLEXLINKSETUP}`" />
+      <AdsByGoogle />
     </div>
-  </nav>
-  <div id="Main" v-reset-adsense-height>
-    <iframe :title="`Football TV Windows for ${year} season`" class="tvFrame" :src="`${flexLink}${FLEXLINKSETUP}`" />
-    <AdsByGoogle />
-  </div>
-  <Copyright />
+    <Copyright />
+  </template>
+  <template v-if="loading">
+    <div class="loading-container">
+      <p class="loading-text">TV Windows Loading...</p>
+    </div>
+  </template>
+  <template v-if="error">
+    <div class="error-container">
+      <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+    </div>
+  </template>
 </template>
 
 <style scoped>
