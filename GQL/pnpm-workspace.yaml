@@ -3,3 +3,4 @@ packages:
   - packages/**
 useNodeVersion: 22.17.0
 ignoreWorkspaceRootCheck: true
+dedupeDirectDeps: true
