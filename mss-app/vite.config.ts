@@ -132,10 +132,10 @@ function chunkGroup(id: string): string | Rollup.NullValue {
 }
 
 function getVendorChunk(id: string): string {
-  if (id.includes('vue')) return 'vendor-vue';
-  if (id.includes('luxon')) return 'vendor-dates';
-  if (id.includes('@apollo')) return 'vendor-apollo';
   if (id.includes('@vueuse')) return 'vendor-vueuse';
+  if (id.includes('vue') || id.includes('@apollo')) return 'vendor-vue-apollo';
+  if (id.includes('luxon')) return 'vendor-dates';
+  if (id.includes('graphql')) return 'vendor-graphql';
   if (id.includes('/node_modules/lodash')) return 'vendor-utils';
   return 'vendor-other';
 }
