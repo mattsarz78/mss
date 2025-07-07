@@ -23,7 +23,6 @@
     "@vue/tsconfig": "^0.7.0",
     "@vueuse/core": "^13.5.0",
     "graphql": "^16.11.0",
-    "graphql-tag": "^2.12.6",
     "luxon": "^3.6.1",
     "vite": "^6.3.5",
     "vite-plugin-pwa": "^1.0.1",
