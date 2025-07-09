@@ -5,7 +5,7 @@ ENV NODE_ENV=development
 WORKDIR /app
 
 # Install build dependencies and clean up in the same layer
-RUN apk add --no-cache openssl \
+RUN apk add --no-cache openssl curl \
   && rm -rf /var/cache/apk/* \
   && corepack enable pnpm
 
@@ -38,7 +38,7 @@ ENV VALID_CORS_ORIGINS=$VALID_CORS_ORIGINS
 WORKDIR /app
 
 # Install minimal runtime dependencies and set up user in one layer
-RUN apk add --no-cache openssl dumb-init \
+RUN apk add --no-cache openssl dumb-init curl \
   && addgroup -S appgroup \
   && adduser -S appuser -G appgroup \
   && rm -rf /var/cache/apk/* \
