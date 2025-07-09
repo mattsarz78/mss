@@ -39,8 +39,6 @@ const compress = compression({
   }
 });
 
-app.use(compress);
-
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
     if (isValidCors(origin) || origin === undefined) {
@@ -55,12 +53,6 @@ const corsOptions: cors.CorsOptions = {
   credentials: true,
   maxAge: 86400 // Cache preflight requests for 24 hours
 };
-app.use(cors(corsOptions));
-
-app.use(bodyParser.json());
-app.get('/health', (req, res) => {
-  res.status(200).send('OK');
-});
 
 async function startServer() {
   const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL }, { schema: 'mattsarzsports' });
@@ -99,8 +91,15 @@ async function startServer() {
 
   await apolloServer.start();
 
+  app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+  });
+
   app.use(
     '/graphql',
+    compress,
+    bodyParser.json(),
+    cors(corsOptions),
     expressMiddleware<IContext>(apolloServer, {
       context: async ({ req }) => Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req })
     })
@@ -111,11 +110,9 @@ async function startServer() {
     process.stdout.write(`\n${signal} received. Starting graceful shutdown...`);
 
     try {
-      // Stop accepting new requests
       await apolloServer.stop();
       process.stdout.write('Apollo Server stopped');
 
-      // Close HTTP server and wait for existing requests to complete
       await new Promise<void>((resolve) => {
         httpServer.close(() => {
           process.stdout.write('HTTP server closed');
@@ -154,8 +151,8 @@ const corsCache = new Map<string, boolean>();
 const isValidCors: (origin: string | undefined) => boolean = (origin) => {
   if (!origin || NODE_ENV !== 'production') return true;
   if (corsCache.has(origin)) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return corsCache.get(origin)!;
+    const cached = corsCache.get(origin);
+    return cached ?? false;
   }
 
   const isValid = VALID_CORS_ORIGINS.some((domain) => {

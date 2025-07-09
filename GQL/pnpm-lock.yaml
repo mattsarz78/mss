@@ -12,11 +12,11 @@ importers:
         specifier: ^4.12.2
         version: 4.12.2(graphql@16.11.0)
       '@as-integrations/express5':
-        specifier: ^1.1.0
-        version: 1.1.0(@apollo/server@4.12.2(graphql@16.11.0))(express@5.1.0)
+        specifier: ^1.1.1
+        version: 1.1.1(@apollo/server@4.12.2(graphql@16.11.0))(express@5.1.0)
       '@dotenvx/dotenvx':
-        specifier: ^1.45.2
-        version: 1.45.2
+        specifier: ^1.47.1
+        version: 1.47.1
       '@graphql-tools/graphql-file-loader':
         specifier: ^8.0.20
         version: 8.0.20(graphql@16.11.0)
@@ -213,11 +213,11 @@ packages:
     peerDependencies:
       graphql: '*'
 
-  '@as-integrations/express5@1.1.0':
-    resolution: {integrity: sha512-rlZU5Rlk4Sm2NDq2bs8BzveelEq39WBUvt4QVj9mVvPet1DuggLFR6nMVdDO6mb07gDLlWCWd+XTHclAEli9PQ==}
+  '@as-integrations/express5@1.1.1':
+    resolution: {integrity: sha512-bOXlKomcbLhezrcuy8zKFhYwe6EItVIomOJExtiwkzPW6tYm4f886zeMx8CI+r548L8QLuyzfQPio8ZFEmHXxQ==}
     engines: {node: '>=20'}
     peerDependencies:
-      '@apollo/server': ^4.0.0
+      '@apollo/server': ^4.0.0 || 5.0.0-rc.0
       express: ^5.0.0
 
   '@babel/code-frame@7.27.1':
@@ -305,8 +305,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@dotenvx/dotenvx@1.45.2':
-    resolution: {integrity: sha512-dljVOZTZhwF3G6E1ifDviOOF/vdHqf37xHVWYzNWW+Zk8Mm8KSJiKvWnFze1KknuWUPNb1jDL53I1f8XXKHEYg==}
+  '@dotenvx/dotenvx@1.47.1':
+    resolution: {integrity: sha512-qPNI7NqQHJkTln9sk7ECEG2Y/15qoKkskxIiVn+x7wDmC5rJaV8exnNpGFCSd3PviUEQx7Y9CM5R96paBymURw==}
     hasBin: true
 
   '@ecies/ciphers@0.2.4':
@@ -2928,7 +2928,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@as-integrations/express5@1.1.0(@apollo/server@4.12.2(graphql@16.11.0))(express@5.1.0)':
+  '@as-integrations/express5@1.1.1(@apollo/server@4.12.2(graphql@16.11.0))(express@5.1.0)':
     dependencies:
       '@apollo/server': 4.12.2(graphql@16.11.0)
       express: 5.1.0
@@ -3046,7 +3046,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@dotenvx/dotenvx@1.45.2':
+  '@dotenvx/dotenvx@1.47.1':
     dependencies:
       commander: 11.1.0
       dotenv: 16.6.1
