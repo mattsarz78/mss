@@ -1,7 +1,8 @@
 import vue from '@vitejs/plugin-vue';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { defineConfig, loadEnv, PluginOption, Rollup, UserConfigExport } from 'vite';
+import type { PluginOption, Rollup, UserConfig, UserConfigExport } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 const _dirname = dirname(fileURLToPath(import.meta.url));
@@ -21,7 +22,7 @@ const alias = {
 };
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode }): UserConfig => {
   // Load environment variables
   const env = loadEnv(mode, process.cwd(), '');
 
@@ -38,6 +39,23 @@ export default defineConfig(({ mode }) => {
       minifyIdentifiers: true,
       minifySyntax: true
     },
+    server: {
+      watch: {
+        usePolling: false,
+        ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**'] // Also ignore build output
+      },
+      hmr: {
+        overlay: true,
+        timeout: 30000 // Increase timeout for slower connections
+      },
+      host: true, // Listen on all addresses
+      strictPort: true, // Fail if port is already in use
+      open: false // Don't open browser automatically
+    },
+    css: { devSourcemap: true },
+    assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.gif'],
+    base: '/',
+    publicDir: 'public',
     plugins: [
       vue({ isProduction: true, features: { optionsAPI: false } }),
       VitePWA({
@@ -74,6 +92,7 @@ export default defineConfig(({ mode }) => {
       cssMinify: 'lightningcss',
       minify: 'terser',
       target: 'esnext',
+      terserOptions: { compress: { drop_console: true, drop_debugger: true } },
       dynamicImportVarsOptions: { warnOnError: true, exclude: [] },
       rollupOptions: {
         external: ['workbox-window'],
@@ -132,11 +151,9 @@ function chunkGroup(id: string): string | Rollup.NullValue {
 }
 
 function getVendorChunk(id: string): string {
-  if (id.includes('@vueuse')) return 'vendor-vueuse';
-  if (id.includes('vue') || id.includes('@apollo')) return 'vendor-vue-apollo';
-  if (id.includes('luxon')) return 'vendor-dates';
-  if (id.includes('graphql')) return 'vendor-graphql';
-  if (id.includes('/node_modules/lodash')) return 'vendor-utils';
+  if (id.includes('luxon') || id.includes('@vueuse/core')) return 'vendor-utils';
+  if (id.includes('vue') || id.includes('vue-router')) return 'vendor-vue';
+  if (id.includes('@apollo/client') || id.includes('@vue/apollo-composable')) return 'vendor-apollo';
   return 'vendor-other';
 }
 
