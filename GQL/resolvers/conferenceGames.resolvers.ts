@@ -6,9 +6,15 @@ import { football } from '@generated/prisma/client';
 import { BadRequestError, handleError } from '@utils/errorHandler';
 import { formatNetworkJpgAndCoverage } from '@utils/image';
 import { DateTime } from 'luxon';
+import contractData from '@staticData/contractData.json';
 
 export interface ConferenceGamesArgs {
   input: ConferenceGamesInput;
+}
+
+export interface ConferenceData {
+  id: string;
+  data: string;
 }
 
 export const conferenceGamesResolver = async (
@@ -35,6 +41,15 @@ export const conferenceGamesResolver = async (
       )
     );
 
+    const contractYearData = conferences.map((conference) => {
+      const data =
+        contractData
+          .find((contract) => contract.season === input.season)
+          ?.data.find((seasonData: ConferenceData) => seasonData.id === conference)?.data ??
+        `Data not found for ${conference} for ${input.season} season`;
+      return { conference, contractText: data };
+    });
+
     const conferenceGames: ConferenceGame[] = conferenceResults
       .flat()
       .map((conferenceGame: football) => ({
@@ -51,7 +66,7 @@ export const conferenceGamesResolver = async (
         conference: conferenceGame.conference?.trim() ?? ''
       }));
 
-    return { conferences, conferenceGames } as ConferenceGameData;
+    return { conferences, conferenceGames, contractYearData } as ConferenceGameData;
   } catch (err: unknown) {
     throw handleError(err);
   }

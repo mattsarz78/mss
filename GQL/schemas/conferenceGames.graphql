@@ -19,7 +19,13 @@ type ConferenceGame {
   conference: String
 }
 
+type ContractData {
+  conference: String!
+  contractText: String!
+}
+
 type ConferenceGameData {
   conferenceGames: [ConferenceGame]!
   conferences: [String]!
+  contractYearData: [ContractData]!
 }
