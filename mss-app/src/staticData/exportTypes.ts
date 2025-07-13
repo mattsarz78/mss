@@ -4,8 +4,3 @@ export interface ConferenceCasing {
   cased: string;
   lookup?: string;
 }
-
-export interface ConferenceData {
-  id: string;
-  data: string;
-}

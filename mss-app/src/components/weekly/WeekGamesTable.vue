@@ -38,7 +38,7 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
               <PostseasonMbkEvent :tv-game="tvGame" />
             </template>
             <template v-else>
-              <WeekGameRow :show-p-p-v-column="showPpvColumn" :tv-game="tvGame" />
+              <WeekGameRow :key="index" :show-p-p-v-column="showPpvColumn" :tv-game="tvGame" />
             </template>
           </tr>
         </template>

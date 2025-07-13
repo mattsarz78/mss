@@ -67,9 +67,14 @@ type ConferenceGame {
   tvtype: String
   conference: String
 }
+type ContractData {
+  conference: String!
+  contractText: String!
+}
 type ConferenceGameData {
   conferenceGames: [ConferenceGame]!
   conferences: [String]!
+  contractYearData: [ContractData]!
 }
 enum ErrorCode {
   NOT_FOUND

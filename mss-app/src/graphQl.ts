@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client/core';
 export interface SeasonContentsInput {
   season: string;
 }
@@ -82,6 +82,12 @@ export interface TvGameData {
 export interface ConferenceGameData {
   conferenceGames: ConferenceGame[];
   conferences: string[];
+  contractYearData: ContractData[];
+}
+
+export interface ContractData {
+  conference: string;
+  contractText: string;
 }
 
 export interface SeasonData {
@@ -108,6 +114,10 @@ export const CONFERENCE_GAMES = gql`
   query conferenceGames($input: ConferenceGamesInput) {
     conferenceGames(input: $input) {
       conferences
+      contractYearData {
+        conference
+        contractText
+      }
       conferenceGames {
         gameTitle
         visitingTeam
