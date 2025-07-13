@@ -1,5 +1,6 @@
 import { IContext } from '@/context';
 import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginCacheControlDisabled } from '@apollo/server/plugin/disabled';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { expressMiddleware } from '@as-integrations/express5';
 import { AvailableTvService, AvailableTvServiceKey } from '@database/availableTV';
@@ -39,6 +40,10 @@ const compress = compression({
   }
 });
 
+const corsPatterns = VALID_CORS_ORIGINS.map(
+  (domain) => new RegExp(`^${domain.replace(/\\/g, '\\\\').replace(/\*/g, '[a-z0-9-]*').replace(/\./g, '\\.')}$`)
+);
+
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
     if (isValidCors(origin) || origin === undefined) {
@@ -51,8 +56,18 @@ const corsOptions: cors.CorsOptions = {
   methods: ['GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-  maxAge: 86400 // Cache preflight requests for 24 hours
+  maxAge: 86400
 };
+
+function loadSchemaAndResolvers() {
+  const gqlSchema = loadSchemaSync('./schemas/*.graphql', { loaders: [new GraphQLFileLoader()] });
+  const resolversArray = loadFilesSync('./resolvers/**/*.resolvers.ts');
+
+  const typeDefs = mergeTypeDefs([gqlSchema]);
+  const resolvers = mergeResolvers(resolversArray);
+
+  return { typeDefs, resolvers };
+}
 
 async function startServer() {
   const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL }, { schema: 'mattsarzsports' });
@@ -70,11 +85,8 @@ async function startServer() {
     [WeeklyDatesServiceKey]: new WeeklyDatesService(db),
     [SeasonServiceKey]: new SeasonService(db)
   };
-  const gqlSchema = loadSchemaSync('./schemas/*.graphql', { loaders: [new GraphQLFileLoader()] });
-  const typeDefs = mergeTypeDefs([gqlSchema]);
 
-  const resolversArray = loadFilesSync('./resolvers/**/*.resolvers.ts');
-  const resolvers = mergeResolvers(resolversArray);
+  const { typeDefs, resolvers } = loadSchemaAndResolvers();
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const httpServer = http.createServer(app);
@@ -83,9 +95,9 @@ async function startServer() {
     typeDefs,
     resolvers,
     introspection: NODE_ENV !== 'production',
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer }), ApolloServerPluginCacheControlDisabled()],
     hideSchemaDetailsFromClientErrors: true,
-    persistedQueries: false, // Disable APQ for security
+    persistedQueries: false,
     cache: 'bounded'
   });
 
@@ -98,7 +110,7 @@ async function startServer() {
   app.use(
     '/graphql',
     compress,
-    bodyParser.json(),
+    bodyParser.json({ limit: '1mb' }),
     cors(corsOptions),
     expressMiddleware<IContext>(apolloServer, {
       context: async ({ req }) => Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req })
@@ -148,18 +160,11 @@ startServer().catch((error: unknown) => {
 });
 
 const corsCache = new Map<string, boolean>();
-const isValidCors: (origin: string | undefined) => boolean = (origin) => {
+const isValidCors = (origin: string | undefined): boolean => {
   if (!origin || NODE_ENV !== 'production') return true;
-  if (corsCache.has(origin)) {
-    const cached = corsCache.get(origin);
-    return cached ?? false;
-  }
+  if (corsCache.has(origin)) return corsCache.get(origin) ?? false;
 
-  const isValid = VALID_CORS_ORIGINS.some((domain) => {
-    const pattern = domain.replace(/\\/g, '\\\\').replace(/\*/g, '[a-z0-9-]*').replace(/\./g, '\\.');
-    return new RegExp(`^${pattern}$`).test(origin);
-  });
-
+  const isValid = corsPatterns.some((pattern) => pattern.test(origin));
   corsCache.set(origin, isValid);
   return isValid;
 };
