@@ -153,7 +153,7 @@ function chunkGroup(id: string): string | Rollup.NullValue {
 function getVendorChunk(id: string): string {
   if (id.includes('luxon') || id.includes('@vueuse/core')) return 'vendor-utils';
   if (id.includes('vue') || id.includes('vue-router')) return 'vendor-vue';
-  if (id.includes('@apollo/client/core') || id.includes('@vue/apollo-composable')) return 'vendor-apollo';
+  if (id.includes('@apollo/client') || id.includes('@vue/apollo-composable')) return 'vendor-apollo';
   return 'vendor-other';
 }
 
