@@ -25,6 +25,7 @@ const alias = {
 export default defineConfig(({ mode }): UserConfig => {
   // Load environment variables
   const env = loadEnv(mode, process.cwd(), '');
+  const buildId = new Date().getTime().toString();
 
   const config: UserConfigExport = {
     optimizeDeps: {
@@ -83,7 +84,7 @@ export default defineConfig(({ mode }): UserConfig => {
         },
         workbox: {
           // defining cached files formats
-          globPatterns: ['**/*.{js,css,html,txt,xml,ico,png,svg,webmanifest}'],
+          globPatterns: ['**/*.{js,css,html,txt,xml,ico,png,svg,json,vue,woff2,webmanifest}'],
           cleanupOutdatedCaches: true,
           skipWaiting: true,
           clientsClaim: true
@@ -104,12 +105,12 @@ export default defineConfig(({ mode }): UserConfig => {
             return chunkGroup(id);
           },
           inlineDynamicImports: false,
-          chunkFileNames: mode === 'production' ? 'assets/[name].[hash].js' : 'assets/[name].js',
-          assetFileNames: mode === 'production' ? 'assets/[name].[hash][extname]' : 'assets/[name][extname]',
-          entryFileNames: mode === 'production' ? 'assets/[name].[hash].js' : 'assets/[name].js'
+          entryFileNames: `assets/[name].[hash].${buildId}.js`,
+          chunkFileNames: `assets/[name].[hash].${buildId}.js`,
+          assetFileNames: `assets/[name].[hash].${buildId}.[ext]`
         }
       },
-      commonjsOptions: { include: [/node_modules/], transformMixedEsModules: true },
+      manifest: true, // Generate manifest.json for asset mapping
       sourcemap: mode === 'development',
       reportCompressedSize: mode === 'production'
     },
