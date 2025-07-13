@@ -83,7 +83,10 @@ export default defineConfig(({ mode }): UserConfig => {
         },
         workbox: {
           // defining cached files formats
-          globPatterns: ['**/*.{js,css,html,txt,xml,ico,png,svg,webmanifest}']
+          globPatterns: ['**/*.{js,css,html,txt,xml,ico,png,svg,webmanifest}'],
+          cleanupOutdatedCaches: true,
+          skipWaiting: true,
+          clientsClaim: true
         }
       })
     ],
@@ -107,7 +110,7 @@ export default defineConfig(({ mode }): UserConfig => {
         }
       },
       commonjsOptions: { include: [/node_modules/], transformMixedEsModules: true },
-      sourcemap: mode !== 'production',
+      sourcemap: mode === 'development',
       reportCompressedSize: mode === 'production'
     },
     define: { 'import.meta.env.API_URL': JSON.stringify(env.API_URL) }
