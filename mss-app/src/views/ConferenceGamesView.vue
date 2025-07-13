@@ -8,7 +8,6 @@ import type { ConferenceCasing } from '@data/exportTypes';
 import AdsByGoogle from '@shared/AdsByGoogle.vue';
 import BackToTop from '@shared/BackToTop.vue';
 import Copyright from '@shared/CopyrightLink.vue';
-import { getConferenceContractData } from '@utils/conference';
 import { addMetaTags } from '@utils/metaTags';
 import { RouterLink, useRoute } from 'vue-router';
 
@@ -27,17 +26,7 @@ const { result: seasonResult, loading: seasonLoading, error: seasonError } = use
 
 addMetaTags(title);
 
-const contractTvData =
-  conference !== 'independents'
-    ? (() => {
-        if (!id) {
-          throw new Error(`Invalid conference casing or ID for slug: ${conference}`);
-        }
-        return getConferenceContractData(id, year);
-      })()
-    : '';
-
-const { result, loading, error } = useConferenceGames(year, conference, lookup);
+const { result, loading, error } = useConferenceGames(year, conference, lookup, id);
 </script>
 
 <template>
@@ -75,10 +64,13 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup);
           NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
           non-conference games fall under the home team's telecast rights.
         </p>
-        <div v-if="conference !== 'independents'" v-dompurify-html="contractTvData" />
+        <div
+          v-if="conference !== 'independents'"
+          v-dompurify-html="result.conferenceGames.contractYearData[0].contractText" />
         <IndependentsGameList
           v-if="conference === 'independents'"
           :games="result.conferenceGames.conferenceGames"
+          :contract-year-data="result.conferenceGames.contractYearData"
           :schools="result.conferenceGames.conferences"
           :year="year" />
         <ConferenceGameList v-else :year="year" :games="result.conferenceGames.conferenceGames" />

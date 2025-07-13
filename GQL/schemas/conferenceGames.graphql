@@ -5,6 +5,7 @@ type Query {
 input ConferenceGamesInput {
   season: String!
   conference: String!
+  id: String!
 }
 
 type ConferenceGame {

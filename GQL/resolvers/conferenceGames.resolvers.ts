@@ -1,12 +1,12 @@
 import { IContext } from '@/context';
 import { FootballServiceKey } from '@database/football';
 import { SeasonServiceKey } from '@database/seasonData';
-import { ConferenceGame, ConferenceGameData, ConferenceGamesInput } from '@generated/graphql';
+import { ConferenceGame, ConferenceGameData, ConferenceGamesInput, ContractData } from '@generated/graphql';
 import { football } from '@generated/prisma/client';
+import contractData from '@staticData/contractData.json';
 import { BadRequestError, handleError } from '@utils/errorHandler';
 import { formatNetworkJpgAndCoverage } from '@utils/image';
 import { DateTime } from 'luxon';
-import contractData from '@staticData/contractData.json';
 
 export interface ConferenceGamesArgs {
   input: ConferenceGamesInput;
@@ -23,7 +23,7 @@ export const conferenceGamesResolver = async (
   context: IContext
 ): Promise<ConferenceGameData> => {
   try {
-    if (!input.conference || !input.season) {
+    if (!input.conference || !input.season || !input.id) {
       throw new BadRequestError('Conference and season are required');
     }
 
@@ -41,14 +41,17 @@ export const conferenceGamesResolver = async (
       )
     );
 
-    const contractYearData = conferences.map((conference) => {
-      const data =
-        contractData
-          .find((contract) => contract.season === input.season)
-          ?.data.find((seasonData: ConferenceData) => seasonData.id === conference)?.data ??
-        `Data not found for ${conference} for ${input.season} season`;
-      return { conference, contractText: data };
-    });
+    let contractYearData: ContractData[] = [];
+
+    if (input.conference === 'independents') {
+      contractYearData = conferences.map((conference) => {
+        const data = getConferenceContractData(input.season, conference);
+        return { conference, contractText: data };
+      });
+    } else {
+      const data = getConferenceContractData(input.season, input.id);
+      contractYearData = [{ conference: input.conference, contractText: data }];
+    }
 
     const conferenceGames: ConferenceGame[] = conferenceResults
       .flat()
@@ -70,6 +73,15 @@ export const conferenceGamesResolver = async (
   } catch (err: unknown) {
     throw handleError(err);
   }
+};
+
+const getConferenceContractData = (season: string, conference: string) => {
+  return (
+    contractData
+      .find((contract) => contract.season === season)
+      ?.data.find((seasonData: ConferenceData) => seasonData.id === conference)?.data ??
+    `Data not found for ${conference} for ${season} season`
+  );
 };
 
 export default { Query: { conferenceGames: conferenceGamesResolver } };

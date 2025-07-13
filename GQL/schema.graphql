@@ -55,6 +55,7 @@ type TvGameData {
 input ConferenceGamesInput {
   season: String!
   conference: String!
+  id: String!
 }
 type ConferenceGame {
   gameTitle: String

@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import type { ConferenceGame } from '@/graphQl';
+import type { ConferenceGame, ContractData } from '@/graphQl';
 import ConferenceTable from '@conference/ConferenceTable.vue';
-import { getConferenceContractData } from '@utils/conference';
 import { computed } from 'vue';
 
-const props = defineProps<{ games: ConferenceGame[]; schools: string[]; year: string }>();
-const { games, schools, year } = props;
+const props = defineProps<{
+  games: ConferenceGame[];
+  schools: string[];
+  year: string;
+  contractYearData: ContractData[];
+}>();
+const { games, schools, year, contractYearData } = props;
 
 const filterGamesBySchool = (school: string) => {
   return games.filter((game) => game.conference === school);
@@ -15,7 +19,7 @@ const filteredGames = computed(() =>
   schools
     .map((school) => {
       const schoolGames = filterGamesBySchool(school);
-      const contractData = getConferenceContractData(school, year);
+      const contractData = contractYearData.find((data) => data.conference === school)?.contractText;
       return schoolGames.length > 0 ? { school, games: schoolGames, contractData } : null;
     })
     .filter((game) => game !== null)
