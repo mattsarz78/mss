@@ -56,7 +56,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
               <RouterLink :to="`/season/${sport}/${paramYear}`">Season Home</RouterLink>
             </div>
             <div class="flex-row">
-              <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}/text`">
+              <RouterLink class="DONTPrint" :to="`/schedule/${sport}/${paramYear}/${week}`">
                 Weekly Schedule
               </RouterLink>
             </div>
