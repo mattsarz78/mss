@@ -88,7 +88,6 @@ async function startServer() {
 
   const { typeDefs, resolvers } = loadSchemaAndResolvers();
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const httpServer = http.createServer(app);
 
   const apolloServer = new ApolloServer<IContext>({
