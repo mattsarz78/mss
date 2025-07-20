@@ -8,7 +8,7 @@ export interface NoTvGamesArgs {
   input: NoTvGamesInput;
 }
 
-export const getNoTvGames = async (_1: unknown, { input }: NoTvGamesArgs, context: IContext): Promise<NoTvGame[]> => {
+export const noTvGames = async (_1: unknown, { input }: NoTvGamesArgs, context: IContext): Promise<NoTvGame[]> => {
   try {
     if (!input.season || (!input.week && input.week !== 0)) {
       throw new BadRequestError('Season is required');
@@ -49,5 +49,3 @@ const updatedTvOptions = (game: NoTVGames): string => {
 
   return game.tvoptions ?? 'Unknown';
 };
-
-export default { Query: { noTvGames: getNoTvGames } };

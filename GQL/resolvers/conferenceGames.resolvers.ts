@@ -17,7 +17,7 @@ export interface ConferenceData {
   data: string;
 }
 
-export const conferenceGamesResolver = async (
+export const conferenceGames = async (
   _1: unknown,
   { input }: ConferenceGamesArgs,
   context: IContext
@@ -83,5 +83,3 @@ const getConferenceContractData = (season: string, conference: string) => {
     `Data not found for ${conference} for ${season} season`
   );
 };
-
-export default { Query: { conferenceGames: conferenceGamesResolver } };

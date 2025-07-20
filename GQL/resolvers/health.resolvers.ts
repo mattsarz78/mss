@@ -1,7 +1,7 @@
 import { IContext } from '@/context';
 import { DatabaseError } from '@utils/errorHandler';
 
-export const healthResolver = async (_1: unknown, _2: unknown, context: IContext): Promise<string> => {
+export const health = async (_1: unknown, _2: unknown, context: IContext): Promise<string> => {
   try {
     await context.db.$connect?.();
     return 'healthy';
@@ -9,5 +9,3 @@ export const healthResolver = async (_1: unknown, _2: unknown, context: IContext
     throw new DatabaseError('Database connection failed', err as Error);
   }
 };
-
-export default { Query: { health: healthResolver } };

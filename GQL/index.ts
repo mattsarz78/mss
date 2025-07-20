@@ -13,9 +13,9 @@ import dotenvx from '@dotenvx/dotenvx';
 import { PrismaClient } from '@generated/prisma/client';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
-import { loadFilesSync } from '@graphql-tools/load-files';
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
 import { PrismaPg } from '@prisma/adapter-pg';
+import * as Resolvers from '@resolvers/index';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
@@ -61,12 +61,27 @@ const corsOptions: cors.CorsOptions = {
 
 function loadSchemaAndResolvers() {
   const gqlSchema = loadSchemaSync('./schemas/*.graphql', { loaders: [new GraphQLFileLoader()] });
-  const resolversArray = loadFilesSync('./resolvers/**/*.resolvers.ts');
+  const resolversArray = createResolversArray();
 
   const typeDefs = mergeTypeDefs([gqlSchema]);
   const resolvers = mergeResolvers(resolversArray);
 
   return { typeDefs, resolvers };
+}
+
+function createResolversArray() {
+  return {
+    Query: {
+      ...Resolvers.AvailableTv,
+      ...Resolvers.ConferenceGames,
+      ...Resolvers.NoTvGames,
+      ...Resolvers.Health,
+      ...Resolvers.SeasonContents,
+      ...Resolvers.SeasonData,
+      ...Resolvers.DailyTvGames,
+      ...Resolvers.TvGames
+    }
+  };
 }
 
 async function startServer() {

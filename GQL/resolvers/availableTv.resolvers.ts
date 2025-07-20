@@ -7,7 +7,7 @@ export interface AvailableTvArgs {
   input: AvailableTvInput;
 }
 
-export const getAvailableTv = async (
+export const availableTv = async (
   _1: unknown,
   { input }: AvailableTvArgs,
   context: IContext
@@ -28,5 +28,3 @@ export const getAvailableTv = async (
     throw handleError(err);
   }
 };
-
-export default { Query: { availableTv: getAvailableTv } };

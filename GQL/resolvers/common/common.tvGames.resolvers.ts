@@ -11,7 +11,7 @@ export interface TvGamesArgs {
   input: TvGamesInput;
 }
 
-export const getTvGames = async (_1: unknown, { input }: TvGamesArgs, context: IContext): Promise<TvGameData> => {
+export const tvGames = async (_1: unknown, { input }: TvGamesArgs, context: IContext): Promise<TvGameData> => {
   try {
     if (!input.season || !input.sport || (!input.week && input.week !== 0)) {
       throw new BadRequestError('Season, sport, and week are required');
@@ -42,5 +42,3 @@ export const getTvGames = async (_1: unknown, { input }: TvGamesArgs, context: I
     throw handleError(err);
   }
 };
-
-export default { Query: { tvGames: getTvGames } };

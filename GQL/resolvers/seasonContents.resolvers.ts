@@ -8,7 +8,7 @@ export interface SeasonContentsArgs {
   input: SeasonContentsInput;
 }
 
-export const getSeasonContents = async (
+export const seasonContents = async (
   _1: unknown,
   { input }: SeasonContentsArgs,
   context: IContext
@@ -35,5 +35,3 @@ export const getSeasonContents = async (
     throw handleError(err);
   }
 };
-
-export default { Query: { seasonContents: getSeasonContents } };

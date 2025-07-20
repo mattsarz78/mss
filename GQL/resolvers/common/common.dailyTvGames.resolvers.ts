@@ -13,11 +13,7 @@ export interface DailyTvGamesArgs {
 const zeroHour = { hour: 0, minute: 0, seconds: 0, milliseconds: 0 };
 const endOfDay = { hour: 4, minute: 59, seconds: 59, milliseconds: 0 };
 
-export const getDailyTvGames = async (
-  _1: unknown,
-  { input }: DailyTvGamesArgs,
-  context: IContext
-): Promise<TvGame[]> => {
+export const dailyTvGames = async (_1: unknown, { input }: DailyTvGamesArgs, context: IContext): Promise<TvGame[]> => {
   try {
     if (!input.startDate || !input.sport) {
       throw new BadRequestError('Start date and sport are required');
@@ -49,5 +45,3 @@ export const getDailyTvGames = async (
     throw handleError(err);
   }
 };
-
-export default { Query: { dailyTvGames: getDailyTvGames } };
