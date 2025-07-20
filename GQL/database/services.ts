@@ -17,7 +17,7 @@ export interface DatabaseServices {
   [SeasonServiceKey]: ISeasonService;
 }
 
-function isComplete(services: Partial<DatabaseServices>): services is DatabaseServices {
+const isComplete = (services: Partial<DatabaseServices>): services is DatabaseServices => {
   const requiredServices = [
     AvailableTvServiceKey,
     FootballServiceKey,
@@ -27,7 +27,7 @@ function isComplete(services: Partial<DatabaseServices>): services is DatabaseSe
   ] as const;
 
   return requiredServices.every((key) => key in services && services[key] !== undefined);
-}
+};
 
 export const getDatabaseServices = (services: Partial<DatabaseServices>): DatabaseServices => {
   if (!isComplete(services)) {

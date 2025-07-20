@@ -1,7 +1,7 @@
 import { TV_GAMES, type TvGameData } from '@/graphQl';
 import { useQuery } from '@vue/apollo-composable';
 
-export function useWeekSchedule(sport: string, year: string, week: number) {
+export const useWeekSchedule = (sport: string, year: string, week: number) => {
   const {
     result: tvGameResult,
     loading: tvGameLoading,
@@ -9,4 +9,4 @@ export function useWeekSchedule(sport: string, year: string, week: number) {
   } = useQuery<{ tvGames: TvGameData }>(TV_GAMES, { input: { season: year, sport, week } });
 
   return { tvGameResult, tvGameLoading, tvGameError };
-}
+};

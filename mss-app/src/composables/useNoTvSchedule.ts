@@ -3,7 +3,7 @@ import { useLazyQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
-export function useNoTvSchedule(week: string, year: string) {
+export const useNoTvSchedule = (week: string, year: string) => {
   const weekInt = parseInt(week);
 
   const {
@@ -38,4 +38,4 @@ export function useNoTvSchedule(week: string, year: string) {
   });
 
   return { noTvGamesResults, noTvGamesLoading, noTvGamesError, datesList, load };
-}
+};

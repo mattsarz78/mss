@@ -125,7 +125,7 @@ export default defineConfig(({ mode }): UserConfig => {
   return config;
 });
 
-function chunkGroup(id: string): string | Rollup.NullValue {
+const chunkGroup = (id: string): string | Rollup.NullValue => {
   // Vendor dependencies first
   if (id.includes('node_modules')) {
     return getVendorChunk(id);
@@ -152,16 +152,16 @@ function chunkGroup(id: string): string | Rollup.NullValue {
   }
 
   return null;
-}
+};
 
-function getVendorChunk(id: string): string {
+const getVendorChunk = (id: string): string => {
   if (id.includes('luxon') || id.includes('@vueuse/core')) return 'vendor-utils';
   if (id.includes('vue') || id.includes('vue-router')) return 'vendor-vue';
   if (id.includes('@apollo/client') || id.includes('@vue/apollo-composable')) return 'vendor-apollo';
   return 'vendor-other';
-}
+};
 
-function getCoreChunk(id: string): string {
+const getCoreChunk = (id: string): string => {
   if (id.includes('/utils/game') || id.includes('/utils/ppvColumn')) {
     return 'core-game-utils';
   }
@@ -169,9 +169,9 @@ function getCoreChunk(id: string): string {
     return 'core-composables';
   }
   return 'core-common';
-}
+};
 
-function getFeatureChunk(id: string): string {
+const getFeatureChunk = (id: string): string => {
   if (id.includes('/components/weekly/')) return 'feature-weekly';
   if (id.includes('/components/conference/')) return 'feature-conference';
   if (id.includes('/components/noTVGames/')) return 'feature-no-tv';
@@ -179,20 +179,20 @@ function getFeatureChunk(id: string): string {
   if (id.includes('/components/season/')) return 'feature-season';
   if (id.includes('/components/weeklyText/')) return 'feature-weekly-text';
   return 'feature-other';
-}
+};
 
-function getRouteChunk(id: string): string {
+const getRouteChunk = (id: string): string => {
   const route = /\/views\/(\w+)View/.exec(id)?.[1]?.toLowerCase();
   if (route) return `route-${route}`;
   return 'route-other';
-}
+};
 
-async function loadVueDevTools() {
+const loadVueDevTools = async () => {
   const vueDevTools = await import('vite-plugin-vue-devtools');
   return vueDevTools.default();
-}
+};
 
-async function loadVisualizer() {
+const loadVisualizer = async () => {
   const { visualizer } = await import('rollup-plugin-visualizer');
   return visualizer({ open: true }) as PluginOption;
-}
+};

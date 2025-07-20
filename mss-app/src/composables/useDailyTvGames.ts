@@ -3,7 +3,7 @@ import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
-export function useDailyTvGames(sport: string) {
+export const useDailyTvGames = (sport: string) => {
   const startDate = DateTime.now().setZone('America/New_York').toISODate();
 
   const { result, loading, error } = useQuery<{ dailyTvGames: TvGameData }>(DAILY_TV_GAMES, {
@@ -22,4 +22,4 @@ export function useDailyTvGames(sport: string) {
   });
 
   return { result, loading, error, season, startDate };
-}
+};

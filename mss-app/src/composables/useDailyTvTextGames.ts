@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-export function useDailyTvTextGames() {
+export const useDailyTvTextGames = () => {
   const route = useRoute();
   const { sport } = route.params as { sport: string };
 
@@ -32,4 +32,4 @@ export function useDailyTvTextGames() {
   );
 
   return { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate };
-}
+};

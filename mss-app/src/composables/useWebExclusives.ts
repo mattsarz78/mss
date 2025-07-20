@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue';
 
-export function useWebExclusives() {
+export const useWebExclusives = () => {
   const isWebGamesHidden = ref(false);
 
   const toggleWebExclusives = () => {
@@ -15,4 +15,4 @@ export function useWebExclusives() {
   const buttonText = computed(() => (isWebGamesHidden.value ? 'Show Web Exclusive Games' : 'Hide Web Exclusive Games'));
 
   return { isWebGamesHidden, toggleWebExclusives, buttonText };
-}
+};

@@ -14,7 +14,7 @@ const isBasketballPostseason = (sport: string, contents: WeekInfo[], week: numbe
   return sport === 'basketball' && contents.some((x) => x.week === week && x.postseasonInd);
 };
 
-export function useWeekScheduleNav(sport: string, year: string, week: number) {
+export const useWeekScheduleNav = (sport: string, year: string, week: number) => {
   const {
     result: seasonContentsResult,
     loading: seasonContentsLoading,
@@ -54,4 +54,4 @@ export function useWeekScheduleNav(sport: string, year: string, week: number) {
     isNextWeekMbkPostseason,
     isNextWeekBowlWeek
   };
-}
+};

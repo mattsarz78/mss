@@ -1,5 +1,6 @@
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
+import { SCHEMA_FILE, SCHEMA_GLOB, SCHEMA_PATH } from '@staticData/constants';
 import fs from 'fs';
 import {
   getIntrospectionQuery,
@@ -12,13 +13,9 @@ import {
 import path from 'path';
 import prettier from 'prettier';
 
-const SCHEMA_PATH = './';
-const SCHEMA_FILE = 'schema.graphql';
-const SCHEMA_GLOB = './schemas/*.graphql';
-
 const gqlSchema = loadSchemaSync(SCHEMA_GLOB, { loaders: [new GraphQLFileLoader()] });
 
-function printSchemasWithDirectives(schema: GraphQLSchema): string {
+const printSchemasWithDirectives = (schema: GraphQLSchema): string => {
   const typeMap = schema.getTypeMap();
   const typeStrings = Object.keys(typeMap)
     .filter((typeName) => !typeName.startsWith('__'))
@@ -36,7 +33,7 @@ function printSchemasWithDirectives(schema: GraphQLSchema): string {
 
   const schemaAstNode = schema.astNode ? print(schema.astNode) : '';
   return `${schemaAstNode}\n${typeStrings}\n${directiveStrings}`;
-}
+};
 
 const schemaPath =
   fs.existsSync(SCHEMA_PATH) && fs.statSync(SCHEMA_PATH).isDirectory()

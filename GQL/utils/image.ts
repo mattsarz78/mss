@@ -75,13 +75,15 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   return `${combinedImagesString.join('')}${textHyperlinksString.join('')}${infoLinksString.join('')}${textString.join('')}`;
 };
 
-function validateFieldData(networks: string[]): {
+const validateFieldData = (
+  networks: string[]
+): {
   images: string[];
   imageHyperlinks: string[];
   infoLinks: string[];
   textHyperlinks: string[];
   strings: string[];
-} {
+} => {
   const images: string[] = [];
   const imageHyperlinks: string[] = [];
   const textHyperlinks: string[] = [];
@@ -97,26 +99,26 @@ function validateFieldData(networks: string[]): {
   });
 
   return { images, imageHyperlinks, infoLinks, textHyperlinks, strings };
-}
+};
 
-function isImage(network: string): boolean {
+const isImage = (network: string): boolean => {
   return (
     network.endsWith('jpg') &&
     !network.includes('assets.espn') &&
     !network.includes('espncdn') &&
     !network.includes('espngameplan')
   );
-}
+};
 
-function isHyperlink(network: string): boolean {
+const isHyperlink = (network: string): boolean => {
   return network.includes('http') || network.includes('.com');
-}
+};
 
-function isImageHyperlink(network: string): boolean {
+const isImageHyperlink = (network: string): boolean => {
   return (imagesForUrls as ImagesForUrl[]).some((x: ImagesForUrl) => network.includes(x.link));
-}
+};
 
-function isInformationLink(network: string): boolean {
+const isInformationLink = (network: string): boolean => {
   return (
     isSyndAffiliates(network) ||
     isCoverageMap(network) ||
@@ -124,9 +126,9 @@ function isInformationLink(network: string): boolean {
     isSpecialCoverageNote(network) ||
     isBTN(network)
   );
-}
+};
 
-function isSyndAffiliates(network: string): boolean {
+const isSyndAffiliates = (network: string): boolean => {
   return (
     network.includes('acctourney.theacc.com') ||
     network.includes('theacc.com/live') ||
@@ -140,13 +142,13 @@ function isSyndAffiliates(network: string): boolean {
     network.includes('theacc.com/sports') ||
     IsASNLink(network)
   );
-}
+};
 
-function IsASNLink(network: string): boolean {
+const IsASNLink = (network: string): boolean => {
   return syndicationLinks.some((x) => x === network);
-}
+};
 
-function isCoverageMap(network: string): boolean {
+const isCoverageMap = (network: string): boolean => {
   return (
     coverageMapLinks.some((x) => x === network) ||
     network.includes('http://assets.espn.go.com/photo/') ||
@@ -154,34 +156,34 @@ function isCoverageMap(network: string): boolean {
     network.includes('http://www.seminoles.com/blog/Screen%20Shot%202013-11-07%20at%2011.42.17%20AM.png') ||
     network.includes('https://espnpressroom.com/us/files/2013/08/CF_Oct29_Maps_MZ.pdf')
   );
-}
+};
 
-function isGamePlanMap(network: string): boolean {
+const isGamePlanMap = (network: string): boolean => {
   return (
     network.includes('http://assets.espn.go.com/gameplan/') ||
     network.includes('http://assets.espn.go.com/espn3/') ||
     network.includes('espngameplan.espn.com') ||
     network.includes('blackout')
   );
-}
+};
 
-function isSpecialCoverageNote(network: string): boolean {
+const isSpecialCoverageNote = (network: string): boolean => {
   return specialCoverageNotes.some((x) => x === network);
-}
+};
 
-function isThe506CoverageMap(network: string): boolean {
+const isThe506CoverageMap = (network: string): boolean => {
   return network.includes('http://www.the506.com');
-}
+};
 
-function isBTN(network: string): boolean {
+const isBTN = (network: string): boolean => {
   return network.includes('bigtennetwork.com') || network.includes('btn.com');
-}
+};
 
-function isP12Networks(network: string): boolean {
+const isP12Networks = (network: string): boolean => {
   return network.includes('http://pac-12.com/AboutPac-12Enterprises/ChannelFinder.aspx');
-}
+};
 
-function getImageUrl(imageArray: { link: string; image: string; yearEnd?: string }[], season: string): string {
+const getImageUrl = (imageArray: { link: string; image: string; yearEnd?: string }[], season: string): string => {
   if (imageArray.length > 1) {
     season = seasonMap[season] || season;
     for (const image of imageArray) {
@@ -202,9 +204,9 @@ function getImageUrl(imageArray: { link: string; image: string; yearEnd?: string
     }
   }
   return imageArray[0].image;
-}
+};
 
-function addLineBreaks(combinedImagesString: string[]): void {
+const addLineBreaks = (combinedImagesString: string[]): void => {
   let counter = 0;
   combinedImagesString.forEach((_, index) => {
     counter++;
@@ -212,14 +214,14 @@ function addLineBreaks(combinedImagesString: string[]): void {
       combinedImagesString.splice(index, 0, '<br>');
     }
   });
-}
+};
 
-function ensureLineBreaks(
+const ensureLineBreaks = (
   combinedImagesString: string[],
   textHyperlinksString: string[],
   textString: string[],
   infoLinksString: string[]
-): void {
+): void => {
   if (
     combinedImagesString.length &&
     !combinedImagesString.join('').endsWith('<br>') &&
@@ -239,9 +241,9 @@ function ensureLineBreaks(
   if (textString.length && !textString.join('').endsWith('<br>')) {
     textString.push('<br>');
   }
-}
+};
 
-function getInfoLinkValue(infoLink: string): string {
+const getInfoLinkValue = (infoLink: string): string => {
   if (isSyndAffiliates(infoLink)) return AFFILIATES;
   if (isCoverageMap(infoLink)) return COVERAGEMAP;
   if (isThe506CoverageMap(infoLink)) return COVERAGEMAP506;
@@ -249,4 +251,4 @@ function getInfoLinkValue(infoLink: string): string {
   if (isBTN(infoLink) || isP12Networks(infoLink)) return CHANNELFINDER;
   if (isSpecialCoverageNote(infoLink)) return SPECIALCOVERAGENOTE;
   return 'Live Video';
-}
+};

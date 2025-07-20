@@ -1,6 +1,6 @@
 import { useOnline } from '@vueuse/core';
 
-export function useAppUtils() {
+export const useAppUtils = () => {
   const isOnline = useOnline();
   return { isOnline };
-}
+};

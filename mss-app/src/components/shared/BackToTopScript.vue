@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue';
 
-const scrollFunction = () => {
+const scroll = () => {
   const backToTopBtn = document.getElementById('backToTopBtn');
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     backToTopBtn?.classList.add('show');
@@ -15,10 +15,10 @@ const scrollFunction = () => {
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', scrollFunction);
+  window.addEventListener('scroll', scroll);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', scrollFunction);
+  window.removeEventListener('scroll', scroll);
 });
 </script>

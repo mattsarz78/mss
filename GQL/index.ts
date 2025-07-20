@@ -21,6 +21,7 @@ import compression from 'compression';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
 import http from 'http';
+import { SCHEMA_GLOB } from '@staticData/constants';
 
 dotenvx.config({ ignore: ['MISSING_ENV_FILE'] });
 
@@ -59,17 +60,17 @@ const corsOptions: cors.CorsOptions = {
   maxAge: 86400
 };
 
-function loadSchemaAndResolvers() {
-  const gqlSchema = loadSchemaSync('./schemas/*.graphql', { loaders: [new GraphQLFileLoader()] });
+const loadSchemaAndResolvers = () => {
+  const gqlSchema = loadSchemaSync(SCHEMA_GLOB, { loaders: [new GraphQLFileLoader()] });
   const resolversArray = createResolversArray();
 
   const typeDefs = mergeTypeDefs([gqlSchema]);
   const resolvers = mergeResolvers(resolversArray);
 
   return { typeDefs, resolvers };
-}
+};
 
-function createResolversArray() {
+const createResolversArray = () => {
   return {
     Query: {
       ...Resolvers.AvailableTv,
@@ -82,9 +83,9 @@ function createResolversArray() {
       ...Resolvers.TvGames
     }
   };
-}
+};
 
-async function startServer() {
+const startServer = async () => {
   const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL }, { schema: 'mattsarzsports' });
 
   const db = new PrismaClient({
@@ -166,7 +167,7 @@ async function startServer() {
   httpServer.listen(8020, () => {
     process.stdout.write(`Server is running on port 8020`);
   });
-}
+};
 
 startServer().catch((error: unknown) => {
   process.stdout.write(`Error starting server: ${(error as Error).message}`);
