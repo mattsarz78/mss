@@ -6,4 +6,4 @@ SELECT fb.gametitle, fb.visitingteam, fb.hometeam, fb.location, fb.conference, a
           AND fb.season = at.season
           AND fb.week = at.week
           AND fb.mediaindicator = 'N'
-        ORDER BY fb.timewithoffset, fb.conference;
+        ORDER BY CAST(fb.time AS DATE), fb.conference;
