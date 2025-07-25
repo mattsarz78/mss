@@ -23,7 +23,7 @@
     "graphql": "^16.11.0",
     "luxon": "^3.7.1",
     "vite": "^6.3.5",
-    "vite-plugin-pwa": "^1.0.1",
+    "vite-plugin-pwa": "^1.0.2",
     "vue": "^3.5.18",
     "vue-dompurify-html": "^5.3.0",
     "vue-router": "^4.5.1"
@@ -39,7 +39,7 @@
     "rollup-plugin-visualizer": "^6.0.3",
     "terser": "^5.43.1",
     "vite-plugin-vue-devtools": "^7.7.7",
-    "vue-tsc": "^3.0.3"
+    "vue-tsc": "^3.0.4"
   },
   "graphql": {
     "schema": "./schema.graphql",
