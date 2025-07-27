@@ -84,7 +84,7 @@ export default defineConfig(({ mode }): UserConfig => {
         },
         workbox: {
           // defining cached files formats
-          globPatterns: ['**/*.{mjs,css,html,txt,xml,ico,png,svg,json,vue,woff2,webmanifest}'],
+          globPatterns: ['**/*.{js,mjs,css,html,txt,xml,ico,png,svg,json,vue,woff2,webmanifest}'],
           cleanupOutdatedCaches: true,
           skipWaiting: true,
           clientsClaim: true
