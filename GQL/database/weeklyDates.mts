@@ -1,6 +1,6 @@
-import { PrismaClient, weeklydates } from '@generated/prisma/client';
-import { DatabaseError } from '@utils/errorHandler';
-import { DatabaseService } from '@database/services';
+import type { DatabaseService } from '#database/services.mjs';
+import { PrismaClient, type weeklydates } from '#generated/prisma/client.mjs';
+import { DatabaseError } from '#utils/errorHandler.mjs';
 
 export const WeeklyDatesServiceKey = Symbol.for('IWeeklyDatesService');
 
@@ -9,7 +9,11 @@ export interface IWeeklyDatesService extends DatabaseService<IWeeklyDatesService
 }
 
 export class WeeklyDatesService implements IWeeklyDatesService {
-  constructor(private client: PrismaClient) {}
+  private client: PrismaClient;
+
+  constructor(client: PrismaClient) {
+    this.client = client;
+  }
 
   public async getConferenceGames(season: string): Promise<weeklydates[]> {
     try {

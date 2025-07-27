@@ -1,7 +1,7 @@
-import { IContext } from '@/context';
-import { SeasonServiceKey } from '@database/seasonData';
-import { SeasonData, SeasonDataInput } from '@generated/graphql';
-import { BadRequestError, handleError } from '@utils/errorHandler';
+import { type IContext } from '#/context.mjs';
+import { SeasonServiceKey } from '#database/seasonData.mjs';
+import type { SeasonData, SeasonDataInput } from '#generated/graphql.mjs';
+import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
 
 export interface SeasonDataArgs {
   input: SeasonDataInput;

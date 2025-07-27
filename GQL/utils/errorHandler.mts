@@ -1,13 +1,15 @@
 import { GraphQLError } from 'graphql';
 
-export enum ErrorCode {
-  NOT_FOUND = 'NOT_FOUND',
-  BAD_REQUEST = 'BAD_REQUEST',
-  UNAUTHORIZED = 'UNAUTHORIZED',
-  INTERNAL_SERVER = 'INTERNAL_SERVER',
-  DATABASE_ERROR = 'DATABASE_ERROR'
-}
+export const ErrorCode = {
+  BAD_REQUEST: 'BAD_REQUEST',
+  DATABASE_ERROR: 'DATABASE_ERROR',
+  INTERNAL_SERVER: 'INTERNAL_SERVER',
+  NOT_FOUND: 'NOT_FOUND',
+  UNAUTHORIZED: 'UNAUTHORIZED'
+} as const;
 
+export type ErrorCode = typeof ErrorCode[keyof typeof ErrorCode];
+  
 export class BaseError extends GraphQLError {
   constructor(message: string, code: ErrorCode, originalError?: Error) {
     super(message, {

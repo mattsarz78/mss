@@ -1,6 +1,6 @@
+import type { DatabaseServices } from '#database/services.mjs';
+import { PrismaClient } from '#generated/prisma/client.mjs';
 import type { Request } from 'express';
-import { PrismaClient } from '@generated/prisma/client';
-import { DatabaseServices } from '@database/services';
 
 export interface IContext {
   request: Request;

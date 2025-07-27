@@ -1,10 +1,10 @@
-import { basketball, football } from '@generated/prisma/client';
+import { type IContext } from '#/context.mjs';
+import { CommonServiceKey } from '#database/common.mjs';
+import { type DailyTvGamesInput, type TvGame } from '#generated/graphql.mjs';
+import { type basketball, type football } from '#generated/prisma/client.mjs';
+import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
+import { formatNetworkJpgAndCoverage } from '#utils/image.mjs';
 import { DateTime } from 'luxon';
-import { DailyTvGamesInput, TvGame } from '@generated/graphql';
-import { IContext } from '@/context';
-import { CommonServiceKey } from '@database/common';
-import { BadRequestError, handleError } from '@utils/errorHandler';
-import { formatNetworkJpgAndCoverage } from '@utils/image';
 
 export interface DailyTvGamesArgs {
   input: DailyTvGamesInput;

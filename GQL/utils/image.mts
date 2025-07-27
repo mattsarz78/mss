@@ -8,8 +8,8 @@ import {
   SPECIALCOVERAGENOTE,
   specialCoverageNotes,
   syndicationLinks
-} from '@staticData/constants';
-import imagesForUrls from '@staticData/imagesForUrls.json';
+} from '#staticData/constants.mjs';
+import imagesForUrls from '#staticData/imagesForUrls.json' with { type: 'json' };
 
 const seasonMap: Record<string, string> = { '2020r': '2020', '2021s': '2020' };
 

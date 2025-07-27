@@ -1,7 +1,7 @@
-import { TvGamesInput } from '@generated/graphql';
-import { Prisma, PrismaClient, basketball, football } from '@generated/prisma/client';
-import { DatabaseError } from '@utils/errorHandler';
-import { DatabaseService } from '@database/services';
+import { type DatabaseService } from '#database/services.mjs';
+import { type TvGamesInput } from '#generated/graphql.mjs';
+import { Prisma, PrismaClient, type basketball, type football } from '#generated/prisma/client.mjs';
+import { DatabaseError } from '#utils/errorHandler.mjs';
 
 export const CommonServiceKey = Symbol.for('ICommonService');
 
@@ -22,7 +22,11 @@ type FindManyArgs<T extends SportType> = T extends 'football'
   : Prisma.basketballFindManyArgs;
 
 export class CommonService implements ICommonService {
-  constructor(private client: PrismaClient) {}
+  private client: PrismaClient;
+
+  constructor(client: PrismaClient) {
+    this.client = client;
+  }
 
   private buildCriteria<T extends SportType>(
     request: GetDailyTvGamesRequest | TvGamesInput,

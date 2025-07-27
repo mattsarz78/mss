@@ -1,11 +1,11 @@
+import type { IContext } from '#/context.mjs';
+import { CommonServiceKey } from '#database/common.mjs';
+import { SeasonServiceKey } from '#database/seasonData.mjs';
+import type { TvGameData, TvGamesInput } from '#generated/graphql.mjs';
+import type { basketball, football } from '#generated/prisma/client.mjs';
+import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
+import { formatNetworkJpgAndCoverage } from '#utils/image.mjs';
 import { DateTime } from 'luxon';
-import { TvGameData, TvGamesInput } from '@generated/graphql';
-import { basketball, football } from '@generated/prisma/client';
-import { IContext } from '@/context';
-import { CommonServiceKey } from '@database/common';
-import { SeasonServiceKey } from '@database/seasonData';
-import { BadRequestError, handleError } from '@utils/errorHandler';
-import { formatNetworkJpgAndCoverage } from '@utils/image';
 
 export interface TvGamesArgs {
   input: TvGamesInput;

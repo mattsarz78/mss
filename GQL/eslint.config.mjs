@@ -1,15 +1,13 @@
-import pluginJs from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
+import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import prettierConfig from 'eslint-config-prettier';
 
 /** @type {tseslint.InfiniteDepthConfigWithExtends[]} */
 const config = tseslint.config(
-  { files: ['**/*.{js,mjs,cjs,ts}'] },
+  { files: ['**/*.{js,mjs,cjs,mts}'] },
   { ignores: ['node_modules/**/*', '__generated__/**/*', 'apollo.config.js', 'eslint.config.mjs'] },
   {
     languageOptions: {
-      globals: globals.browser,
       parser: tseslint.parser,
       parserOptions: {
         projectService: true,
@@ -19,10 +17,9 @@ const config = tseslint.config(
       }
     }
   },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
-  eslintPluginPrettierRecommended
+  eslint.configs.recommended,
+  tseslint.configs.recommended,
+  prettierConfig
 );
 
 export default config;

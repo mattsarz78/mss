@@ -1,7 +1,7 @@
-import { IContext } from '@/context';
-import { FootballServiceKey, NoTVGames } from '@database/football';
-import { NoTvGame, NoTvGamesInput } from '@generated/graphql';
-import { BadRequestError, handleError } from '@utils/errorHandler';
+import type { IContext } from '#/context.mjs';
+import { FootballServiceKey, type NoTVGames } from '#database/football.mjs';
+import type { NoTvGame, NoTvGamesInput } from '#generated/graphql.mjs';
+import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
 import { DateTime } from 'luxon';
 
 export interface NoTvGamesArgs {

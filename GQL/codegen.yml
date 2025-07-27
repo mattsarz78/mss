@@ -3,7 +3,12 @@ schema:
   - './schemas/*.graphql'
 documents: null
 generates: 
-  __generated__/graphql.ts:
+  __generated__/graphql.mts:
     plugins: 
     - 'typescript'
     - 'typescript-resolvers'
+    config:
+      useTypeImports: true
+      useIndexSignature: true 
+      emitLegacyCommonJSImports: false
+      enumsAsTypes: true
