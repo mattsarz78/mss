@@ -1,4 +1,4 @@
-import { DAILY_TV_GAMES, type TvGameData } from '@/graphQl';
+import { DAILY_TV_GAMES, type TvGameData } from '#/graphQl.mjs';
 import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { ref, watch } from 'vue';

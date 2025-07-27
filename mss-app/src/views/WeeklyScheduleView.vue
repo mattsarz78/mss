@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { addMetaTags } from '@utils/metaTags';
-import { generateWeeklyTitle } from '@utils/weeklyTitle';
-import WeekSchedule from '@weekly/WeekSchedule.vue';
+import { addMetaTags } from '#utils/metaTags.mjs';
+import { generateWeeklyTitle } from '#utils/weeklyTitle.mjs';
+import WeekSchedule from '#weekly/WeekSchedule.vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();

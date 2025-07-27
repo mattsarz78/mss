@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { TvGame } from '@/graphQl';
-import WeekGamesTable from '@weekly/WeekGamesTable.vue';
+import type { TvGame } from '#/graphQl.mjs';
+import WeekGamesTable from '#weekly/WeekGamesTable.vue';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useSeasonData } from '@/composables/useSeasonData';
-import { useDailyTvGames } from '@composables/useDailyTvGames';
-import { useWebExclusives } from '@composables/useWebExclusives';
-import AdsByGoogle from '@shared/AdsByGoogle.vue';
-import BackToTop from '@shared/BackToTop.vue';
-import Copyright from '@shared/CopyrightLink.vue';
-import { addMetaTags } from '@utils/metaTags';
-import WeeklyBase from '@weekly/WeeklyBase.vue';
+import { useDailyTvGames } from '#composables/useDailyTvGames.mjs';
+import { useWebExclusives } from '#composables/useWebExclusives.mjs';
+import AdsByGoogle from '#shared/AdsByGoogle.vue';
+import BackToTop from '#shared/BackToTop.vue';
+import Copyright from '#shared/CopyrightLink.vue';
+import { addMetaTags } from '#utils/metaTags.mjs';
+import WeeklyBase from '#weekly/WeeklyBase.vue';
+import { useSeasonData } from '#/composables/useSeasonData.mjs';
 import { DateTime } from 'luxon';
 import { useRoute } from 'vue-router';
 

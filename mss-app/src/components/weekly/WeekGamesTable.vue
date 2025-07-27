@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { TvGame } from '@/graphQl';
-import PostseasonMbkEvent from '@weekly/PostseasonMbkEvent.vue';
-import WeekGameRow from '@weekly/WeekGameRow.vue';
+import type { TvGame } from '#/graphQl.mjs';
+import PostseasonMbkEvent from '#weekly/PostseasonMbkEvent.vue';
+import WeekGameRow from '#weekly/WeekGameRow.vue';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 

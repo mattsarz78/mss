@@ -1,12 +1,12 @@
 {
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "moduleDetection": "force",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
-    "module": "ESNext",
+    "module": "nodenext",
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "verbatimModuleSyntax": true,
@@ -22,23 +22,24 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
     "paths": { 
-      "@/*": ["./src/*"], 
-      "@composables/*": ["./src/composables/*"], 
-      "@views/*": ["./src/views/*"], 
-      "@utils/*": ["./src/utils/*"],
-      "@conference/*": ["./src/components/conference/*"],
-      "@noTv/*": ["./src/components/noTVGames/*"],
-      "@season/*": ["./src/components/season/*"],
-      "@shared/*": ["./src/components/shared/*"],
-      "@weekly/*": ["./src/components/weekly/*"],
-      "@text/*": ["./src/components/weeklyText/*"],
-      "@data/*": ["./src/staticData/*"] 
+      "#/*": ["./src/*"], 
+      "#composables/*": ["./src/composables/*"], 
+      "#views/*": ["./src/views/*"], 
+      "#utils/*": ["./src/utils/*"],
+      "#conference/*": ["./src/components/conference/*"],
+      "#noTv/*": ["./src/components/noTVGames/*"],
+      "#season/*": ["./src/components/season/*"],
+      "#shared/*": ["./src/components/shared/*"],
+      "#weekly/*": ["./src/components/weekly/*"],
+      "#text/*": ["./src/components/weeklyText/*"],
+      "#data/*": ["./src/staticData/*"] 
     },
     "lib": [
-      "ES2020",
+      "ES2022",
       "DOM",
       "DOM.Iterable"
     ],
-    "types": ["node"]
+    "types": ["node"],
+    "erasableSyntaxOnly": true,
   }
 }

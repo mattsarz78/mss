@@ -1,4 +1,4 @@
-import { SEASON_DATA, type SeasonData } from '@/graphQl';
+import { SEASON_DATA, type SeasonData } from '#/graphQl.mjs';
 import { useQuery } from '@vue/apollo-composable';
 
 export const useSeasonData = (year: string) => {

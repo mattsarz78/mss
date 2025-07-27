@@ -13,7 +13,7 @@
     "preinstall": "npx only-allow pnpm",
     "dumpSchema": "NODE_OPTIONS=\"--import tsx\" node ./utils/dump-schema.mts",
     "graphQlGen": "NODE_OPTIONS=\"--import tsx\" graphql-codegen --config codegen.yml",
-    "prettier": "prettier --write './**/*.{ts,js,graphql}'",
+    "prettier": "prettier --write './**/*.{mts,js,graphql}'",
     "start": "NODE_OPTIONS=\"--import tsx\" node index.mts",
     "startDev": "nodemon --ext ts,mts --exec \"NODE_OPTIONS='--import tsx' node\" index.mts",
     "startDocker": "docker compose up --build -d",
@@ -61,7 +61,7 @@
   },
   "graphql": {
     "schema": "./schema.graphql",
-    "documents": "./**/*.{graphql,js,ts,jsx,tsx}"
+    "documents": "./**/*.{graphql,js,mts,jsx,tsx}"
   },
   "packageManager": "pnpm@10.13.1"
 }

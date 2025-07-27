@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { TvGame } from '@/graphQl';
-import WeekTextTable from '@text/WeekTextTable.vue';
+import type { TvGame } from '#/graphQl.mjs';
+import WeekTextTable from '#text/WeekTextTable.vue';
 
 const props = defineProps<{
   tvGames: TvGame[];

@@ -1,16 +1,16 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { createRouter, createWebHistory } from 'vue-router';
 
-const Home = () => import('@views/HomeView.vue');
-const Copyright = () => import('@views/CopyrightView.vue');
-const Archive = () => import('@views/ArchiveView.vue');
-const Season = () => import('@views/SeasonView.vue');
-const ConferenceGameList = () => import('@views/ConferenceGamesView.vue');
-const TvWindowsView = () => import('@views/TvWindowsView.vue');
-const WeeklyScheduleView = () => import('@views/WeeklyScheduleView.vue');
-const WeeklyTextScheduleView = () => import('@views/WeeklyTextScheduleView.vue');
-const DailyScheduleView = () => import('@views/DailyScheduleView.vue');
-const DailyTextScheduleView = () => import('@views/DailyTextScheduleView.vue');
+const Home = () => import('#views/HomeView.vue');
+const Copyright = () => import('#views/CopyrightView.vue');
+const Archive = () => import('#views/ArchiveView.vue');
+const Season = () => import('#views/SeasonView.vue');
+const ConferenceGameList = () => import('#views/ConferenceGamesView.vue');
+const TvWindowsView = () => import('#views/TvWindowsView.vue');
+const WeeklyScheduleView = () => import('#views/WeeklyScheduleView.vue');
+const WeeklyTextScheduleView = () => import('#views/WeeklyTextScheduleView.vue');
+const DailyScheduleView = () => import('#views/DailyScheduleView.vue');
+const DailyTextScheduleView = () => import('#views/DailyTextScheduleView.vue');
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', name: 'home', component: Home },

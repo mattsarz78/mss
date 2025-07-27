@@ -1,4 +1,4 @@
-import { type ConferenceGameData, CONFERENCE_GAMES } from '@/graphQl';
+import { type ConferenceGameData, CONFERENCE_GAMES } from '#/graphQl.mjs';
 import { useQuery } from '@vue/apollo-composable';
 
 export const useConferenceGames = (year: string, conference: string, lookup: string | undefined, id: string) => {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { useAppUtils } from '#composables/useAppUtils.mjs';
 import { RouterView } from 'vue-router';
-import { useAppUtils } from '@composables/useAppUtils';
 
 const { isOnline } = useAppUtils();
 </script>

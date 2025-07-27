@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { ConferenceGame } from '@/graphQl';
-import ConferenceTable from '@conference/ConferenceTable.vue';
+import type { ConferenceGame } from '#/graphQl.mjs';
+import ConferenceTable from '#conference/ConferenceTable.vue';
 import { computed } from 'vue';
 
 const props = defineProps<{ games: ConferenceGame[]; year: string }>();

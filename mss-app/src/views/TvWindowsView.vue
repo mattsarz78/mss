@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useSeasonData } from '@/composables/useSeasonData';
-import AdsByGoogle from '@shared/AdsByGoogle.vue';
-import Copyright from '@shared/CopyrightLink.vue';
-import { addMetaTags } from '@utils/metaTags';
+import AdsByGoogle from '#shared/AdsByGoogle.vue';
+import Copyright from '#shared/CopyrightLink.vue';
+import { addMetaTags } from '#utils/metaTags.mjs';
+import { useSeasonData } from '#/composables/useSeasonData.mjs';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();

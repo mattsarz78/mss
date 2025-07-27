@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NoTvGame } from '@/graphQl';
+import type { NoTvGame } from '#/graphQl.mjs';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
