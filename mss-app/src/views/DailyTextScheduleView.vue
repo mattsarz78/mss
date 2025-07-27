@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useDailyTvTextGames } from '@composables/useDailyTvTextGames';
-import AdsByGoogle from '@shared/AdsByGoogle.vue';
-import BackToTop from '@shared/BackToTop.vue';
-import Copyright from '@shared/CopyrightLink.vue';
-import WeekTextBase from '@text/WeekTextBase.vue';
-import { checkAllTextRows, clearAllSelectedTextRows } from '@utils/domText';
-import { addMetaTags } from '@utils/metaTags';
+import { useDailyTvTextGames } from '#composables/useDailyTvTextGames.mjs';
+import AdsByGoogle from '#shared/AdsByGoogle.vue';
+import BackToTop from '#shared/BackToTop.vue';
+import Copyright from '#shared/CopyrightLink.vue';
+import WeekTextBase from '#text/WeekTextBase.vue';
+import { checkAllTextRows, clearAllSelectedTextRows } from '#utils/domText.mjs';
+import { addMetaTags } from '#utils/metaTags.mjs';
 import { DateTime } from 'luxon';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;

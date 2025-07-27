@@ -9,7 +9,7 @@ const _dirname = dirname(fileURLToPath(import.meta.url));
 
 const alias = {
   '@': resolve(_dirname, './src'),
-  '@composables': resolve(_dirname, './src/composables'),
+  '#composables': resolve(_dirname, './src/composables'),
   '@views': resolve(_dirname, './src/views'),
   '@utils': resolve(_dirname, './src/utils'),
   '@data': resolve(_dirname, './src/staticData'),
@@ -84,7 +84,7 @@ export default defineConfig(({ mode }): UserConfig => {
         },
         workbox: {
           // defining cached files formats
-          globPatterns: ['**/*.{js,css,html,txt,xml,ico,png,svg,json,vue,woff2,webmanifest}'],
+          globPatterns: ['**/*.{mjs,css,html,txt,xml,ico,png,svg,json,vue,woff2,webmanifest}'],
           cleanupOutdatedCaches: true,
           skipWaiting: true,
           clientsClaim: true
@@ -105,8 +105,8 @@ export default defineConfig(({ mode }): UserConfig => {
             return chunkGroup(id);
           },
           inlineDynamicImports: false,
-          entryFileNames: `assets/[name].[hash].${buildId}.js`,
-          chunkFileNames: `assets/[name].[hash].${buildId}.js`,
+          entryFileNames: `assets/[name].[hash].${buildId}.mjs`,
+          chunkFileNames: `assets/[name].[hash].${buildId}.mjs`,
           assetFileNames: `assets/[name].[hash].${buildId}.[ext]`
         }
       },

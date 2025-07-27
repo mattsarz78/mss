@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useNoTvSchedule } from '@composables/useNoTvSchedule';
-import NoTvGamesTable from '@noTv/NoTvGamesTable.vue';
+import { useNoTvSchedule } from '#composables/useNoTvSchedule.mjs';
+import NoTvGamesTable from '#noTv/NoTvGamesTable.vue';
 import { DateTime } from 'luxon';
 import { ref } from 'vue';
 

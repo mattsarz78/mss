@@ -1,4 +1,4 @@
-import { NO_TV_GAMES, type NoTvGame } from '@/graphQl';
+import { NO_TV_GAMES, type NoTvGame } from '#/graphQl.mjs';
 import { useLazyQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';

@@ -1,4 +1,4 @@
-import { TV_GAMES, type TvGameData } from '@/graphQl';
+import { TV_GAMES, type TvGameData } from '#/graphQl.mjs';
 import { useQuery } from '@vue/apollo-composable';
 
 export const useWeekSchedule = (sport: string, year: string, week: number) => {

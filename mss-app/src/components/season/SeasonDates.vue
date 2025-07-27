@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { WeekInfo } from '@/graphQl';
-import WeekLink from '@season/WeekLink.vue';
+import type { WeekInfo } from '#/graphQl.mjs';
+import WeekLink from '#season/WeekLink.vue';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 

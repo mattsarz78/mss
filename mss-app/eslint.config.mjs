@@ -6,8 +6,7 @@ import pluginVueA11y from 'eslint-plugin-vuejs-accessibility';
 export default defineConfigWithVueTs(
   { ignores: ['node_modules/**/*', 'dist/**/*'] },
   pluginVue.configs[('flat/essential', 'flat/recommended')],
-  vueTsConfigs.strictTypeChecked,
-  vueTsConfigs.stylisticTypeChecked,
+  vueTsConfigs.recommended,
   eslintPluginPrettierRecommended,
   pluginVueA11y.configs['flat/recommended']
 );

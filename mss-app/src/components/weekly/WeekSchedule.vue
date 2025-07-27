@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useWebExclusives } from '@composables/useWebExclusives';
-import { useWeekSchedule } from '@composables/useWeekSchedule';
-import { useWeekScheduleNav } from '@composables/useWeekScheduleNav';
-import NoTvGames from '@noTv/NoTvGames.vue';
-import AdsByGoogle from '@shared/AdsByGoogle.vue';
-import BackToTop from '@shared/BackToTop.vue';
-import Copyright from '@shared/CopyrightLink.vue';
-import WeeklyBase from '@weekly/WeeklyBase.vue';
+import { useWebExclusives } from '#composables/useWebExclusives.mjs';
+import { useWeekSchedule } from '#composables/useWeekSchedule.mjs';
+import { useWeekScheduleNav } from '#composables/useWeekScheduleNav.mjs';
+import NoTvGames from '#noTv/NoTvGames.vue';
+import AdsByGoogle from '#shared/AdsByGoogle.vue';
+import BackToTop from '#shared/BackToTop.vue';
+import Copyright from '#shared/CopyrightLink.vue';
+import WeeklyBase from '#weekly/WeeklyBase.vue';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 

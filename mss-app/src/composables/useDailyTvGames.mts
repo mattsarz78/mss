@@ -1,4 +1,4 @@
-import { DAILY_TV_GAMES, type TvGameData } from '@/graphQl';
+import { DAILY_TV_GAMES, type TvGameData } from '#/graphQl.mjs';
 import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
@@ -13,7 +13,7 @@ export const useDailyTvGames = (sport: string) => {
   const currentSeason = computed(() => result.value?.dailyTvGames.tvGames[0]?.season ?? '');
 
   const season = computed(() => {
-    const paramYear = currentSeason.value;
+    const paramYear: string = currentSeason.value;
     return paramYear
       ? sport === 'football'
         ? paramYear

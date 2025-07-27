@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { TvGame } from '@/graphQl';
-import { formatGame, formatTime } from '@utils/game';
+import type { TvGame } from '#/graphQl.mjs';
+import { formatGame, formatTime } from '#utils/game.mjs';
 
 const props = defineProps<{ tvGame: TvGame; showPPVColumn: boolean }>();
 const { tvGame, showPPVColumn } = props;

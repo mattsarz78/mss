@@ -3,10 +3,10 @@ import { InferSeoMetaPlugin } from '@unhead/vue/plugins';
 import { DefaultApolloClient } from '@vue/apollo-composable';
 import { registerSW } from 'virtual:pwa-register';
 import { createApp, h, provide } from 'vue';
-import VueDOMPurifyHTML from 'vue-dompurify-html';
-import { apolloClient } from '@/apolloClient';
-import App from '@/App.vue';
-import router from '@/router';
+import * as VuePurify from 'vue-dompurify-html';
+import { apolloClient } from '#/apolloClient.mjs';
+import App from '#/App.vue';
+import router from '#/router/index.mjs';
 
 const updateSW = registerSW({
   onNeedRefresh() {
@@ -35,7 +35,7 @@ app.directive('reset-adsense-height', {
 
 const head = createHead({ init: [{ title: "Matt's College Sports on TV" }], plugins: [InferSeoMetaPlugin()] });
 app.use(head);
-app.use(VueDOMPurifyHTML);
+app.use(VuePurify.vueDompurifyHTMLPlugin);
 
 app.use(router);
 

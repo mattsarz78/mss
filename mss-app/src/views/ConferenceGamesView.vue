@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useConferenceGames } from '@composables/useConferenceGames';
-import { useSeasonData } from '@composables/useSeasonData';
-import ConferenceGameList from '@conference/ConferenceGameList.vue';
-import IndependentsGameList from '@conference/IndependentsGameList.vue';
-import conferenceCasing from '@data/conferenceCasing.json';
-import type { ConferenceCasing } from '@data/exportTypes';
-import AdsByGoogle from '@shared/AdsByGoogle.vue';
-import BackToTop from '@shared/BackToTop.vue';
-import Copyright from '@shared/CopyrightLink.vue';
-import { addMetaTags } from '@utils/metaTags';
+import { useConferenceGames } from '#composables/useConferenceGames.mjs';
+import { useSeasonData } from '#composables/useSeasonData.mjs';
+import ConferenceGameList from '#conference/ConferenceGameList.vue';
+import IndependentsGameList from '#conference/IndependentsGameList.vue';
+import AdsByGoogle from '#shared/AdsByGoogle.vue';
+import BackToTop from '#shared/BackToTop.vue';
+import Copyright from '#shared/CopyrightLink.vue';
+import { addMetaTags } from '#utils/metaTags.mjs';
+import conferenceCasing from '#data/conferenceCasing.json' with { type: 'json' };
+import type { ConferenceCasing } from '#data/exportTypes.mjs';
 import { RouterLink, useRoute } from 'vue-router';
 
 const route = useRoute();
