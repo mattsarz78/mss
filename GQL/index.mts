@@ -1,27 +1,27 @@
-import { IContext } from '@/context';
+import type { IContext } from '#/context.mjs';
+import { AvailableTvService, AvailableTvServiceKey } from '#database/availableTV.mjs';
+import { CommonService, CommonServiceKey } from '#database/common.mjs';
+import { FootballService, FootballServiceKey } from '#database/football.mjs';
+import { SeasonService, SeasonServiceKey } from '#database/seasonData.mjs';
+import { type DatabaseServices, getDatabaseServices } from '#database/services.mjs';
+import { WeeklyDatesService, WeeklyDatesServiceKey } from '#database/weeklyDates.mjs';
+import { PrismaClient } from '#generated/prisma/client.mjs';
+import * as Resolvers from '#resolvers/index.mjs';
+import { SCHEMA_GLOB } from '#staticData/constants.mjs';
 import { ApolloServer } from '@apollo/server';
 import { ApolloServerPluginCacheControlDisabled } from '@apollo/server/plugin/disabled';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { expressMiddleware } from '@as-integrations/express5';
-import { AvailableTvService, AvailableTvServiceKey } from '@database/availableTV';
-import { CommonService, CommonServiceKey } from '@database/common';
-import { FootballService, FootballServiceKey } from '@database/football';
-import { SeasonService, SeasonServiceKey } from '@database/seasonData';
-import { DatabaseServices, getDatabaseServices } from '@database/services';
-import { WeeklyDatesService, WeeklyDatesServiceKey } from '@database/weeklyDates';
 import dotenvx from '@dotenvx/dotenvx';
-import { PrismaClient } from '@generated/prisma/client';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
 import { PrismaPg } from '@prisma/adapter-pg';
-import * as Resolvers from '@resolvers/index';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
-import express, { Request, Response } from 'express';
+import express, { type Request, type Response } from 'express';
 import http from 'http';
-import { SCHEMA_GLOB } from '@staticData/constants';
 
 dotenvx.config({ ignore: ['MISSING_ENV_FILE'] });
 

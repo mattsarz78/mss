@@ -50,11 +50,11 @@ COPY --from=build --chown=appuser:appgroup /app/__generated__ ./__generated__
 COPY --from=build --chown=appuser:appgroup /app/database ./database
 COPY --from=build --chown=appuser:appgroup /app/resolvers ./resolvers
 COPY --from=build --chown=appuser:appgroup /app/schemas ./schemas
-COPY --from=build --chown=appuser:appgroup /app/utils/errorHandler.ts ./utils/errorHandler.ts
-COPY --from=build --chown=appuser:appgroup /app/utils/image.ts ./utils/image.ts
+COPY --from=build --chown=appuser:appgroup /app/utils/errorHandler.mts ./utils/errorHandler.mts
+COPY --from=build --chown=appuser:appgroup /app/utils/image.mts ./utils/image.mts
 COPY --from=build --chown=appuser:appgroup /app/staticData ./staticData
-COPY --from=build --chown=appuser:appgroup /app/index.ts \
-  /app/context.ts \
+COPY --from=build --chown=appuser:appgroup /app/index.mts \
+  /app/context.mts \
   /app/tsconfig.json \
   /app/package.json \
   ./

@@ -1,5 +1,5 @@
-import { IContext } from '@/context';
-import { DatabaseError } from '@utils/errorHandler';
+import { type IContext } from '#/context.mjs';
+import { DatabaseError } from '#utils/errorHandler.mjs';
 
 export const health = async (_1: unknown, _2: unknown, context: IContext): Promise<string> => {
   try {

@@ -1,8 +1,8 @@
-import { NoTvGamesInput } from '@generated/graphql';
-import { PrismaClient, football } from '@generated/prisma/client';
-import { DatabaseError } from '@utils/errorHandler';
-import { noTvGames } from '@generated/prisma/sql/noTvGames';
-import { DatabaseService } from '@database/services';
+import type { DatabaseService } from '#database/services.mjs';
+import type { NoTvGamesInput } from '#generated/graphql.mjs';
+import { PrismaClient, type football } from '#generated/prisma/client.mjs';
+import { noTvGames } from '#generated/prisma/sql/noTvGames.mjs';
+import { DatabaseError } from '#utils/errorHandler.mjs';
 
 export const FootballServiceKey = Symbol.for('IFootballService');
 
@@ -28,7 +28,11 @@ export interface NoTVGames {
 }
 
 export class FootballService implements IFootballService {
-  constructor(private client: PrismaClient) {}
+  private client: PrismaClient;
+
+  constructor(client: PrismaClient) {
+    this.client = client;
+  }
 
   public async getConferenceGames(request: GetConferenceGamesRequest): Promise<football[]> {
     try {

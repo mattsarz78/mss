@@ -1,9 +1,9 @@
-import { Prisma } from '@generated/prisma/client';
-import { AvailableTvServiceKey, IAvailableTvService } from '@database/availableTV';
-import { CommonServiceKey, ICommonService } from '@database/common';
-import { FootballServiceKey, IFootballService } from '@database/football';
-import { ISeasonService, SeasonServiceKey } from '@database/seasonData';
-import { IWeeklyDatesService, WeeklyDatesServiceKey } from '@database/weeklyDates';
+import { AvailableTvServiceKey, type IAvailableTvService } from '#database/availableTV.mjs';
+import { CommonServiceKey, type ICommonService } from '#database/common.mjs';
+import { FootballServiceKey, type IFootballService } from '#database/football.mjs';
+import { type ISeasonService, SeasonServiceKey } from '#database/seasonData.mjs';
+import { type IWeeklyDatesService, WeeklyDatesServiceKey } from '#database/weeklyDates.mjs';
+import { Prisma } from '#generated/prisma/client.mjs';
 
 export interface DatabaseService<T> {
   transaction(client: Prisma.TransactionClient): T;

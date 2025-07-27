@@ -1,6 +1,6 @@
 {
   "client": {
     "service": { "name": "mss-app", "localSchemaFile": "./schema.graphql" },
-    "includes": ["./src/**/*.vue", "./src/**/*.js", "./src/**/*.ts"]
+    "includes": ["./src/**/*.vue", "./src/**/*.js", "./src/**/*.mts"]
   }
 }

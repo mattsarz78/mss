@@ -1,6 +1,6 @@
-import { PrismaClient, seasondata } from '@generated/prisma/client';
-import { DatabaseError } from '@utils/errorHandler';
-import { DatabaseService } from '@database/services';
+import type { DatabaseService } from '#database/services.mjs';
+import { PrismaClient, type seasondata } from '#generated/prisma/client.mjs';
+import { DatabaseError } from '#utils/errorHandler.mjs';
 
 export const SeasonServiceKey = Symbol.for('ISeasonService');
 
@@ -9,7 +9,11 @@ export interface ISeasonService extends DatabaseService<ISeasonService> {
 }
 
 export class SeasonService implements ISeasonService {
-  constructor(private client: PrismaClient) {}
+  private client: PrismaClient;
+
+  constructor(client: PrismaClient) {
+    this.client = client;
+  }
 
   public async getSeasonData(season: string): Promise<seasondata> {
     try {

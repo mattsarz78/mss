@@ -1,6 +1,6 @@
+import { SCHEMA_FILE, SCHEMA_GLOB, SCHEMA_PATH } from '#staticData/constants.mjs';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
-import { SCHEMA_FILE, SCHEMA_GLOB, SCHEMA_PATH } from '@staticData/constants';
 import fs from 'fs';
 import {
   getIntrospectionQuery,

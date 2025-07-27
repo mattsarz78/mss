@@ -1,7 +1,7 @@
-import { AvailableTvInput } from '@generated/graphql';
-import { PrismaClient, availabletv } from '@generated/prisma/client';
-import { DatabaseError } from '@utils/errorHandler';
-import { DatabaseService } from '@database/services';
+import { type DatabaseService } from '#database/services.mjs';
+import { type AvailableTvInput } from '#generated/graphql.mjs';
+import { PrismaClient, type availabletv } from '#generated/prisma/client.mjs';
+import { DatabaseError } from '#utils/errorHandler.mjs';
 
 export const AvailableTvServiceKey = Symbol.for('IAvailableTvService');
 
@@ -10,7 +10,11 @@ export interface IAvailableTvService extends DatabaseService<IAvailableTvService
 }
 
 export class AvailableTvService implements IAvailableTvService {
-  constructor(private client: PrismaClient) {}
+  private client: PrismaClient;
+
+  constructor(client: PrismaClient) {
+    this.client = client;
+  }
 
   public async getAvailableTv(request: AvailableTvInput): Promise<availabletv[]> {
     try {
