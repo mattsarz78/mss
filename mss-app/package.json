@@ -4,17 +4,39 @@
   "private": true,
   "type": "module",
   "imports": {
-      "#/*": ["./src/*"], 
-      "#composables/*": ["./src/composables/*"], 
-      "#views/*": ["./src/views/*"], 
-      "#utils/*": ["./src/utils/*"],
-      "#conference/*": ["./src/components/conference/*"],
-      "#noTv/*": ["./src/components/noTVGames/*"],
-      "#season/*": ["./src/components/season/*"],
-      "#shared/*": ["./src/components/shared/*"],
-      "#weekly/*": ["./src/components/weekly/*"],
-      "#text/*": ["./src/components/weeklyText/*"],
-      "#data/*": ["./src/staticData/*"] 
+    "#/*": [
+      "./src/*"
+    ],
+    "#composables/*": [
+      "./src/composables/*"
+    ],
+    "#views/*": [
+      "./src/views/*"
+    ],
+    "#utils/*": [
+      "./src/utils/*"
+    ],
+    "#conference/*": [
+      "./src/components/conference/*"
+    ],
+    "#noTv/*": [
+      "./src/components/noTVGames/*"
+    ],
+    "#season/*": [
+      "./src/components/season/*"
+    ],
+    "#shared/*": [
+      "./src/components/shared/*"
+    ],
+    "#weekly/*": [
+      "./src/components/weekly/*"
+    ],
+    "#text/*": [
+      "./src/components/weeklyText/*"
+    ],
+    "#data/*": [
+      "./src/staticData/*"
+    ]
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",

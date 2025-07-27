@@ -4,10 +4,13 @@
     "install:all": "concurrently \"pnpm run install:gql\" \"pnpm run install:web\"",
     "start:all": "concurrently \"pnpm run start:gql\" \"pnpm run start:web\"",
     "prettier:all": "concurrently \"pnpm run prettier:gql\" \"pnpm run prettier:web\"",
+    "lintFix:all": "concurrently \"pnpm run lintFix:gql\" \"pnpm run lintFix:web\"",
     "start:gql": "cd GQL && pnpm run startDocker",
     "start:web": "cd mss-app && pnpm run dev",
     "prettier:gql": "cd GQL && pnpm run prettier",
     "prettier:web": "cd mss-app && pnpm run format",
+    "lintFix:gql": "cd GQL && pnpm run lintFix",
+    "lintFix:web": "cd mss-app && pnpm run lintFix",
     "install:gql": "cd GQL && pnpm i --frozen-lockfile",
     "install:web": "cd mss-app && pnpm i --frozen-lockfile"
   },

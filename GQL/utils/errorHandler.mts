@@ -8,8 +8,8 @@ export const ErrorCode = {
   UNAUTHORIZED: 'UNAUTHORIZED'
 } as const;
 
-export type ErrorCode = typeof ErrorCode[keyof typeof ErrorCode];
-  
+export type ErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode];
+
 export class BaseError extends GraphQLError {
   constructor(message: string, code: ErrorCode, originalError?: Error) {
     super(message, {
