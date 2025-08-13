@@ -1,7 +1,6 @@
 services:
   gql:
     image: mattsarz78/graphql:latest
-    platform: linux/amd64
     build: 
       context: ./
       dockerfile: Dockerfile
