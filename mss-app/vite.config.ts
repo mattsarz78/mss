@@ -29,7 +29,7 @@ export default defineConfig(({ mode }): UserConfig => {
 
   const config: UserConfigExport = {
     optimizeDeps: {
-      include: ['vue', 'luxon', '@apollo/client/core'],
+      include: ['vue', 'luxon', '@apollo/client'],
       exclude: ['@vueuse/core'],
       esbuildOptions: { target: 'esnext', supported: { 'top-level-await': true } }
     },

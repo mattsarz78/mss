@@ -1,6 +1,6 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core';
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client/core';
 
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: import.meta.env.API_URL ?? 'http://localhost:8020/graphql' // Fallback to localhost if API_URL is not set
 });
 
