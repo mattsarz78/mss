@@ -47,6 +47,7 @@ type TvGame {
   timeWithOffset: String
 }
 type TvGameData {
+  flexScheduleLink: String
   showPPVColumn: Boolean!
   hasNoTVGames: Boolean!
   tvGames: [TvGame]!

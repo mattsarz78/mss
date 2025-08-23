@@ -6,7 +6,6 @@ import BackToTop from '#shared/BackToTop.vue';
 import Copyright from '#shared/CopyrightLink.vue';
 import { addMetaTags } from '#utils/metaTags.mjs';
 import WeeklyBase from '#weekly/WeeklyBase.vue';
-import { useSeasonData } from '#/composables/useSeasonData.mjs';
 import { DateTime } from 'luxon';
 import { useRoute } from 'vue-router';
 
@@ -26,23 +25,21 @@ const {
   season,
   startDate
 } = useDailyTvGames(sport);
-
-const { result, loading, error } = useSeasonData(season.value);
 </script>
 
 <template>
   <div v-reset-adsense-height>
-    <template v-if="dailyTvGameLoading || loading">
+    <template v-if="dailyTvGameLoading">
       <div class="loading-container">
         <p class="loading-text">Loading {{ sport }} for {{ startDate }}</p>
       </div>
     </template>
-    <template v-if="dailyTvGameError || error">
+    <template v-if="dailyTvGameError">
       <div class="error-container">
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
       </div>
     </template>
-    <template v-if="dailyTvGameResult && result">
+    <template v-if="dailyTvGameResult">
       <nav class="navbar DONTPrint">
         <div class="container">
           <div class="flex-container">
@@ -54,11 +51,11 @@ const { result, loading, error } = useSeasonData(season.value);
             </div>
           </div>
           <div class="flex-container">
-            <div v-if="result.seasonData.flexScheduleLink" class="flex-row">
+            <div v-if="dailyTvGameResult.dailyTvGames.flexScheduleLink" class="flex-row">
               <RouterLink :to="`/tv-windows/${season}`" target="_blank">Available TV Windows </RouterLink>
             </div>
             <div class="flex-row">
-              <RouterLink :to="`/schedule/${sport}/${season}/daily/text`">Customizable Text-Only Page </RouterLink>
+              <RouterLink :to="`/schedule/${sport}/daily/text`">Customizable Text-Only Page </RouterLink>
             </div>
             <br />
           </div>

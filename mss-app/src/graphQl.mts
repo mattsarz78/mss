@@ -74,6 +74,7 @@ export interface NoTvGame {
 }
 
 export interface TvGameData {
+  flexScheduleLink?: string;
   showPPVColumn: boolean;
   hasNoTVGames: boolean;
   tvGames: TvGame[];
@@ -158,6 +159,7 @@ export const TV_GAMES = gql`
 export const DAILY_TV_GAMES = gql`
   query dailyTvGames($input: DailyTvGamesInput) {
     dailyTvGames(input: $input) {
+      flexScheduleLink
       showPPVColumn
       hasNoTVGames
       tvGames {
