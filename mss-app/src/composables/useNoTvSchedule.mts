@@ -31,7 +31,7 @@ export const useNoTvSchedule = (week: string, year: string) => {
       new Set(
         games
           .filter(hasValidTime)
-          .map((game) => getGameDate(game.timeWithOffset))
+          .map((game: { timeWithOffset: string }) => getGameDate(game.timeWithOffset))
           .filter(Boolean)
       )
     ).sort();

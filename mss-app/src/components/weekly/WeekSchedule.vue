@@ -38,9 +38,10 @@ const gamesToday = computed(() => {
   const nowInET = DateTime.now().setZone('America/New_York');
   return (
     seasonContentsResult.value?.seasonContents.seasonContents
-      .filter((content) => content.week === weekInt.value)
+      .filter((content: { week: number }) => content.week === weekInt.value)
       .some(
-        (content) => DateTime.fromISO(content.startDate) <= nowInET && DateTime.fromISO(content.endDate) >= nowInET
+        (content: { startDate: string; endDate: string }) =>
+          DateTime.fromISO(content.startDate) <= nowInET && DateTime.fromISO(content.endDate) >= nowInET
       ) ?? false
   );
 });

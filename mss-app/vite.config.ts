@@ -1,7 +1,7 @@
 import vue from '@vitejs/plugin-vue';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { PluginOption, Rollup, UserConfig, UserConfigExport } from 'vite';
+import type { PluginOption, UserConfig, UserConfigExport } from 'vite';
 import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
@@ -29,7 +29,7 @@ export default defineConfig(({ mode }): UserConfig => {
 
   const config: UserConfigExport = {
     optimizeDeps: {
-      include: ['vue', 'luxon', '@apollo/client'],
+      include: ['vue', 'luxon', '@apollo/client', '@vue/apollo-composable'],
       exclude: ['@vueuse/core'],
       esbuildOptions: { target: 'esnext', supported: { 'top-level-await': true } }
     },
@@ -125,7 +125,7 @@ export default defineConfig(({ mode }): UserConfig => {
   return config;
 });
 
-const chunkGroup = (id: string): string | Rollup.NullValue => {
+const chunkGroup = (id: string): string | null => {
   // Vendor dependencies first
   if (id.includes('node_modules')) {
     return getVendorChunk(id);
@@ -156,8 +156,13 @@ const chunkGroup = (id: string): string | Rollup.NullValue => {
 
 const getVendorChunk = (id: string): string => {
   if (id.includes('luxon') || id.includes('@vueuse/core')) return 'vendor-utils';
-  if (id.includes('vue') || id.includes('vue-router')) return 'vendor-vue';
-  if (id.includes('@apollo/client') || id.includes('@vue/apollo-composable')) return 'vendor-apollo';
+  if (
+    id.includes('vue') ||
+    id.includes('vue-router') ||
+    id.includes('@apollo/client') ||
+    id.includes('@vue/apollo-composable')
+  )
+    return 'vendor-vue';
   return 'vendor-other';
 };
 
