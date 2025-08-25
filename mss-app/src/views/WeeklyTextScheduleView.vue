@@ -10,6 +10,19 @@ const { week, sport, year: paramYear } = route.params as { week: string; sport: 
 const title = generateWeeklyTitle(sport, week, paramYear, true);
 
 addMetaTags(title);
+
+const addDontPrintClass = () => {
+  const selectors = document.querySelectorAll<HTMLElement>(
+    'ins.adsbygoogle,ins.adsbygoogle.adsbygoogle-noablate,.gsc-control-cse'
+  );
+  Array.from(selectors).map((selector) => {
+    selector.classList.add('DONTPrint');
+  });
+};
+
+window.addEventListener('beforeprint', () => {
+  addDontPrintClass();
+});
 </script>
 
 <template>

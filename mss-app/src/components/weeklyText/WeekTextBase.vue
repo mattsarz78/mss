@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { TvGame } from '#/graphQl.mjs';
 import WeekTextTable from '#text/WeekTextTable.vue';
-import { onMounted } from 'vue';
 
 const props = defineProps<{
   tvGames: TvGame[];
@@ -12,17 +11,6 @@ const props = defineProps<{
 }>();
 
 const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, season } = props;
-
-const addDontPrintClass = () => {
-  const selectors = document.querySelectorAll<HTMLElement>(
-    'ins.adsbygoogle,ins.adsbygoogle.adsbygoogle-noablate,.gsc-control-cse'
-  );
-  Array.from(selectors).map((selector) => {
-    selector.classList.add('DONTPrint');
-  });
-};
-
-onMounted(() => setTimeout(() => addDontPrintClass(), 2000));
 </script>
 
 <template>
