@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TvGame } from '#/graphQl.mjs';
 import WeekTextTable from '#text/WeekTextTable.vue';
+import { onMounted } from 'vue';
 
 const props = defineProps<{
   tvGames: TvGame[];
@@ -21,7 +22,7 @@ const addDontPrintClass = () => {
   });
 };
 
-addDontPrintClass();
+onMounted(() => addDontPrintClass());
 </script>
 
 <template>
