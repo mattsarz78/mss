@@ -14,6 +14,19 @@ addMetaTags(title);
 
 const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate } =
   useDailyTvTextGames();
+
+const addDontPrintClass = () => {
+  const selectors = document.querySelectorAll<HTMLElement>(
+    'ins.adsbygoogle,ins.adsbygoogle.adsbygoogle-noablate,.gsc-control-cse'
+  );
+  Array.from(selectors).map((selector) => {
+    selector.classList.add('DONTPrint');
+  });
+};
+
+window.addEventListener('beforeprint', () => {
+  addDontPrintClass();
+});
 </script>
 
 <template>
