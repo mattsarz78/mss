@@ -9,7 +9,7 @@
       crossorigin="anonymous">
     </component>
     <ins
-      class="adsbygoogle"
+      class="adsbygoogle DONTPrint"
       style="display: block"
       data-ad-client="ca-pub-0296554708545211"
       data-ad-slot="9539391470"
