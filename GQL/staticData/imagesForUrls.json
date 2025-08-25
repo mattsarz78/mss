@@ -77,5 +77,7 @@
   { "link": "hbomax.com", "image": "hbomax.jpg" },
   { "link": "youtube.com", "image": "youtube.jpg" },
   { "link": "tv.swac.org", "image": "swactv.jpg" },
-  { "link": "channel/c0d547f2-0fb7-4167-a734-105f55890ffc", "image": "espn-abc.jpg" }
+  { "link": "channel/c0d547f2-0fb7-4167-a734-105f55890ffc", "image": "espn-abc.jpg" },
+  { "link": "disneyplus", "image": "disneyplus.jpg" },
+  { "link": "foxone", "image": "foxone.jpg" }
 ]
