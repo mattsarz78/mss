@@ -167,7 +167,7 @@ const getVendorChunk = (id: string): string => {
 };
 
 const getCoreChunk = (id: string): string => {
-  if (id.includes('/utils/game') || id.includes('/utils/ppvColumn')) {
+  if (id.includes('/utils/game') || id.includes('/utils/ppvColumn') || id.includes('/utils/printListener')) {
     return 'core-game-utils';
   }
   if (id.includes('/composables/use')) {

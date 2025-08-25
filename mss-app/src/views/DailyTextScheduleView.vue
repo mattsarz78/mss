@@ -6,6 +6,7 @@ import Copyright from '#shared/CopyrightLink.vue';
 import WeekTextBase from '#text/WeekTextBase.vue';
 import { checkAllTextRows, clearAllSelectedTextRows } from '#utils/domText.mjs';
 import { addMetaTags } from '#utils/metaTags.mjs';
+import { setupPrintListener } from '#utils/printListener.mts';
 import { DateTime } from 'luxon';
 
 const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
@@ -15,18 +16,7 @@ addMetaTags(title);
 const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate } =
   useDailyTvTextGames();
 
-const addDontPrintClass = () => {
-  const selectors = document.querySelectorAll<HTMLElement>(
-    'ins.adsbygoogle,ins.adsbygoogle.adsbygoogle-noablate,.gsc-control-cse'
-  );
-  Array.from(selectors).map((selector) => {
-    selector.classList.add('DONTPrint');
-  });
-};
-
-window.addEventListener('beforeprint', () => {
-  addDontPrintClass();
-});
+setupPrintListener();
 </script>
 
 <template>

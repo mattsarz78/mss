@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import WeekTextSchedule from '#text/WeekTextSchedule.vue';
 import { addMetaTags } from '#utils/metaTags.mjs';
+import { setupPrintListener } from '#utils/printListener.mts';
 import { generateWeeklyTitle } from '#utils/weeklyTitle.mjs';
 import { useRoute } from 'vue-router';
 
@@ -11,18 +12,7 @@ const title = generateWeeklyTitle(sport, week, paramYear, true);
 
 addMetaTags(title);
 
-const addDontPrintClass = () => {
-  const selectors = document.querySelectorAll<HTMLElement>(
-    'ins.adsbygoogle,ins.adsbygoogle.adsbygoogle-noablate,.gsc-control-cse'
-  );
-  Array.from(selectors).map((selector) => {
-    selector.classList.add('DONTPrint');
-  });
-};
-
-window.addEventListener('beforeprint', () => {
-  addDontPrintClass();
-});
+setupPrintListener();
 </script>
 
 <template>
