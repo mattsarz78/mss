@@ -22,7 +22,7 @@ const addDontPrintClass = () => {
   });
 };
 
-onMounted(() => addDontPrintClass());
+onMounted(() => setTimeout(() => addDontPrintClass(), 2000));
 </script>
 
 <template>
