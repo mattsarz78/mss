@@ -42,7 +42,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
     const imageArray = (imagesForUrls as ImagesForUrl[]).filter((x: ImagesForUrl) => imageHyperlink.includes(x.link));
     const imageUrl = getImageUrl(imageArray, season);
     imageHyperlinkString.push(
-      `<a href="${imageHyperlink}" target="_blank">
+      `<a href="${imageHyperlink}" target="_blank" rel="noopener">
       <picture>
         <source media="only screen and (max-width: 640px)" srcset="/images/${imageUrl.replace('.jpg', '-small.jpg')}" sizes="43w" />
         <img class="imgBorder" loading="lazy" src="/images/${imageUrl}" sizes="66w" />
@@ -56,7 +56,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
 
   textHyperlinks.forEach((textHyperlink, index) => {
     if (index % 2 !== 0) textHyperlinksString.push('<br>');
-    textHyperlinksString.push(`<a class="linkblock" href="${textHyperlink}" target="_blank">Live Video</a>`);
+    textHyperlinksString.push(`<a class="linkblock" href="${textHyperlink}" target="_blank" rel="noopener">Live Video</a>`);
   });
 
   strings.forEach((str, index) => {
@@ -67,7 +67,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   infoLinks.forEach((infoLink, index) => {
     const infoLinkValue = getInfoLinkValue(infoLink);
     if (index % 2 !== 0) infoLinksString.push('<br>');
-    infoLinksString.push(`<a class="linkblock" href="${infoLink}" target="_blank">${infoLinkValue}</a>`);
+    infoLinksString.push(`<a class="linkblock" href="${infoLink}" target="_blank" rel="noopener">${infoLinkValue}</a>`);
   });
 
   ensureLineBreaks(combinedImagesString, textHyperlinksString, textString, infoLinksString);

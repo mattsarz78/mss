@@ -35,7 +35,7 @@ app.directive('reset-adsense-height', {
 
 const head = createHead({ init: [{ title: "Matt's College Sports on TV" }], plugins: [InferSeoMetaPlugin()] });
 app.use(head);
-app.use(VuePurify.vueDompurifyHTMLPlugin);
+app.use(VuePurify.vueDompurifyHTMLPlugin, { default: { ADD_ATTR: ['target'] } });
 
 app.use(router);
 

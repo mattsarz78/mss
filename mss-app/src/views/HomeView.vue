@@ -32,8 +32,8 @@ addMetaTags(title);
         <RouterLink to="/archive"> Archived Seasons </RouterLink>
         <p>
           Check out my
-          <a href="http://mattsarzsports.blogspot.com/" target="_blank">blog</a>. Discussing college sports and how
-          we're watching the games.
+          <a href="http://mattsarzsports.blogspot.com/" target="_blank" rel="noopener">blog</a>. Discussing college
+          sports and how we're watching the games.
         </p>
       </div>
     </div>

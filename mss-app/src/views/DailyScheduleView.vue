@@ -52,7 +52,9 @@ const {
           </div>
           <div class="flex-container">
             <div v-if="dailyTvGameResult.dailyTvGames.flexScheduleLink" class="flex-row">
-              <RouterLink :to="`/tv-windows/${season}`" target="_blank">Available TV Windows </RouterLink>
+              <RouterLink :to="`/tv-windows/${season}`" target="_blank" rel="noopener"
+                >Available TV Windows
+              </RouterLink>
             </div>
             <div class="flex-row">
               <RouterLink :to="`/schedule/${sport}/daily/text`">Customizable Text-Only Page </RouterLink>

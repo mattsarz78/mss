@@ -46,6 +46,7 @@ const { result, loading, error } = useConferenceGames(year, conference, lookup, 
               class="flex-row"
               :to="`/tv-windows/${year}`"
               target="_blank"
+              rel="noopener"
               >Available TV Windows
             </RouterLink>
           </div>

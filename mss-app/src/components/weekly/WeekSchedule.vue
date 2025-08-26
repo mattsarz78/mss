@@ -77,7 +77,9 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
           </div>
           <div class="flex-container">
             <div v-if="seasonContentsResult.seasonContents.flexScheduleLink" class="flex-row">
-              <RouterLink :to="`/tv-windows/${paramYear}`" target="_blank">Available TV Windows</RouterLink>
+              <RouterLink :to="`/tv-windows/${paramYear}`" target="_blank" rel="noopener"
+                >Available TV Windows</RouterLink
+              >
             </div>
             <div class="flex-row">
               <RouterLink :to="`/schedule/${sport}/${paramYear}/${week}/text`">Customizable Text-Only Page</RouterLink>
