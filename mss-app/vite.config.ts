@@ -62,8 +62,9 @@ export default defineConfig(({ mode }): UserConfig => {
       VitePWA({
         injectRegister: 'script-defer',
         registerType: 'autoUpdate',
+        strategies: 'generateSW',
         minify: true,
-        includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
+        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'robots.txt'],
         manifest: {
           description:
             "MattSarzSports App - Your go-to source for all things college football and men's basketball on TV.",
@@ -87,7 +88,14 @@ export default defineConfig(({ mode }): UserConfig => {
           globPatterns: ['**/*.{js,mjs,css,html,txt,xml,ico,png,svg,json,vue,woff2,webmanifest}'],
           cleanupOutdatedCaches: true,
           skipWaiting: true,
-          clientsClaim: true
+          clientsClaim: true,
+          runtimeCaching: [
+            {
+              urlPattern: /\/graphql/,
+              handler: 'NetworkFirst',
+              options: { cacheName: 'graphql-api', expiration: { maxEntries: 50, maxAgeSeconds: 60 } }
+            }
+          ]
         }
       })
     ],
@@ -114,7 +122,10 @@ export default defineConfig(({ mode }): UserConfig => {
       sourcemap: mode === 'development',
       reportCompressedSize: mode === 'production'
     },
-    define: { 'import.meta.env.API_URL': JSON.stringify(env.API_URL) }
+    define: {
+      'import.meta.env.API_URL': JSON.stringify(env.API_URL),
+      __BUILD_VERSION__: JSON.stringify(process.env.npm_package_version ?? Date.now().toString())
+    }
   };
 
   if (process.env.NODE_ENV === 'development') {
