@@ -6,7 +6,14 @@ const httpLink = new HttpLink({
 
 const cache = new InMemoryCache();
 
-export const apolloClient = new ApolloClient({ link: httpLink, cache });
+export const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache,
+  defaultOptions: {
+    query: { fetchPolicy: 'no-cache', errorPolicy: 'all' },
+    watchQuery: { fetchPolicy: 'cache-and-network', errorPolicy: 'all' }
+  }
+});
 
 if (!import.meta.env.PROD) {
   const { connectApolloClientToVSCodeDevTools } = await import('@apollo/client-devtools-vscode');
