@@ -33,13 +33,13 @@ onMounted(() => {
 <style scoped>
 .update-banner {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
   background: #4caf50;
   color: white;
   padding: 1rem;
   text-align: center;
-  z-index: 9999;
+  z-index: 99999;
 }
 </style>
