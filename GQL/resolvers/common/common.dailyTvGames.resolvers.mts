@@ -30,7 +30,6 @@ export const dailyTvGames = async (_1: unknown, { input }: DailyTvGamesArgs, con
     });
 
     const seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(results[0].season?.trim() ?? '');
-    
 
     return {
       showPPVColumn: seasonDataResult.showPPVColumn,

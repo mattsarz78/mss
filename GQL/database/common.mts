@@ -36,7 +36,7 @@ export class CommonService implements ICommonService {
 
     if (isDaily) {
       const dailyRequest = request as GetDailyTvGamesRequest;
-      Object.assign(where, { timewithoffset: { gte: dailyRequest.startDate, lte: dailyRequest.endDate } });
+      Object.assign(where, { time: { gte: dailyRequest.startDate, lte: dailyRequest.endDate } });
     } else {
       const weeklyRequest = request as TvGamesInput;
       Object.assign(where, { season: weeklyRequest.season, week: weeklyRequest.week });
