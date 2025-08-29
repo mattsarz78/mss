@@ -46,6 +46,16 @@ const gamesToday = computed(() => {
   );
 });
 
+const navbarClass = computed(() => {
+  if (isMbkPostseason.value || isBowlWeek.value) {
+    return 'short-height';
+  }
+  if (gamesToday.value) {
+    return 'navbar-pad-height';
+  }
+  return 'navbar-height';
+});
+
 const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year.value, weekInt.value);
 </script>
 
@@ -62,7 +72,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
       </div>
     </template>
     <template v-if="seasonContentsResult && tvGameResult">
-      <nav :class="`navbar DONTPrint ${isMbkPostseason || isBowlWeek ? 'short-height' : 'navbar-height'}`">
+      <nav :class="`navbar DONTPrint ${navbarClass}`">
         <div class="container">
           <div class="flex-container">
             <div class="flex-row">
@@ -78,8 +88,8 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
           <div class="flex-container">
             <div v-if="seasonContentsResult.seasonContents.flexScheduleLink" class="flex-row">
               <RouterLink :to="`/tv-windows/${paramYear}`" target="_blank" rel="noopener"
-                >Available TV Windows</RouterLink
-              >
+                >Available TV Windows
+              </RouterLink>
             </div>
             <div class="flex-row">
               <RouterLink :to="`/schedule/${sport}/${paramYear}/${week}/text`">Customizable Text-Only Page</RouterLink>
@@ -153,6 +163,10 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
   height: 140px;
 }
 
+.navbar-pad-height {
+  height: 155px;
+}
+
 .short-height {
   height: 69.5px;
 }
@@ -219,6 +233,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
     height: 39.5px;
   }
 
+  .navbar-pad-height,
   .navbar-height {
     height: 88px;
   }
