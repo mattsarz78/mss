@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import type { PluginOption, UserConfig, UserConfigExport } from 'vite';
 import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { versionJson } from './plugins/writeVersion.mjs';
 
 const _dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -17,17 +18,17 @@ const getGitHash = () => {
 };
 
 const alias = {
-  '@': resolve(_dirname, './src'),
+  '#': resolve(_dirname, './src'),
   '#composables': resolve(_dirname, './src/composables'),
-  '@views': resolve(_dirname, './src/views'),
-  '@utils': resolve(_dirname, './src/utils'),
-  '@data': resolve(_dirname, './src/staticData'),
-  '@conference': resolve(_dirname, './src/components/conference'),
-  '@noTv': resolve(_dirname, './src/components/noTVGames'),
-  '@season': resolve(_dirname, './src/components/season'),
-  '@shared': resolve(_dirname, './src/components/shared'),
-  '@weekly': resolve(_dirname, './src/components/weekly'),
-  '@text': resolve(_dirname, './src/components/weeklyText')
+  '#views': resolve(_dirname, './src/views'),
+  '#utils': resolve(_dirname, './src/utils'),
+  '#data': resolve(_dirname, './src/staticData'),
+  '#conference': resolve(_dirname, './src/components/conference'),
+  '#noTv': resolve(_dirname, './src/components/noTVGames'),
+  '#season': resolve(_dirname, './src/components/season'),
+  '#shared': resolve(_dirname, './src/components/shared'),
+  '#weekly': resolve(_dirname, './src/components/weekly'),
+  '#text': resolve(_dirname, './src/components/weeklyText')
 };
 
 // https://vitejs.dev/config/
@@ -67,6 +68,7 @@ export default defineConfig(({ mode }): UserConfig => {
     base: '/',
     publicDir: 'public',
     plugins: [
+      { ...versionJson(), enforce: 'post' },
       vue({ isProduction: true, features: { optionsAPI: false } }),
       VitePWA({
         injectRegister: 'script-defer',

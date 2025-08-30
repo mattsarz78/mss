@@ -1,5 +1,5 @@
 {
-  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "nightwatch.conf.*", "playwright.config.*"],
+  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "nightwatch.conf.*", "playwright.config.*",  "plugins/**/*.mts"],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,

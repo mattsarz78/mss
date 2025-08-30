@@ -43,7 +43,7 @@
     "dev": "vite",
     "build": "pnpm type-check && pnpm build-only",
     "preview": "vite preview",
-    "build-only": "node scripts/write-version.mts && vite build",
+    "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint .",
     "lintFix": "eslint . --fix",
