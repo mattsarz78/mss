@@ -6,9 +6,9 @@ import { type Plugin } from 'vite';
 export function versionJson(): Plugin {
   return {
     name: 'version-json',
-    closeBundle() {
+    buildStart() {
       const version = getVersion();
-      const outDir = resolve(__dirname, '../dist');
+      const outDir = resolve(__dirname, '../public');
 
       const versionData = { version, timestamp: Date.now(), environment: process.env.NODE_ENV || 'production' };
 

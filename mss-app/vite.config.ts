@@ -68,7 +68,7 @@ export default defineConfig(({ mode }): UserConfig => {
     base: '/',
     publicDir: 'public',
     plugins: [
-      { ...versionJson(), enforce: 'post' },
+      versionJson(),
       vue({ isProduction: true, features: { optionsAPI: false } }),
       VitePWA({
         injectRegister: 'script-defer',
