@@ -1,6 +1,9 @@
 export async function checkVersion() {
   try {
-    const response = await fetch('/version.json', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } });
+    const response = await fetch('/assets/version.json', {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache' }
+    });
 
     if (!response.ok) return false;
 
