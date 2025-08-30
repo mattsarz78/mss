@@ -28,7 +28,7 @@ async function getVersion() {
 
 (async () => {
   const version = await getVersion();
-  const outDir = resolve(__dirname, '../dist/assets');
+  const outDir = resolve(__dirname, '../dist');
 
   // Ensure dist directory exists
   if (!existsSync(outDir)) {
