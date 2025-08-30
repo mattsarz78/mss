@@ -63,7 +63,7 @@ export default defineConfig(({ mode }): UserConfig => {
       open: false // Don't open browser automatically
     },
     css: { devSourcemap: true },
-    assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.gif'],
+    assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.gif', 'version.json'],
     base: '/',
     publicDir: 'public',
     plugins: [
@@ -73,7 +73,7 @@ export default defineConfig(({ mode }): UserConfig => {
         registerType: 'autoUpdate',
         strategies: 'generateSW',
         minify: true,
-        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'robots.txt'],
+        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'robots.txt', 'version.json'],
         manifest: {
           description:
             "MattSarzSports App - Your go-to source for all things college football and men's basketball on TV.",
