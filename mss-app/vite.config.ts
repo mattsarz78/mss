@@ -1,4 +1,5 @@
 import vue from '@vitejs/plugin-vue';
+import { execSync } from 'node:child_process';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { PluginOption, UserConfig, UserConfigExport } from 'vite';
@@ -6,6 +7,14 @@ import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 const _dirname = dirname(fileURLToPath(import.meta.url));
+
+const getGitHash = () => {
+  try {
+    return execSync('git rev-parse --short HEAD').toString().trim();
+  } catch {
+    return 'unknown';
+  }
+};
 
 const alias = {
   '@': resolve(_dirname, './src'),
@@ -124,7 +133,7 @@ export default defineConfig(({ mode }): UserConfig => {
     },
     define: {
       'import.meta.env.API_URL': JSON.stringify(env.API_URL),
-      __BUILD_VERSION__: JSON.stringify(process.env.npm_package_version ?? Date.now().toString())
+      'import.meta.env.VITE_APP_VERSION': JSON.stringify(getGitHash() ?? Date.now().toString())
     }
   };
 
