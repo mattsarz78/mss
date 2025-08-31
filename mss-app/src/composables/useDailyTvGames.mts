@@ -4,7 +4,10 @@ import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
 export const useDailyTvGames = (sport: string) => {
-  const startDate = DateTime.now().setZone('America/New_York').toISODate();
+  const startDateET = DateTime.now().setZone('America/New_York').toISODate();
+  const startDateLocal = DateTime.now().toISODate();
+
+  const startDate = startDateET === startDateLocal ? startDateET : startDateLocal;
 
   const { result, loading, error } = useQuery<{ dailyTvGames: TvGameData }>(DAILY_TV_GAMES, {
     input: { sport, startDate }
