@@ -20,10 +20,8 @@ export const dailyTvGames = async (_1: unknown, { input }: DailyTvGamesArgs, con
       throw new BadRequestError('Start date and sport are required');
     }
 
-    const dateTimeEast = DateTime.now().setZone('America/New_York');
-
-    const startDate = dateTimeEast.hour <= 4 ? DateTime.fromISO(input.startDate).minus({ days: 1}).set(zeroHour).toJSDate() : DateTime.fromISO(input.startDate).set(zeroHour).toJSDate();
-    const endDate = dateTimeEast.hour <= 4 ? DateTime.fromISO(input.startDate).set(endOfDay).toJSDate():  DateTime.fromISO(input.startDate).plus({ days: 1 }).set(endOfDay).toJSDate();
+    const startDate = DateTime.fromISO(input.startDate).set(zeroHour).toJSDate();
+    const endDate = DateTime.fromISO(input.startDate).plus({ days: 1 }).set(endOfDay).toJSDate();
 
     const results = await context.services[CommonServiceKey].getDailyTvGames({
       startDate,
