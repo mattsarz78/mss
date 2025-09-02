@@ -36,14 +36,15 @@ const {
 
 const gamesToday = computed(() => {
   const nowInET = DateTime.now().setZone('America/New_York');
-  return (
-    seasonContentsResult.value?.seasonContents.seasonContents
-      .filter((content: { week: number }) => content.week === weekInt.value)
-      .some(
-        (content: { startDate: string; endDate: string }) =>
-          DateTime.fromISO(content.startDate) <= nowInET && DateTime.fromISO(content.endDate) >= nowInET
-      ) ?? false
-  );
+  return seasonContentsResult.value?.seasonContents.seasonContents
+    .filter((content: { week: number }) => content.week === weekInt.value)
+    .some((content: { startDate: string; endDate: string }) => {
+      const startIso = DateTime.fromISO(content.startDate).toUTC().toISO();
+      const endIso = DateTime.fromISO(content.endDate).toUTC().toISO();
+      const nowIso = nowInET.toISO({ includeOffset: false });
+      if (!startIso || !endIso || !nowIso) return false;
+      return startIso <= nowIso && endIso >= nowIso;
+    });
 });
 
 const navbarClass = computed(() => {
