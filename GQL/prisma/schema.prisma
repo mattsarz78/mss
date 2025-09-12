@@ -1,7 +1,8 @@
 generator client {
   provider               = "prisma-client"
   output                 = "../__generated__/prisma"
-  previewFeatures        = ["driverAdapters", "queryCompiler", "typedSql"]
+  engineType             = "client"
+  previewFeatures        = ["typedSql"]
   generatedFileExtension = "mts"
   importFileExtension    = "mjs"
   moduleFormat           = "esm"

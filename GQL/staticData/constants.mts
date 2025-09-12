@@ -41,7 +41,8 @@ export const specialCoverageNotes = [
   'http://www.osubeavers.com/ViewArticle.dbml?DB_OEM_ID=30800&ATCLID=209713667',
   'https://themw.com/how-to-watch-hawaii-football-on-spectrum/',
   'https://msubobcats.com/sports/football/schedule',
-  'https://gogriz.com/WhereToWatch'
+  'https://gogriz.com/WhereToWatch',
+  'https://gocamels.com/news/2025/9/9/cheerleading-campbell-football-televised-in-five-north-carolina-markets-this-season.aspx'
 ];
 
 export const syndicationLinks = [
