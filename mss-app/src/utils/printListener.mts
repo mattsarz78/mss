@@ -6,8 +6,8 @@ export const addDontPrintClass = (): void => {
       '.GoogleCreativeContainerClass, ' +
       '.GoogleActiveViewInnerContainer, ' +
       'iframe[id^="aswift"]' + // Add any iframe that starts with google_ads
-      'class$="side-rail-dismiss-btn"]' + // Add any element that ends with side-rail-dismiss-btn (used by some ad services)
-      'class$="side-rail-edge"]' // Add any element that ends with side-rail-dismiss-btn (used by some ad services)
+      '[class$="side-rail-dismiss-btn"]' + // Add any element that ends with side-rail-dismiss-btn (used by some ad services)
+      '[class$="side-rail-edge"]' // Add any element that ends with side-rail-dismiss-btn (used by some ad services)
   );
 
   Array.from(selectors).forEach((selector) => {
