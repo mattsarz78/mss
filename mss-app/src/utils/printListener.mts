@@ -5,8 +5,7 @@ export const addDontPrintClass = (): void => {
       '.gsc-control-cse, ' +
       '.GoogleCreativeContainerClass, ' +
       '.GoogleActiveViewInnerContainer, ' +
-      '#google_ads_iframe, ' + // Add iframe selector
-      'iframe[id^="google_ads"]' // Add any iframe that starts with google_ads
+      'iframe[id^="aswift"]' // Add any iframe that starts with google_ads
   );
 
   Array.from(selectors).forEach((selector) => {
