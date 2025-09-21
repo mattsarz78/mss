@@ -10,6 +10,7 @@ import { addMetaTags } from '#utils/metaTags.mjs';
 import conferenceCasing from '#data/conferenceCasing.json' with { type: 'json' };
 import type { ConferenceCasing } from '#data/exportTypes.mjs';
 import { RouterLink, useRoute } from 'vue-router';
+import { setupPrintListener } from '#utils/printListener.mts';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
@@ -27,6 +28,8 @@ const { result: seasonResult, loading: seasonLoading, error: seasonError } = use
 addMetaTags(title);
 
 const { result, loading, error } = useConferenceGames(year, conference, lookup, id);
+
+setupPrintListener();
 </script>
 
 <template>

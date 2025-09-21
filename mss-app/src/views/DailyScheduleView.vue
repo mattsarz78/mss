@@ -5,6 +5,7 @@ import AdsByGoogle from '#shared/AdsByGoogle.vue';
 import BackToTop from '#shared/BackToTop.vue';
 import Copyright from '#shared/CopyrightLink.vue';
 import { addMetaTags } from '#utils/metaTags.mjs';
+import { setupPrintListener } from '#utils/printListener.mts';
 import WeeklyBase from '#weekly/WeeklyBase.vue';
 import { DateTime } from 'luxon';
 import { useRoute } from 'vue-router';
@@ -25,6 +26,8 @@ const {
   season,
   startDate
 } = useDailyTvGames(sport);
+
+setupPrintListener();
 </script>
 
 <template>

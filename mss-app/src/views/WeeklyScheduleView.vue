@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { addMetaTags } from '#utils/metaTags.mjs';
+import { setupPrintListener } from '#utils/printListener.mts';
 import { generateWeeklyTitle } from '#utils/weeklyTitle.mjs';
 import WeekSchedule from '#weekly/WeekSchedule.vue';
 import { useRoute } from 'vue-router';
@@ -10,6 +11,8 @@ const { week, sport, year: paramYear } = route.params as { week: string; sport: 
 const title = generateWeeklyTitle(sport, week, paramYear, false);
 
 addMetaTags(title);
+
+setupPrintListener();
 </script>
 
 <template>
