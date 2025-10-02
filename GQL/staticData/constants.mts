@@ -40,6 +40,7 @@ export const specialCoverageNotes = [
   'http://www.soonersports.com/ViewArticle.dbml?SPSID=750323&SPID=127245&DB_LANG=C&DB_OEM_ID=31000&ATCLID=209609473',
   'http://www.osubeavers.com/ViewArticle.dbml?DB_OEM_ID=30800&ATCLID=209713667',
   'https://themw.com/how-to-watch-hawaii-football-on-spectrum/',
+  'https://hawaiiathletics.com/sports/2025/9/9/how-to-watch-hawai-i-football.aspx',
   'https://msubobcats.com/sports/football/schedule',
   'https://gogriz.com/WhereToWatch',
   'https://gocamels.com/news/2025/9/9/cheerleading-campbell-football-televised-in-five-north-carolina-markets-this-season.aspx'
