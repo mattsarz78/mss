@@ -80,5 +80,5 @@
     "schema": "./schema.graphql",
     "documents": "./src/**/*.{graphql,js,mts,jsx,tsx}"
   },
-  "packageManager": "pnpm@10.15.0"
+  "packageManager": "pnpm@10.17.1"
 }
