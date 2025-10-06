@@ -39,7 +39,7 @@ export default defineConfig(({ mode }): UserConfig => {
 
   const config: UserConfigExport = {
     optimizeDeps: {
-      include: ['vue', 'luxon', '@apollo/client', '@vue/apollo-composable'],
+      include: ['vue', 'luxon', '@apollo/client/core'],
       exclude: ['@vueuse/core'],
       esbuildOptions: { target: 'esnext', supported: { 'top-level-await': true } }
     },
@@ -178,13 +178,7 @@ const chunkGroup = (id: string): string | null => {
 
 const getVendorChunk = (id: string): string => {
   if (id.includes('luxon') || id.includes('@vueuse/core')) return 'vendor-utils';
-  if (
-    id.includes('vue') ||
-    id.includes('vue-router') ||
-    id.includes('@apollo/client') ||
-    id.includes('@vue/apollo-composable')
-  )
-    return 'vendor-vue';
+  if (id.includes('vue') || id.includes('vue-router') || id.includes('@apollo/client')) return 'vendor-vue';
   return 'vendor-other';
 };
 

@@ -1,10 +1,12 @@
 import { SEASON_CONTENTS, type SeasonContentsData } from '#/graphQl.mjs';
-import { useQuery } from '@vue/apollo-composable';
+import { useApolloQuery } from '#/composables/useApolloQuery.mjs';
 
 export const useSeasonContents = (year: string) => {
-  const { result, loading, error } = useQuery<{ seasonContents: SeasonContentsData }>(SEASON_CONTENTS, {
-    input: { season: year }
-  });
+  const {
+    data: result,
+    loading,
+    error
+  } = useApolloQuery<{ seasonContents: SeasonContentsData }>(SEASON_CONTENTS, { input: { season: year } });
 
   return { result, loading, error };
 };

@@ -1,17 +1,22 @@
 import { NO_TV_GAMES, type NoTvGame } from '#/graphQl.mjs';
-import { useLazyQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
+import { useApolloLazyQuery } from '#/composables/useApolloLazyQuery.mjs';
 
 export const useNoTvSchedule = (week: string, year: string) => {
   const weekInt = parseInt(week);
 
-  const {
-    result: noTvGamesResults,
-    loading: noTvGamesLoading,
-    load,
-    error: noTvGamesError
-  } = useLazyQuery<{ noTvGames: NoTvGame[] }>(NO_TV_GAMES, { input: { season: year, week: weekInt } });
+  const lazy = useApolloLazyQuery<{ noTvGames: NoTvGame[] }>(NO_TV_GAMES);
+
+  const noTvGamesResults = lazy.data;
+  const noTvGamesLoading = lazy.loading;
+  const noTvGamesError = lazy.error;
+
+  // expose a load function that uses the composable's week/year when no args are provided
+  const load = (vars?: Record<string, unknown>) => {
+    const variables = vars ?? { input: { season: year, week: weekInt } };
+    return lazy.load(variables as unknown as Record<string, unknown>);
+  };
 
   const getGameDate = (timeWithOffset: string): string => {
     const eastern = DateTime.fromISO(timeWithOffset).setZone('America/New_York');

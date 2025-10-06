@@ -1,12 +1,12 @@
 import { createHead } from '@unhead/vue/client';
 import { InferSeoMetaPlugin } from '@unhead/vue/plugins';
-import { DefaultApolloClient } from '@vue/apollo-composable';
 import { registerSW } from 'virtual:pwa-register';
 import { createApp, h, provide } from 'vue';
 import * as VuePurify from 'vue-dompurify-html';
 import { apolloClient } from '#/apolloClient.mjs';
 import App from '#/App.vue';
 import router from '#/router/index.mjs';
+import { ApolloClient } from '@apollo/client/core';
 
 const updateSW = registerSW({
   onNeedRefresh() {
@@ -18,7 +18,7 @@ const updateSW = registerSW({
 
 const app = createApp({
   setup() {
-    provide(DefaultApolloClient, apolloClient);
+    provide(ApolloClient, apolloClient);
   },
   render: () => h(App)
 });
