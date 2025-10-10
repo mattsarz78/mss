@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:22-alpine AS build
+FROM node:24.9-alpine AS build
 
 ENV NODE_ENV=development
 WORKDIR /app
