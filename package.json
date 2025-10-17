@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": ">= 24"
+  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "install:all": "concurrently \"pnpm run install:gql\" \"pnpm run install:web\"",
@@ -19,7 +22,7 @@
   },
   "devDependencies": {
     "@types/luxon": "3.7.1",
-    "@types/node": "24.7.0",
+    "@types/node": "24.8.0",
     "eslint": "9.37.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.4",

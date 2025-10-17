@@ -2,6 +2,6 @@ packages:
   # include packages in subfolders (change as required)
   - 'apps/**'
   - 'packages/**'
-useNodeVersion: 24.9.0
+useNodeVersion: 24.10.0
 ignoreWorkspaceRootCheck: true
 dedupeDirectDeps: true

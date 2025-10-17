@@ -1,6 +1,6 @@
 packages:
   - apps/**
   - packages/**
-useNodeVersion: 24.9.0
+useNodeVersion: 24.10.0
 ignoreWorkspaceRootCheck: true
 dedupeDirectDeps: true

@@ -2,6 +2,9 @@
   "name": "mss-app",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": ">= 24"
+  },
   "type": "module",
   "imports": {
     "#/*": [
@@ -56,21 +59,21 @@
     "@vueuse/core": "^13.9.0",
     "graphql": "^16.11.0",
     "luxon": "^3.7.2",
-    "vite": "^7.1.9",
-    "vite-plugin-pwa": "^1.0.3",
+    "vite": "^7.1.10",
+    "vite-plugin-pwa": "^1.1.0",
     "vue": "^3.5.22",
     "vue-dompurify-html": "^5.3.0",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
-    "@apollo/client-devtools-vscode": "^4.21.8",
-    "@rushstack/eslint-patch": "^1.13.0",
+    "@apollo/client-devtools-vscode": "^4.21.9",
+    "@rushstack/eslint-patch": "^1.14.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
-    "eslint-plugin-vue": "^10.5.0",
+    "eslint-plugin-vue": "^10.5.1",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "lightningcss": "^1.30.2",
-    "rollup-plugin-visualizer": "^6.0.4",
+    "rollup-plugin-visualizer": "^6.0.5",
     "terser": "^5.44.0",
     "vite-plugin-vue-devtools": "^8.0.2",
     "vue-tsc": "^3.1.1"
