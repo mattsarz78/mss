@@ -37,18 +37,28 @@ try {
     loader: { '.ts': 'ts', '.mts': 'ts', '.js': 'js', '.mjs': 'js', '.json': 'json' }
   });
   globalThis.console.log('esbuild: bundle complete ->', path.join(outdir, 'index.js'));
-  // Copy auxiliary runtime scripts (healthcheck) into dist so they are available
-  // to runtime tasks (for example ECS task definitions calling node dist/healthcheck.mjs)
+
+  // Also produce a bundled healthcheck.js (compiled from tools/healthcheck.mjs)
   try {
     const healthSrc = path.join(__dirname, 'healthcheck.mjs');
-    const healthDest = path.join(outdir, 'healthcheck.mjs');
+    const healthOut = path.join(outdir, 'healthcheck.js');
     if (fs.existsSync(healthSrc)) {
-      fs.mkdirSync(outdir, { recursive: true });
-      fs.copyFileSync(healthSrc, healthDest);
-      globalThis.console.log('copied healthcheck ->', healthDest);
+      await build({
+        entryPoints: [healthSrc],
+        bundle: true,
+        platform: 'node',
+        format: 'esm',
+        target: ['node24'],
+        outfile: healthOut,
+        sourcemap: false,
+        external,
+        logLevel: 'info',
+        loader: { '.ts': 'ts', '.mts': 'ts', '.js': 'js', '.mjs': 'js', '.json': 'json' }
+      });
+      globalThis.console.log('esbuild: healthcheck bundle ->', healthOut);
     }
-  } catch (copyErr) {
-    globalThis.console.warn('failed to copy healthcheck to dist:', copyErr);
+  } catch (errHealth) {
+    globalThis.console.warn('esbuild: failed to bundle healthcheck:', errHealth);
   }
 } catch (err) {
   globalThis.console.error(err);

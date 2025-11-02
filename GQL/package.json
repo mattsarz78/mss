@@ -45,7 +45,7 @@
     "compression": "^1.8.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "graphql": "^16.11.0",
+    "graphql": "^16.12.0",
     "luxon": "^3.7.2",
     "tsx": "^4.20.6"
   },
@@ -58,11 +58,11 @@
     "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
+    "dotenv-cli": "^11.0.0",
+    "esbuild": "^0.25.12",
     "prisma": "^6.18.0",
-    "typescript-eslint": "^8.46.2",
-    "esbuild": "^0.19.0",
-    "typescript": "^5.9.2",
-    "dotenv-cli": "^7.0.0"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.2"
   },
   "graphql": {
     "schema": "./schema.graphql",
