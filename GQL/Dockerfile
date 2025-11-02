@@ -1,71 +1,58 @@
+# syntax=docker/dockerfile:1.4
+
 # Stage 1: Build
-FROM node:24.9-alpine AS build
+FROM node:24-alpine AS build
 
 ENV NODE_ENV=development
+ENV CI=true
 WORKDIR /app
 
 # Install build dependencies and clean up in the same layer
-RUN apk add --no-cache openssl curl \
-  && rm -rf /var/cache/apk/* \
-  && corepack enable pnpm
+RUN apk add --no-cache openssl \
+  && rm -rf /var/cache/apk/*
 
-# Copy only necessary files for dependency installation
-COPY package.json pnpm-*.yaml ./
-
-# Install dependencies
-RUN pnpm fetch --prod \
-  && pnpm i -r --offline --prod \
-  && mv node_modules /opt/node_modules.prod \
-  && pnpm cache delete 
-
-# Copy the rest of the application
+# Copy package manifests and the entire source so codegen/build can run
+COPY package.json pnpm-*.yaml codegen.yml ./
+COPY prisma ./prisma
+COPY schemas ./schemas
 COPY . /app
 
-# Generate Prisma and GraphQL files
-RUN pnpm prismaGen && pnpm graphQlGen && pnpm prismaFormat
+# Install dependencies, run generators and build, then prune and save prod node_modules
+RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
+  corepack enable pnpm \
+  && pnpm install --frozen-lockfile \
+  && pnpm prismaGen && pnpm graphQlGen && pnpm prismaFormat \
+  && pnpm run build:dist \
+  && pnpm prune --prod --no-optional \
+  && mv node_modules /opt/node_modules.prod
 
 # Stage 2: Production
-FROM node:22-alpine AS production
+FROM gcr.io/distroless/nodejs24-debian12:nonroot AS production
 
-# Set runtime configuration
-ARG NODE_ENV=production
-ENV NODE_ENV=$NODE_ENV
-ARG DATABASE_URL
-ENV DATABASE_URL=$DATABASE_URL
-ARG VALID_CORS_ORIGINS
-ENV VALID_CORS_ORIGINS=$VALID_CORS_ORIGINS
-
+# Final stage should NOT bake secrets into the image. Accept runtime ENV values
+# (e.g. DATABASE_URL) when running the container instead of setting them at build time.
 WORKDIR /app
 
-# Install minimal runtime dependencies and set up user in one layer
-RUN apk add --no-cache openssl dumb-init curl \
-  && addgroup -S appgroup \
-  && adduser -S appuser -G appgroup \
-  && rm -rf /var/cache/apk/* \
-  && corepack enable pnpm
-
-# Copy only the necessary files
-COPY --from=build --chown=appuser:appgroup /opt/node_modules.prod ./node_modules
-COPY --from=build --chown=appuser:appgroup /app/__generated__ ./__generated__
-COPY --from=build --chown=appuser:appgroup /app/database ./database
-COPY --from=build --chown=appuser:appgroup /app/resolvers ./resolvers
-COPY --from=build --chown=appuser:appgroup /app/schemas ./schemas
-COPY --from=build --chown=appuser:appgroup /app/utils/errorHandler.mts ./utils/errorHandler.mts
-COPY --from=build --chown=appuser:appgroup /app/utils/image.mts ./utils/image.mts
-COPY --from=build --chown=appuser:appgroup /app/staticData ./staticData
-COPY --from=build --chown=appuser:appgroup /app/index.mts \
+# Copy pruned production node_modules and compiled bundle from build stage.
+# Use --chown to set files to the distroless nonroot UID (65532) so the nonroot
+# process can read them.
+COPY --from=build --chown=65532:65532 /opt/node_modules.prod ./node_modules
+COPY --from=build --chown=65532:65532 /app/dist ./dist
+COPY --from=build --chown=65532:65532 /app/__generated__ ./__generated__
+COPY --from=build --chown=65532:65532 /app/database ./database
+COPY --from=build --chown=65532:65532 /app/resolvers ./resolvers
+COPY --from=build --chown=65532:65532 /app/schemas ./schemas
+COPY --from=build --chown=65532:65532 /app/utils/errorHandler.mts ./utils/errorHandler.mts
+COPY --from=build --chown=65532:65532 /app/utils/image.mts ./utils/image.mts
+COPY --from=build --chown=65532:65532 /app/staticData ./staticData
+COPY --from=build --chown=65532:65532 /app/index.mts \
   /app/context.mts \
   /app/tsconfig.json \
   /app/package.json \
   ./
 
-USER appuser
-
 # Expose the application port
 EXPOSE 8020
 
-# Use dumb-init as PID 1
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-
-# Start the application
-CMD ["pnpm", "start"]
+# Distroless node images use `node` as their entrypoint; provide the script path as CMD.
+CMD ["dist/index.js"]

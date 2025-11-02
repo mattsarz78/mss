@@ -9,4 +9,6 @@ services:
       - "8020:8020"
     env_file:
       - .env    
-    command: pnpm start
+  # The distroless Node image already has `node` as the entrypoint, so
+  # provide only the script path (or omit this key to use the image's CMD).
+    command: dist/index.js

@@ -38,6 +38,6 @@
     "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["**/*.mts", "**/*.json", "staticData/constants.mts"],
+  "include": ["**/*.mts", "**/*.json", "staticData/constants.mts", "tools/*.mjs"],
   "exclude": ["node_modules", "dist"],
 }

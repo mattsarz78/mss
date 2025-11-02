@@ -53,21 +53,21 @@
     "format": "prettier --write ./"
   },
   "dependencies": {
-    "@apollo/client": "^4.0.7",
+    "@apollo/client": "^4.0.9",
     "@unhead/vue": "^2.0.19",
     "@vitejs/plugin-vue": "^6.0.1",
-    "@vueuse/core": "^13.9.0",
+    "@vueuse/core": "^14.0.0",
     "graphql": "^16.11.0",
     "luxon": "^3.7.2",
-    "vite": "^7.1.11",
+    "vite": "^7.1.12",
     "vite-plugin-pwa": "^1.1.0",
     "vue": "^3.5.22",
     "vue-dompurify-html": "^5.3.0",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
-    "@apollo/client-devtools-vscode": "^4.21.9",
-    "@rushstack/eslint-patch": "^1.14.0",
+    "@apollo/client-devtools-vscode": "^4.21.10",
+    "@rushstack/eslint-patch": "^1.14.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "eslint-plugin-vue": "^10.5.1",
@@ -76,11 +76,11 @@
     "rollup-plugin-visualizer": "^6.0.5",
     "terser": "^5.44.0",
     "vite-plugin-vue-devtools": "^8.0.3",
-    "vue-tsc": "^3.1.1"
+    "vue-tsc": "^3.1.2"
   },
   "graphql": {
     "schema": "./schema.graphql",
     "documents": "./src/**/*.{graphql,js,mts,jsx,tsx}"
   },
-  "packageManager": "pnpm@10.18.2"
+  "packageManager": "pnpm@10.20.0"
 }
