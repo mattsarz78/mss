@@ -43,7 +43,8 @@ export const specialCoverageNotes = [
   'https://hawaiiathletics.com/sports/2025/9/9/how-to-watch-hawai-i-football.aspx',
   'https://msubobcats.com/sports/football/schedule',
   'https://gogriz.com/WhereToWatch',
-  'https://gocamels.com/news/2025/9/9/cheerleading-campbell-football-televised-in-five-north-carolina-markets-this-season.aspx'
+  'https://gocamels.com/news/2025/9/9/cheerleading-campbell-football-televised-in-five-north-carolina-markets-this-season.aspx',
+  'https://ovcsports.com/news/2025/11/7/mens-basketball-gray-media-brings-ovc-basketball-to-free-over-the-air-television-viewers.aspx'
 ];
 
 export const syndicationLinks = [

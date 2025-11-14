@@ -1,16 +1,12 @@
 # syntax=docker/dockerfile:1.4
 
 # Stage 1: Build
-FROM node:24-alpine AS build
+FROM node:24-bullseye-slim AS build
 
 ENV NODE_ENV=development
 ENV CI=true
 WORKDIR /app
-
-# Install build dependencies and clean up in the same layer
-RUN apk add --no-cache openssl \
-  && rm -rf /var/cache/apk/*
-
+  
 # Copy package manifests and the entire source so codegen/build can run
 COPY package.json pnpm-*.yaml codegen.yml ./
 COPY prisma ./prisma
@@ -27,7 +23,7 @@ RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
   && mv node_modules /opt/node_modules.prod
 
 # Stage 2: Production
-FROM gcr.io/distroless/nodejs24-debian12:nonroot AS production
+FROM gcr.io/distroless/nodejs24-debian13:nonroot AS production
 
 # Final stage should NOT bake secrets into the image. Accept runtime ENV values
 # (e.g. DATABASE_URL) when running the container instead of setting them at build time.
