@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 # Stage 1: Build
-FROM node:24-bullseye-slim AS build
+FROM node:25-bullseye-slim AS build
 
 ENV NODE_ENV=development
 ENV CI=true
