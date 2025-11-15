@@ -82,6 +82,10 @@ const datesList = computed(() => Object.keys(tvGamesByDate.value).sort());
     padding-top: 110px;
   }
 
+  .daily-padding {
+    padding-top: 85px;
+  }
+
   .short-main-padding {
     padding-top: 59.5px;
   }
