@@ -133,6 +133,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
         :tv-games="tvGameResult.tvGames.tvGames"
         :is-bowl-week="isBowlWeek"
         :is-mbk-postseason="isMbkPostseason"
+        :is-daily="false"
         :show-ppv-column="tvGameResult.tvGames.showPPVColumn" />
       <NoTvGames v-if="!isBowlWeek && tvGameResult.tvGames.hasNoTVGames" :sport="sport" :year="year" :week="week" />
       <BackToTop />

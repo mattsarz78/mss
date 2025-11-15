@@ -8,10 +8,11 @@ const props = defineProps<{
   tvGames: TvGame[];
   isBowlWeek: boolean;
   isMbkPostseason: boolean;
+  isDaily: boolean;
   showPpvColumn: boolean;
 }>();
 
-const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn } = props;
+const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, isDaily } = props;
 
 const getGameDate = (timeWithOffset: string): string => {
   const eastern = DateTime.fromISO(timeWithOffset).setZone('America/New_York');
@@ -41,7 +42,7 @@ const datesList = computed(() => Object.keys(tvGamesByDate.value).sort());
   <div
     id="Main"
     v-reset-adsense-height
-    :class="[isMbkPostseason || isBowlWeek ? 'short-main-padding' : 'main-padding']">
+    :class="[isMbkPostseason || isBowlWeek ? 'short-main-padding' : isDaily ? 'daily-padding' : 'main-padding']">
     <div id="WeeksBase">
       <template v-if="tvGames.length === 0">
         <p>There are no televised games at this time</p>
@@ -66,6 +67,10 @@ const datesList = computed(() => Object.keys(tvGamesByDate.value).sort());
 <style scoped>
 .main-padding {
   padding-top: 140px;
+}
+
+.main-padding {
+  padding-top: 105px;
 }
 
 .short-main-padding {

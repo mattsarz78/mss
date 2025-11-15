@@ -75,6 +75,7 @@ setupPrintListener();
         :tv-games="dailyTvGameResult.dailyTvGames.tvGames"
         :is-bowl-week="false"
         :is-mbk-postseason="false"
+        :is-daily="true"
         :show-ppv-column="dailyTvGameResult.dailyTvGames.showPPVColumn" />
       <BackToTop />
       <AdsByGoogle />
