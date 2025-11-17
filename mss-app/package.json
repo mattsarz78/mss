@@ -76,7 +76,7 @@
     "lightningcss": "^1.30.2",
     "rollup-plugin-visualizer": "^6.0.5",
     "terser": "^5.44.1",
-    "vite-plugin-vue-devtools": "^8.0.3",
+    "vite-plugin-vue-devtools": "^8.0.5",
     "vue-tsc": "^3.1.4"
   },
   "graphql": {
