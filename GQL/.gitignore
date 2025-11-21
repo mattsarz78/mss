@@ -4,3 +4,4 @@ node_modules
 __generated__
 .DS_Store
 /dist
+/generated/prisma
