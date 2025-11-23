@@ -22,7 +22,7 @@ export const useDailyTvGames = (sport: string) => {
     return paramYear
       ? sport === 'football'
         ? paramYear
-        : `${paramYear.substring(0, 4)}-${paramYear.substring(5, 6)}`
+        : `${paramYear.substring(0, 4)}-${paramYear.substring(4, 6)}`
       : '';
   });
 

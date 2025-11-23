@@ -1,5 +1,5 @@
-import { TV_GAMES, type TvGameData } from '#/graphQl.mjs';
 import { useApolloQuery } from '#/composables/useApolloQuery.mjs';
+import { TV_GAMES, type TvGameData } from '#/graphQl.mjs';
 
 export const useWeekSchedule = (sport: string, year: string, week: number) => {
   const variables: { input: { season: string; sport: string; week: number } } = {
