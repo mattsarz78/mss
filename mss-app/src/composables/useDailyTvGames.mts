@@ -1,7 +1,7 @@
+import { useApolloQuery } from '#/composables/useApolloQuery.mjs';
 import { DAILY_TV_GAMES, type TvGameData } from '#/graphQl.mjs';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
-import { useApolloQuery } from '#/composables/useApolloQuery.mjs';
 
 export const useDailyTvGames = (sport: string) => {
   const startDateET = DateTime.now().setZone('America/New_York').toISODate();
@@ -22,7 +22,7 @@ export const useDailyTvGames = (sport: string) => {
     return paramYear
       ? sport === 'football'
         ? paramYear
-        : `${paramYear.substring(0, 4)}-${paramYear.substring(5)}`
+        : `${paramYear.substring(0, 4)}-${paramYear.substring(5, 6)}`
       : '';
   });
 
