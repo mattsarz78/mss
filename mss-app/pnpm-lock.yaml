@@ -43,8 +43,8 @@ importers:
         version: 4.6.3(vue@3.5.24(typescript@5.8.3))
     devDependencies:
       '@apollo/client-devtools-vscode':
-        specifier: ^4.21.10
-        version: 4.21.10(@apollo/client@4.0.9(graphql@16.12.0)(rxjs@7.8.2))(graphql@16.12.0)(rxjs@7.8.2)
+        specifier: ^4.21.11
+        version: 4.21.11(@apollo/client@4.0.9(graphql@16.12.0)(rxjs@7.8.2))(graphql@16.12.0)(rxjs@7.8.2)
       '@rushstack/eslint-patch':
         specifier: ^1.15.0
         version: 1.15.0
@@ -53,10 +53,10 @@ importers:
         version: 10.2.0(eslint@9.31.0)(prettier@3.6.2)
       '@vue/eslint-config-typescript':
         specifier: ^14.6.0
-        version: 14.6.0(eslint-plugin-vue@10.5.1(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0)))(eslint@9.31.0)(typescript@5.8.3)
+        version: 14.6.0(eslint-plugin-vue@10.6.0(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0)))(eslint@9.31.0)(typescript@5.8.3)
       eslint-plugin-vue:
-        specifier: ^10.5.1
-        version: 10.5.1(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0))
+        specifier: ^10.6.0
+        version: 10.6.0(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0))
       eslint-plugin-vuejs-accessibility:
         specifier: ^2.4.1
         version: 2.4.1(eslint@9.31.0)
@@ -73,8 +73,8 @@ importers:
         specifier: ^8.0.5
         version: 8.0.5(vite@7.2.4(@types/node@24.0.14)(lightningcss@1.30.2)(terser@5.44.1))(vue@3.5.24(typescript@5.8.3))
       vue-tsc:
-        specifier: ^3.1.4
-        version: 3.1.4(typescript@5.8.3)
+        specifier: ^3.1.5
+        version: 3.1.5(typescript@5.8.3)
 
 packages:
 
@@ -84,8 +84,8 @@ packages:
     peerDependencies:
       ajv: '>=8'
 
-  '@apollo/client-devtools-vscode@4.21.10':
-    resolution: {integrity: sha512-wqEYJ0Lom4xCzMl6bihf9jURsxOr9NnnrU2hD4KLg8Spdee2FC2lg1hJH3prhf2jnezsjSAUHD8pXNkICY2VJA==}
+  '@apollo/client-devtools-vscode@4.21.11':
+    resolution: {integrity: sha512-oWMY+cPJRXRDX+TzC2MMW08VPj8hZIDuskeojW6EkQElkYFA111DbmWAaItFMtmboBdhOZ8LUGjTxgQqJ5XFIg==}
     peerDependencies:
       '@apollo/client': ^3.4.0 || ^4.0.0
       graphql: ^16.0.0
@@ -1221,8 +1221,8 @@ packages:
       typescript:
         optional: true
 
-  '@vue/language-core@3.1.4':
-    resolution: {integrity: sha512-n/58wm8SkmoxMWkUNUH/PwoovWe4hmdyPJU2ouldr3EPi1MLoS7iDN46je8CsP95SnVBs2axInzRglPNKvqMcg==}
+  '@vue/language-core@3.1.5':
+    resolution: {integrity: sha512-FMcqyzWN+sYBeqRMWPGT2QY0mUasZMVIuHvmb5NT3eeqPrbHBYtCP8JWEUCDCgM+Zr62uuWY/qoeBrPrzfa78w==}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -1597,8 +1597,8 @@ packages:
       eslint-config-prettier:
         optional: true
 
-  eslint-plugin-vue@10.5.1:
-    resolution: {integrity: sha512-SbR9ZBUFKgvWAbq3RrdCtWaW0IKm6wwUiApxf3BVTNfqUIo4IQQmreMg2iHFJJ6C/0wss3LXURBJ1OwS/MhFcQ==}
+  eslint-plugin-vue@10.6.0:
+    resolution: {integrity: sha512-TsoFluWxOpsJlE/l2jJygLQLWBPJ3Qdkesv7tBIunICbTcG0dS1/NBw/Ol4tJw5kHWlAVds4lUmC29/vlPUcEQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       '@stylistic/eslint-plugin': ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -2331,8 +2331,8 @@ packages:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
     engines: {node: '>= 0.4'}
 
-  postcss-selector-parser@6.1.2:
-    resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
+  postcss-selector-parser@7.1.0:
+    resolution: {integrity: sha512-8sLjZwK0R+JlxlYcTuVnyT2v+htpdrjDOKuMcOVdYjt52Lh8hWRYpxBPoKx/Zg+bcjc3wx6fmQevMmUztS/ccA==}
     engines: {node: '>=4'}
 
   postcss@8.5.6:
@@ -2842,8 +2842,8 @@ packages:
     peerDependencies:
       vue: ^3.5.0
 
-  vue-tsc@3.1.4:
-    resolution: {integrity: sha512-GsRJxttj4WkmXW/zDwYPGMJAN3np/4jTzoDFQTpTsI5Vg/JKMWamBwamlmLihgSVHO66y9P7GX+uoliYxeI4Hw==}
+  vue-tsc@3.1.5:
+    resolution: {integrity: sha512-L/G9IUjOWhBU0yun89rv8fKqmKC+T0HfhrFjlIml71WpfBv9eb4E9Bev8FMbyueBIU9vxQqbd+oOsVcDa5amGw==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
@@ -2979,7 +2979,7 @@ snapshots:
       jsonpointer: 5.0.1
       leven: 3.1.0
 
-  '@apollo/client-devtools-vscode@4.21.10(@apollo/client@4.0.9(graphql@16.12.0)(rxjs@7.8.2))(graphql@16.12.0)(rxjs@7.8.2)':
+  '@apollo/client-devtools-vscode@4.21.11(@apollo/client@4.0.9(graphql@16.12.0)(rxjs@7.8.2))(graphql@16.12.0)(rxjs@7.8.2)':
     dependencies:
       '@apollo/client': 4.0.9(graphql@16.12.0)(rxjs@7.8.2)
       graphql: 16.12.0
@@ -4224,11 +4224,11 @@ snapshots:
     transitivePeerDependencies:
       - '@types/eslint'
 
-  '@vue/eslint-config-typescript@14.6.0(eslint-plugin-vue@10.5.1(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0)))(eslint@9.31.0)(typescript@5.8.3)':
+  '@vue/eslint-config-typescript@14.6.0(eslint-plugin-vue@10.6.0(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0)))(eslint@9.31.0)(typescript@5.8.3)':
     dependencies:
       '@typescript-eslint/utils': 8.47.0(eslint@9.31.0)(typescript@5.8.3)
       eslint: 9.31.0
-      eslint-plugin-vue: 10.5.1(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0))
+      eslint-plugin-vue: 10.6.0(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0))
       fast-glob: 3.3.3
       typescript-eslint: 8.47.0(eslint@9.31.0)(typescript@5.8.3)
       vue-eslint-parser: 10.2.0(eslint@9.31.0)
@@ -4237,7 +4237,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vue/language-core@3.1.4(typescript@5.8.3)':
+  '@vue/language-core@3.1.5(typescript@5.8.3)':
     dependencies:
       '@volar/language-core': 2.4.23
       '@vue/compiler-dom': 3.5.24
@@ -4685,13 +4685,13 @@ snapshots:
     optionalDependencies:
       eslint-config-prettier: 10.1.8(eslint@9.31.0)
 
-  eslint-plugin-vue@10.5.1(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0)):
+  eslint-plugin-vue@10.6.0(@typescript-eslint/parser@8.47.0(eslint@9.31.0)(typescript@5.8.3))(eslint@9.31.0)(vue-eslint-parser@10.2.0(eslint@9.31.0)):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.31.0)
       eslint: 9.31.0
       natural-compare: 1.4.0
       nth-check: 2.1.1
-      postcss-selector-parser: 6.1.2
+      postcss-selector-parser: 7.1.0
       semver: 7.7.3
       vue-eslint-parser: 10.2.0(eslint@9.31.0)
       xml-name-validator: 4.0.0
@@ -5378,7 +5378,7 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-selector-parser@6.1.2:
+  postcss-selector-parser@7.1.0:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
@@ -5962,10 +5962,10 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.24(typescript@5.8.3)
 
-  vue-tsc@3.1.4(typescript@5.8.3):
+  vue-tsc@3.1.5(typescript@5.8.3):
     dependencies:
       '@volar/typescript': 2.4.23
-      '@vue/language-core': 3.1.4(typescript@5.8.3)
+      '@vue/language-core': 3.1.5(typescript@5.8.3)
       typescript: 5.8.3
 
   vue@3.5.24(typescript@5.8.3):

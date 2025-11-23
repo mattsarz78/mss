@@ -66,17 +66,17 @@
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
-    "@apollo/client-devtools-vscode": "^4.21.10",
+    "@apollo/client-devtools-vscode": "^4.21.11",
     "@rushstack/eslint-patch": "^1.15.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
-    "eslint-plugin-vue": "^10.5.1",
+    "eslint-plugin-vue": "^10.6.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "lightningcss": "^1.30.2",
     "rollup-plugin-visualizer": "^6.0.5",
     "terser": "^5.44.1",
     "vite-plugin-vue-devtools": "^8.0.5",
-    "vue-tsc": "^3.1.4"
+    "vue-tsc": "^3.1.5"
   },
   "graphql": {
     "schema": "./schema.graphql",
