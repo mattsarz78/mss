@@ -33,15 +33,15 @@
     "pullImage": "docker pull mattsarz78/graphql:latest"
   },
   "dependencies": {
-    "@apollo/server": "^5.1.0",
+    "@apollo/server": "^5.2.0",
     "@as-integrations/express5": "^1.1.2",
     "@dotenvx/dotenvx": "^1.51.1",
     "@graphql-tools/graphql-file-loader": "^8.1.7",
     "@graphql-tools/load": "^8.1.6",
     "@graphql-tools/merge": "^9.1.5",
-    "@prisma/adapter-pg": "^7.0.0",
-    "@prisma/client": "^7.0.0",
-    "body-parser": "^2.2.0",
+    "@prisma/adapter-pg": "^7.0.1",
+    "@prisma/client": "^7.0.1",
+    "body-parser": "^2.2.1",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
@@ -60,9 +60,9 @@
     "@types/express": "^5.0.5",
     "dotenv-cli": "^11.0.0",
     "esbuild": "^0.27.0",
-    "prisma": "^7.0.0",
+    "prisma": "^7.0.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.47.0"
+    "typescript-eslint": "^8.48.0"
   },
   "graphql": {
     "schema": "./schema.graphql",
