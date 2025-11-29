@@ -34,18 +34,7 @@ WORKDIR /app
 # process can read them.
 COPY --from=build --chown=65532:65532 /opt/node_modules.prod ./node_modules
 COPY --from=build --chown=65532:65532 /app/dist ./dist
-# COPY --from=build --chown=65532:65532 /app/__generated__ ./__generated__
-# COPY --from=build --chown=65532:65532 /app/database ./database
-# COPY --from=build --chown=65532:65532 /app/resolvers ./resolvers
 COPY --from=build --chown=65532:65532 /app/schemas ./schemas
-# COPY --from=build --chown=65532:65532 /app/utils/errorHandler.mts ./utils/errorHandler.mts
-# COPY --from=build --chown=65532:65532 /app/utils/image.mts ./utils/image.mts
-# COPY --from=build --chown=65532:65532 /app/staticData ./staticData
-# COPY --from=build --chown=65532:65532 /app/index.mts \
-#   /app/context.mts \
-#   /app/tsconfig.json \
-#   /app/package.json \
-#   ./
 
 # Expose the application port
 EXPOSE 8020
