@@ -2,6 +2,7 @@
 import AdsByGoogle from '#shared/AdsByGoogle.vue';
 import Copyright from '#shared/CopyrightLink.vue';
 import { addMetaTags } from '#utils/metaTags.mjs';
+import { Image } from '@unpic/vue';
 import { RouterLink } from 'vue-router';
 
 const title = "Matt's College Sports on TV";
@@ -11,7 +12,10 @@ addMetaTags(title);
 
 <template>
   <div id="Main" v-reset-adsense-height>
-    <div><img id="imgtitle" loading="lazy" alt="Matt's College Sports" src="/images/logo.jpg" /><br /></div>
+    <div>
+      <Image id="imgtitle" loading="lazy" alt="Matt's College Sports" src="/images/logo.jpg" layout="responsive" />
+      <br />
+    </div>
     <div id="content">
       <div id="Links">
         <RouterLink to="/season/football/2025"> 2025 Football </RouterLink><br />
