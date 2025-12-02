@@ -30,9 +30,10 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   const { images, imageHyperlinks, textHyperlinks, infoLinks, strings } = validateFieldData(networks);
 
   images.forEach((image) => {
+    image = image.replace('.jpg', '.webp')
     imagesString.push(
       `<picture>
-        <source media="only screen and (max-width: 640px)" srcset="/images/${image.replace('.jpg', '-small.jpg')}" sizes="43w" />
+        <source media="only screen and (max-width: 640px)" srcset="/images/${image.replace('.webp', '-small.webp')}" sizes="43w" />
         <img class="imgBorder" loading="lazy" src="/images/${image}" sizes="66w"/>
       </picture>`
     );
@@ -40,11 +41,11 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
 
   imageHyperlinks.forEach((imageHyperlink) => {
     const imageArray = (imagesForUrls as ImagesForUrl[]).filter((x: ImagesForUrl) => imageHyperlink.includes(x.link));
-    const imageUrl = getImageUrl(imageArray, season);
+    const imageUrl = getImageUrl(imageArray, season).replace('.jpg', '.webp');
     imageHyperlinkString.push(
       `<a href="${imageHyperlink}" target="_blank" rel="noopener">
       <picture>
-        <source media="only screen and (max-width: 640px)" srcset="/images/${imageUrl.replace('.jpg', '-small.jpg')}" sizes="43w" />
+        <source media="only screen and (max-width: 640px)" srcset="/images/${imageUrl.replace('.webp', '-small.webp')}" sizes="43w" />
         <img class="imgBorder" loading="lazy" src="/images/${imageUrl}" sizes="66w" />
       </picture>
       </a>`
