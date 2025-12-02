@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import type { PluginOption, UserConfig, UserConfigExport } from 'vite';
 import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { sharpImagesPlugin } from './plugins/sharpImages.mjs';
 import { versionJson } from './plugins/writeVersion.mjs';
 
 const _dirname = dirname(fileURLToPath(import.meta.url));
@@ -64,12 +65,13 @@ export default defineConfig(({ mode }): UserConfig => {
       open: false // Don't open browser automatically
     },
     css: { devSourcemap: true },
-    assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.gif', 'version.json'],
+    assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.gif', 'version.json', '**/*.webp'],
     base: '/',
     publicDir: 'public',
     plugins: [
       versionJson(),
       vue({ isProduction: true, features: { optionsAPI: false } }),
+      sharpImagesPlugin(),
       VitePWA({
         injectRegister: 'script-defer',
         registerType: 'autoUpdate',
