@@ -6,11 +6,8 @@ FROM node:24-bullseye-slim AS build
 ENV NODE_ENV=development
 ENV CI=true
 WORKDIR /app
-  
+
 # Copy package manifests and the entire source so codegen/build can run
-COPY package.json pnpm-*.yaml codegen.yml ./
-COPY prisma ./prisma
-COPY schemas ./schemas
 COPY . /app
 
 # Install dependencies, run generators and build, then prune and save prod node_modules
@@ -20,7 +17,8 @@ RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
   && pnpm prismaGen && pnpm graphQlGen && pnpm prismaFormat \
   && pnpm run build:dist \
   && pnpm prune --prod --no-optional \
-  && mv node_modules /opt/node_modules.prod
+  && mv node_modules /opt/node_modules.prod \
+  && rm -rf /tmp/* /root/.npm
 
 # Stage 2: Production
 FROM gcr.io/distroless/nodejs24-debian13:nonroot AS production
