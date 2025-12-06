@@ -46,8 +46,8 @@ importers:
         version: 4.6.3(vue@3.5.25(typescript@5.8.3))
     devDependencies:
       '@apollo/client-devtools-vscode':
-        specifier: ^4.22.2
-        version: 4.22.2(@apollo/client@4.0.9(graphql@16.12.0)(rxjs@7.8.2))(graphql@16.12.0)(rxjs@7.8.2)
+        specifier: ^4.22.3
+        version: 4.22.3(@apollo/client@4.0.9(graphql@16.12.0)(rxjs@7.8.2))(graphql@16.12.0)(rxjs@7.8.2)
       '@rushstack/eslint-patch':
         specifier: ^1.15.0
         version: 1.15.0
@@ -79,8 +79,8 @@ importers:
         specifier: ^8.0.5
         version: 8.0.5(vite@7.2.6(@types/node@24.0.14)(lightningcss@1.30.2)(terser@5.44.1))(vue@3.5.25(typescript@5.8.3))
       vue-tsc:
-        specifier: ^3.1.5
-        version: 3.1.5(typescript@5.8.3)
+        specifier: ^3.1.6
+        version: 3.1.6(typescript@5.8.3)
 
 packages:
 
@@ -90,8 +90,8 @@ packages:
     peerDependencies:
       ajv: '>=8'
 
-  '@apollo/client-devtools-vscode@4.22.2':
-    resolution: {integrity: sha512-UEpbIgq851RO/TskDeOuDePnmz1RwHlZ4VYO+Ssm8KJkq+xzfdyQUyCZpE1dRy2ZYYb4McNKL0M7gcvTDzTFaw==}
+  '@apollo/client-devtools-vscode@4.22.3':
+    resolution: {integrity: sha512-asOQ6ZUgsR7sFhdOVMwBjRWY24y+LHsYRlIfmGY+LmrQ4n2TEgUBZkWgAj0m7RFkdk0S+SMWYoFQqum7f64K5A==}
     peerDependencies:
       '@apollo/client': ^3.4.0 || ^4.0.0
       graphql: ^16.0.0
@@ -1305,14 +1305,14 @@ packages:
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0
       vue: ^3.2.25
 
-  '@volar/language-core@2.4.23':
-    resolution: {integrity: sha512-hEEd5ET/oSmBC6pi1j6NaNYRWoAiDhINbT8rmwtINugR39loROSlufGdYMF9TaKGfz+ViGs1Idi3mAhnuPcoGQ==}
+  '@volar/language-core@2.4.26':
+    resolution: {integrity: sha512-hH0SMitMxnB43OZpyF1IFPS9bgb2I3bpCh76m2WEK7BE0A0EzpYsRp0CCH2xNKshr7kacU5TQBLYn4zj7CG60A==}
 
-  '@volar/source-map@2.4.23':
-    resolution: {integrity: sha512-Z1Uc8IB57Lm6k7q6KIDu/p+JWtf3xsXJqAX/5r18hYOTpJyBn0KXUR8oTJ4WFYOcDzWC9n3IflGgHowx6U6z9Q==}
+  '@volar/source-map@2.4.26':
+    resolution: {integrity: sha512-JJw0Tt/kSFsIRmgTQF4JSt81AUSI1aEye5Zl65EeZ8H35JHnTvFGmpDOBn5iOxd48fyGE+ZvZBp5FcgAy/1Qhw==}
 
-  '@volar/typescript@2.4.23':
-    resolution: {integrity: sha512-lAB5zJghWxVPqfcStmAP1ZqQacMpe90UrP5RJ3arDyrhy4aCUQqmxPPLB2PWDKugvylmO41ljK7vZ+t6INMTag==}
+  '@volar/typescript@2.4.26':
+    resolution: {integrity: sha512-N87ecLD48Sp6zV9zID/5yuS1+5foj0DfuYGdQ6KHj/IbKvyKv1zNX6VCmnKYwtmHadEO6mFc2EKISiu3RDPAvA==}
 
   '@vue/babel-helper-vue-transform-on@1.5.0':
     resolution: {integrity: sha512-0dAYkerNhhHutHZ34JtTl2czVQHUNWv6xEbkdF5W+Yrv5pCWsqjeORdOgbtW2I9gWlt+wBmVn+ttqN9ZxR5tzA==}
@@ -1373,8 +1373,8 @@ packages:
       typescript:
         optional: true
 
-  '@vue/language-core@3.1.5':
-    resolution: {integrity: sha512-FMcqyzWN+sYBeqRMWPGT2QY0mUasZMVIuHvmb5NT3eeqPrbHBYtCP8JWEUCDCgM+Zr62uuWY/qoeBrPrzfa78w==}
+  '@vue/language-core@3.1.6':
+    resolution: {integrity: sha512-F3BIvDVyyj+6Sgl9Ev9zsb/DJ48rrH2EiI5NnIEpJKo7Yk8v0n2QjfG7/RYyFhYSMOJcsf6aAt5hx4JaNbhKbg==}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -1510,8 +1510,8 @@ packages:
     resolution: {integrity: sha512-OPz5aBThlyLFgxyhdwf/s2+8ab3OvT7AdTNvKHBwpXomIYeXqpUUuT8LrdtxZSsWJ4R4CU1un4XGh5Ez3nlTpw==}
     hasBin: true
 
-  baseline-browser-mapping@2.9.2:
-    resolution: {integrity: sha512-PxSsosKQjI38iXkmb3d0Y32efqyA0uW4s41u4IVBsLlWLhCiYNpH/AfNOVWRqCQBlD8TFJTz6OUWNd4DFJCnmw==}
+  baseline-browser-mapping@2.9.3:
+    resolution: {integrity: sha512-8QdH6czo+G7uBsNo0GiUfouPN1lRzKdJTGnKXwe12gkFbnnOUaUKGN55dMkfy+mnxmvjwl9zcI4VncczcVXDhA==}
     hasBin: true
 
   birpc@2.8.0:
@@ -1691,8 +1691,8 @@ packages:
   electron-to-chromium@1.5.262:
     resolution: {integrity: sha512-NlAsMteRHek05jRUxUR0a5jpjYq9ykk6+kO0yRaMi5moe7u0fVIOeQ3Y30A8dIiWFBNUoQGi1ljb1i5VtS9WQQ==}
 
-  electron-to-chromium@1.5.265:
-    resolution: {integrity: sha512-B7IkLR1/AE+9jR2LtVF/1/6PFhY5TlnEHnlrKmGk7PvkJibg5jr+mLXLLzq3QYl6PA1T/vLDthQPqIPAlS/PPA==}
+  electron-to-chromium@1.5.266:
+    resolution: {integrity: sha512-kgWEglXvkEfMH7rxP5OSZZwnaDWT7J9EoZCujhnpLbfi0bbNtRkgdX2E3gt0Uer11c61qCYktB3hwkAS325sJg==}
 
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==}
@@ -3022,8 +3022,8 @@ packages:
     peerDependencies:
       vue: ^3.5.0
 
-  vue-tsc@3.1.5:
-    resolution: {integrity: sha512-L/G9IUjOWhBU0yun89rv8fKqmKC+T0HfhrFjlIml71WpfBv9eb4E9Bev8FMbyueBIU9vxQqbd+oOsVcDa5amGw==}
+  vue-tsc@3.1.6:
+    resolution: {integrity: sha512-h5mMNGIDI+WMZxTeuYcpfSeDtBIiHXAg3qsrt65H4vcFTYmuM1THNHMzlnDvD8kX0fwLuf6auxWP340bH/zcpw==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
@@ -3159,7 +3159,7 @@ snapshots:
       jsonpointer: 5.0.1
       leven: 3.1.0
 
-  '@apollo/client-devtools-vscode@4.22.2(@apollo/client@4.0.9(graphql@16.12.0)(rxjs@7.8.2))(graphql@16.12.0)(rxjs@7.8.2)':
+  '@apollo/client-devtools-vscode@4.22.3(@apollo/client@4.0.9(graphql@16.12.0)(rxjs@7.8.2))(graphql@16.12.0)(rxjs@7.8.2)':
     dependencies:
       '@apollo/client': 4.0.9(graphql@16.12.0)(rxjs@7.8.2)
       graphql: 16.12.0
@@ -4407,15 +4407,15 @@ snapshots:
       vite: 7.2.6(@types/node@24.0.14)(lightningcss@1.30.2)(terser@5.44.1)
       vue: 3.5.25(typescript@5.8.3)
 
-  '@volar/language-core@2.4.23':
+  '@volar/language-core@2.4.26':
     dependencies:
-      '@volar/source-map': 2.4.23
+      '@volar/source-map': 2.4.26
 
-  '@volar/source-map@2.4.23': {}
+  '@volar/source-map@2.4.26': {}
 
-  '@volar/typescript@2.4.23':
+  '@volar/typescript@2.4.26':
     dependencies:
-      '@volar/language-core': 2.4.23
+      '@volar/language-core': 2.4.26
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
 
@@ -4528,9 +4528,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vue/language-core@3.1.5(typescript@5.8.3)':
+  '@vue/language-core@3.1.6(typescript@5.8.3)':
     dependencies:
-      '@volar/language-core': 2.4.23
+      '@volar/language-core': 2.4.26
       '@vue/compiler-dom': 3.5.25
       '@vue/shared': 3.5.25
       alien-signals: 3.1.1
@@ -4680,7 +4680,7 @@ snapshots:
 
   baseline-browser-mapping@2.8.32: {}
 
-  baseline-browser-mapping@2.9.2: {}
+  baseline-browser-mapping@2.9.3: {}
 
   birpc@2.8.0: {}
 
@@ -4709,9 +4709,9 @@ snapshots:
 
   browserslist@4.28.1:
     dependencies:
-      baseline-browser-mapping: 2.9.2
+      baseline-browser-mapping: 2.9.3
       caniuse-lite: 1.0.30001759
-      electron-to-chromium: 1.5.265
+      electron-to-chromium: 1.5.266
       node-releases: 2.0.27
       update-browserslist-db: 1.2.2(browserslist@4.28.1)
 
@@ -4856,7 +4856,7 @@ snapshots:
 
   electron-to-chromium@1.5.262: {}
 
-  electron-to-chromium@1.5.265: {}
+  electron-to-chromium@1.5.266: {}
 
   emoji-regex@10.6.0: {}
 
@@ -6306,10 +6306,10 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.25(typescript@5.8.3)
 
-  vue-tsc@3.1.5(typescript@5.8.3):
+  vue-tsc@3.1.6(typescript@5.8.3):
     dependencies:
-      '@volar/typescript': 2.4.23
-      '@vue/language-core': 3.1.5(typescript@5.8.3)
+      '@volar/typescript': 2.4.26
+      '@vue/language-core': 3.1.6(typescript@5.8.3)
       typescript: 5.8.3
 
   vue@3.5.25(typescript@5.8.3):

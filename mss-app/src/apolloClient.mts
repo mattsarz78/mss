@@ -10,7 +10,7 @@ export const apolloClient = new ApolloClient({
   link: httpLink,
   cache,
   defaultOptions: {
-    query: { fetchPolicy: 'no-cache', errorPolicy: 'all' },
+    query: { fetchPolicy: 'cache-first', errorPolicy: 'all' },
     watchQuery: { fetchPolicy: 'cache-and-network', errorPolicy: 'all' }
   }
 });
