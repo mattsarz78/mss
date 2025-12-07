@@ -14,7 +14,11 @@ export interface DailyTvGamesArgs {
 const zeroHour = { hour: 0, minute: 0, seconds: 0, milliseconds: 0 };
 const endOfDay = { hour: 4, minute: 59, seconds: 59, milliseconds: 0 };
 
-export const dailyTvGames = async (_1: unknown, { input }: DailyTvGamesArgs, context: IContext): Promise<TvGameData> => {
+export const dailyTvGames = async (
+  _1: unknown,
+  { input }: DailyTvGamesArgs,
+  context: IContext
+): Promise<TvGameData> => {
   try {
     if (!input.startDate || !input.sport) {
       throw new BadRequestError('Start date and sport are required');
@@ -29,12 +33,14 @@ export const dailyTvGames = async (_1: unknown, { input }: DailyTvGamesArgs, con
       sport: input.sport
     });
 
-    const seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(results[0].season?.trim() ?? '');
-
+    let seasonDataResult;
+    if (results.length != 0) {
+      seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(results[0].season?.trim() ?? '');
+    }
     return {
-      showPPVColumn: seasonDataResult.showPPVColumn,
-      hasNoTVGames: seasonDataResult.hasNoTVGames,
-      flexScheduleLink: seasonDataResult.flexScheduleLink,
+      showPPVColumn: seasonDataResult?.showPPVColumn ?? false,
+      hasNoTVGames: seasonDataResult?.hasNoTVGames ?? false,
+      flexScheduleLink: seasonDataResult?.flexScheduleLink,
       tvGames: results.map((result: football | basketball) => ({
         season: result.season?.trim() ?? '',
         gameTitle: result.gametitle?.trim() ?? '',
@@ -48,7 +54,7 @@ export const dailyTvGames = async (_1: unknown, { input }: DailyTvGamesArgs, con
         mediaIndicator: result.mediaindicator?.trim() ?? '',
         timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
       }))
-    }
+    };
   } catch (err: unknown) {
     throw handleError(err);
   }
