@@ -93,6 +93,10 @@ setupPrintListener();
   border: 0;
 }
 
+:deep(img) {
+  aspect-ratio: 66 / 50;
+}
+
 .filters {
   margin: 0;
 }
@@ -176,6 +180,10 @@ setupPrintListener();
   .navbar {
     height: 58px;
     padding: 10px 3px;
+  }
+
+  :deep(img) {
+    aspect-ratio: 43 / 33;
   }
 }
 </style>

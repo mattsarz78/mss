@@ -110,6 +110,10 @@ const formattedGames = computed(() =>
   font-style: italic;
 }
 
+:deep(img) {
+  aspect-ratio: 66 / 50;
+}
+
 @media only screen and (max-width: 640px) {
   .game {
     padding: 1px;
@@ -117,6 +121,10 @@ const formattedGames = computed(() =>
 
   .network {
     padding: 0;
+  }
+
+  :deep(img) {
+    aspect-ratio: 43 / 33;
   }
 }
 </style>

@@ -41,6 +41,10 @@ const { tvGame } = props;
   border: 0;
 }
 
+:deep(img) {
+  aspect-ratio: 66 / 50;
+}
+
 .network {
   width: 20%;
   padding: 2px;
@@ -83,6 +87,10 @@ const { tvGame } = props;
 
   .network {
     padding: 0;
+  }
+
+  :deep(img) {
+    aspect-ratio: 43 / 33;
   }
 }
 </style>
