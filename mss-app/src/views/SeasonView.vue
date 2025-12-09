@@ -20,7 +20,7 @@ const { result, loading, error } = useSeasonContents(year);
 </script>
 
 <template>
-  <nav class="navbar DONTPrint">
+  <nav role="navigation" class="navbar DONTPrint">
     <div class="container">
       <div class="flex-container">
         <div>
@@ -30,7 +30,7 @@ const { result, loading, error } = useSeasonContents(year);
       </div>
     </div>
   </nav>
-  <div id="Main" v-reset-adsense-height>
+  <main v-reset-adsense-height>
     <p>{{ title }}</p>
     <template v-if="error">Got a problem. Let Matt know.</template>
     <template v-if="loading">
@@ -61,7 +61,7 @@ const { result, loading, error } = useSeasonContents(year);
     </div>
     <AdsByGoogle />
     <Copyright />
-  </div>
+  </main>
 </template>
 
 <style scoped>
@@ -75,7 +75,7 @@ const { result, loading, error } = useSeasonContents(year);
   min-height: 250px;
 }
 
-#Main {
+main {
   padding-top: 29px;
 }
 

@@ -43,7 +43,7 @@ setupPrintListener();
       </div>
     </template>
     <template v-if="dailyTvGameResult">
-      <nav class="navbar DONTPrint">
+      <nav role="navigation" class="navbar DONTPrint">
         <div class="container">
           <div class="flex-container">
             <div class="flex-row">

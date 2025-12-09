@@ -46,7 +46,7 @@ const basketballSeasons = [
 </script>
 
 <template>
-  <div id="Main" v-reset-adsense-height>
+  <main v-reset-adsense-height>
     <div id="content">
       <div id="Links">
         <RouterLink to="/"> Home </RouterLink><br />
@@ -66,7 +66,7 @@ const basketballSeasons = [
       </div>
     </div>
     <AdsByGoogle />
-  </div>
+  </main>
   <Copyright />
 </template>
 
@@ -78,7 +78,7 @@ const basketballSeasons = [
     display: inline;
   }
 
-  #Main {
+  main {
     padding-top: 37px;
   }
 }
@@ -90,7 +90,7 @@ const basketballSeasons = [
     display: inline;
   }
 
-  #Main {
+  main {
     padding-top: 48px;
   }
 }

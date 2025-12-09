@@ -46,7 +46,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, 
       </div>
     </template>
     <template v-if="seasonContentsResult && tvGameResult">
-      <nav class="navbar DONTPrint">
+      <nav role="navigation" class="navbar DONTPrint">
         <div class="container">
           <div class="flex-container">
             <div class="flex-row">

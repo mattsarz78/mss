@@ -3,14 +3,14 @@ import { useConferenceGames } from '#composables/useConferenceGames.mjs';
 import { useSeasonData } from '#composables/useSeasonData.mjs';
 import ConferenceGameList from '#conference/ConferenceGameList.vue';
 import IndependentsGameList from '#conference/IndependentsGameList.vue';
+import conferenceCasing from '#data/conferenceCasing.json' with { type: 'json' };
+import type { ConferenceCasing } from '#data/exportTypes.mjs';
 import AdsByGoogle from '#shared/AdsByGoogle.vue';
 import BackToTop from '#shared/BackToTop.vue';
 import Copyright from '#shared/CopyrightLink.vue';
 import { addMetaTags } from '#utils/metaTags.mjs';
-import conferenceCasing from '#data/conferenceCasing.json' with { type: 'json' };
-import type { ConferenceCasing } from '#data/exportTypes.mjs';
-import { RouterLink, useRoute } from 'vue-router';
 import { setupPrintListener } from '#utils/printListener.mts';
+import { RouterLink, useRoute } from 'vue-router';
 
 const route = useRoute();
 const { conference, year } = route.params as { conference: string; year: string };
@@ -34,7 +34,7 @@ setupPrintListener();
 
 <template>
   <template v-if="result && seasonResult">
-    <nav class="navbar DONTPrint">
+    <nav role="navigation" class="navbar DONTPrint">
       <div class="container">
         <div class="flex-container">
           <div>
@@ -57,7 +57,7 @@ setupPrintListener();
       </div>
     </nav>
 
-    <div id="Main" v-reset-adsense-height>
+    <main v-reset-adsense-height>
       <div id="head" v-reset-adsense-height>
         <p>
           {{ cased }} Broadcast Schedule<br /><strong
@@ -81,7 +81,7 @@ setupPrintListener();
         <BackToTop />
         <AdsByGoogle />
       </div>
-    </div>
+    </main>
     <Copyright />
   </template>
   <template v-if="loading || seasonLoading">
@@ -141,7 +141,7 @@ setupPrintListener();
   flex-direction: column;
 }
 
-#Main {
+main {
   padding-top: 40px;
 }
 
@@ -154,7 +154,7 @@ setupPrintListener();
     padding-right: 10px;
   }
 
-  #Main {
+  main {
     padding-top: 21px;
   }
 

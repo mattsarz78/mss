@@ -39,8 +39,7 @@ const datesList = computed(() => Object.keys(tvGamesByDate.value).sort());
 </script>
 
 <template v-if="datesList.length">
-  <div
-    id="Main"
+  <main
     v-reset-adsense-height
     :class="[isMbkPostseason || isBowlWeek ? 'short-main-padding' : isDaily ? 'daily-padding' : 'main-padding']">
     <div id="WeeksBase">
@@ -61,7 +60,7 @@ const datesList = computed(() => Object.keys(tvGamesByDate.value).sort());
         </div>
       </template>
     </div>
-  </div>
+  </main>
 </template>
 
 <style scoped>

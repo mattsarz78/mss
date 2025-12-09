@@ -10,7 +10,7 @@ addMetaTags(title);
 </script>
 
 <template>
-  <div id="Main" v-reset-adsense-height>
+  <main v-reset-adsense-height>
     <div id="content">
       <div id="Links"><RouterLink to="/"> Home </RouterLink><br /></div>
       <div>
@@ -81,17 +81,17 @@ addMetaTags(title);
       </div>
     </div>
     <AdsByGoogle />
-  </div>
+  </main>
   <Copyright />
 </template>
 
 <style scoped>
-#Main {
+main {
   padding-top: 37px;
 }
 
 @media only screen and (max-width: 640px) {
-  #Main {
+  main {
     padding-top: 48px;
   }
 }

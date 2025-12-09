@@ -19,7 +19,7 @@ const { result, loading, error } = useSeasonData(year);
 
 <template>
   <template v-if="result">
-    <nav class="navbar DONTPrint">
+    <nav role="navigation" class="navbar DONTPrint">
       <div class="container">
         <div class="flex-container">
           <div>
@@ -32,13 +32,13 @@ const { result, loading, error } = useSeasonData(year);
         </div>
       </div>
     </nav>
-    <div id="Main" v-reset-adsense-height>
+    <main v-reset-adsense-height>
       <iframe
         :title="`Football TV Windows for ${year} season`"
         class="tvFrame"
         :src="`${result.seasonData.flexScheduleLink}${FLEXLINKSETUP}`" />
       <AdsByGoogle />
-    </div>
+    </main>
     <Copyright />
   </template>
   <template v-if="loading">

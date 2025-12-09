@@ -14,7 +14,7 @@ const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, season } = props;
 </script>
 
 <template>
-  <div id="Main" v-reset-adsense-height>
+  <main v-reset-adsense-height>
     <p id="Directions" class="DONTPrint">
       All start times displayed are based on your device's location. If you have trouble selecting &amp; printing games,
       please try selecting games, changing your print settings to "Print to PDF", print, then open the PDF file and
@@ -26,7 +26,7 @@ const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, season } = props;
       :is-mbk-postseason="isMbkPostseason"
       :show-ppv-column="showPpvColumn"
       :tv-games="tvGames" />
-  </div>
+  </main>
 </template>
 
 <style scoped>
@@ -34,7 +34,7 @@ const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, season } = props;
   margin-top: 3px;
 }
 
-#Main {
+main {
   padding-top: 130px;
 }
 
@@ -43,7 +43,7 @@ const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, season } = props;
     margin-top: 6px;
   }
 
-  #Main {
+  main {
     padding-top: 100px;
   }
 }

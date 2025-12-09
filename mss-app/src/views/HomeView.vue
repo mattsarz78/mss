@@ -11,7 +11,7 @@ addMetaTags(title);
 </script>
 
 <template>
-  <div id="Main" v-reset-adsense-height>
+  <main v-reset-adsense-height>
     <div>
       <Image id="imgtitle" loading="lazy" alt="Matt's College Sports" src="/images/logo.jpg" layout="responsive" />
       <br />
@@ -71,7 +71,7 @@ addMetaTags(title);
       <a href="mailto:footballsked@gmail.com"> Send it here </a>
     </p>
     <AdsByGoogle />
-  </div>
+  </main>
   <Copyright />
 </template>
 
@@ -91,7 +91,7 @@ addMetaTags(title);
   overflow: hidden;
 }
 
-#Main {
+main {
   padding-top: 37px;
 }
 
@@ -130,7 +130,7 @@ addMetaTags(title);
     width: 100%;
   }
 
-  #Main {
+  main {
     padding-top: 48px;
   }
 }

@@ -73,7 +73,7 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
       </div>
     </template>
     <template v-if="seasonContentsResult && tvGameResult">
-      <nav :class="`navbar DONTPrint ${navbarClass}`">
+      <nav role="navigation" :class="`navbar DONTPrint ${navbarClass}`">
         <div class="container">
           <div class="flex-container">
             <div class="flex-row">
