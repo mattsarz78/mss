@@ -119,6 +119,7 @@ export default defineConfig(({ mode }): UserConfig => {
       target: 'esnext',
       terserOptions: { compress: { drop_console: true, drop_debugger: true } },
       dynamicImportVarsOptions: { warnOnError: true, exclude: [] },
+      // Optimize chunk splitting
       rollupOptions: {
         external: ['workbox-window'],
         output: {
@@ -133,7 +134,11 @@ export default defineConfig(({ mode }): UserConfig => {
       },
       manifest: true, // Generate manifest.json for asset mapping
       sourcemap: mode === 'development',
-      reportCompressedSize: mode === 'production'
+      reportCompressedSize: mode === 'production',
+      // Optimize chunk size thresholds
+      chunkSizeWarningLimit: 700, // Warn if chunk > 700KB
+      // Enable CSS code splitting per chunk
+      cssCodeSplit: true
     },
     define: {
       'import.meta.env.API_URL': JSON.stringify(env.API_URL),
@@ -180,7 +185,12 @@ const chunkGroup = (id: string): string | null => {
 
 const getVendorChunk = (id: string): string => {
   if (id.includes('luxon') || id.includes('@vueuse/core')) return 'vendor-utils';
-  if (id.includes('vue') || id.includes('vue-router') || id.includes('@apollo/client')) return 'vendor-vue';
+  if (id.includes('vue') || id.includes('vue-router')) return 'vendor-vue';
+  if (id.includes('graphql') || id.includes('@apollo/client/core')) return 'vendor-graphql';
+  if (id.includes('apollo') || id.includes('@apollo/client')) return 'vendor-apollo';
+  if (id.includes('vue-dompurify-html')) return 'vendor-dom';
+  if (id.includes('unhead')) return 'vendor-head';
+  if (id.includes('unpic')) return 'vendor-images';
   return 'vendor-other';
 };
 
