@@ -48,8 +48,11 @@ const gamesToday = computed(() => {
 });
 
 const navbarClass = computed(() => {
-  if (isMbkPostseason.value || isBowlWeek.value) {
-    return 'short-height';
+  if (isMbkPostseason.value) {
+    return 'mbk-height';
+  }
+  if (isBowlWeek.value) {
+    return 'bowl-height';
   }
   if (gamesToday.value) {
     return 'navbar-pad-height';
@@ -169,8 +172,12 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
   height: 155px;
 }
 
-.short-height {
+.mbk-height {
   height: 69.5px;
+}
+
+.bowl-height {
+  height: 83.5px;
 }
 
 .container {
@@ -231,7 +238,8 @@ const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year
 }
 
 @media only screen and (max-width: 640px) {
-  .short-height {
+  .mbk-height,
+  .bowl-height {
     height: 39.5px;
   }
 
