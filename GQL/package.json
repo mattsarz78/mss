@@ -35,12 +35,12 @@
   "dependencies": {
     "@apollo/server": "^5.2.0",
     "@as-integrations/express5": "^1.1.2",
-    "@dotenvx/dotenvx": "^1.51.1",
+    "@dotenvx/dotenvx": "^1.51.2",
     "@graphql-tools/graphql-file-loader": "^8.1.8",
     "@graphql-tools/load": "^8.1.7",
     "@graphql-tools/merge": "^9.1.6",
-    "@prisma/adapter-pg": "^7.1.0",
-    "@prisma/client": "^7.1.0",
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "^7.2.0",
     "body-parser": "^2.2.1",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
@@ -50,23 +50,23 @@
     "tsx": "^4.21.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
+    "@eslint/js": "^9.39.2",
     "@graphql-codegen/cli": "^6.1.0",
-    "@graphql-codegen/typescript": "^5.0.6",
-    "@graphql-codegen/typescript-resolvers": "^5.1.4",
+    "@graphql-codegen/typescript": "^5.0.7",
+    "@graphql-codegen/typescript-resolvers": "^5.1.5",
     "@types/body-parser": "^1.19.6",
     "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "dotenv-cli": "^11.0.0",
-    "esbuild": "^0.27.1",
-    "prisma": "^7.1.0",
+    "esbuild": "^0.27.2",
+    "prisma": "^7.2.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.48.1"
+    "typescript-eslint": "^8.50.0"
   },
   "graphql": {
     "schema": "./schema.graphql",
     "documents": "./**/*.{graphql,js,mts,jsx,tsx}"
   },
-  "packageManager": "pnpm@10.24.0"
+  "packageManager": "pnpm@10.26.0"
 }
