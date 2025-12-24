@@ -11,9 +11,7 @@ import { computed } from 'vue';
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
 
-const year = computed(() =>
-  sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`
-);
+const year = computed(() => (sport === 'football' ? paramYear : `${paramYear.slice(0, 4)}-${paramYear.slice(5)}`));
 
 const weekInt = computed(() => parseInt(week));
 

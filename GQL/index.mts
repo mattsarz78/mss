@@ -89,7 +89,7 @@ const startServer = async () => {
   const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL }, { schema: 'mattsarzsports' });
 
   const db = new PrismaClient({
-    log: NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+    log: NODE_ENV === 'production' ? ['error'] : ['error'],
     errorFormat: 'minimal',
     adapter
   });

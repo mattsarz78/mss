@@ -25,7 +25,7 @@ export const useDailyTvTextGames = () => {
       if (dailyTvGameValue?.dailyTvGames.tvGames.length) {
         paramYear.value = dailyTvGameValue.dailyTvGames.tvGames[0].season;
         season.value =
-          sport === 'football' ? paramYear.value : `${paramYear.value.substring(0, 4)}-${paramYear.value.substring(5)}`;
+          sport === 'football' ? paramYear.value : `${paramYear.value.slice(0, 4)}-${paramYear.value.slice(5)}`;
       }
     },
     { immediate: true }

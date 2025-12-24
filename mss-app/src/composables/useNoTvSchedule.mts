@@ -1,7 +1,7 @@
+import { useApolloLazyQuery } from '#/composables/useApolloLazyQuery.mjs';
 import { NO_TV_GAMES, type NoTvGame } from '#/graphQl.mjs';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
-import { useApolloLazyQuery } from '#/composables/useApolloLazyQuery.mjs';
 
 export const useNoTvSchedule = (week: string, year: string) => {
   const weekInt = parseInt(week);
@@ -32,14 +32,14 @@ export const useNoTvSchedule = (week: string, year: string) => {
 
   const datesList = computed(() => {
     const games = noTvGamesResults.value?.noTvGames ?? [];
-    return Array.from(
-      new Set(
-        games
-          .filter(hasValidTime)
-          .map((game: { timeWithOffset: string }) => getGameDate(game.timeWithOffset))
-          .filter(Boolean)
-      )
-    ).sort();
+    const dates = new Set<string>();
+    for (const game of games) {
+      if (hasValidTime(game)) {
+        const date = getGameDate(game.timeWithOffset);
+        if (date) dates.add(date);
+      }
+    }
+    return Array.from(dates).sort();
   });
 
   return { noTvGamesResults, noTvGamesLoading, noTvGamesError, datesList, load };

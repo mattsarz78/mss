@@ -13,6 +13,23 @@ import imagesForUrls from '#staticData/imagesForUrls.json' with { type: 'json' }
 
 const seasonMap: Record<string, string> = { '2020r': '2020', '2021s': '2020' };
 
+// Cache image links for O(1) lookup instead of O(n) array iteration
+const imageLinksCache = new Set((imagesForUrls as ImagesForUrl[]).map((x: ImagesForUrl) => x.link));
+
+// Build image URL map for O(1) lookup instead of filtering 200+ items per hyperlink
+const imageUrlMap = new Map<string, ImagesForUrl[]>();
+(imagesForUrls as ImagesForUrl[]).forEach((img) => {
+  if (!imageUrlMap.has(img.link)) {
+    imageUrlMap.set(img.link, []);
+  }
+  imageUrlMap.get(img.link)!.push(img);
+});
+
+// Cache specialized link sets for faster lookups
+const coverageMapLinksSet = new Set(coverageMapLinks);
+const specialCoverageNotesSet = new Set(specialCoverageNotes);
+const syndicationLinksSet = new Set(syndicationLinks);
+
 interface ImagesForUrl {
   link: string;
   image: string;
@@ -30,23 +47,32 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   const { images, imageHyperlinks, textHyperlinks, infoLinks, strings } = validateFieldData(networks);
 
   images.forEach((image) => {
-    image = image.replace('.jpg', '.webp')
+    const webpImage = image.replace('.jpg', '.webp');
+    const smallImage = webpImage.replace('.webp', '-small.webp');
     imagesString.push(
       `<picture>
-        <source media="only screen and (max-width: 640px)" srcset="/images/${image.replace('.webp', '-small.webp')}" sizes="43w" />
-        <img class="imgBorder" loading="lazy" src="/images/${image}" sizes="66w"/>
+        <source media="only screen and (max-width: 640px)" srcset="/images/${smallImage}" sizes="43w" />
+        <img class="imgBorder" loading="lazy" src="/images/${webpImage}" sizes="66w"/>
       </picture>`
     );
   });
 
   imageHyperlinks.forEach((imageHyperlink) => {
-    const imageArray = (imagesForUrls as ImagesForUrl[]).filter((x: ImagesForUrl) => imageHyperlink.includes(x.link));
-    const imageUrl = getImageUrl(imageArray, season).replace('.jpg', '.webp');
+    // Look up in pre-built map instead of filtering 200+ items
+    let imageArray: ImagesForUrl[] = [];
+    for (const [link, images] of imageUrlMap) {
+      if (imageHyperlink.includes(link)) {
+        imageArray = images;
+        break;
+      }
+    }
+    const webpUrl = getImageUrl(imageArray, season).replace('.jpg', '.webp');
+    const smallUrl = webpUrl.replace('.webp', '-small.webp');
     imageHyperlinkString.push(
       `<a href="${imageHyperlink}" target="_blank" rel="noopener">
       <picture>
-        <source media="only screen and (max-width: 640px)" srcset="/images/${imageUrl.replace('.webp', '-small.webp')}" sizes="43w" />
-        <img class="imgBorder" loading="lazy" src="/images/${imageUrl}" sizes="66w" />
+        <source media="only screen and (max-width: 640px)" srcset="/images/${smallUrl}" sizes="43w" />
+        <img class="imgBorder" loading="lazy" src="/images/${webpUrl}" sizes="66w" />
       </picture>
       </a>`
     );
@@ -57,7 +83,9 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
 
   textHyperlinks.forEach((textHyperlink, index) => {
     if (index % 2 !== 0) textHyperlinksString.push('<br>');
-    textHyperlinksString.push(`<a class="linkblock" href="${textHyperlink}" target="_blank" rel="noopener">Live Video</a>`);
+    textHyperlinksString.push(
+      `<a class="linkblock" href="${textHyperlink}" target="_blank" rel="noopener">Live Video</a>`
+    );
   });
 
   strings.forEach((str, index) => {
@@ -116,7 +144,13 @@ const isHyperlink = (network: string): boolean => {
 };
 
 const isImageHyperlink = (network: string): boolean => {
-  return (imagesForUrls as ImagesForUrl[]).some((x: ImagesForUrl) => network.includes(x.link));
+  // Check if network contains any of the cached image links
+  for (const link of imageLinksCache) {
+    if (network.includes(link)) {
+      return true;
+    }
+  }
+  return false;
 };
 
 const isInformationLink = (network: string): boolean => {
@@ -146,12 +180,12 @@ const isSyndAffiliates = (network: string): boolean => {
 };
 
 const IsASNLink = (network: string): boolean => {
-  return syndicationLinks.some((x) => x === network);
+  return syndicationLinksSet.has(network);
 };
 
 const isCoverageMap = (network: string): boolean => {
   return (
-    coverageMapLinks.some((x) => x === network) ||
+    coverageMapLinksSet.has(network) ||
     network.includes('http://assets.espn.go.com/photo/') ||
     (network.includes('espncdn') && !network.includes('blackout')) ||
     network.includes('http://www.seminoles.com/blog/Screen%20Shot%202013-11-07%20at%2011.42.17%20AM.png') ||
@@ -169,11 +203,15 @@ const isGamePlanMap = (network: string): boolean => {
 };
 
 const isSpecialCoverageNote = (network: string): boolean => {
-  return specialCoverageNotes.some((x) => x === network);
+  return specialCoverageNotesSet.has(network);
 };
 
 const isThe506CoverageMap = (network: string): boolean => {
   return network.includes('http://www.the506.com');
+};
+
+const endsWithBr = (arr: string[]): boolean => {
+  return arr.length > 0 && arr[arr.length - 1] === '<br>';
 };
 
 const isBTN = (network: string): boolean => {
@@ -187,16 +225,17 @@ const isP12Networks = (network: string): boolean => {
 const getImageUrl = (imageArray: { link: string; image: string; yearEnd?: string }[], season: string): string => {
   if (imageArray.length > 1) {
     season = seasonMap[season] || season;
+    const seasonInt = parseInt(season);
     for (const image of imageArray) {
       if (image.yearEnd) {
         const years = image.yearEnd.split('|');
         const yearToCompare = years.find((x) => x.length === season.length);
         if (yearToCompare) {
-          if (parseInt(season) <= parseInt(yearToCompare[0])) {
+          if (seasonInt <= parseInt(yearToCompare[0])) {
             return image.image;
           }
         }
-        if (yearToCompare && parseInt(season) <= parseInt(yearToCompare)) {
+        if (yearToCompare && seasonInt <= parseInt(yearToCompare)) {
           return image.image;
         }
       } else {
@@ -208,13 +247,18 @@ const getImageUrl = (imageArray: { link: string; image: string; yearEnd?: string
 };
 
 const addLineBreaks = (combinedImagesString: string[]): void => {
-  let counter = 0;
-  combinedImagesString.forEach((_, index) => {
-    counter++;
+  // Rebuild array instead of using splice to avoid O(n²) reallocation
+  const result: string[] = [];
+  combinedImagesString.forEach((item, index) => {
+    result.push(item);
+    const counter = index + 1;
     if (counter % 3 === 0 && (counter === 4 || counter >= 7)) {
-      combinedImagesString.splice(index, 0, '<br>');
+      result.push('<br>');
     }
   });
+  // Replace contents of original array
+  combinedImagesString.length = 0;
+  combinedImagesString.push(...result);
 };
 
 const ensureLineBreaks = (
@@ -225,21 +269,21 @@ const ensureLineBreaks = (
 ): void => {
   if (
     combinedImagesString.length &&
-    !combinedImagesString.join('').endsWith('<br>') &&
+    !endsWithBr(combinedImagesString) &&
     (textHyperlinksString.length || textString.length || infoLinksString.length)
   ) {
     combinedImagesString.push('<br>');
   }
 
-  if (textHyperlinksString.length && !textHyperlinksString.join('').endsWith('<br>')) {
+  if (textHyperlinksString.length && !endsWithBr(textHyperlinksString)) {
     textHyperlinksString.push('<br>');
   }
 
-  if (infoLinksString.length && !infoLinksString.join('').endsWith('<br>')) {
+  if (infoLinksString.length && !endsWithBr(infoLinksString)) {
     infoLinksString.push('<br>');
   }
 
-  if (textString.length && !textString.join('').endsWith('<br>')) {
+  if (textString.length && !endsWithBr(textString)) {
     textString.push('<br>');
   }
 };

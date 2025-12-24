@@ -37,12 +37,12 @@ const getPostseasonLinkText = (content: WeekInfo) => {
 
 <template>
   <div v-if="sport === 'football'">
-    <template v-for="(content, index) in contents" :key="index">
+    <template v-for="content in contents" :key="`${content.week}-${content.startDate}`">
       <WeekLink :year="paramYear" :sport="sport" :content="content" :link-text="getLinkText(content)" />
     </template>
   </div>
   <div v-else-if="sport === 'basketball' && hasBasketballPostseason">
-    <template v-for="(content, index) in filteredContents" :key="index">
+    <template v-for="content in filteredContents" :key="`${content.week}-${content.startDate}`">
       <WeekLink
         :sport="sport"
         :content="content"
@@ -50,13 +50,13 @@ const getPostseasonLinkText = (content: WeekInfo) => {
         :link-text="`Week ${content.week.toString()} - ${DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd')} to ${DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd')}`" />
     </template>
     <p v-if="postseasonContents.length">
-      <template v-for="(content, index) in postseasonContents" :key="index">
+      <template v-for="content in postseasonContents" :key="`${content.week}-${content.startDate}`">
         <WeekLink :sport="sport" :year="paramYear" :content="content" :link-text="getPostseasonLinkText(content)" />
       </template>
     </p>
   </div>
   <div v-else>
-    <template v-for="(content, index) in contents" :key="index">
+    <template v-for="content in contents" :key="`${content.week}-${content.startDate}`">
       <WeekLink
         :sport="sport"
         :year="paramYear"

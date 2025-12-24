@@ -32,13 +32,13 @@ const formattedDate = computed(() => DateTime.fromISO(weekDate).toFormat('DDDD')
         </tr>
       </thead>
       <tbody>
-        <template v-for="(tvGame, index) in tvGamesForDate" :key="index">
+        <template v-for="tvGame in tvGamesForDate" :key="`${tvGame.homeTeam}-${tvGame.timeWithOffset}`">
           <tr :class="{ webGame: tvGame.mediaIndicator === 'W' }">
             <template v-if="isBowlWeek || isMbkPostseason">
               <PostseasonMbkEvent :tv-game="tvGame" />
             </template>
             <template v-else>
-              <WeekGameRow :key="index" :show-p-p-v-column="showPpvColumn" :tv-game="tvGame" />
+              <WeekGameRow :show-p-p-v-column="showPpvColumn" :tv-game="tvGame" />
             </template>
           </tr>
         </template>

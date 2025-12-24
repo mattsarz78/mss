@@ -13,9 +13,7 @@ import { computed } from 'vue';
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
 
-const year = computed(() =>
-  sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`
-);
+const year = computed(() => (sport === 'football' ? paramYear : `${paramYear.slice(0, 4)}-${paramYear.slice(5)}`));
 
 const { buttonText, toggleWebExclusives } = useWebExclusives();
 
@@ -36,15 +34,18 @@ const {
 
 const gamesToday = computed(() => {
   const nowInET = DateTime.now().setZone('America/New_York');
-  return seasonContentsResult.value?.seasonContents.seasonContents
-    .filter((content: { week: number }) => content.week === weekInt.value)
-    .some((content: { startDate: string; endDate: string }) => {
+  const nowIso = nowInET.toISO({ includeOffset: false });
+  if (!nowIso) return false;
+
+  return seasonContentsResult.value?.seasonContents.seasonContents.some(
+    (content: { week: number; startDate: string; endDate: string }) => {
+      if (content.week !== weekInt.value) return false;
       const startIso = DateTime.fromISO(content.startDate).toUTC().toISO();
       const endIso = DateTime.fromISO(content.endDate).toUTC().toISO();
-      const nowIso = nowInET.toISO({ includeOffset: false });
-      if (!startIso || !endIso || !nowIso) return false;
+      if (!startIso || !endIso) return false;
       return startIso <= nowIso && endIso >= nowIso;
-    });
+    }
+  );
 });
 
 const navbarClass = computed(() => {

@@ -10,12 +10,16 @@ const needsUpdate = ref(false);
 
 const reload = () => window.location.reload();
 
+let checkInterval: ReturnType<typeof setInterval> | undefined;
+
 onMounted(() => {
-  const checkInterval = setInterval(async () => {
+  checkInterval = setInterval(async () => {
     needsUpdate.value = await checkVersion();
   }, 300000); // Check every 5 minutes
+});
 
-  onUnmounted(() => clearInterval(checkInterval));
+onUnmounted(() => {
+  if (checkInterval) clearInterval(checkInterval);
 });
 </script>
 

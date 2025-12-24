@@ -23,16 +23,16 @@ export const tvGames = async (_1: unknown, { input }: TvGamesArgs, context: ICon
       showPPVColumn: seasonDataResult.showPPVColumn,
       hasNoTVGames: seasonDataResult.hasNoTVGames,
       tvGames: results.map((result: football | basketball) => ({
-        season: result.season?.trim() ?? '',
-        gameTitle: result.gametitle?.trim() ?? '',
-        visitingTeam: result.visitingteam?.trim().split(',') ?? [],
-        homeTeam: result.hometeam?.trim().split(',') ?? [],
-        location: result.location?.trim() ?? '',
-        network: result.network?.trim() ?? '',
-        networkJpg: formatNetworkJpgAndCoverage(result.networkjpg?.trim() ?? '', input.season),
-        coverageNotes: formatNetworkJpgAndCoverage(result.coveragenotes?.trim() ?? '', input.season),
-        ppv: formatNetworkJpgAndCoverage(result.ppv?.trim() ?? '', input.season),
-        mediaIndicator: result.mediaindicator?.trim() ?? '',
+        season: result.season ?? '',
+        gameTitle: result.gametitle ?? '',
+        visitingTeam: (result.visitingteam ?? '').split(','),
+        homeTeam: (result.hometeam ?? '').split(','),
+        location: result.location ?? '',
+        network: result.network ?? '',
+        networkJpg: formatNetworkJpgAndCoverage(result.networkjpg ?? '', input.season),
+        coverageNotes: formatNetworkJpgAndCoverage(result.coveragenotes ?? '', input.season),
+        ppv: formatNetworkJpgAndCoverage(result.ppv ?? '', input.season),
+        mediaIndicator: result.mediaindicator ?? '',
         timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
       }))
     };

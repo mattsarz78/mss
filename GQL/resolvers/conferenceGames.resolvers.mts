@@ -3,9 +3,9 @@ import { FootballServiceKey } from '#database/football.mjs';
 import { SeasonServiceKey } from '#database/seasonData.mjs';
 import type { ConferenceGame, ConferenceGameData, ConferenceGamesInput, ContractData } from '#generated/graphql.mjs';
 import type { football } from '#generated/prisma/client.mjs';
+import contractData from '#staticData/contractData.json' with { type: 'json' };
 import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
 import { formatNetworkJpgAndCoverage } from '#utils/image.mjs';
-import contractData from '#staticData/contractData.json' with { type: 'json' };
 import { DateTime } from 'luxon';
 
 export interface ConferenceGamesArgs {
@@ -16,6 +16,16 @@ export interface ConferenceData {
   id: string;
   data: string;
 }
+
+// Build contract data index once for O(1) lookups instead of linear search
+const contractDataIndex = new Map<string, Map<string, string>>();
+contractData.forEach((contract) => {
+  const seasonMap = new Map<string, string>();
+  contract.data.forEach((seasonData: ConferenceData) => {
+    seasonMap.set(seasonData.id, seasonData.data);
+  });
+  contractDataIndex.set(contract.season, seasonMap);
+});
 
 export const conferenceGames = async (
   _1: unknown,
@@ -56,17 +66,17 @@ export const conferenceGames = async (
     const conferenceGames: ConferenceGame[] = conferenceResults
       .flat()
       .map((conferenceGame: football) => ({
-        gameTitle: conferenceGame.gametitle?.trim() ?? '',
-        visitingTeam: conferenceGame.visitingteam?.trim().split(',') ?? [],
-        homeTeam: conferenceGame.hometeam?.trim().split(',') ?? [],
-        location: conferenceGame.location?.trim() ?? '',
+        gameTitle: conferenceGame.gametitle ?? '',
+        visitingTeam: (conferenceGame.visitingteam ?? '').split(','),
+        homeTeam: (conferenceGame.hometeam ?? '').split(','),
+        location: conferenceGame.location ?? '',
         timeWithOffset: conferenceGame.timewithoffset
           ? (DateTime.fromJSDate(conferenceGame.timewithoffset).toISO() ?? '')
           : '',
-        mediaIndicator: conferenceGame.mediaindicator?.trim() ?? '',
-        network: formatNetworkJpgAndCoverage(conferenceGame.networkjpg?.trim() ?? '', input.season),
-        tvtype: conferenceGame.tvtype?.trim() ?? '',
-        conference: conferenceGame.conference?.trim() ?? ''
+        mediaIndicator: conferenceGame.mediaindicator ?? '',
+        network: formatNetworkJpgAndCoverage(conferenceGame.networkjpg ?? '', input.season),
+        tvtype: conferenceGame.tvtype ?? '',
+        conference: conferenceGame.conference ?? ''
       }));
 
     return { conferences, conferenceGames, contractYearData } as ConferenceGameData;
@@ -76,10 +86,6 @@ export const conferenceGames = async (
 };
 
 const getConferenceContractData = (season: string, conference: string) => {
-  return (
-    contractData
-      .find((contract) => contract.season === season)
-      ?.data.find((seasonData: ConferenceData) => seasonData.id === conference)?.data ??
-    `Data not found for ${conference} for ${season} season`
-  );
+  // Use pre-built index for O(1) lookup instead of linear search
+  return contractDataIndex.get(season)?.get(conference) ?? `Data not found for ${conference} for ${season} season`;
 };

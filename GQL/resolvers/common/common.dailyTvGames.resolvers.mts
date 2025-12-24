@@ -34,24 +34,24 @@ export const dailyTvGames = async (
     });
 
     let seasonDataResult;
-    if (results.length != 0) {
-      seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(results[0].season?.trim() ?? '');
+    if (results.length !== 0) {
+      seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(results[0].season ?? '');
     }
     return {
       showPPVColumn: seasonDataResult?.showPPVColumn ?? false,
       hasNoTVGames: seasonDataResult?.hasNoTVGames ?? false,
       flexScheduleLink: seasonDataResult?.flexScheduleLink,
       tvGames: results.map((result: football | basketball) => ({
-        season: result.season?.trim() ?? '',
-        gameTitle: result.gametitle?.trim() ?? '',
-        visitingTeam: result.visitingteam?.trim().split(',') ?? [],
-        homeTeam: result.hometeam?.trim().split(',') ?? [],
-        location: result.location?.trim() ?? '',
-        network: result.network?.trim() ?? '',
-        networkJpg: formatNetworkJpgAndCoverage(result.networkjpg?.trim() ?? '', ''),
-        coverageNotes: formatNetworkJpgAndCoverage(result.coveragenotes?.trim() ?? '', ''),
-        ppv: formatNetworkJpgAndCoverage(result.ppv?.trim() ?? '', ''),
-        mediaIndicator: result.mediaindicator?.trim() ?? '',
+        season: result.season ?? '',
+        gameTitle: result.gametitle ?? '',
+        visitingTeam: (result.visitingteam ?? '').split(','),
+        homeTeam: (result.hometeam ?? '').split(','),
+        location: result.location ?? '',
+        network: result.network ?? '',
+        networkJpg: formatNetworkJpgAndCoverage(result.networkjpg ?? '', ''),
+        coverageNotes: formatNetworkJpgAndCoverage(result.coveragenotes ?? '', ''),
+        ppv: formatNetworkJpgAndCoverage(result.ppv ?? '', ''),
+        mediaIndicator: result.mediaindicator ?? '',
         timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
       }))
     };

@@ -16,14 +16,14 @@ export const noTvGames = async (_1: unknown, { input }: NoTvGamesArgs, context: 
 
     const results = await context.services[FootballServiceKey].getNoTvGames(input);
     return results.map((result) => ({
-      gameTitle: result.gametitle?.trim() ?? '',
-      visitingTeam: result.visitingteam?.trim() ?? '',
-      homeTeam: result.hometeam?.trim() ?? '',
-      location: result.location?.trim() ?? '',
-      conference: result.conference?.trim() ?? '',
+      gameTitle: result.gametitle ?? '',
+      visitingTeam: result.visitingteam ?? '',
+      homeTeam: result.hometeam ?? '',
+      location: result.location ?? '',
+      conference: result.conference ?? '',
       tvOptions: updatedTvOptions(result),
       timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : '',
-      fcs: result.fcs?.trim() ?? ''
+      fcs: result.fcs ?? ''
     }));
   } catch (err: unknown) {
     throw handleError(err);
@@ -32,12 +32,12 @@ export const noTvGames = async (_1: unknown, { input }: NoTvGamesArgs, context: 
 
 const updatedTvOptions = (game: NoTVGames): string => {
   if (game.conference === 'American' && (game.hometeam === 'Navy' || game.hometeam === 'Army West Point')) {
-    return game.tvoptions?.replace(' or ESPN+', ' or CBS Sports Network').trim() ?? 'Unknown';
+    return game.tvoptions?.replace(' or ESPN+', ' or CBS Sports Network') ?? 'Unknown';
   }
 
   if (game.conference === 'MWC') {
     if (game.hometeam === "Hawai'i" || game.visitingteam === "Hawai'i") {
-      return game.tvoptions?.replace('MW Network', 'Spectrum PPV').trim() ?? 'Unknown';
+      return game.tvoptions?.replace('MW Network', 'Spectrum PPV') ?? 'Unknown';
     }
 
     if (game.visitingteam === 'Boise State') {

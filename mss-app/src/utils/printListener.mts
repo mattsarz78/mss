@@ -20,6 +20,8 @@ export const addDontPrintClass = (): void => {
   });
 };
 
+let mutationObserver: MutationObserver | undefined;
+
 export const setupPrintListener = (): void => {
   // Initial check
   addDontPrintClass();
@@ -28,6 +30,14 @@ export const setupPrintListener = (): void => {
   window.addEventListener('beforeprint', addDontPrintClass);
 
   // Add mutation observer for dynamically loaded ads
-  const observer = new MutationObserver(addDontPrintClass);
-  observer.observe(document.body, { childList: true, subtree: true });
+  mutationObserver = new MutationObserver(addDontPrintClass);
+  mutationObserver.observe(document.body, { childList: true, subtree: true });
+};
+
+export const cleanupPrintListener = (): void => {
+  if (mutationObserver) {
+    mutationObserver.disconnect();
+    mutationObserver = undefined;
+  }
+  window.removeEventListener('beforeprint', addDontPrintClass);
 };
