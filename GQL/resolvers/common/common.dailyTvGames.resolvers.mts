@@ -35,7 +35,12 @@ export const dailyTvGames = async (
 
     let seasonDataResult;
     if (results.length !== 0) {
-      seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(results[0].season ?? '');
+      const season = results[0].season ?? '';
+      seasonDataResult = context.seasonDataCache.get(season);
+      if (!seasonDataResult) {
+        seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(season);
+        context.seasonDataCache.set(season, seasonDataResult);
+      }
     }
     return {
       showPPVColumn: seasonDataResult?.showPPVColumn ?? false,
@@ -52,7 +57,7 @@ export const dailyTvGames = async (
         coverageNotes: formatNetworkJpgAndCoverage(result.coveragenotes ?? '', ''),
         ppv: formatNetworkJpgAndCoverage(result.ppv ?? '', ''),
         mediaIndicator: result.mediaindicator ?? '',
-        timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : ''
+        timeWithOffset: result.timewithoffset ? result.timewithoffset.toISOString() : ''
       }))
     };
   } catch (err: unknown) {

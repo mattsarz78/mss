@@ -128,7 +128,13 @@ const startServer = async () => {
     bodyParser.json({ limit: '1mb' }),
     cors(corsOptions),
     expressMiddleware<IContext>(apolloServer, {
-      context: async ({ req }) => Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req })
+      context: async ({ req }) =>
+        Promise.resolve({
+          db,
+          services: getDatabaseServices(databaseServices),
+          request: req,
+          seasonDataCache: new Map()
+        })
     })
   );
 

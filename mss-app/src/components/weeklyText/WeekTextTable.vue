@@ -55,8 +55,11 @@ const toggleRow = (event: Event) => {
               <span class="gameTitle">{{ tvGame.gameTitle }}</span>
               <br />
             </template>
-            <template v-if="tvGame.visitingTeam?.length === 0" />
-            <template v-else-if="tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1">
+            <template v-if="tvGame.visitingTeam?.length === 0 || tvGame.visitingTeam![0] === ''" />
+            <template
+              v-else-if="
+                tvGame.visitingTeam?.length === 1 && tvGame.homeTeam?.length === 1 && tvGame.visitingTeam[0] !== ''
+              ">
               {{ tvGame.visitingTeam![0] }}
               {{ tvGame.location ? 'vs.' : 'at' }} {{ tvGame.homeTeam![0] }}<br />
             </template>

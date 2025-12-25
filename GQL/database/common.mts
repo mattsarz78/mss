@@ -32,14 +32,15 @@ export class CommonService implements ICommonService {
     request: GetDailyTvGamesRequest | TvGamesInput,
     isDaily: boolean
   ): FindManyArgs<T> {
-    const where = { mediaindicator: { in: ['T', 'W'] as const } };
+    const where: Record<string, unknown> = { mediaindicator: { in: ['T', 'W'] as const } };
 
     if (isDaily) {
       const dailyRequest = request as GetDailyTvGamesRequest;
-      Object.assign(where, { time: { gte: dailyRequest.startDate, lte: dailyRequest.endDate } });
+      where.time = { gte: dailyRequest.startDate, lte: dailyRequest.endDate };
     } else {
       const weeklyRequest = request as TvGamesInput;
-      Object.assign(where, { season: weeklyRequest.season, week: weeklyRequest.week });
+      where.season = weeklyRequest.season;
+      where.week = weeklyRequest.week;
     }
 
     return { where, orderBy: [{ timewithoffset: 'asc' }, { listorder: 'asc' } as const] } as unknown as FindManyArgs<T>;

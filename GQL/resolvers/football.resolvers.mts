@@ -2,7 +2,6 @@ import type { IContext } from '#/context.mjs';
 import { FootballServiceKey, type NoTVGames } from '#database/football.mjs';
 import type { NoTvGame, NoTvGamesInput } from '#generated/graphql.mjs';
 import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
-import { DateTime } from 'luxon';
 
 export interface NoTvGamesArgs {
   input: NoTvGamesInput;
@@ -22,7 +21,7 @@ export const noTvGames = async (_1: unknown, { input }: NoTvGamesArgs, context: 
       location: result.location ?? '',
       conference: result.conference ?? '',
       tvOptions: updatedTvOptions(result),
-      timeWithOffset: result.timewithoffset ? (DateTime.fromJSDate(result.timewithoffset).toISO() ?? '') : '',
+      timeWithOffset: result.timewithoffset ? result.timewithoffset.toISOString() : '',
       fcs: result.fcs ?? ''
     }));
   } catch (err: unknown) {

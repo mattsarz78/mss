@@ -6,7 +6,6 @@ import type { football } from '#generated/prisma/client.mjs';
 import contractData from '#staticData/contractData.json' with { type: 'json' };
 import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
 import { formatNetworkJpgAndCoverage } from '#utils/image.mjs';
-import { DateTime } from 'luxon';
 
 export interface ConferenceGamesArgs {
   input: ConferenceGamesInput;
@@ -38,9 +37,15 @@ export const conferenceGames = async (
     }
 
     let conferences: string[] = [];
+    let seasonData;
+
     if (input.conference === 'independents') {
-      conferences =
-        (await context.services[SeasonServiceKey].getSeasonData(input.season)).independents?.split('|') ?? [];
+      seasonData = context.seasonDataCache.get(input.season);
+      if (!seasonData) {
+        seasonData = await context.services[SeasonServiceKey].getSeasonData(input.season);
+        context.seasonDataCache.set(input.season, seasonData);
+      }
+      conferences = seasonData.independents?.split('|') ?? [];
     } else {
       conferences = input.conference.split('|');
     }
@@ -70,9 +75,7 @@ export const conferenceGames = async (
         visitingTeam: (conferenceGame.visitingteam ?? '').split(','),
         homeTeam: (conferenceGame.hometeam ?? '').split(','),
         location: conferenceGame.location ?? '',
-        timeWithOffset: conferenceGame.timewithoffset
-          ? (DateTime.fromJSDate(conferenceGame.timewithoffset).toISO() ?? '')
-          : '',
+        timeWithOffset: conferenceGame.timewithoffset ? conferenceGame.timewithoffset.toISOString() : '',
         mediaIndicator: conferenceGame.mediaindicator ?? '',
         network: formatNetworkJpgAndCoverage(conferenceGame.networkjpg ?? '', input.season),
         tvtype: conferenceGame.tvtype ?? '',

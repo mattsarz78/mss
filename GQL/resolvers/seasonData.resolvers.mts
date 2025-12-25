@@ -13,7 +13,11 @@ export const seasonData = async (_1: unknown, { input }: SeasonDataArgs, context
       throw new BadRequestError('Season is required');
     }
 
-    const data = await context.services[SeasonServiceKey].getSeasonData(input.season);
+    let data = context.seasonDataCache.get(input.season);
+    if (!data) {
+      data = await context.services[SeasonServiceKey].getSeasonData(input.season);
+      context.seasonDataCache.set(input.season, data);
+    }
     return { flexScheduleLink: data.flexScheduleLink } as SeasonData;
   } catch (err: unknown) {
     throw handleError(err);

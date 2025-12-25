@@ -41,8 +41,9 @@ const formattedGames = computed(() =>
             <span class="gameTitle">{{ game.gameTitle }}</span>
             <br />
           </template>
-          <template v-if="game.visitingTeam.length === 0" />
-          <template v-else-if="game.visitingTeam.length === 1 && game.homeTeam.length === 1">
+          <template v-if="game.visitingTeam.length === 0 || game.visitingTeam![0] === ''" />
+          <template
+            v-else-if="game.visitingTeam.length === 1 && game.homeTeam.length === 1 && game.visitingTeam[0] !== ''">
             {{ game.visitingTeam[0] }} {{ game.location ? 'vs.' : 'at' }} {{ game.homeTeam[0] }}<br />
           </template>
           <template v-else>
