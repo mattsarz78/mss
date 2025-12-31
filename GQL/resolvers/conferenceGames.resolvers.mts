@@ -5,7 +5,8 @@ import type { ConferenceGame, ConferenceGameData, ConferenceGamesInput, Contract
 import type { football } from '#generated/prisma/client.mjs';
 import contractData from '#staticData/contractData.json' with { type: 'json' };
 import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
-import { formatNetworkJpgAndCoverage } from '#utils/image.mjs';
+import { formatNetworkBatch } from '#utils/image.mjs';
+import { splitBy, splitComma } from '#utils/string.mjs';
 
 export interface ConferenceGamesArgs {
   input: ConferenceGamesInput;
@@ -40,14 +41,10 @@ export const conferenceGames = async (
     let seasonData;
 
     if (input.conference === 'independents') {
-      seasonData = context.seasonDataCache.get(input.season);
-      if (!seasonData) {
-        seasonData = await context.services[SeasonServiceKey].getSeasonData(input.season);
-        context.seasonDataCache.set(input.season, seasonData);
-      }
-      conferences = seasonData.independents?.split('|') ?? [];
+      seasonData = await context.services[SeasonServiceKey].getSeasonData(input.season);
+      conferences = splitBy(seasonData.independents ?? '', '|') ?? [];
     } else {
-      conferences = input.conference.split('|');
+      conferences = splitBy(input.conference, '|');
     }
 
     const conferenceResults = await Promise.all(
@@ -68,19 +65,26 @@ export const conferenceGames = async (
       contractYearData = [{ conference: input.conference, contractText: data }];
     }
 
-    const conferenceGames: ConferenceGame[] = conferenceResults
-      .flat()
-      .map((conferenceGame: football) => ({
-        gameTitle: conferenceGame.gametitle ?? '',
-        visitingTeam: (conferenceGame.visitingteam ?? '').split(','),
-        homeTeam: (conferenceGame.hometeam ?? '').split(','),
-        location: conferenceGame.location ?? '',
-        timeWithOffset: conferenceGame.timewithoffset ? conferenceGame.timewithoffset.toISOString() : '',
-        mediaIndicator: conferenceGame.mediaindicator ?? '',
-        network: formatNetworkJpgAndCoverage(conferenceGame.networkjpg ?? '', input.season),
-        tvtype: conferenceGame.tvtype ?? '',
-        conference: conferenceGame.conference ?? ''
-      }));
+    // Batch fetch formatted network strings to avoid many concurrent promises
+    const flattened = conferenceResults.flat();
+    const pairs: Array<{ input: string; season: string }> = flattened.map((cg: football) => ({
+      input: cg.networkjpg ?? '',
+      season: input.season
+    }));
+
+    const batch = await formatNetworkBatch(pairs);
+
+    const conferenceGames: ConferenceGame[] = flattened.map((conferenceGame: football) => ({
+      gameTitle: conferenceGame.gametitle ?? '',
+      visitingTeam: splitComma(conferenceGame.visitingteam ?? ''),
+      homeTeam: splitComma(conferenceGame.hometeam ?? ''),
+      location: conferenceGame.location ?? '',
+      timeWithOffset: conferenceGame.timewithoffset ? conferenceGame.timewithoffset.toISOString() : '',
+      mediaIndicator: conferenceGame.mediaindicator ?? '',
+      network: batch.get(`${conferenceGame.networkjpg ?? ''}::${input.season}`) ?? '',
+      tvtype: conferenceGame.tvtype ?? '',
+      conference: conferenceGame.conference ?? ''
+    }));
 
     return { conferences, conferenceGames, contractYearData } as ConferenceGameData;
   } catch (err: unknown) {

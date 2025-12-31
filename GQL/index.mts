@@ -1,5 +1,4 @@
 import type { IContext } from '#/context.mjs';
-import { AvailableTvService, AvailableTvServiceKey } from '#database/availableTV.mjs';
 import { CommonService, CommonServiceKey } from '#database/common.mjs';
 import { FootballService, FootballServiceKey } from '#database/football.mjs';
 import { SeasonService, SeasonServiceKey } from '#database/seasonData.mjs';
@@ -73,7 +72,6 @@ const loadSchemaAndResolvers = () => {
 const createResolversArray = () => {
   return {
     Query: {
-      ...Resolvers.AvailableTv,
       ...Resolvers.ConferenceGames,
       ...Resolvers.NoTvGames,
       ...Resolvers.Health,
@@ -95,7 +93,6 @@ const startServer = async () => {
   });
 
   const databaseServices: Partial<DatabaseServices> = {
-    [AvailableTvServiceKey]: new AvailableTvService(db),
     [FootballServiceKey]: new FootballService(db),
     [CommonServiceKey]: new CommonService(db),
     [WeeklyDatesServiceKey]: new WeeklyDatesService(db),
@@ -128,13 +125,7 @@ const startServer = async () => {
     bodyParser.json({ limit: '1mb' }),
     cors(corsOptions),
     expressMiddleware<IContext>(apolloServer, {
-      context: async ({ req }) =>
-        Promise.resolve({
-          db,
-          services: getDatabaseServices(databaseServices),
-          request: req,
-          seasonDataCache: new Map()
-        })
+      context: async ({ req }) => Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req })
     })
   );
 
@@ -156,6 +147,15 @@ const startServer = async () => {
       // Disconnect from database
       await db.$disconnect();
       process.stdout.write('Database disconnected');
+
+      // Shutdown optional caches
+      try {
+        // lazy import to avoid loading redis client if not used
+        const { shutdownCache } = await import('#utils/cache.mjs');
+        await shutdownCache();
+      } catch (err: unknown) {
+        process.stdout.write(`Cache shutdown error: ${(err as Error).message}`);
+      }
 
       process.stdout.write('Graceful shutdown completed');
       process.exit(0);

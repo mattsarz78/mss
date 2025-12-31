@@ -13,7 +13,7 @@ addMetaTags(title);
 <template>
   <main v-reset-adsense-height>
     <div>
-      <Image id="imgtitle" loading="lazy" alt="Matt's College Sports" src="/images/logo.jpg" layout="responsive" />
+      <Image id="imgtitle" loading="lazy" alt="Matt's College Sports" src="/images/logo.webp" layout="responsive" />
       <br />
     </div>
     <div id="content">
