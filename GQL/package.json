@@ -35,7 +35,7 @@
   "dependencies": {
     "@apollo/server": "^5.2.0",
     "@as-integrations/express5": "^1.1.2",
-    "@dotenvx/dotenvx": "^1.51.2",
+    "@dotenvx/dotenvx": "^1.51.4",
     "@graphql-tools/graphql-file-loader": "^8.1.8",
     "@graphql-tools/load": "^8.1.7",
     "@graphql-tools/merge": "^9.1.6",
