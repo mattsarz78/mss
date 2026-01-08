@@ -272,5 +272,6 @@ export const syndicationLinks = [
   'https://mercerbears.com/news/2020/10/19/football-mercer-announces-homecoming-kickoff-time.aspx',
   'https://mvc-sports.com/news/2024/9/12/mens-basketball-mvc-gray-media-execute-multi-year-broadcasting-agreement.aspx',
   'https://ovcsports.com/news/2025/12/9/mens-basketball-ovc-basketball-on-gray-media.aspx',
-  'https://ovcsports.com/news/2025/12/21/mens-basketball-ovc-basketball-on-gray-media.aspx'
+  'https://ovcsports.com/news/2025/12/21/mens-basketball-ovc-basketball-on-gray-media.aspx',
+  'https://ovcsports.com/news/2026/1/8/mens-basketball-ovc-basketball-on-gray-media.aspx'
 ];

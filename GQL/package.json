@@ -36,12 +36,12 @@
     "@apollo/server": "^5.2.0",
     "@as-integrations/express5": "^1.1.2",
     "@dotenvx/dotenvx": "^1.51.4",
-    "@graphql-tools/graphql-file-loader": "^8.1.8",
-    "@graphql-tools/load": "^8.1.7",
-    "@graphql-tools/merge": "^9.1.6",
+    "@graphql-tools/graphql-file-loader": "^8.1.9",
+    "@graphql-tools/load": "^8.1.8",
+    "@graphql-tools/merge": "^9.1.7",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
-    "body-parser": "^2.2.1",
+    "body-parser": "^2.2.2",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
     "express": "^5.2.1",
@@ -63,7 +63,7 @@
     "esbuild": "^0.27.2",
     "prisma": "^7.2.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.51.0"
+    "typescript-eslint": "^8.52.0"
   },
   "graphql": {
     "schema": "./schema.graphql",
