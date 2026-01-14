@@ -54,8 +54,8 @@
     "copy-webp": "node ./scripts/copy-webp.mjs"
   },
   "dependencies": {
-    "@apollo/client": "^4.0.11",
-    "@unhead/vue": "^2.1.1",
+    "@apollo/client": "^4.0.13",
+    "@unhead/vue": "^2.1.2",
     "@unpic/vue": "^1.0.0",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vueuse/core": "^14.1.0",
@@ -68,7 +68,7 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@apollo/client-devtools-vscode": "^4.23.2",
+    "@apollo/client-devtools-vscode": "^4.24.0",
     "@rushstack/eslint-patch": "^1.15.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
