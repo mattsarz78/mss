@@ -4,7 +4,8 @@ import { SeasonServiceKey } from '#database/seasonData.mts';
 import { type DailyTvGamesInput, type TvGameData } from '#generated/graphql.mjs';
 import { type basketball, type football } from '#generated/prisma/client.mjs';
 import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
-import { formatNetworkJpgAndCoverage } from '#utils/image.mjs';
+import { formatNetworkBatch } from '#utils/image.mjs';
+import { splitComma } from '#utils/string.mjs';
 import { DateTime } from 'luxon';
 
 export interface DailyTvGamesArgs {
@@ -36,29 +37,36 @@ export const dailyTvGames = async (
     let seasonDataResult;
     if (results.length !== 0) {
       const season = results[0].season ?? '';
-      seasonDataResult = context.seasonDataCache.get(season);
-      if (!seasonDataResult) {
-        seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(season);
-        context.seasonDataCache.set(season, seasonDataResult);
-      }
+      seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(season);
     }
+    const pairs: Array<{ input: string; season: string }> = [];
+    results.forEach((result: football | basketball) => {
+      pairs.push({ input: result.networkjpg ?? '', season: '' });
+      pairs.push({ input: result.coveragenotes ?? '', season: '' });
+      pairs.push({ input: result.ppv ?? '', season: '' });
+    });
+
+    const batch = await formatNetworkBatch(pairs);
+
+    const tvGames = results.map((result: football | basketball) => ({
+      season: result.season ?? '',
+      gameTitle: result.gametitle ?? '',
+      visitingTeam: splitComma(result.visitingteam ?? ''),
+      homeTeam: splitComma(result.hometeam ?? ''),
+      location: result.location ?? '',
+      network: result.network ?? '',
+      networkJpg: batch.get(`${result.networkjpg ?? ''}::`) ?? '',
+      coverageNotes: batch.get(`${result.coveragenotes ?? ''}::`) ?? '',
+      ppv: batch.get(`${result.ppv ?? ''}::`) ?? '',
+      mediaIndicator: result.mediaindicator ?? '',
+      timeWithOffset: result.timewithoffset ? result.timewithoffset.toISOString() : ''
+    }));
+
     return {
       showPPVColumn: seasonDataResult?.showPPVColumn ?? false,
       hasNoTVGames: seasonDataResult?.hasNoTVGames ?? false,
       flexScheduleLink: seasonDataResult?.flexScheduleLink,
-      tvGames: results.map((result: football | basketball) => ({
-        season: result.season ?? '',
-        gameTitle: result.gametitle ?? '',
-        visitingTeam: (result.visitingteam ?? '').split(','),
-        homeTeam: (result.hometeam ?? '').split(','),
-        location: result.location ?? '',
-        network: result.network ?? '',
-        networkJpg: formatNetworkJpgAndCoverage(result.networkjpg ?? '', ''),
-        coverageNotes: formatNetworkJpgAndCoverage(result.coveragenotes ?? '', ''),
-        ppv: formatNetworkJpgAndCoverage(result.ppv ?? '', ''),
-        mediaIndicator: result.mediaindicator ?? '',
-        timeWithOffset: result.timewithoffset ? result.timewithoffset.toISOString() : ''
-      }))
+      tvGames
     };
   } catch (err: unknown) {
     throw handleError(err);

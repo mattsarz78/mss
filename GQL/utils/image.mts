@@ -10,6 +10,7 @@ import {
   syndicationLinks
 } from '#staticData/constants.mjs';
 import imagesForUrls from '#staticData/imagesForUrls.json' with { type: 'json' };
+import { createClient } from 'redis';
 
 const seasonMap: Record<string, string> = { '2020r': '2020', '2021s': '2020' };
 
@@ -34,17 +35,38 @@ const syndicationLinksSet = new Set(syndicationLinks);
 const FORMAT_CACHE_MAX = 2000;
 const formatCache = new Map<string, string>();
 
+// Redis L2 cache configuration
+const CACHE_VERSION = 'v1';
+const REDIS_CACHE_TTL = process.env.IMAGE_CACHE_TTL ? parseInt(process.env.IMAGE_CACHE_TTL, 10) : 3600; // seconds
+let redisClient: ReturnType<typeof createClient> | null = null;
+
+if (process.env.REDIS_URL) {
+  redisClient = createClient({ url: process.env.REDIS_URL });
+  redisClient.on('error', (err: unknown) => {
+    // Do not crash the process if redis is unavailable
+     
+    console.error('Redis error in image.mts:', err);
+  });
+  (async () => {
+    try {
+      await redisClient!.connect();
+    } catch (err) {
+       
+      console.error('Failed to connect to Redis in image.mts:', err);
+      redisClient = null;
+    }
+  })();
+}
+
+const makeCacheKey = (input: string, season: string) => `${CACHE_VERSION}::${input}::${season}`;
+
 interface ImagesForUrl {
   link: string;
   image: string;
   yearEnd?: string;
 }
 
-export const formatNetworkJpgAndCoverage = (input: string, season: string): string => {
-  const cacheKey = `${input}::${season}`;
-  const cached = formatCache.get(cacheKey);
-  if (cached) return cached;
-
+export const computeFormatNetworkJpgAndCoverage = (input: string, season: string): string => {
   const networks = input.split(',');
   const combinedImagesString: string[] = [];
   const textHyperlinksString: string[] = [];
@@ -56,7 +78,7 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
   // Push images directly into the combined array to avoid intermediate arrays
   for (const image of images) {
     const webpImage = image.replace('.jpg', '.webp');
-    const smallImage = webpImage.replace('.webp', '-small.webp');
+    const smallImage = image.replace('.webp', '-small.webp');
     combinedImagesString.push(
       `<picture>
         <source media="only screen and (max-width: 640px)" srcset="/images/${smallImage}" sizes="43w" />
@@ -111,15 +133,143 @@ export const formatNetworkJpgAndCoverage = (input: string, season: string): stri
 
   ensureLineBreaks(combinedImagesString, textHyperlinksString, textString, infoLinksString);
 
-  const result = `${combinedImagesString.join('')}${textHyperlinksString.join('')}${infoLinksString.join('')}${textString.join('')}`;
+  return `${combinedImagesString.join('')}${textHyperlinksString.join('')}${infoLinksString.join('')}${textString.join('')}`;
+};
 
+export const formatNetworkJpgAndCoverageAsync = async (input: string, season: string): Promise<string> => {
+  const cacheKey = makeCacheKey(input, season);
+
+  // L1 in-process cache
+  const cachedLocal = formatCache.get(cacheKey);
+  if (cachedLocal) return cachedLocal;
+
+  // L2 Redis cache
+  if (redisClient) {
+    try {
+      const cachedRedis = await redisClient.get(cacheKey);
+      if (cachedRedis) {
+        formatCache.set(cacheKey, cachedRedis);
+        return cachedRedis;
+      }
+    } catch (err) {
+      // ignore Redis errors
+       
+      console.error('Redis GET error in image.mts:', err);
+    }
+  }
+
+  // Compute result synchronously
+  const result = computeFormatNetworkJpgAndCoverage(input, season);
+
+  // Populate caches
   formatCache.set(cacheKey, result);
   if (formatCache.size > FORMAT_CACHE_MAX) {
     const oldest = formatCache.keys().next().value as string | undefined;
     if (oldest) formatCache.delete(oldest);
   }
 
+  if (redisClient) {
+    try {
+      await redisClient.set(cacheKey, result, { EX: REDIS_CACHE_TTL });
+    } catch (err) {
+      // ignore Redis set errors
+       
+      console.error('Redis SET error in image.mts:', err);
+    }
+  }
+
   return result;
+};
+
+/**
+ * Batch formatting helper
+ * Accepts an array of { input, season } pairs, and returns a Map keyed by "input::season" -> formatted string
+ * Strategy: check L1 cache, then L2 mGet, compute remaining synchronously, then pipeline SET for Redis.
+ */
+export const formatNetworkBatch = async (
+  pairs: Array<{ input: string; season: string }>
+): Promise<Map<string, string>> => {
+  // Normalize and dedupe simple keys (input::season)
+  const simpleKeys = Array.from(new Set(pairs.map((p) => `${p.input}::${p.season}`)));
+  const out = new Map<string, string>();
+
+  // Map simpleKey -> cacheKey
+  const keyMap = new Map<string, string>();
+  for (const sk of simpleKeys) {
+    const sep = sk.lastIndexOf('::');
+    const input = sep !== -1 ? sk.slice(0, sep) : sk;
+    const season = sep !== -1 ? sk.slice(sep + 2) : '';
+    keyMap.set(sk, makeCacheKey(input, season));
+  }
+
+  // L1 hits
+  const missingKeys: string[] = [];
+  for (const sk of simpleKeys) {
+    const cacheKey = keyMap.get(sk)!;
+    const v = formatCache.get(cacheKey);
+    if (v) {
+      out.set(sk, v);
+    } else {
+      missingKeys.push(sk);
+    }
+  }
+
+  // L2 mGet (fetch by cacheKey)
+  if (redisClient && missingKeys.length) {
+    try {
+      const cacheKeys = missingKeys.map((sk) => keyMap.get(sk)!);
+      const vals = await redisClient.mGet(cacheKeys);
+      vals.forEach((val, i) => {
+        if (val !== null) {
+          const sk = missingKeys[i];
+          const cacheKey = cacheKeys[i];
+          out.set(sk, val);
+          // populate L1
+          formatCache.set(cacheKey, val);
+        }
+      });
+      // remove fulfilled keys from missingKeys
+      for (let i = missingKeys.length - 1; i >= 0; i--) {
+        if (out.has(missingKeys[i])) missingKeys.splice(i, 1);
+      }
+    } catch (err) {
+       
+      console.error('Redis MGET error in image.mts:', err);
+    }
+  }
+
+  // Compute remaining missing keys synchronously and pipeline SET to Redis
+  if (missingKeys.length) {
+    // compute
+    for (const sk of missingKeys) {
+      const cacheKey = keyMap.get(sk)!;
+      const sep = sk.lastIndexOf('::');
+      const input = sep !== -1 ? sk.slice(0, sep) : sk;
+      const season = sep !== -1 ? sk.slice(sep + 2) : '';
+      const res = computeFormatNetworkJpgAndCoverage(input, season);
+      out.set(sk, res);
+      // populate L1
+      formatCache.set(cacheKey, res);
+    }
+
+    // pipeline SET with EX
+    if (redisClient) {
+      try {
+        const multi = redisClient.multi();
+        for (const sk of missingKeys) {
+          const cacheKey = keyMap.get(sk)!;
+          const val = out.get(sk)!;
+          multi.set(cacheKey, val, { EX: REDIS_CACHE_TTL });
+        }
+        await multi.exec();
+      } catch (err) {
+         
+        console.error('Redis pipeline SET error in image.mts:', err);
+      }
+    }
+  }
+
+  return out;
 };
 
 const validateFieldData = (

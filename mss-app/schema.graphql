@@ -2,7 +2,6 @@ schema {
   query: Query
 }
 type Query {
-  availableTv(input: AvailableTvInput): [AvailableTv]!
   tvGames(input: TvGamesInput): TvGameData!
   dailyTvGames(input: DailyTvGamesInput): TvGameData!
   conferenceGames(input: ConferenceGamesInput): ConferenceGameData!
@@ -12,18 +11,6 @@ type Query {
   seasonData(input: SeasonDataInput): SeasonData!
 }
 
-input AvailableTvInput {
-  season: String!
-  conference: String!
-  week: Int!
-}
-
-type AvailableTv {
-  season: String!
-  conference: String!
-  week: Int!
-  tvOptions: String
-}
 input TvGamesInput {
   season: String!
   week: Int!

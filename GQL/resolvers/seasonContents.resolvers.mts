@@ -18,11 +18,7 @@ export const seasonContents = async (
       throw new BadRequestError('Season is required');
     }
 
-    let seasonData = context.seasonDataCache.get(input.season);
-    if (!seasonData) {
-      seasonData = await context.services[SeasonServiceKey].getSeasonData(input.season);
-      context.seasonDataCache.set(input.season, seasonData);
-    }
+    const seasonData = await context.services[SeasonServiceKey].getSeasonData(input.season);
 
     const results = await context.services[WeeklyDatesServiceKey].getConferenceGames(input.season);
     return {

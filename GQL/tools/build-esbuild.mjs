@@ -37,29 +37,6 @@ try {
     loader: { '.ts': 'ts', '.mts': 'ts', '.js': 'js', '.mjs': 'js', '.json': 'json' }
   });
   globalThis.console.log('esbuild: bundle complete ->', path.join(outdir, 'index.js'));
-
-  // Also produce a bundled healthcheck.js (compiled from tools/healthcheck.mjs)
-  try {
-    const healthSrc = path.join(__dirname, 'healthcheck.mjs');
-    const healthOut = path.join(outdir, 'healthcheck.js');
-    if (fs.existsSync(healthSrc)) {
-      await build({
-        entryPoints: [healthSrc],
-        bundle: true,
-        platform: 'node',
-        format: 'esm',
-        target: ['node24'],
-        outfile: healthOut,
-        sourcemap: false,
-        external,
-        logLevel: 'info',
-        loader: { '.ts': 'ts', '.mts': 'ts', '.js': 'js', '.mjs': 'js', '.json': 'json' }
-      });
-      globalThis.console.log('esbuild: healthcheck bundle ->', healthOut);
-    }
-  } catch (errHealth) {
-    globalThis.console.warn('esbuild: failed to bundle healthcheck:', errHealth);
-  }
 } catch (err) {
   globalThis.console.error(err);
   globalThis.process?.exit?.(1);
