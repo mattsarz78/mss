@@ -68,7 +68,7 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@apollo/client-devtools-vscode": "^4.24.0",
+    "@apollo/client-devtools-vscode": "^4.24.1",
     "@rushstack/eslint-patch": "^1.15.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
