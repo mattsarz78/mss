@@ -78,7 +78,7 @@ export const computeFormatNetworkJpgAndCoverage = (input: string, season: string
   // Push images directly into the combined array to avoid intermediate arrays
   for (const image of images) {
     const webpImage = image.replace('.jpg', '.webp');
-    const smallImage = image.replace('.webp', '-small.webp');
+    const smallImage = webpImage.replace('.webp', '-small.webp');
     combinedImagesString.push(
       `<picture>
         <source media="only screen and (max-width: 640px)" srcset="/images/${smallImage}" sizes="43w" />

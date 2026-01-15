@@ -33,5 +33,3 @@ stats.html
 # Config
 .env
 public/version.json
-
-/public/images/*.webp
