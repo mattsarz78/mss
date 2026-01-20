@@ -30,20 +30,12 @@ export const noTvGames = async (_1: unknown, { input }: NoTvGamesArgs, context: 
 };
 
 const updatedTvOptions = (game: NoTVGames): string => {
-  if (game.conference === 'American' && (game.hometeam === 'Navy' || game.hometeam === 'Army West Point')) {
-    return game.tvoptions?.replace(' or ESPN+', ' or CBS Sports Network') ?? 'Unknown';
+  if (game.conference === 'American' && game.hometeam === 'Navy') {
+    return game.tvoptions?.replace(' or ESPN+', ', CBS or CBS Sports Network') ?? 'Unknown';
   }
 
-  if (game.conference === 'MWC') {
-    if (game.hometeam === "Hawai'i" || game.visitingteam === "Hawai'i") {
-      return game.tvoptions?.replace('MW Network', 'Spectrum PPV') ?? 'Unknown';
-    }
-
-    if (game.visitingteam === 'Boise State') {
-      return 'CBS or CBS Sports Network';
-    }
-
-    return game.hometeam === 'Boise State' ? 'FOX, FS1 or FS2' : (game.tvoptions ?? 'Unknown');
+  if (game.conference === 'American' && game.hometeam === 'Army West Point') {
+    return 'CBS or CBS Sports Network';
   }
 
   return game.tvoptions ?? 'Unknown';

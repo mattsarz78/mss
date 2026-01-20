@@ -26,6 +26,9 @@ const footballSeasons = [
   '2005'
 ];
 
+const fbSeasons = ['2021'];
+const mbkSeasons = ['2021-22'];
+
 const basketballSeasons = [
   '2019-20',
   '2018-19',
@@ -50,6 +53,13 @@ const basketballSeasons = [
     <div id="content">
       <div id="Links">
         <RouterLink to="/"> Home </RouterLink><br />
+        <br />
+        <div v-for="(season, index) in fbSeasons" :key="index">
+          <RouterLink :to="`/season/football/${season}`"> {{ season }} Football </RouterLink><br />
+          <RouterLink :to="`/season/basketball/${mbkSeasons[index]}`"
+            >{{ mbkSeasons[index] }} Men's Basketball </RouterLink
+          ><br />
+        </div>
         <br />
         <RouterLink to="/season/football/2021s"> 2021 Football - Spring FCS only </RouterLink><br />
         <RouterLink to="/season/football/2020r"> 2020 Football - Revised </RouterLink><br />
