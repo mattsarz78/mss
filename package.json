@@ -22,12 +22,12 @@
   },
   "devDependencies": {
     "@types/luxon": "3.7.1",
-    "@types/node": "25.0.8",
+    "@types/node": "25.0.9",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.5",
-    "prettier": "3.7.4",
+    "prettier": "3.8.0",
     "typescript": "5.9.3"
   },
-  "packageManager": "pnpm@10.27.0"
+  "packageManager": "pnpm@10.28.0"
 }
