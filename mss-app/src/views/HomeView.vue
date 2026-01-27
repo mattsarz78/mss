@@ -18,8 +18,8 @@ addMetaTags(title);
     </div>
     <div id="content">
       <div id="Links">
-        <!-- <RouterLink to="/season/football/2026"> 2026 Football </RouterLink><br />
-        <br /> -->
+        <RouterLink to="/season/football/2026"> 2026 Football </RouterLink><br />
+        <br />
         <RouterLink to="/season/football/2025"> 2025 Football </RouterLink><br />
         <RouterLink to="/season/basketball/2025-26"> 2025-26 Men's Basketball </RouterLink><br />
         <br />
@@ -49,7 +49,7 @@ addMetaTags(title);
     <iframe
       id="Facebook"
       title="Link to MattSarzSports Facebook page"
-      lazy="true"
+      loading="lazy"
       src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmattsarzsports%2F&tabs&height=80&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
       height="80"
       style="border: none; overflow: hidden"

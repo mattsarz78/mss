@@ -1,8 +1,8 @@
 import { DAILY_TV_GAMES, type TvGameData } from '#/graphQl.mjs';
+import { useQuery } from '@vue/apollo-composable';
 import { DateTime } from 'luxon';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { useApolloQuery } from '#/composables/useApolloQuery.mjs';
 
 export const useDailyTvTextGames = () => {
   const route = useRoute();
@@ -11,10 +11,10 @@ export const useDailyTvTextGames = () => {
   const startDate = DateTime.now().setZone('America/New_York').toISODate();
 
   const {
-    data: dailyTvGameResult,
+    result: dailyTvGameResult,
     loading: dailyTvGameLoading,
     error: dailyTvGameError
-  } = useApolloQuery<{ dailyTvGames: TvGameData }>(DAILY_TV_GAMES, { input: { sport, startDate } });
+  } = useQuery<{ dailyTvGames: TvGameData }>(DAILY_TV_GAMES, { variables: { input: { sport, startDate } } });
 
   const season = ref<string>('');
   const paramYear = ref<string>('');

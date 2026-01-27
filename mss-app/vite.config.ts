@@ -39,7 +39,7 @@ export default defineConfig(({ mode }): UserConfig => {
 
   const config: UserConfigExport = {
     optimizeDeps: {
-      include: ['vue', 'luxon', '@apollo/client/core'],
+      include: ['vue', 'luxon', '@apollo/client/core', '@vue/apollo-composable'],
       exclude: ['@vueuse/core'],
       esbuildOptions: { target: 'esnext', supported: { 'top-level-await': true } }
     },
@@ -183,9 +183,8 @@ const chunkGroup = (id: string): string | null => {
 
 const getVendorChunk = (id: string): string => {
   if (id.includes('luxon') || id.includes('@vueuse/core')) return 'vendor-utils';
-  if (id.includes('vue') || id.includes('vue-router')) return 'vendor-vue';
+  if (id.includes('vue') || id.includes('vue-router') || id.includes('@vue/apollo-composable')) return 'vendor-vue';
   if (id.includes('graphql') || id.includes('@apollo/client/core')) return 'vendor-graphql';
-  if (id.includes('apollo') || id.includes('@apollo/client')) return 'vendor-apollo';
   if (id.includes('vue-dompurify-html')) return 'vendor-dom';
   if (id.includes('unhead')) return 'vendor-head';
   if (id.includes('unpic')) return 'vendor-images';
