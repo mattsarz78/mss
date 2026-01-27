@@ -2,6 +2,7 @@ generator client {
   provider               = "prisma-client"
   output                 = "../__generated__/prisma"
   previewFeatures        = ["typedSql"]
+  compilerBuild          = "fast"
   engineType             = "client"
   generatedFileExtension = "mts"
   importFileExtension    = "mjs"
