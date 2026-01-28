@@ -6,6 +6,7 @@ export interface SeasonContentsInput {
 export interface ConferenceGamesInput {
   season: string;
   conference: string;
+  id: string;
 }
 
 export interface TvGamesInput {

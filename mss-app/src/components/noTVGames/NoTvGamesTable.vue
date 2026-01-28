@@ -3,7 +3,7 @@ import type { NoTvGame } from '#/graphQl.mjs';
 import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
-const props = defineProps<{ noTvGamesForDate: NoTvGame[]; noTvDate: string }>();
+const props = defineProps<{ noTvGamesForDate: Partial<NoTvGame>[]; noTvDate: string }>();
 const { noTvGamesForDate, noTvDate } = props;
 
 const formattedDate = computed(() => DateTime.fromISO(noTvDate).toFormat('DDDD'));

@@ -10,7 +10,6 @@ import {
   syndicationLinks
 } from '#staticData/constants.mjs';
 import imagesForUrls from '#staticData/imagesForUrls.json' with { type: 'json' };
-import { createClient } from 'redis';
 
 const seasonMap: Record<string, string> = { '2020r': '2020', '2021s': '2020' };
 
@@ -35,28 +34,8 @@ const syndicationLinksSet = new Set(syndicationLinks);
 const FORMAT_CACHE_MAX = 2000;
 const formatCache = new Map<string, string>();
 
-// Redis L2 cache configuration
+// L2 cache removed (Redis). Use in-process L1 cache only.
 const CACHE_VERSION = 'v1';
-const REDIS_CACHE_TTL = process.env.IMAGE_CACHE_TTL ? parseInt(process.env.IMAGE_CACHE_TTL, 10) : 3600; // seconds
-let redisClient: ReturnType<typeof createClient> | null = null;
-
-if (process.env.REDIS_URL) {
-  redisClient = createClient({ url: process.env.REDIS_URL });
-  redisClient.on('error', (err: unknown) => {
-    // Do not crash the process if redis is unavailable
-     
-    console.error('Redis error in image.mts:', err);
-  });
-  (async () => {
-    try {
-      await redisClient!.connect();
-    } catch (err) {
-       
-      console.error('Failed to connect to Redis in image.mts:', err);
-      redisClient = null;
-    }
-  })();
-}
 
 const makeCacheKey = (input: string, season: string) => `${CACHE_VERSION}::${input}::${season}`;
 
@@ -143,21 +122,6 @@ export const formatNetworkJpgAndCoverageAsync = async (input: string, season: st
   const cachedLocal = formatCache.get(cacheKey);
   if (cachedLocal) return cachedLocal;
 
-  // L2 Redis cache
-  if (redisClient) {
-    try {
-      const cachedRedis = await redisClient.get(cacheKey);
-      if (cachedRedis) {
-        formatCache.set(cacheKey, cachedRedis);
-        return cachedRedis;
-      }
-    } catch (err) {
-      // ignore Redis errors
-       
-      console.error('Redis GET error in image.mts:', err);
-    }
-  }
-
   // Compute result synchronously
   const result = computeFormatNetworkJpgAndCoverage(input, season);
 
@@ -166,16 +130,6 @@ export const formatNetworkJpgAndCoverageAsync = async (input: string, season: st
   if (formatCache.size > FORMAT_CACHE_MAX) {
     const oldest = formatCache.keys().next().value as string | undefined;
     if (oldest) formatCache.delete(oldest);
-  }
-
-  if (redisClient) {
-    try {
-      await redisClient.set(cacheKey, result, { EX: REDIS_CACHE_TTL });
-    } catch (err) {
-      // ignore Redis set errors
-       
-      console.error('Redis SET error in image.mts:', err);
-    }
   }
 
   return result;
@@ -214,30 +168,6 @@ export const formatNetworkBatch = async (
     }
   }
 
-  // L2 mGet (fetch by cacheKey)
-  if (redisClient && missingKeys.length) {
-    try {
-      const cacheKeys = missingKeys.map((sk) => keyMap.get(sk)!);
-      const vals = await redisClient.mGet(cacheKeys);
-      vals.forEach((val, i) => {
-        if (val !== null) {
-          const sk = missingKeys[i];
-          const cacheKey = cacheKeys[i];
-          out.set(sk, val);
-          // populate L1
-          formatCache.set(cacheKey, val);
-        }
-      });
-      // remove fulfilled keys from missingKeys
-      for (let i = missingKeys.length - 1; i >= 0; i--) {
-        if (out.has(missingKeys[i])) missingKeys.splice(i, 1);
-      }
-    } catch (err) {
-       
-      console.error('Redis MGET error in image.mts:', err);
-    }
-  }
-
   // Compute remaining missing keys synchronously and pipeline SET to Redis
   if (missingKeys.length) {
     // compute
@@ -250,22 +180,6 @@ export const formatNetworkBatch = async (
       out.set(sk, res);
       // populate L1
       formatCache.set(cacheKey, res);
-    }
-
-    // pipeline SET with EX
-    if (redisClient) {
-      try {
-        const multi = redisClient.multi();
-        for (const sk of missingKeys) {
-          const cacheKey = keyMap.get(sk)!;
-          const val = out.get(sk)!;
-          multi.set(cacheKey, val, { EX: REDIS_CACHE_TTL });
-        }
-        await multi.exec();
-      } catch (err) {
-         
-        console.error('Redis pipeline SET error in image.mts:', err);
-      }
     }
   }
 

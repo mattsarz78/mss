@@ -16,6 +16,7 @@ input TvGamesInput {
   week: Int!
   sport: String!
 }
+
 input DailyTvGamesInput {
   startDate: String!
   sport: String!
@@ -43,6 +44,7 @@ type TvGameData {
 input ConferenceGamesInput {
   season: String!
   conference: String!
+  id: String!
 }
 type ConferenceGame {
   gameTitle: String

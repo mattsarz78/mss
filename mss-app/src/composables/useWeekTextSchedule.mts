@@ -1,12 +1,12 @@
 import { TV_GAMES, type TvGameData } from '#/graphQl.mjs';
-import { useApolloQuery } from '#/composables/useApolloQuery.mjs';
+import { useQuery } from '@vue/apollo-composable';
 
 export const useWeekTextSchedule = (sport: string, year: string, week: number) => {
   const {
-    data: tvGameResult,
+    result: tvGameResult,
     loading: tvGameLoading,
     error: tvGameError
-  } = useApolloQuery<{ tvGames: TvGameData }>(TV_GAMES, { input: { season: year, sport, week } });
+  } = useQuery<{ tvGames: TvGameData }>(TV_GAMES, { variables: { input: { season: year, sport, week } } });
 
   return { tvGameResult, tvGameLoading, tvGameError };
 };

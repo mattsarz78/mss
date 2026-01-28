@@ -5,7 +5,7 @@ import prettierConfig from 'eslint-config-prettier';
 /** @type {tseslint.InfiniteDepthConfigWithExtends[]} */
 const config = tseslint.config(
   { files: ['**/*.{js,mjs,cjs,mts}'] },
-  { ignores: ['node_modules/**/*', '__generated__/**/*', 'apollo.config.js', 'eslint.config.mjs'] },
+  { ignores: ['node_modules/**/*', '__generated__/**/*', 'apollo.config.js', 'eslint.config.mjs','dist/**/*'] },
   {
     languageOptions: {
       parser: tseslint.parser,

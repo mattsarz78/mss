@@ -38,7 +38,7 @@ const toggleNoTV = async () => {
     </template>
     <template v-if="showNoTV && noTvGamesResults">
       <div class="slidingNoTVDiv">
-        <p v-if="!noTvGamesResults?.noTvGames.length">
+        <p v-if="!noTvGamesResults?.noTvGames?.length">
           All FBS games scheduled for this week are being televised or shown online
         </p>
         <NoTvGamesTable
@@ -46,8 +46,9 @@ const toggleNoTV = async () => {
           :key="index"
           :no-tv-date="noTVDate"
           :no-tv-games-for-date="
-            noTvGamesResults?.noTvGames.filter(
-              (x: { timeWithOffset: string }) =>
+            noTvGamesResults?.noTvGames?.filter(
+              (x: { timeWithOffset?: string }) =>
+                x.timeWithOffset &&
                 DateTime.fromISO(x.timeWithOffset).setZone('America/New_York').toISODate() === noTVDate
             ) || []
           " />

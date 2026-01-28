@@ -2,7 +2,7 @@ import type { IContext } from '#/context.mjs';
 import { CommonService, CommonServiceKey } from '#database/common.mjs';
 import { FootballService, FootballServiceKey } from '#database/football.mjs';
 import { SeasonService, SeasonServiceKey } from '#database/seasonData.mjs';
-import { type DatabaseServices, getDatabaseServices } from '#database/services.mjs';
+import { type DatabaseServices } from '#database/services.mjs';
 import { WeeklyDatesService, WeeklyDatesServiceKey } from '#database/weeklyDates.mjs';
 import { PrismaClient } from '#generated/prisma/client.mjs';
 import * as Resolvers from '#resolvers/index.mjs';
@@ -84,20 +84,31 @@ const createResolversArray = () => {
 };
 
 const startServer = async () => {
-  const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL }, { schema: 'mattsarzsports' });
+  // Lazy database client and services — created only when a resolver needs them.
+  let db: PrismaClient | null = null;
+  let databaseServices: Partial<DatabaseServices> | null = null;
 
-  const db = new PrismaClient({
-    log: NODE_ENV === 'production' ? ['error'] : ['error'],
-    errorFormat: 'minimal',
-    adapter
-  });
+  function ensureDbAndServicesSync() {
+    if (db && databaseServices) return { db, services: databaseServices };
 
-  const databaseServices: Partial<DatabaseServices> = {
-    [FootballServiceKey]: new FootballService(db),
-    [CommonServiceKey]: new CommonService(db),
-    [WeeklyDatesServiceKey]: new WeeklyDatesService(db),
-    [SeasonServiceKey]: new SeasonService(db)
-  };
+    const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL }, { schema: 'mattsarzsports' });
+
+    db = new PrismaClient({ log: NODE_ENV === 'production' ? ['error'] : ['error'], errorFormat: 'minimal', adapter });
+    process.stdout.write('Database client initialized');
+
+    databaseServices = {
+      [FootballServiceKey]: new FootballService(db),
+      [CommonServiceKey]: new CommonService(db),
+      [WeeklyDatesServiceKey]: new WeeklyDatesService(db),
+      [SeasonServiceKey]: new SeasonService(db)
+    };
+
+    // Intentionally do NOT call db.$connect() here. The Prisma client will open
+    // connections lazily when executing queries. This keeps startup fast and
+    // avoids blocking the process if the DB is temporarily unavailable.
+
+    return { db, services: databaseServices };
+  }
 
   const { typeDefs, resolvers } = loadSchemaAndResolvers();
 
@@ -125,7 +136,35 @@ const startServer = async () => {
     bodyParser.json({ limit: '1mb' }),
     cors(corsOptions),
     expressMiddleware<IContext>(apolloServer, {
-      context: async ({ req }) => Promise.resolve({ db, services: getDatabaseServices(databaseServices), request: req })
+      context: async ({ req }) => {
+        // Provide lazy accessors so the database + services are only created when actually accessed
+        const lazyDb = new Proxy(
+          {},
+          {
+            // Proxy get will initialize DB/services synchronously on first property access
+            get(_target, prop) {
+              // avoid triggering during JSON.stringify / util.inspect
+              if (prop === 'then') return undefined;
+              if (!db || !databaseServices) ensureDbAndServicesSync();
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              return (db as any)[prop as any];
+            }
+          }
+        ) as unknown as PrismaClient;
+
+        const lazyServices = new Proxy(
+          {},
+          {
+            get(_target, prop) {
+              if (!db || !databaseServices) ensureDbAndServicesSync();
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              return (databaseServices as any)[prop as any];
+            }
+          }
+        ) as unknown as DatabaseServices;
+
+        return { db: lazyDb, services: lazyServices, request: req };
+      }
     })
   );
 
@@ -144,9 +183,15 @@ const startServer = async () => {
         });
       });
 
-      // Disconnect from database
-      await db.$disconnect();
-      process.stdout.write('Database disconnected');
+      // Disconnect from database if initialized
+      if (db) {
+        try {
+          await db.$disconnect();
+          process.stdout.write('Database disconnected');
+        } catch (err: unknown) {
+          process.stdout.write(`Error disconnecting database: ${(err as Error).message}`);
+        }
+      }
 
       // Shutdown optional caches
       try {
