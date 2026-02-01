@@ -59,7 +59,7 @@
     "@unpic/vue": "^1.0.0",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vue/apollo-composable": "5.0.0-alpha.1",
-    "@vueuse/core": "^14.1.0",
+    "@vueuse/core": "^14.2.0",
     "graphql": "^16.12.0",
     "luxon": "^3.7.2",
     "vite": "^7.3.1",
