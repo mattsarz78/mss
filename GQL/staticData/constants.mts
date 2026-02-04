@@ -275,5 +275,7 @@ export const syndicationLinks = [
   'https://ovcsports.com/news/2025/12/21/mens-basketball-ovc-basketball-on-gray-media.aspx',
   'https://ovcsports.com/news/2026/1/8/mens-basketball-ovc-basketball-on-gray-media.aspx',
   'https://ovcsports.com/news/2026/1/14/mens-basketball-ovc-basketball-on-gray-media.aspx',
-  'https://ovcsports.com/news/2026/1/20/mens-basketball-ovc-basketball-on-gray-media.aspx'
+  'https://ovcsports.com/news/2026/1/20/mens-basketball-ovc-basketball-on-gray-media.aspx',
+  'https://ovcsports.com/news/2026/1/24/mens-basketball-ovc-basketball-on-gray-media.aspx',
+  'https://ovcsports.com/news/2026/2/2/mens-basketball-ovc-basketball-on-gray-media.aspx'
 ];

@@ -33,7 +33,7 @@
     "pullImage": "docker pull mattsarz78/graphql:latest"
   },
   "dependencies": {
-    "@apollo/server": "^5.3.0",
+    "@apollo/server": "^5.4.0",
     "@as-integrations/express5": "^1.1.2",
     "@dotenvx/dotenvx": "^1.52.0",
     "@graphql-tools/graphql-file-loader": "^8.1.9",
