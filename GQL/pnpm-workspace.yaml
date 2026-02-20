@@ -6,4 +6,4 @@ dedupeDirectDeps: true
 
 ignoreWorkspaceRootCheck: true
 
-useNodeVersion: 24.13.0
+useNodeVersion: 24.13.1

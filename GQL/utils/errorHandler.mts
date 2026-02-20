@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
 
-export const ErrorCode = {
+export const ERROR_CODES = {
   BAD_REQUEST: 'BAD_REQUEST',
   DATABASE_ERROR: 'DATABASE_ERROR',
   INTERNAL_SERVER: 'INTERNAL_SERVER',
@@ -8,7 +8,7 @@ export const ErrorCode = {
   UNAUTHORIZED: 'UNAUTHORIZED'
 } as const;
 
-export type ErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode];
+export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES];
 
 export class BaseError extends GraphQLError {
   constructor(message: string, code: ErrorCode, originalError?: Error) {
@@ -29,19 +29,19 @@ export class BaseError extends GraphQLError {
 
 export class NotFoundError extends BaseError {
   constructor(message: string, originalError?: Error) {
-    super(message, ErrorCode.NOT_FOUND, originalError);
+    super(message, ERROR_CODES.NOT_FOUND, originalError);
   }
 }
 
 export class BadRequestError extends BaseError {
   constructor(message: string, originalError?: Error) {
-    super(message, ErrorCode.BAD_REQUEST, originalError);
+    super(message, ERROR_CODES.BAD_REQUEST, originalError);
   }
 }
 
 export class DatabaseError extends BaseError {
   constructor(message: string, originalError?: Error) {
-    super(message, ErrorCode.DATABASE_ERROR, originalError);
+    super(message, ERROR_CODES.DATABASE_ERROR, originalError);
   }
 }
 
@@ -57,8 +57,8 @@ export const handleError = (error: unknown): GraphQLError => {
     }
 
     // Generic error handling
-    return new BaseError(error.message, ErrorCode.INTERNAL_SERVER, error);
+    return new BaseError(error.message, ERROR_CODES.INTERNAL_SERVER, error);
   }
 
-  return new BaseError('An unknown error occurred', ErrorCode.INTERNAL_SERVER);
+  return new BaseError('An unknown error occurred', ERROR_CODES.INTERNAL_SERVER);
 };

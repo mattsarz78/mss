@@ -1,25 +1,16 @@
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import js from '@eslint/js';
 import prettierConfig from 'eslint-config-prettier';
+import { defineConfig } from 'eslint/config';
+import tseslint from 'typescript-eslint';
 
-/** @type {tseslint.InfiniteDepthConfigWithExtends[]} */
-const config = tseslint.config(
-  { files: ['**/*.{js,mjs,cjs,mts}'] },
-  { ignores: ['node_modules/**/*', '__generated__/**/*', 'apollo.config.js', 'eslint.config.mjs','dist/**/*'] },
+export default defineConfig(
+  { ignores: ['node_modules/**/*', '__generated__/**/*', 'apollo.config.js', 'eslint.config.mjs', 'dist/**/*'] },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-        sourceType: 'module',
-        ecmaVersion: 'latest'
-      }
-    }
+    languageOptions: { parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname } },
+    rules: { 'no-undef': 'off' }
   },
-  eslint.configs.recommended,
-  tseslint.configs.recommended,
+
   prettierConfig
 );
-
-export default config;
