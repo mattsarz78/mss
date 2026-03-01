@@ -17,7 +17,7 @@
     "dumpSchema": "tsx ./utils/dump-schema.mts",
     "graphQlGen": "graphql-codegen --config codegen.yml",
     "prettier": "prettier --write './**/*.{mts,js,graphql}'",
-    "start": "tsx index.mts",
+    "start": "tsx --experimental-temporal index.mts",
     "startDev": "tsx --watch index.mts",
     "startDocker": "docker compose up --build -d",
     "prismaPull": "prisma db pull",
@@ -39,19 +39,18 @@
     "@graphql-tools/graphql-file-loader": "^8.1.9",
     "@graphql-tools/load": "^8.1.8",
     "@graphql-tools/merge": "^9.1.7",
-    "@prisma/adapter-pg": "^7.4.1",
-    "@prisma/client": "^7.4.1",
+    "@prisma/adapter-pg": "^7.4.2",
+    "@prisma/client": "^7.4.2",
     "body-parser": "^2.2.2",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "graphql": "^16.12.0",
-    "luxon": "^3.7.2",
-    "tsx": "^4.21.0"
+    "graphql": "^16.13.0",
+    "luxon": "^3.7.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "@graphql-codegen/cli": "^6.1.1",
+    "@eslint/js": "^10.0.1",
+    "@graphql-codegen/cli": "^6.1.2",
     "@graphql-codegen/typescript": "^5.0.8",
     "@graphql-codegen/typescript-resolvers": "^5.1.6",
     "@types/body-parser": "^1.19.6",
@@ -60,13 +59,14 @@
     "@types/express": "^5.0.6",
     "dotenv-cli": "^11.0.0",
     "esbuild": "^0.27.3",
-    "prisma": "^7.4.1",
+    "prisma": "^7.4.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.0"
+    "typescript-eslint": "^8.56.1"
   },
   "graphql": {
     "schema": "./schema.graphql",
     "documents": "./**/*.{graphql,js,mts,jsx,tsx}"
   },
-  "packageManager": "pnpm@10.29.3"
+  "packageManager": "pnpm@10.30.1"
 }
