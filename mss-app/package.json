@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@apollo/client": "^4.1.6",
-    "@unhead/vue": "^2.1.4",
+    "@unhead/vue": "^2.1.9",
     "@unpic/vue": "^1.0.0",
     "@vue/apollo-composable": "5.0.0-alpha.1",
     "@vueuse/core": "^14.2.1",
