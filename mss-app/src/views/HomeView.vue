@@ -44,12 +44,7 @@ addMetaTags(title);
       <a href="https://twitter.com/mattsarz?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true"
         >Follow @mattsarz</a
       >
-      <component
-        :is="'script'"
-        async
-        src="https://platform.twitter.com/widgets.js"
-        nonce="${nonce}"
-        charset="utf-8"></component>
+      <component :is="'script'" async src="https://platform.twitter.com/widgets.js" charset="utf-8"></component>
     </div>
     <iframe
       id="Facebook"
@@ -62,8 +57,7 @@ addMetaTags(title);
       frameborder="0"
       allowfullscreen="true"
       allowtransparency="true"
-      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-      nonce="${nonce}" />
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" />
     <br />
     <a href="https://bsky.app/profile/mattsarz.bsky.social">
       <img

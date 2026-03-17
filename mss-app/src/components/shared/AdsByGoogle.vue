@@ -1,16 +1,11 @@
 <template>
   <div v-reset-adsense-height class="DONTPrint">
-    <component
-      :is="'script'"
-      nonce="${nonce}"
-      async
-      src="https://cse.google.com/cse.js?cx=partner-pub-0296554708545211:rp92al-azpy" />
+    <component :is="'script'" async src="https://cse.google.com/cse.js?cx=partner-pub-0296554708545211:rp92al-azpy" />
     <div class="gcse-search" />
     <component
       :is="'script'"
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0296554708545211"
-      nonce="${nonce}"
       crossorigin="anonymous">
     </component>
     <ins
@@ -20,6 +15,6 @@
       data-ad-slot="9539391470"
       data-ad-format="auto"
       data-full-width-responsive="true"></ins>
-    <component :is="'script'" nonce="${nonce}"> (adsbygoogle = window.adsbygoogle || []).push({}); </component>
+    <component :is="'script'"> (adsbygoogle = window.adsbygoogle || []).push({}); </component>
   </div>
 </template>
