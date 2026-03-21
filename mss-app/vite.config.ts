@@ -40,15 +40,7 @@ export default defineConfig(({ mode }): UserConfig => {
   const config: UserConfigExport = {
     optimizeDeps: {
       include: ['vue', 'luxon', '@apollo/client/core', '@vue/apollo-composable'],
-      exclude: ['@vueuse/core'],
-      esbuildOptions: { target: 'esnext', supported: { 'top-level-await': true } }
-    },
-    esbuild: {
-      drop: mode === 'production' ? ['console', 'debugger'] : [],
-      legalComments: 'none',
-      treeShaking: true,
-      minifyIdentifiers: true,
-      minifySyntax: true
+      exclude: ['@vueuse/core']
     },
     server: {
       watch: {
@@ -112,24 +104,25 @@ export default defineConfig(({ mode }): UserConfig => {
     ],
     resolve: { alias },
     build: {
-      cssMinify: 'lightningcss',
-      minify: 'terser',
       target: 'esnext',
-      terserOptions: { compress: { drop_console: true, drop_debugger: true } },
-      dynamicImportVarsOptions: { warnOnError: true, exclude: [] },
-      // Optimize chunk splitting
-      rollupOptions: {
+      rolldownOptions: {
         external: ['workbox-window'],
         output: {
-          manualChunks: (id) => {
-            return chunkGroup(id);
+          codeSplitting: {
+            groups: [
+              {
+                name(id) {
+                  return chunkGroup(id);
+                }
+              }
+            ]
           },
-          inlineDynamicImports: false,
           entryFileNames: `assets/[name].[hash].${buildId}.mjs`,
           chunkFileNames: `assets/[name].[hash].${buildId}.mjs`,
           assetFileNames: `assets/[name].[hash].${buildId}.[ext]`
         }
       },
+      // Optimize chunk splitting
       manifest: true, // Generate manifest.json for asset mapping
       sourcemap: mode === 'development',
       reportCompressedSize: mode === 'production',
