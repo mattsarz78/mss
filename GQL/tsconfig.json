@@ -3,7 +3,6 @@
     "outDir": "dist",
     "allowJs": true,
     "allowUnreachableCode": false,
-    "baseUrl": ".",
     "composite": true,
     "declaration": true,
     "declarationMap": true,
@@ -13,7 +12,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "incremental": true,
-    "lib": ["ES2022"], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "lib": ["ESNext"], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     "module": "NodeNext" /* Specify what module code is generated. */,
     "moduleResolution": "nodenext",
     "noImplicitThis": true,
@@ -21,15 +20,15 @@
     "newLine": "lf",
     "paths": {
       "#/*": ["./*"],
-      "#staticData/*": ["staticData/*"],
-      "#schemas/*": ["schemas/*"],
-      "#resolvers/*": ["resolvers/*"],
-      "#database/*": ["database/*"],
-      "#utils/*": ["utils/*"],
-      "#generated/*": ["__generated__/*"]
+      "#staticData/*": ["./staticData/*"],
+      "#schemas/*": ["./schemas/*"],
+      "#resolvers/*": ["./resolvers/*"],
+      "#database/*": ["./database/*"],
+      "#utils/*": ["./utils/*"],
+      "#generated/*": ["./__generated__/*"]
     },
     "rootDir": ".",
-    "target": "es2022" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "target": "esnext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "resolveJsonModule": true,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "sourceMap": true,

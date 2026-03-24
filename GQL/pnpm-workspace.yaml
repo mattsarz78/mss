@@ -4,6 +4,4 @@ packages:
 
 dedupeDirectDeps: true
 
-ignoreWorkspaceRootCheck: true
-
-useNodeVersion: 24.14.0
+useNodeVersion: 24.14.1
