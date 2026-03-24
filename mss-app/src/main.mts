@@ -1,5 +1,6 @@
 import App from '#/App.vue';
 import router from '#/router/index.mjs';
+import { updateSpeculationForRoute } from '#/utils/speculationRules.mts';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client/core';
 import { createHead } from '@unhead/vue/client';
 import { InferSeoMetaPlugin } from '@unhead/vue/plugins';
@@ -68,6 +69,10 @@ app.use(head);
 app.use(VuePurify.vueDompurifyHTMLPlugin, { default: { ADD_ATTR: ['target'] } });
 
 app.use(router);
+
+router.afterEach((to) => {
+  updateSpeculationForRoute(to);
+});
 
 router
   .isReady()

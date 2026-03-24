@@ -21,7 +21,7 @@
     "noImplicitThis": true,
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2024", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
+    "lib": ["esnext", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
     "module": "nodenext",
     "target": "esnext",
     "strict": true,
