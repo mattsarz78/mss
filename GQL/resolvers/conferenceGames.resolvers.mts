@@ -20,11 +20,13 @@ export interface ConferenceData {
 // Build contract data index once for O(1) lookups instead of linear search
 const contractDataIndex = new Map<string, Map<string, string>>();
 contractData.forEach((contract) => {
-  const seasonMap = new Map<string, string>();
+  if (!contractDataIndex.has(contract.season)) {
+    contractDataIndex.set(contract.season, new Map<string, string>());
+  }
+  const seasonMap = contractDataIndex.get(contract.season)!;
   contract.data.forEach((seasonData: ConferenceData) => {
     seasonMap.set(seasonData.id, seasonData.data);
   });
-  contractDataIndex.set(contract.season, seasonMap);
 });
 
 export const conferenceGames = async (

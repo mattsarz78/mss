@@ -6,14 +6,13 @@ import { type basketball, type football } from '#generated/prisma/client.mjs';
 import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
 import { formatNetworkBatch } from '#utils/image.mjs';
 import { splitComma } from '#utils/string.mjs';
-import { DateTime } from 'luxon';
 
 export interface DailyTvGamesArgs {
   input: DailyTvGamesInput;
 }
 
-const zeroHour = { hour: 0, minute: 0, seconds: 0, milliseconds: 0 };
-const endOfDay = { hour: 4, minute: 59, seconds: 59, milliseconds: 0 };
+const zeroHour = { hour: 0, minute: 0, second: 0, millisecond: 0 };
+const endOfDay = { hour: 4, minute: 59, second: 59, millisecond: 0 };
 
 export const dailyTvGames = async (
   _1: unknown,
@@ -25,8 +24,14 @@ export const dailyTvGames = async (
       throw new BadRequestError('Start date and sport are required');
     }
 
-    const startDate = DateTime.fromISO(input.startDate).set(zeroHour).toJSDate();
-    const endDate = DateTime.fromISO(input.startDate).plus({ days: 1 }).set(endOfDay).toJSDate();
+    const inputDate = Temporal.PlainDate.from(input.startDate);
+
+    const startDate = new Date(
+      inputDate.toPlainDateTime(zeroHour).toZonedDateTime('UTC').toInstant().epochMilliseconds
+    );
+    const endDate = new Date(
+      inputDate.add({ days: 1 }).toPlainDateTime(endOfDay).toZonedDateTime('UTC').toInstant().epochMilliseconds
+    );
 
     const results = await context.services[CommonServiceKey].getDailyTvGames({
       startDate,

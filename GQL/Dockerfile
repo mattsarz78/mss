@@ -46,7 +46,6 @@ EXPOSE 8020
 
 # Healthcheck using node builtin (no curl required in distroless)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD node -e "const http = require('http'); const req = http.get('http://127.0.0.1:8020/health', res => { if (res.statusCode !== 200) process.exit(1); process.exit(0); }); req.on('error', () => process.exit(1)); setTimeout(() => process.exit(1), 4500);"
-
+  CMD ["node", "-e", "const http = require('http'); const req = http.get('http://127.0.0.1:8020/health', res => { if (res.statusCode !== 200) process.exit(1); process.exit(0); }); req.on('error', () => process.exit(1)); setTimeout(() => process.exit(1), 4500);"]
 # Distroless node images use `node` as their entrypoint; provide the script path as CMD.
-CMD ["dist/index.js"]
+CMD ["--harmony-temporal", "./dist/index.js"]

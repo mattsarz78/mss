@@ -28,7 +28,7 @@
       "#generated/*": ["./__generated__/*"]
     },
     "rootDir": ".",
-    "target": "esnext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "target": "es2025" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "resolveJsonModule": true,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "sourceMap": true,
