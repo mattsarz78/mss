@@ -54,8 +54,8 @@
     "copy-webp": "node ./scripts/copy-webp.mjs"
   },
   "dependencies": {
-    "@apollo/client": "4.1.6",
-    "@unhead/vue": "2.1.13",
+    "@apollo/client": "4.1.7",
+    "@unhead/vue": "3.0.4",
     "@unpic/vue": "1.0.0",
     "@vue/apollo-composable": "5.0.0-alpha.2",
     "@vueuse/core": "14.2.1",
@@ -66,16 +66,16 @@
     "vue-router": "5.0.4"
   },
   "devDependencies": {
-    "@apollo/client-devtools-vscode": "4.25.2",
+    "@apollo/client-devtools-vscode": "4.25.3",
     "@rushstack/eslint-patch": "1.16.1",
-    "@vitejs/plugin-vue": "6.0.5",
+    "@vitejs/plugin-vue": "6.0.6",
     "@vue/eslint-config-prettier": "10.2.0",
     "@vue/eslint-config-typescript": "14.7.0",
     "eslint-plugin-vue": "10.8.0",
     "eslint-plugin-vuejs-accessibility": "2.5.0",
     "rollup-plugin-visualizer": "7.0.1",
     "sharp": "0.34.5",
-    "vite": "8.0.5",
+    "vite": "8.0.8",
     "vite-plugin-pwa": "1.2.0",
     "vite-plugin-vue-devtools": "8.1.1",
     "vue-tsc": "3.2.6",

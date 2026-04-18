@@ -4,4 +4,4 @@ packages:
 
 dedupeDirectDeps: true
 
-useNodeVersion: 24.14.1
+useNodeVersion: 24.15.0

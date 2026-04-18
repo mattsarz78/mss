@@ -1,5 +1,5 @@
 packages:
   - apps/**
   - packages/**
-useNodeVersion: 24.14.1
+useNodeVersion: 24.15.0
 dedupeDirectDeps: true
