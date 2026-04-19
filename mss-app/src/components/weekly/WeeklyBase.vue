@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TvGame } from '#/graphQl.mjs';
+import { getDateForGame } from '#utils/dateFormatting.mts';
 import WeekGamesTable from '#weekly/WeekGamesTable.vue';
-import { DateTime } from 'luxon';
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -14,19 +14,12 @@ const props = defineProps<{
 
 const { tvGames, isBowlWeek, isMbkPostseason, showPpvColumn, isDaily } = props;
 
-const getGameDate = (timeWithOffset: string): string => {
-  const eastern = DateTime.fromISO(timeWithOffset).setZone('America/New_York');
-  return eastern.toFormat('t') === '12:00 AM'
-    ? (eastern.toISODate() ?? '')
-    : (DateTime.fromISO(timeWithOffset).toLocal().toISODate() ?? '');
-};
-
 const hasValidTime = (game: TvGame): game is TvGame & { timeWithOffset: string } =>
   typeof game.timeWithOffset === 'string';
 
 const tvGamesByDate = computed(() =>
   tvGames.filter(hasValidTime).reduce<Record<string, TvGame[]>>((acc, game) => {
-    const date = getGameDate(game.timeWithOffset);
+    const date = getDateForGame(game.timeWithOffset);
     if (date) {
       acc[date] ??= [];
       acc[date].push(game);
