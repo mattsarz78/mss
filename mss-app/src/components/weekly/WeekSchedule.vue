@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useCurrentTimeET } from '#composables/useCurrentTimeET.mts';
 import { useWebExclusives } from '#composables/useWebExclusives.mjs';
 import { useWeekSchedule } from '#composables/useWeekSchedule.mjs';
 import { useWeekScheduleNav } from '#composables/useWeekScheduleNav.mjs';
@@ -33,9 +34,11 @@ const {
   isNextWeekBowlWeek
 } = useWeekScheduleNav(sport, year.value, weekInt.value);
 
+// Use memoized time that updates once per minute instead of on every reactive change
+const { currentTimeISO } = useCurrentTimeET();
+
 const gamesToday = computed(() => {
-  const nowInET = DateTime.now().setZone('America/New_York');
-  const nowIso = nowInET.toISO({ includeOffset: false });
+  const nowIso = currentTimeISO.value;
   if (!nowIso) return false;
 
   return seasonContentsResult.value?.seasonContents.seasonContents.some(
