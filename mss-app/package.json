@@ -55,10 +55,7 @@
   },
   "dependencies": {
     "@apollo/client": "4.1.7",
-    "@unhead/vue": "3.0.4",
-    "@unpic/vue": "1.0.0",
     "@vue/apollo-composable": "5.0.0-alpha.2",
-    "@vueuse/core": "14.2.1",
     "graphql": "16.13.2",
     "luxon": "3.7.2",
     "vue": "3.5.32",
@@ -78,7 +75,7 @@
     "vite": "8.0.8",
     "vite-plugin-pwa": "1.2.0",
     "vite-plugin-vue-devtools": "8.1.1",
-    "vue-tsc": "3.2.6",
+    "vue-tsc": "3.2.7",
     "workbox-build": "7.4.0",
     "workbox-window": "7.4.0"
   },

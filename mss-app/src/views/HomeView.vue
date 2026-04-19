@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import AdsByGoogle from '#shared/AdsByGoogle.vue';
 import Copyright from '#shared/CopyrightLink.vue';
 import { addMetaTags } from '#utils/metaTags.mjs';
-import { Image } from '@unpic/vue';
+import { defineAsyncComponent } from 'vue';
 import { RouterLink } from 'vue-router';
+
+const AdsByGoogle = defineAsyncComponent(() => import('#shared/AdsByGoogle.vue'));
 
 const title = "Matt's College Sports on TV";
 
@@ -13,7 +14,7 @@ addMetaTags(title);
 <template>
   <main v-reset-adsense-height>
     <div>
-      <Image id="imgtitle" loading="lazy" alt="Matt's College Sports" src="/images/logo.webp" layout="responsive" />
+      <img id="imgtitle" src="/images/logo.webp" loading="lazy" alt="Matt's College Sports" />
       <br />
     </div>
     <div id="content">

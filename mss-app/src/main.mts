@@ -2,8 +2,6 @@ import App from '#/App.vue';
 import router from '#/router/index.mjs';
 import { updateSpeculationForRoute } from '#/utils/speculationRules.mts';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client/core';
-import { createHead } from '@unhead/vue/client';
-import { InferSeoMetaPlugin } from '@unhead/vue/plugins';
 import { DefaultApolloClient } from '@vue/apollo-composable';
 import { registerSW } from 'virtual:pwa-register';
 import { createApp, h, provide } from 'vue';
@@ -25,18 +23,9 @@ const apolloClient = new ApolloClient({
 });
 
 if (!import.meta.env.PROD) {
-  try {
-    const { connectApolloClientToVSCodeDevTools } = await import('@apollo/client-devtools-vscode');
-    if (typeof connectApolloClientToVSCodeDevTools === 'function') {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      connectApolloClientToVSCodeDevTools(apolloClient as any, 'ws://localhost:7095');
-    }
-  } catch (err) {
-    // Swallow devtools import errors.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const msg = err && (err as any).message ? (err as any).message : String(err);
-    console.debug('Apollo VSCode devtools not loaded:', msg);
-  }
+  // Dynamically import dev tools module - completely tree-shaken from production
+  const { initializeApolloDevTools } = await import('#/devtools.mts');
+  await initializeApolloDevTools(apolloClient);
 }
 
 const updateSW = registerSW({
@@ -64,9 +53,10 @@ app.directive('reset-adsense-height', {
   }
 });
 
-const head = createHead({ init: [{ title: "Matt's College Sports on TV" }], plugins: [InferSeoMetaPlugin()] });
-app.use(head);
 app.use(VuePurify.vueDompurifyHTMLPlugin, { default: { ADD_ATTR: ['target'] } });
+
+// Set initial page title
+document.title = "Matt's College Sports on TV";
 
 app.use(router);
 

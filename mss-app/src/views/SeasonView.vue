@@ -2,10 +2,12 @@
 import { useSeasonContents } from '#composables/useSeasonContents.mjs';
 import ConferenceList from '#season/ConferenceList.vue';
 import SeasonDates from '#season/SeasonDates.vue';
-import AdsByGoogle from '#shared/AdsByGoogle.vue';
 import Copyright from '#shared/CopyrightLink.vue';
 import { addMetaTags } from '#utils/metaTags.mjs';
+import { defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
+
+const AdsByGoogle = defineAsyncComponent(() => import('#shared/AdsByGoogle.vue'));
 
 const route = useRoute();
 const sport = route.params.sport as string;

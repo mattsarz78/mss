@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import AdsByGoogle from '#shared/AdsByGoogle.vue';
 import Copyright from '#shared/CopyrightLink.vue';
 import { addMetaTags } from '#utils/metaTags.mjs';
+import { defineAsyncComponent } from 'vue';
 import { RouterLink } from 'vue-router';
+
+const AdsByGoogle = defineAsyncComponent(() => import('#shared/AdsByGoogle.vue'));
 
 const title = 'Archive Listings';
 

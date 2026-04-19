@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import AdsByGoogle from '#shared/AdsByGoogle.vue';
+import { useSeasonData } from '#/composables/useSeasonData.mjs';
 import Copyright from '#shared/CopyrightLink.vue';
 import { addMetaTags } from '#utils/metaTags.mjs';
-import { useSeasonData } from '#/composables/useSeasonData.mjs';
+import { defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
+
+const AdsByGoogle = defineAsyncComponent(() => import('#shared/AdsByGoogle.vue'));
 
 const route = useRoute();
 const { year } = route.params as { year: string };

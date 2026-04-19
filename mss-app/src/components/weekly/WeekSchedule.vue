@@ -3,12 +3,13 @@ import { useWebExclusives } from '#composables/useWebExclusives.mjs';
 import { useWeekSchedule } from '#composables/useWeekSchedule.mjs';
 import { useWeekScheduleNav } from '#composables/useWeekScheduleNav.mjs';
 import NoTvGames from '#noTv/NoTvGames.vue';
-import AdsByGoogle from '#shared/AdsByGoogle.vue';
-import BackToTop from '#shared/BackToTop.vue';
 import Copyright from '#shared/CopyrightLink.vue';
 import WeeklyBase from '#weekly/WeeklyBase.vue';
 import { DateTime } from 'luxon';
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
+
+const AdsByGoogle = defineAsyncComponent(() => import('#shared/AdsByGoogle.vue'));
+const BackToTop = defineAsyncComponent(() => import('#shared/BackToTop.vue'));
 
 const props = defineProps<{ week: string; sport: string; paramYear: string }>();
 const { week, sport, paramYear } = props;
