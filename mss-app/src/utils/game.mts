@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon';
 import type { ConferenceGame, TvGame } from '#/graphQl.mjs';
+import { formatTime } from '#utils/dateFormatting.mts';
 
 export const formatGame = (game: TvGame | ConferenceGame): string => {
   return (
@@ -14,7 +14,4 @@ export const formatGame = (game: TvGame | ConferenceGame): string => {
   );
 };
 
-export const formatTime = (timeWithOffset: string): string => {
-  const easternTime = DateTime.fromISO(timeWithOffset).setZone('America/New_York').toFormat('t');
-  return easternTime === '12:00 AM' ? 'TBA' : DateTime.fromISO(timeWithOffset).toLocal().toFormat('t');
-};
+export { formatTime };

@@ -2,16 +2,16 @@
 import { useDailyTvTextGames } from '#composables/useDailyTvTextGames.mjs';
 import Copyright from '#shared/CopyrightLink.vue';
 import WeekTextBase from '#text/WeekTextBase.vue';
+import { formatDateLong } from '#utils/dateFormatting.mts';
 import { checkAllTextRows, clearAllSelectedTextRows } from '#utils/domText.mjs';
 import { addMetaTags } from '#utils/metaTags.mjs';
 import { setupPrintListener } from '#utils/printListener.mts';
-import { DateTime } from 'luxon';
 import { defineAsyncComponent } from 'vue';
 
 const AdsByGoogle = defineAsyncComponent(() => import('#shared/AdsByGoogle.vue'));
 const BackToTop = defineAsyncComponent(() => import('#shared/BackToTop.vue'));
 
-const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
+const title = `Daily TV Games for ${formatDateLong(new Date())}`;
 
 addMetaTags(title);
 

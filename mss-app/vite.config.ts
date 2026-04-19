@@ -176,8 +176,6 @@ const getVendorChunk = (id: string): string => {
   if (id.includes('vue') || id.includes('vue-router') || id.includes('@vue/apollo-composable')) return 'vendor-vue';
   if (id.includes('graphql') || id.includes('@apollo/client/core')) return 'vendor-graphql';
   if (id.includes('vue-dompurify-html')) return 'vendor-dom';
-  if (id.includes('unhead')) return 'vendor-head';
-  if (id.includes('unpic')) return 'vendor-images';
   return 'vendor-other';
 };
 
