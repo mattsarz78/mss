@@ -25,6 +25,10 @@ const imageUrlMap = new Map<string, ImagesForUrl[]>();
   imageUrlMap.get(img.link)!.push(img);
 });
 
+// Optimization: sort links by length (longest first) for faster substring matching
+// This helps find matches earlier and break out of loops faster
+const imageLinksSortedByLength = Array.from(imageLinksCache).sort((a, b) => b.length - a.length);
+
 // Cache specialized link sets for faster lookups
 const coverageMapLinksSet = new Set(coverageMapLinks);
 const specialCoverageNotesSet = new Set(specialCoverageNotes);
@@ -67,11 +71,12 @@ export const computeFormatNetworkJpgAndCoverage = (input: string, season: string
   }
 
   for (const imageHyperlink of imageHyperlinks) {
-    // Look up in pre-built map instead of filtering 200+ items
+    // Look up in pre-built map using sorted links for faster matching
+    // Sorted by length (longest first) to match more specific links first
     let imageArray: ImagesForUrl[] = [];
-    for (const [link, images] of imageUrlMap) {
+    for (const link of imageLinksSortedByLength) {
       if (imageHyperlink.includes(link)) {
-        imageArray = images;
+        imageArray = imageUrlMap.get(link) ?? [];
         break;
       }
     }
@@ -227,7 +232,8 @@ const isHyperlink = (network: string): boolean => {
 
 const isImageHyperlink = (network: string): boolean => {
   // Check if network contains any of the cached image links
-  for (const link of imageLinksCache) {
+  // Uses sorted array for faster early termination on long strings
+  for (const link of imageLinksSortedByLength) {
     if (network.includes(link)) {
       return true;
     }

@@ -138,30 +138,22 @@ const startServer = async () => {
     expressMiddleware<IContext>(apolloServer, {
       context: async ({ req }) => {
         // Provide lazy accessors so the database + services are only created when actually accessed
-        const lazyDb = new Proxy(
-          {},
-          {
-            // Proxy get will initialize DB/services synchronously on first property access
-            get(_target, prop) {
-              // avoid triggering during JSON.stringify / util.inspect
-              if (prop === 'then') return undefined;
-              if (!db || !databaseServices) ensureDbAndServicesSync();
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              return (db as any)[prop as any];
-            }
+        const lazyDb = new Proxy({} as Record<PropertyKey, unknown>, {
+          // Proxy get will initialize DB/services synchronously on first property access
+          get(_target, prop) {
+            // avoid triggering during JSON.stringify / util.inspect
+            if (prop === 'then') return undefined;
+            if (!db || !databaseServices) ensureDbAndServicesSync();
+            return db?.[prop as keyof typeof db];
           }
-        ) as unknown as PrismaClient;
+        }) as unknown as PrismaClient;
 
-        const lazyServices = new Proxy(
-          {},
-          {
-            get(_target, prop) {
-              if (!db || !databaseServices) ensureDbAndServicesSync();
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              return (databaseServices as any)[prop as any];
-            }
+        const lazyServices = new Proxy({} as Record<PropertyKey, unknown>, {
+          get(_target, prop) {
+            if (!db || !databaseServices) ensureDbAndServicesSync();
+            return databaseServices?.[prop as keyof typeof databaseServices];
           }
-        ) as unknown as DatabaseServices;
+        }) as unknown as DatabaseServices;
 
         return { db: lazyDb, services: lazyServices, request: req };
       }

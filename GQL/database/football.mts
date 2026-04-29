@@ -38,8 +38,19 @@ export class FootballService implements IFootballService {
     try {
       return await this.client.football.findMany({
         where: { season: request.season, conference: request.conference, mediaindicator: { in: ['T', 'W'] } },
-        orderBy: { timewithoffset: 'asc' }
-      });
+        orderBy: { timewithoffset: 'asc' },
+        select: {
+          gametitle: true,
+          visitingteam: true,
+          hometeam: true,
+          location: true,
+          timewithoffset: true,
+          mediaindicator: true,
+          networkjpg: true,
+          tvtype: true,
+          conference: true
+        }
+      }) as unknown as Promise<football[]>;
     } catch (error) {
       throw new DatabaseError('Failed to fetch conference games', error as Error);
     }

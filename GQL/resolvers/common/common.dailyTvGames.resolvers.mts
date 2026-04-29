@@ -2,10 +2,8 @@ import { type IContext } from '#/context.mjs';
 import { CommonServiceKey } from '#database/common.mjs';
 import { SeasonServiceKey } from '#database/seasonData.mts';
 import { type DailyTvGamesInput, type TvGameData } from '#generated/graphql.mjs';
-import { type basketball, type football } from '#generated/prisma/client.mjs';
 import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
-import { formatNetworkBatch } from '#utils/image.mjs';
-import { splitComma } from '#utils/string.mjs';
+import { transformTvGamesResponse } from '#utils/tvGamesTransform.mts';
 
 export interface DailyTvGamesArgs {
   input: DailyTvGamesInput;
@@ -33,46 +31,25 @@ export const dailyTvGames = async (
       inputDate.add({ days: 1 }).toPlainDateTime(endOfDay).toZonedDateTime('UTC').toInstant().epochMilliseconds
     );
 
+    // Fetch daily games first to get season
     const results = await context.services[CommonServiceKey].getDailyTvGames({
       startDate,
       endDate,
       sport: input.sport
     });
 
-    let seasonDataResult;
-    if (results.length !== 0) {
-      const season = results[0].season ?? '';
-      seasonDataResult = await context.services[SeasonServiceKey].getSeasonData(season);
+    console.log(results);
+    // If no results, return empty response
+    if (results.length === 0) {
+      return { showPPVColumn: false, hasNoTVGames: false, flexScheduleLink: undefined, tvGames: [] };
     }
-    const pairs: Array<{ input: string; season: string }> = [];
-    results.forEach((result: football | basketball) => {
-      pairs.push({ input: result.networkjpg ?? '', season: '' });
-      pairs.push({ input: result.coveragenotes ?? '', season: '' });
-      pairs.push({ input: result.ppv ?? '', season: '' });
-    });
 
-    const batch = await formatNetworkBatch(pairs);
+    // Only fetch season data if we have results; use empty string for season in cache key
+    const season = results[0].season ?? '';
+    const seasonData = await context.services[SeasonServiceKey].getSeasonData(season);
 
-    const tvGames = results.map((result: football | basketball) => ({
-      season: result.season ?? '',
-      gameTitle: result.gametitle ?? '',
-      visitingTeam: splitComma(result.visitingteam ?? ''),
-      homeTeam: splitComma(result.hometeam ?? ''),
-      location: result.location ?? '',
-      network: result.network ?? '',
-      networkJpg: batch.get(`${result.networkjpg ?? ''}::`) ?? '',
-      coverageNotes: batch.get(`${result.coveragenotes ?? ''}::`) ?? '',
-      ppv: batch.get(`${result.ppv ?? ''}::`) ?? '',
-      mediaIndicator: result.mediaindicator ?? '',
-      timeWithOffset: result.timewithoffset ? result.timewithoffset.toISOString() : ''
-    }));
-
-    return {
-      showPPVColumn: seasonDataResult?.showPPVColumn ?? false,
-      hasNoTVGames: seasonDataResult?.hasNoTVGames ?? false,
-      flexScheduleLink: seasonDataResult?.flexScheduleLink,
-      tvGames
-    };
+    // Transform results using shared utility
+    return transformTvGamesResponse(results, '', seasonData);
   } catch (err: unknown) {
     throw handleError(err);
   }

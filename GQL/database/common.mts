@@ -43,7 +43,24 @@ export class CommonService implements ICommonService {
       where.week = weeklyRequest.week;
     }
 
-    return { where, orderBy: [{ timewithoffset: 'asc' }, { listorder: 'asc' } as const] } as unknown as FindManyArgs<T>;
+    const select = {
+      gametitle: true,
+      visitingteam: true,
+      hometeam: true,
+      location: true,
+      timewithoffset: true,
+      mediaindicator: true,
+      networkjpg: true,
+      tvtype: true,
+      conference: true,
+      ...(isDaily && { season: true })
+    };
+
+    return {
+      where,
+      orderBy: [{ timewithoffset: 'asc' }, { listorder: 'asc' } as const],
+      select
+    } as unknown as FindManyArgs<T>;
   }
 
   public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(football | basketball)[]> {
