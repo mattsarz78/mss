@@ -38,7 +38,6 @@ export const dailyTvGames = async (
       sport: input.sport
     });
 
-    console.log(results);
     // If no results, return empty response
     if (results.length === 0) {
       return { showPPVColumn: false, hasNoTVGames: false, flexScheduleLink: undefined, tvGames: [] };

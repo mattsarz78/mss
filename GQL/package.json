@@ -33,9 +33,9 @@
     "pullImage": "docker pull mattsarz78/graphql:latest"
   },
   "dependencies": {
-    "@apollo/server": "5.5.0",
+    "@apollo/server": "5.5.1",
     "@as-integrations/express5": "1.1.2",
-    "@dotenvx/dotenvx": "1.64.0",
+    "@dotenvx/dotenvx": "1.65.0",
     "@graphql-tools/graphql-file-loader": "8.1.14",
     "@graphql-tools/load": "8.1.10",
     "@graphql-tools/merge": "9.1.9",
@@ -45,12 +45,12 @@
     "compression": "1.8.1",
     "cors": "2.8.6",
     "express": "5.2.1",
-    "graphql": "16.13.2"
+    "graphql": "16.14.0"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@graphql-codegen/cli": "7.0.0",
-    "@graphql-codegen/typescript": "6.0.0",
+    "@graphql-codegen/typescript": "6.0.1",
     "@graphql-codegen/typescript-resolvers": "6.0.0",
     "@types/body-parser": "1.19.6",
     "@types/compression": "1.8.1",
@@ -60,7 +60,7 @@
     "esbuild": "0.28.0",
     "prisma": "7.8.0",
     "tsx": "4.21.0",
-    "typescript-eslint": "8.59.1"
+    "typescript-eslint": "8.59.2"
   },
   "graphql": {
     "schema": "./schema.graphql",

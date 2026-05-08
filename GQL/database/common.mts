@@ -50,7 +50,10 @@ export class CommonService implements ICommonService {
       location: true,
       timewithoffset: true,
       mediaindicator: true,
+      network: true,
       networkjpg: true,
+      coveragenotes: true,
+      ppv: true,
       tvtype: true,
       conference: true,
       ...(isDaily && { season: true })
