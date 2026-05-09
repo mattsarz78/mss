@@ -3,3 +3,5 @@ packages:
   - packages/**
 useNodeVersion: 24.15.0
 dedupeDirectDeps: true
+allowBuilds:
+  sharp: false

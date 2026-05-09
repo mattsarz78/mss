@@ -2,6 +2,12 @@ packages:
   - apps/**
   - packages/**
 
+allowBuilds:
+  '@apollo/protobufjs': false
+  '@prisma/engines': false
+  esbuild: true
+  prisma: true
+
 dedupeDirectDeps: true
 
 useNodeVersion: 24.15.0
