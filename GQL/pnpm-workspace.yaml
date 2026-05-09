@@ -3,8 +3,8 @@ packages:
   - packages/**
 
 allowBuilds:
-  '@apollo/protobufjs': false
-  '@prisma/engines': false
+  '@apollo/protobufjs': true
+  '@prisma/engines': true
   esbuild: true
   prisma: true
 
