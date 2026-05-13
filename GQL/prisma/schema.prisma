@@ -8,6 +8,7 @@ generator client {
   importFileExtension    = "mjs"
   moduleFormat           = "esm"
   runtime                = "nodejs"
+  binaryTargets          = ["native", "linux-arm64-openssl-3.0.x"]
 }
 
 datasource db {
