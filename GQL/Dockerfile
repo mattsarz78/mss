@@ -1,12 +1,13 @@
 # syntax=docker/dockerfile:1.4
 
 # Stage 1: Build
-FROM node:24-bullseye-slim AS build
+FROM node:26-trixie-slim AS build
 
 ENV NODE_ENV=development
 ENV CI=true
 WORKDIR /app
 
+RUN npm install -g corepack@latest
 # Copy dependency manifests first (cacheable layer)
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml /app/
 
@@ -18,14 +19,19 @@ RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
 # Copy remaining source and run generators + build
 COPY . /app
 
-RUN pnpm prismaGen && pnpm graphQlGen && pnpm prismaFormat \
-  && pnpm run build:dist \
+RUN pnpm run build:dist \
   && pnpm prune --prod --no-optional \
   && mv node_modules /opt/node_modules.prod \
   && rm -rf /tmp/* /root/.npm
+  
+  # RUN pnpm prismaFormat && pnpm prismaGen && pnpm graphQlGen \
+  # && pnpm run build:dist \
+  # && pnpm prune --prod --no-optional \
+  # && mv node_modules /opt/node_modules.prod \
+  # && rm -rf /tmp/* /root/.npm
 
 # Stage 2: Production
-FROM gcr.io/distroless/nodejs24-debian13:nonroot AS production
+FROM gcr.io/distroless/nodejs26-debian13:nonroot AS production
 
 # Final stage should NOT bake secrets into the image. Accept runtime ENV values
 # (e.g. DATABASE_URL) when running the container instead of setting them at build time.
@@ -48,4 +54,4 @@ EXPOSE 8020
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD ["node", "-e", "const http = require('http'); const req = http.get('http://127.0.0.1:8020/health', res => { if (res.statusCode !== 200) process.exit(1); process.exit(0); }); req.on('error', () => process.exit(1)); setTimeout(() => process.exit(1), 4500);"]
 # Distroless node images use `node` as their entrypoint; provide the script path as CMD.
-CMD ["--harmony-temporal", "./dist/index.js"]
+CMD ["./dist/index.js"]
