@@ -16,7 +16,7 @@ RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
   corepack enable pnpm \
   && pnpm install --frozen-lockfile
 
-# Copy remaining source and run generators + build
+  # Copy remaining source and run generators + build
 COPY . /app
 
 RUN pnpm run build:dist \
