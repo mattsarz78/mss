@@ -36,7 +36,7 @@ export class FootballService implements IFootballService {
 
   public async getConferenceGames(request: GetConferenceGamesRequest): Promise<football[]> {
     try {
-      return await this.client.football.findMany({
+      return (await this.client.football.findMany({
         where: { season: request.season, conference: request.conference, mediaindicator: { in: ['T', 'W'] } },
         orderBy: { timewithoffset: 'asc' },
         select: {
@@ -50,7 +50,7 @@ export class FootballService implements IFootballService {
           tvtype: true,
           conference: true
         }
-      }) as unknown as Promise<football[]>;
+      })) as unknown as football[];
     } catch (error) {
       throw new DatabaseError('Failed to fetch conference games', error as Error);
     }

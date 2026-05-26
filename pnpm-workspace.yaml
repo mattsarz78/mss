@@ -2,5 +2,5 @@ packages:
   # include packages in subfolders (change as required)
   - 'apps/**'
   - 'packages/**'
-useNodeVersion: 26.1.0
+useNodeVersion: 26.2.0
 dedupeDirectDeps: true

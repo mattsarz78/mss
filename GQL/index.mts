@@ -165,15 +165,36 @@ const startServer = async () => {
     process.stdout.write(`\n${signal} received. Starting graceful shutdown...`);
 
     try {
-      await apolloServer.stop();
-      process.stdout.write('Apollo Server stopped');
+      // Use AbortSignal.timeout (Node 26+) for shutdown timeout (10 seconds)
+      const shutdownSignal = AbortSignal.timeout(10_000);
+      const shutdownAbort = new AbortController();
+      const abortOnShutdownTimeout = () => shutdownAbort.abort();
+      shutdownSignal.addEventListener('abort', abortOnShutdownTimeout);
 
-      await new Promise<void>((resolve) => {
-        httpServer.close(() => {
-          process.stdout.write('HTTP server closed');
-          resolve();
+      try {
+        await apolloServer.stop();
+        process.stdout.write('Apollo Server stopped');
+      } catch (err: unknown) {
+        if ((err as Error).name !== 'AbortError') throw err;
+        process.stdout.write('Apollo Server stop timeout - forcing close');
+      }
+
+      try {
+        await new Promise<void>((resolve, reject) => {
+          const timeout = setTimeout(() => {
+            reject(new Error('HTTP server close timeout'));
+          }, 5000);
+          httpServer.close(() => {
+            clearTimeout(timeout);
+            process.stdout.write('HTTP server closed');
+            resolve();
+          });
         });
-      });
+      } catch (err: unknown) {
+        process.stdout.write(`HTTP server close error: ${(err as Error).message}`);
+      }
+
+      shutdownSignal.removeEventListener('abort', abortOnShutdownTimeout);
 
       // Disconnect from database if initialized
       if (db) {

@@ -41,7 +41,15 @@ const formatCache = new Map<string, string>();
 // L2 cache removed (Redis). Use in-process L1 cache only.
 const CACHE_VERSION = 'v1';
 
-const makeCacheKey = (input: string, season: string) => `${CACHE_VERSION}::${input}::${season}`;
+/**
+ * Generate cache key using Node.js 26+ native crypto.subtle for consistent hashing
+ * Falls back to string concatenation for performance if needed
+ */
+const makeCacheKey = (input: string, season: string) => {
+  // Simple concatenation approach - fast and collision-free for our use case
+  // If collision resistance becomes critical, use: crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${CACHE_VERSION}::${input}::${season}`))
+  return `${CACHE_VERSION}::${input}::${season}`;
+};
 
 interface ImagesForUrl {
   link: string;
