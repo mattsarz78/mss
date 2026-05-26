@@ -1,0 +1,130 @@
+schema {
+  query: Query
+}
+type Query {
+  tvGames(input: TvGamesInput): TvGameData!
+  dailyTvGames(input: DailyTvGamesInput): TvGameData!
+  conferenceGames(input: ConferenceGamesInput): ConferenceGameData!
+  noTvGames(input: NoTvGamesInput): [NoTvGame]!
+  health: String!
+  seasonContents(input: SeasonContentsInput): SeasonContentsData!
+  seasonData(input: SeasonDataInput): SeasonData!
+}
+
+input TvGamesInput {
+  season: String!
+  week: Int!
+  sport: String!
+}
+
+input DailyTvGamesInput {
+  startDate: String!
+  sport: String!
+}
+type TvGame {
+  season: String!
+  gameTitle: String
+  visitingTeam: [String]
+  homeTeam: [String]
+  location: String
+  network: String
+  networkJpg: String
+  coverageNotes: String
+  ppv: String
+  mediaIndicator: String!
+  timeWithOffset: String
+}
+type TvGameData {
+  flexScheduleLink: String
+  showPPVColumn: Boolean!
+  hasNoTVGames: Boolean!
+  tvGames: [TvGame]!
+}
+
+input ConferenceGamesInput {
+  season: String!
+  conference: String!
+  id: String!
+}
+type ConferenceGame {
+  gameTitle: String
+  visitingTeam: [String]!
+  homeTeam: [String]!
+  location: String
+  timeWithOffset: String!
+  mediaIndicator: String!
+  network: String
+  tvtype: String
+  conference: String
+}
+type ContractData {
+  conference: String!
+  contractText: String!
+}
+type ConferenceGameData {
+  conferenceGames: [ConferenceGame]!
+  conferences: [String]!
+  contractYearData: [ContractData]!
+}
+enum ErrorCode {
+  NOT_FOUND
+  BAD_REQUEST
+  UNAUTHORIZED
+  INTERNAL_SERVER
+  DATABASE_ERROR
+}
+interface Error {
+  message: String!
+  code: ErrorCode!
+  timestamp: String!
+}
+type NotFoundError implements Error {
+  message: String!
+  code: ErrorCode!
+  timestamp: String!
+}
+type BadRequestError implements Error {
+  message: String!
+  code: ErrorCode!
+  timestamp: String!
+}
+type DatabaseError implements Error {
+  message: String!
+  code: ErrorCode!
+  timestamp: String!
+}
+input NoTvGamesInput {
+  season: String!
+  week: Int!
+}
+type NoTvGame {
+  gameTitle: String
+  visitingTeam: String!
+  homeTeam: String!
+  location: String
+  conference: String!
+  tvOptions: String!
+  timeWithOffset: String!
+  fcs: String
+}
+input SeasonContentsInput {
+  season: String!
+}
+type SeasonContents {
+  week: Int!
+  startDate: String!
+  endDate: String!
+  postseasonInd: String
+}
+type SeasonContentsData {
+  conferenceListBase: String
+  flexScheduleLink: String
+  hasPostseason: Boolean!
+  seasonContents: [SeasonContents]!
+}
+input SeasonDataInput {
+  season: String!
+}
+type SeasonData {
+  flexScheduleLink: String
+}
