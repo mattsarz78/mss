@@ -14,8 +14,8 @@ const apolloClient = new ApolloClient({
   link: httpLink,
   cache,
   defaultOptions: {
-    query: { fetchPolicy: 'cache-first', errorPolicy: 'all' },
-    watchQuery: { fetchPolicy: 'cache-and-network', errorPolicy: 'all' }
+    query: { fetchPolicy: 'cache-first' },
+    watchQuery: { fetchPolicy: 'cache-and-network' }
   }
 });
 

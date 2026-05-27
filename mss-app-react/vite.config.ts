@@ -112,6 +112,9 @@ export default defineConfig(({ mode }): UserConfig => {
       sourcemap: env.SOURCEMAP === 'true',
       target: 'esnext',
       minify: 'terser',
+      rollupOptions: {
+        external: ['workbox-window'],
+      },
     },
   };
 

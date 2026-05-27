@@ -60,7 +60,8 @@
     "luxon": "3.7.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router-dom": "7.15.1"
+    "react-router-dom": "7.15.1",
+    "workbox-window": "^7.4.1"
   },
   "devDependencies": {
     "@apollo/client-devtools-vscode": "4.25.6",

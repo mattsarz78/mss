@@ -1,42 +1,18 @@
+import { routes } from '#/router';
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-
-// Placeholder components for routing
-const Home = () => (
-  <div className="home">
-    <h1>Welcome to MattSarzSports</h1>
-    <p>React Version</p>
-  </div>
-);
-
-const Football = () => (
-  <div className="football">
-    <h1>Football</h1>
-  </div>
-);
-
-const Conference = () => (
-  <div className="conference">
-    <h1>Conference Games</h1>
-  </div>
-);
-
-const Season = () => (
-  <div className="season">
-    <h1>Season Contents</h1>
-  </div>
-);
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 const App: React.FC = () => {
   return (
-    <div className="app">
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/football" element={<Football />} />
-        <Route path="/conference" element={<Conference />} />
-        <Route path="/season" element={<Season />} />
+        {routes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+        {/* Catch-all route for 404s - redirect to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 };
 

@@ -1,12 +1,22 @@
 {
   "compilerOptions": {
     "composite": true,
+    "noEmit": true,
+    "types": ["node"],
+    "esModuleInterop": true,
     "skipLibCheck": true,
+    "moduleDetection": "force",
     "module": "nodenext",
     "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noImplicitThis": true
+    "noImplicitThis": true,
+    "useDefineForClassFields": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["esnext", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
+    "target": "esnext",
   },
-  "include": ["vite.config.ts", "env.d.ts", "plugins"]
+  "include": ["vite.config.*", "env.d.ts", "plugins/**/*.mts"]
 }
