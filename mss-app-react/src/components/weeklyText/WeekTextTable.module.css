@@ -1,0 +1,52 @@
+.table {
+  background-color: #fff;
+  border: thin solid Gray;
+  border-spacing: 1px;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  table-layout: auto;
+}
+
+.headerCell {
+  border: thin solid Gray;
+  text-align: center;
+  padding: 2px;
+}
+
+.gameCell,
+.timeCell,
+.networkCell,
+.ppvCell {
+  border: thin solid Gray;
+  padding: 2px;
+}
+
+.gameCell {
+  width: 50%;
+}
+
+.timeCell {
+  width: 15%;
+  text-align: right;
+}
+
+.networkCell {
+  width: 195px;
+  text-align: center;
+}
+
+.ppvCell {
+  width: 25px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 640px) {
+  .gameCell {
+    padding: 1px;
+  }
+
+  .networkCell {
+    padding: 0;
+  }
+}

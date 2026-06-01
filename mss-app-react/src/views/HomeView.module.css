@@ -1,58 +1,58 @@
-#imgtitle {
+.imgtitle {
   max-width: 100%;
   padding-bottom: 5px;
 }
 
-#Links {
+.links {
   float: left;
   display: inline;
 }
 
-#Facebook {
+.facebook {
   border: 0;
   overflow: hidden;
 }
 
-.home-view {
+.main {
   padding-top: 37px;
 }
 
 @media all and (min-width: 641px) {
-  #Facebook {
+  .facebook {
     height: 80px;
     width: 450px;
   }
 
-  #Links {
+  .links {
     width: 45%;
   }
 
-  #Links,
-  #content {
+  .links,
+  .content {
     height: 330px;
   }
 }
 
 @media only screen and (max-width: 640px) {
-  #Facebook {
+  .facebook {
     height: 100px;
     width: 300px;
   }
 
-  #Links {
+  .links {
     width: 100%;
   }
 
-  #Links,
-  #content {
+  .links,
+  .content {
     height: 280px;
   }
 
-  #Twitter {
+  .twitter {
     width: 100%;
   }
 
-  .home-view {
+  .main {
     padding-top: 48px;
   }
 }

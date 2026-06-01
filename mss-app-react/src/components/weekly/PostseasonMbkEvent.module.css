@@ -1,0 +1,63 @@
+.game {
+  width: 35%;
+  padding: 2px;
+  border: medium solid Gray;
+  border-width: thin;
+}
+
+.imgBorder {
+  border: 0;
+}
+
+.img {
+  aspect-ratio: 66 / 50;
+}
+
+.network {
+  width: 20%;
+  padding: 2px;
+  text-align: center;
+  border: medium solid Gray;
+  border-width: thin;
+}
+
+.coverage {
+  width: 25%;
+  border: medium solid Gray;
+  border-width: thin;
+  empty-cells: show;
+  text-align: center;
+}
+
+.time {
+  width: 10%;
+  text-align: right;
+  border: medium solid Gray;
+  border-width: thin;
+  padding: 2px;
+}
+
+.linkblock {
+  display: inline-block;
+  padding-top: 7px;
+  padding-bottom: 2px;
+}
+
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
+}
+
+@media only screen and (max-width: 640px) {
+  .game {
+    padding: 1px;
+  }
+
+  .network {
+    padding: 0;
+  }
+
+  .img {
+    aspect-ratio: 43 / 33;
+  }
+}

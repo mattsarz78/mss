@@ -20,6 +20,7 @@ const getGitHash = () => {
 const alias = {
   '#': resolve(_dirname, './src'),
   '#composables': resolve(_dirname, './src/composables'),
+  '#hooks': resolve(_dirname, './src/hooks'),
   '#views': resolve(_dirname, './src/views'),
   '#utils': resolve(_dirname, './src/utils'),
   '#data': resolve(_dirname, './src/staticData'),
@@ -115,6 +116,10 @@ export default defineConfig(({ mode }): UserConfig => {
       rollupOptions: {
         external: ['workbox-window'],
       },
+    },
+    define: {
+      'import.meta.env.API_URL': JSON.stringify(env.API_URL),
+      'import.meta.env.VITE_APP_VERSION': JSON.stringify(getGitHash() ?? Date.now().toString()),
     },
   };
 

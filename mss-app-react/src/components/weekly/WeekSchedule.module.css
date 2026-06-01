@@ -1,0 +1,135 @@
+.show_hideWeb {
+  display: inline-block;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background-color: white;
+  padding: 2px 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  display: block;
+  align-items: center;
+}
+
+.navbarHeight {
+  height: 140px;
+}
+
+.navbarPadHeight {
+  height: 155px;
+}
+
+.mbkHeight {
+  height: 69.5px;
+}
+
+.bowlHeight {
+  height: 83.5px;
+}
+
+.container {
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.filters {
+  margin: 0;
+}
+
+.pad {
+  padding: 5px 0;
+}
+
+.loadingContainer,
+.errorContainer {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.loadingText {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexContainerRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flexRowLeft {
+  margin-right: 40%;
+}
+
+.flexRowRight {
+  margin-left: 40%;
+}
+
+@media all and (min-width: 641px) {
+  .buttonfont {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .mbkHeight,
+  .bowlHeight {
+    height: 39.5px;
+  }
+
+  .navbarPadHeight,
+  .navbarHeight {
+    height: 88px;
+  }
+
+  .flexContainer {
+    flex-direction: row;
+    padding-bottom: 4px;
+  }
+
+  .flexRow {
+    padding-right: 10px;
+  }
+
+  .flexRowLeft {
+    margin-right: 30%;
+  }
+
+  .flexRowRight {
+    margin-left: 30%;
+  }
+
+  .blockspan {
+    display: block;
+    padding-bottom: 3px;
+  }
+
+  .mobilehide {
+    display: none;
+  }
+
+  .buttonfont {
+    font-size: 0.9em;
+  }
+
+  .navbar {
+    padding: 10px 3px;
+  }
+}

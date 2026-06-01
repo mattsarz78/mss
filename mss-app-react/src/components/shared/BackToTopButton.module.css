@@ -1,0 +1,22 @@
+.backToTopButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.backToTopButton.show {
+  opacity: 1;
+}
+
+.backToTopButton:hover {
+  background-color: #555;
+}

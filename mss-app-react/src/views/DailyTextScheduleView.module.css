@@ -1,0 +1,76 @@
+.inputpad {
+  padding-left: 10px;
+  margin-right: 3px;
+}
+
+.textNav {
+  margin: 0;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  width: 100%;
+  background-color: white;
+  padding: 2px 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  height: 119.5px;
+  display: block;
+}
+
+.pad {
+  padding: 5px 0;
+}
+
+.container {
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.loadingContainer,
+.errorContainer {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.loadingText {
+  font-size: 1.2em;
+  color: #666;
+}
+
+@media all and (min-width: 641px) {
+  .buttonfont {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .navbar {
+    height: 60px;
+    padding: 10px 3px;
+  }
+
+  .dontPrintLink {
+    line-height: 13px;
+  }
+
+  .mobilehide {
+    display: none;
+  }
+
+  .buttonfont {
+    font-size: 0.9em;
+  }
+}

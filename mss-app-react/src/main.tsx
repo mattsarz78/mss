@@ -1,11 +1,16 @@
 import App from '#/App';
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client/core';
+// 1. Change the import from '@apollo/client/core' to '@apollo/client'
+// and include ApolloProvider
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { registerSW } from 'virtual:pwa-register';
 
+console.log(import.meta.env.API_URL)
+
 const httpLink = new HttpLink({
-  uri: import.meta.env.API_URL ?? 'http://localhost:8020/graphql' // Fallback to localhost if API_URL is not set
+  uri: import.meta.env.API_URL ?? 'http://localhost:8020/graphql' 
 });
 
 const cache = new InMemoryCache();
@@ -20,7 +25,6 @@ const apolloClient = new ApolloClient({
 });
 
 if (!import.meta.env.PROD) {
-  // Dynamically import dev tools module - completely tree-shaken from production
   const { initializeApolloDevTools } = await import('#/devtools');
   await initializeApolloDevTools(apolloClient);
 }
@@ -33,13 +37,13 @@ const updateSW = registerSW({
   }
 });
 
-// Create a context for Apollo Client
-export const ApolloContext = React.createContext(apolloClient);
+// 2. REMOVED: export const ApolloContext = React.createContext(apolloClient);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ApolloContext.Provider value={apolloClient}>
+    {/* 3. Changed from <ApolloContext.Provider value={...}> to <ApolloProvider client={...}> */}
+    <ApolloProvider client={apolloClient}>
       <App />
-    </ApolloContext.Provider>
+    </ApolloProvider>
   </React.StrictMode>
 );

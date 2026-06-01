@@ -3,7 +3,7 @@ import CopyrightLink from '#shared/CopyrightLink';
 import { addMetaTags } from '#utils/metaTags';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './HomeView.css';
+import styles from './HomeView.module.css';
 
 const HomeView: React.FC = () => {
   const title = "Matt's College Sports on TV";
@@ -14,13 +14,13 @@ const HomeView: React.FC = () => {
 
   return (
     <>
-      <main className="home-view">
+      <main className={styles.main}>
         <div>
-          <img id="imgtitle" src="/images/logo.webp" loading="lazy" alt="Matt's College Sports" />
+          <img className={styles.imgtitle} src="/images/logo.webp" loading="lazy" alt="Matt's College Sports" />
           <br />
         </div>
-        <div id="content">
-          <div id="Links">
+        <div className={styles.content}>
+          <div className={styles.links}>
             <Link to="/season/football/2026"> 2026 Football </Link>
             <br />
             <br />
@@ -54,7 +54,7 @@ const HomeView: React.FC = () => {
             </p>
           </div>
         </div>
-        <div id="Twitter">
+        <div className={styles.twitter}>
           <a
             href="https://twitter.com/mattsarz?ref_src=twsrc%5Etfw"
             className="twitter-follow-button"
@@ -65,7 +65,7 @@ const HomeView: React.FC = () => {
           <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
         </div>
         <iframe
-          id="Facebook"
+          className={styles.facebook}
           title="Link to MattSarzSports Facebook page"
           loading="lazy"
           src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmattsarzsports%2F&tabs&height=80&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"

@@ -1,0 +1,16 @@
+import '@apollo/client';
+
+declare module '@apollo/client' {
+  namespace ApolloClient {
+    namespace DefaultOptions {
+      // Affects client.watchQuery() and React hooks (useQuery, useSuspenseQuery, etc.)
+      interface WatchQuery {
+        errorPolicy: 'all';
+      }
+      // Affects client.query()
+      interface Query {
+        errorPolicy: 'all';
+      }
+    }
+  }
+}
