@@ -1,43 +1,109 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-interface WeekInfo {
-  week: number;
-  postseasonInd?: string | boolean;
-}
-
-interface Props {
-  weeks: WeekInfo[];
+import type { WeekInfo } from '#/graphQl.mjs';
+import WeekLink from '#season/WeekLink.tsx';
+import { DateTime } from 'luxon';
+import React, { useMemo } from 'react';
+interface SeasonDatesProps {
+  contents: WeekInfo[];
   sport: string;
+  paramYear: string;
+  hasBasketballPostseason: boolean;
 }
 
-const SeasonDates: React.FC<Props> = ({ weeks, sport }) => {
-  if (!weeks || weeks.length === 0) {
-    return <p>No weeks available for this season.</p>;
+const SeasonDates: React.FC<SeasonDatesProps> = ({ contents, sport, paramYear, hasBasketballPostseason }) => {
+  // Guard clause against empty arrays
+  if (!contents || contents.length === 0) return null;
+
+  const lastContent = contents[contents.length - 1];
+
+  // Parity logic: Replacing Vue's computed filters
+  const filteredContents = useMemo(() => {
+    return contents.filter((x) => !x.postseasonInd);
+  }, [contents]);
+
+  const postseasonContents = useMemo(() => {
+    return contents.filter((x) => x.postseasonInd);
+  }, [contents]);
+
+  // Reusable helper to format date ranges cleanly across templates
+  const formatDateRangeText = (content: WeekInfo) => {
+    const start = DateTime.fromISO(content.startDate, { zone: 'utc' }).toFormat('MMMM dd');
+    const end = DateTime.fromISO(content.endDate, { zone: 'utc' }).toFormat('MMMM dd');
+    return `Week ${content.week.toString()} - ${start} to ${end}`;
+  };
+
+  const getLinkText = (content: WeekInfo) => {
+    if (lastContent.week !== content.week) {
+      return formatDateRangeText(content);
+    }
+    return 'Bowl Games';
+  };
+
+  const getPostseasonLinkText = (content: WeekInfo) => {
+    if (content.postseasonInd === 'N') {
+      return 'NCAA Tournament';
+    } else if (content.postseasonInd === 'I') {
+      return 'NIT';
+    }
+    return 'Other Postseason Tournaments';
+  };
+
+  if (sport === 'football') {
+    return (
+      <div>
+        {contents.map((content) => (
+          <WeekLink
+            key={`${content.week}-${content.startDate}`}
+            year={paramYear}
+            sport={sport}
+            content={content}
+            linkText={getLinkText(content)}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  if (sport === 'basketball' && hasBasketballPostseason) {
+    return (
+      <div>
+        {filteredContents.map((content) => (
+          <WeekLink
+            key={`${content.week}-${content.startDate}`}
+            sport={sport}
+            content={content}
+            year={paramYear}
+            linkText={formatDateRangeText(content)}
+          />
+        ))}
+
+        {postseasonContents.length > 0 && (
+          <p>
+            {postseasonContents.map((content) => (
+              <WeekLink
+                key={`${content.week}-${content.startDate}`}
+                sport={sport}
+                year={paramYear}
+                content={content}
+                linkText={getPostseasonLinkText(content)}
+              />
+            ))}
+          </p>
+        )}
+      </div>
+    );
   }
 
   return (
-    <div className="season-dates">
-      <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', listStyle: 'none', padding: 0 }}>
-        {weeks.map((week) => (
-          <li key={week.week}>
-            <Link
-              to={`/schedule/${sport}/${week.week}`}
-              style={{
-                display: 'inline-block',
-                padding: '8px 12px',
-                backgroundColor: week.postseasonInd ? '#ff9800' : '#2196f3',
-                color: 'white',
-                textDecoration: 'none',
-                borderRadius: '4px',
-                fontSize: '14px'
-              }}
-            >
-              {week.postseasonInd ? `${sport === 'basketball' ? 'Postseason' : 'Bowl'}` : `Week ${week.week}`}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div>
+      {contents.map((content) => (
+        <WeekLink
+          key={`${content.week}-${content.startDate}`}
+          sport={sport}
+          year={paramYear}
+          content={content}
+          linkText={formatDateRangeText(content)}
+        />
+      ))}
     </div>
   );
 };

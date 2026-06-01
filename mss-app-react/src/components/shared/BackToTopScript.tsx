@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 
 const BackToTopScript: React.FC = () => {
   useEffect(() => {
-    const scroll = () => {
+    const handleScroll = () => {
       const backToTopBtn = document.getElementById('backToTopBtn');
+
       if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         backToTopBtn?.classList.add('show');
       } else {
@@ -11,13 +12,17 @@ const BackToTopScript: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', scroll);
+    // Replicating onMounted
+    window.addEventListener('scroll', handleScroll);
+
+    // Replicating onUnmounted (Cleanup routine)
     return () => {
-      window.removeEventListener('scroll', scroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  return null;
+  // Parity matching the empty placeholder layout node
+  return <div />;
 };
 
 export default BackToTopScript;

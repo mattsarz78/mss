@@ -70,7 +70,7 @@
 }
 
 @media all and (min-width: 641px) {
-  .buttonfont {
+  .buttonFont {
     font-size: 14px;
   }
 }
@@ -94,7 +94,7 @@
     display: none;
   }
 
-  .buttonfont {
+  .buttonFont {
     font-size: 0.9em;
   }
 

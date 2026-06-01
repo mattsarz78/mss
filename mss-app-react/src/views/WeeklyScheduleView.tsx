@@ -1,34 +1,48 @@
-import { useWeekSchedule } from '#hooks/useWeekSchedule.mjs';
-import { addMetaTags } from '#utils/metaTags';
-import React, { useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import NoTvGames from '../components/noTVGames/NoTvGames.tsx';
-import WeekSchedule from '../components/weekly/WeekSchedule.tsx';
+import { addMetaTags } from '#utils/metaTags.mjs';
+import { setupPrintListener } from '#utils/printListener.mjs';
+import { generateWeeklyTitle } from '#utils/weeklyTitle.mjs';
+import { WebExclusivesProvider } from '#weekly/WebExclusiveContext.tsx';
+import WeekSchedule from '#weekly/WeekSchedule.tsx';
+import React, { useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 
 const WeeklyScheduleView: React.FC = () => {
-  const { sport = '', year = '', week = '' } = useParams<'sport' | 'year' | 'week'>();
-  const weekNum = useMemo(() => parseInt(week) || 0, [week]);
+  const {
+    week = '',
+    sport = '',
+    year: paramYear = '',
+  } = useParams<{
+    week: string;
+    sport: string;
+    year: string;
+  }>();
 
-  const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year, weekNum);
+  const location = useLocation();
 
-  const title = `${sport?.charAt(0).toUpperCase() + sport?.slice(1)} - Week ${week}, ${year}`;
+  const title = generateWeeklyTitle(sport, week, paramYear, false);
 
+  // Sync meta tags whenever the routing dependencies change the title
   useEffect(() => {
     addMetaTags(title);
   }, [title]);
 
-  if (tvGameLoading) return <main><p>Loading schedule...</p></main>;
-  if (tvGameError) return <main><p>Error loading schedule: {tvGameError.message}</p></main>;
-
-  const games = tvGameResult?.tvGames?.tvGames ?? [];
-  const hasNoTVGames = tvGameResult?.tvGames?.hasNoTVGames ?? false;
+  // Bind the window print listener once when the view mounts
+  useEffect(() => {
+    setupPrintListener();
+  }, []);
 
   return (
-    <main style={{ padding: '20px' }}>
-      <h1>{title}</h1>
-      <WeekSchedule games={games} sport={sport} />
-      {hasNoTVGames && <NoTvGames week={week} year={year} />}
-    </main>
+    <WebExclusivesProvider>
+      <WeekSchedule
+        /* Replicating :key="route.fullPath" triggers a total component unmount 
+        and clean state reset on internal route alterations 
+      */
+        key={`${sport}-${paramYear}-${week}-${location.pathname}`}
+        week={week}
+        sport={sport}
+        paramYear={paramYear}
+      />
+    </WebExclusivesProvider>
   );
 };
 

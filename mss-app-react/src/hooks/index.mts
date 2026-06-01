@@ -10,3 +10,4 @@ export { useWebExclusives } from './useWebExclusives.mjs';
 export { useWeekSchedule } from './useWeekSchedule.mjs';
 export { useWeekScheduleNav } from './useWeekScheduleNav.mjs';
 export { useWeekTextSchedule } from './useWeekTextSchedule.mjs';
+export { useResetAdsenseHeight } from './useResetAdsenseHeight.mjs';

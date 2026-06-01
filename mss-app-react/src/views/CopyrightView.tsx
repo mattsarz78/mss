@@ -1,10 +1,13 @@
+import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
 import AdsByGoogle from '#shared/AdsByGoogle';
 import CopyrightLink from '#shared/CopyrightLink';
 import { addMetaTags } from '#utils/metaTags';
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const CopyrightView: React.FC = () => {
   const title = 'Website Copyright and Usage';
+  const mainRef = useResetAdsenseHeight();
 
   useEffect(() => {
     addMetaTags(title);
@@ -12,34 +15,84 @@ const CopyrightView: React.FC = () => {
 
   return (
     <>
-      <main style={{ padding: '20px', maxWidth: '900px', margin: '0 auto' }}>
-        <h1>{title}</h1>
-
-        <h2>Copyright Information</h2>
-        <p>
-          All content on this website is the property of Matt Sarzyniak or its content suppliers and is protected by international copyright laws.
-        </p>
-
-        <h2>Permitted Use</h2>
-        <p>
-          You may view and print pages from this website for personal, non-commercial use only. You may not reproduce, modify, distribute, transmit, display, perform, publish, license, create derivative works from, transfer, or sell any information, software, products, or services obtained from this website.
-        </p>
-
-        <h2>Third-Party Content</h2>
-        <p>
-          This website may contain content from third parties. All third-party content is subject to the terms and conditions of the respective platforms.
-        </p>
-
-        <h2>Trademark Information</h2>
-        <p>
-          All trademarks and brand names are the property of their respective owners. College and university names are used for identification purposes only.
-        </p>
-
-        <h2>Contact</h2>
-        <p>
-          If you have questions, please contact{' '}
-          <a href="mailto:footballsked@gmail.com">footballsked@gmail.com</a>.
-        </p>
+      <main ref={mainRef}>
+        <div id="content">
+          <div id="Links">
+            <Link to="/"> Home </Link>
+            <br />
+          </div>
+          <div>
+            <p>Copyright © 2005 MattSarzSports.com</p>
+            <p>
+              <strong>Credit</strong>
+            </p>
+            <p>
+              This document was created using a Contractology template available at
+              <a href="http://www.freenetlaw.com"> FreeNetLaw.com. </a>
+            </p>
+            <p>
+              <strong>Ownership of copyright</strong>
+            </p>
+            <p>
+              The copyright in this website and the material on this website (including without limitation the text,
+              computer code, artwork, photographs, images, music, audio material, video material and audio-visual
+              material on this website) is owned by MattSarzSports.com.
+            </p>
+            <p>
+              <strong>Copyright license</strong>
+            </p>
+            <p>MattSarzSports.com grants to you a worldwide non-exclusive royalty-free revocable license to:</p>
+            <ul>
+              <li>
+                view this website and the material on this website on a computer or mobile device via a web browser;
+              </li>
+              <li>
+                copy and store this website and the material on this website in your web browser cache memory; and
+              </li>
+              <li>print pages from this website for your own personal and non-commercial use.</li>
+            </ul>
+            <p>
+              MattSarzSports.com does not grant you any other rights in relation to this website or the material on this
+              website. In other words, all other rights are reserved.
+            </p>
+            <p>
+              For the avoidance of doubt, you must not adapt, edit, change, transform, publish, republish, distribute,
+              redistribute, broadcast, rebroadcast or show or play in public this website or the material on this
+              website (in any form or media) without MattSarzSports.com's prior written permission.
+            </p>
+            <p>
+              <strong>Data mining</strong>
+            </p>
+            <p>The automated and/or systematic collection of data from this website is prohibited.</p>
+            <p>
+              <strong>Permissions</strong>
+            </p>
+            <p>
+              You may request permission to use the copyright materials on this website by writing to
+              <a href="mailto:footballsked@gmail.com">footballsked@@gmail.com</a>.
+            </p>
+            <p>
+              <strong>Enforcement of copyright</strong>
+            </p>
+            <p>
+              MattSarzSports.com takes the protection of its copyright very seriously. If MattSarzSports.com discovers
+              that you have used its copyright materials in contravention of the license above, MattSarzSports.com may
+              bring legal proceedings against you seeking monetary damages and an injunction to stop you using those
+              materials. You could also be ordered to pay legal costs. If you become aware of any use of
+              MattSarzSports.com's copyright materials that contravenes or may contravene the license above, please
+              report this by email to
+              <a href="mailto:footballsked@gmail.com">footballsked@@gmail.com</a>.
+            </p>
+            <p>
+              <strong>Infringing material</strong>
+            </p>
+            <p>
+              If you become aware of any material on the website that you believe infringes your or any other person's
+              copyright, please report this by email to
+              <a href="mailto:footballsked@gmail.com">footballsked@@gmail.com</a>.
+            </p>
+          </div>
+        </div>
 
         <AdsByGoogle />
       </main>

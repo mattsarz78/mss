@@ -1,98 +1,69 @@
-import { useNoTvSchedule } from '#hooks/index.mjs';
+import { useNoTvSchedule } from '#hooks/useNoTvSchedule.mjs';
+import styles from '#noTv/NoTvGames.module.css';
+import NoTvGamesTable from '#noTv/NoTvGamesTable.tsx';
 import { DateTime } from 'luxon';
-import React, { useCallback, useState } from 'react';
-import NoTvGamesTable from './NoTvGamesTable.tsx';
+import React, { useState } from 'react';
 
-interface Props {
+interface NoTvGamesProps {
   week: string;
   year: string;
 }
 
-const NoTvGames: React.FC<Props> = ({ week, year }) => {
+const NoTvGames: React.FC<NoTvGamesProps> = ({ week, year }) => {
   const { noTvGamesResults, noTvGamesLoading, noTvGamesError, datesList, load } = useNoTvSchedule(week, year);
 
   const [showNoTV, setShowNoTV] = useState(false);
 
-  const toggleNoTV = useCallback(async () => {
+  const toggleNoTV = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     await load();
     setShowNoTV((prev) => !prev);
-  }, [load]);
+  };
+
+  // Parity matching the manual text mutation strings
+  const buttonText = showNoTV ? 'Hide Non-Televised Games' : 'Show Non-Televised Games';
 
   return (
     <div>
       <button
         id="btnConferenceGames"
-        className="show_hideNoTV buttonfont"
+        type="button"
+        className={`${styles.show_hideNoTV} ${styles.buttonFont}`}
         onClick={toggleNoTV}
-        style={{
-          display: 'inline-block',
-          padding: '8px 12px',
-          backgroundColor: '#2196f3',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          fontSize: '14px'
-        }}
       >
-        {showNoTV ? 'Hide Non-Televised Games' : 'Show Non-Televised Games'}
+        {buttonText}
       </button>
       <br />
-      <br />
+
       {noTvGamesLoading && (
-        <div
-          style={{
-            minHeight: '200px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-            maxWidth: '800px',
-            margin: '0 auto',
-            background: '#fff',
-            border: '1px solid #eee'
-          }}
-        >
-          <p style={{ fontSize: '1.2em', color: '#666' }}>Loading Week {week} for {year}</p>
+        <div className={styles.loadingContainer}>
+          <p className={styles.loadingText}>
+            Loading Week {week} for {year}
+          </p>
         </div>
       )}
+
       {noTvGamesError && (
-        <div
-          style={{
-            minHeight: '200px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-            maxWidth: '800px',
-            margin: '0 auto',
-            background: '#fff',
-            border: '1px solid #eee'
-          }}
-        >
+        <div className={styles.errorContainer}>
           <p>Sorry. Got a bit of a problem. Let Matt know.</p>
         </div>
       )}
+
       {showNoTV && noTvGamesResults && (
-        <div style={{ paddingTop: '10px' }}>
-          {!noTvGamesResults.noTvGames || noTvGamesResults.noTvGames.length === 0 ? (
+        <div className={styles.slidingNoTVDiv}>
+          {!noTvGamesResults?.noTvGames || noTvGamesResults.noTvGames.length === 0 ? (
             <p>All FBS games scheduled for this week are being televised or shown online</p>
           ) : (
             <>
               {datesList.map((noTVDate, index) => {
-                const noTVGamesForDate = (noTvGamesResults.noTvGames || []).filter((game: any) => {
-                  if (!game.timeWithOffset) return false;
-                  const gameDate = DateTime.fromISO(game.timeWithOffset).setZone('America/New_York').toISODate();
-                  return gameDate === noTVDate;
-                });
+                const filteredGames =
+                  noTvGamesResults?.noTvGames?.filter(
+                    (x: { timeWithOffset?: string }) =>
+                      x.timeWithOffset &&
+                      DateTime.fromISO(x.timeWithOffset).setZone('America/New_York').toISODate() === noTVDate
+                  ) || [];
 
-                return (
-                  <NoTvGamesTable
-                    key={index}
-                    noTvDate={noTVDate}
-                    noTvGamesForDate={noTVGamesForDate}
-                  />
-                );
+                return <NoTvGamesTable key={index} noTvDate={noTVDate} noTvGamesForDate={filteredGames} />;
               })}
               <br />
             </>

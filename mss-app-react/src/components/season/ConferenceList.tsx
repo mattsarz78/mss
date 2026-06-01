@@ -1,54 +1,72 @@
-import React from 'react';
+import conferenceCasingData from '#data/conferenceCasing.json' with { type: 'json' }; // Type attributes usually aren't needed in React build systems
+import type { ConferenceCasing } from '#data/exportTypes.mjs';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-interface Props {
-  sport: string;
+interface ConferenceListProps {
+  conferenceList: string;
   year: string;
 }
 
-const ConferenceList: React.FC<Props> = ({ sport, year }) => {
-  const getConferencesForYear = (year: string): string[] => {
-    const y = parseInt(year);
-    if (y >= 2024) {
-      return ['ACC', 'Big 12', 'Big Ten', 'Pac-12', 'SEC', 'Independents'];
-    } else if (y >= 2023) {
-      return ['ACC', 'Big Ten', 'Big 12', 'Pac-12', 'SEC', 'Independents'];
-    } else if (y >= 2022) {
-      return ['ACC', 'Big Ten', 'Big 12', 'Pac-12', 'SEC', 'Independents'];
-    } else {
-      return ['ACC', 'Big Ten', 'Big 12', 'PAC-12', 'SEC', 'American', 'Independents'];
-    }
-  };
+// Explicit type for our computed structural array
+interface ConferenceLinkItem {
+  key: string;
+  link: ConferenceCasing | undefined;
+}
 
-  const conferences = getConferencesForYear(year);
+const ConferenceList: React.FC<ConferenceListProps> = ({ conferenceList, year }) => {
+  // Helper to locate individual configurations
+  const getConferenceCasing = (conference: string) =>
+    (conferenceCasingData as ConferenceCasing[]).find((x) => x.id === conference);
+
+  // Parity logic: Replacing Vue's computed() with useMemo
+  const conferenceLinks = useMemo(() => {
+    const links: ConferenceLinkItem[] = [
+      { key: 'acc', link: getConferenceCasing('acc') },
+      { key: 'b12', link: getConferenceCasing('b12') },
+      { key: 'b1g', link: getConferenceCasing('b1g') },
+      { key: 'cusa', link: getConferenceCasing('cusa') },
+      { key: 'ind', link: getConferenceCasing('ind') },
+      { key: 'mac', link: getConferenceCasing('mac') },
+      { key: 'mw', link: getConferenceCasing('mw') },
+      {
+        key: 'pac',
+        link: conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12'),
+      },
+      { key: 'sec', link: getConferenceCasing('sec') },
+      { key: 'sbc', link: getConferenceCasing('sbc') },
+    ];
+
+    // Splice conditional insertions matching Vue's mutation strategy
+    if (conferenceList === 'ListBase3') {
+      links.splice(1, 0, { key: 'aac', link: getConferenceCasing('aac') });
+    } else {
+      links.splice(1, 0, { key: 'beast', link: getConferenceCasing('beast') });
+    }
+
+    if (conferenceList === 'ListBase1' || conferenceList === 'ListBase2') {
+      links.push({ key: 'wac', link: getConferenceCasing('wac') });
+    }
+
+    return links;
+  }, [conferenceList]); // Re-compute only if the structural base changes
 
   return (
-    <div className="conference-list">
-      <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '15px', listStyle: 'none', padding: 0 }}>
-        {conferences.map((conf) => (
-          <li key={conf}>
-            <Link
-              to={`/conference/${conf.toLowerCase()}/${year}`}
-              style={{
-                display: 'block',
-                padding: '12px',
-                backgroundColor: '#f0f0f0',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                textDecoration: 'none',
-                color: '#333',
-                fontWeight: 'bold',
-                textAlign: 'center',
-                transition: 'background-color 0.3s'
-              }}
-              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
-              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#f0f0f0')}
-            >
-              {conf}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div id="Conference" className="DONTPrint">
+      <p>
+        <span>By Conference</span>
+      </p>
+      {conferenceLinks.map((conference) => {
+        // Safe guard check just in case lookup returns undefined
+        if (!conference.link) return null;
+
+        return (
+          <div key={conference.key}>
+            <Link to={`/contract/${conference.link.slug}/${year}`}>{conference.link.cased}</Link>
+            <br />
+          </div>
+        );
+      })}
     </div>
   );
 };

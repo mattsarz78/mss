@@ -1,42 +1,45 @@
-import React from 'react';
+import type { ConferenceGame, ContractData } from '#/graphQl.mjs';
+import ConferenceTable from '#conference/ConferenceTable.tsx';
+import { sanitizeHtml } from '#utils/domText.mjs';
+import React, { useMemo } from 'react';
 
-interface Game {
-  matchup?: string;
-  network?: string;
-  time?: string;
-  [key: string]: any;
+interface IndependentsGameListProps {
+  games: ConferenceGame[];
+  schools: string[];
+  year: string;
+  contractYearData: ContractData[];
 }
 
-interface Props {
-  games: Game[];
-}
+const IndependentsGameList: React.FC<IndependentsGameListProps> = ({ games, schools, year, contractYearData }) => {
+  const filterGamesBySchool = (school: string) => {
+    return games.filter((game) => game.conference === school);
+  };
 
-const IndependentsGameList: React.FC<Props> = ({ games }) => {
-  if (!games || games.length === 0) {
-    return <p>No independent games available.</p>;
-  }
+  // Replicating Vue's filteredGames computed property
+  const filteredGames = useMemo(() => {
+    if (!schools || !games) return [];
+
+    return schools
+      .map((school) => {
+        const schoolGames = filterGamesBySchool(school);
+        const contractData = contractYearData.find((data) => data.conference === school)?.contractText;
+        return schoolGames.length > 0 ? { school, games: schoolGames, contractData } : null;
+      })
+      .filter(
+        (game): game is { school: string; games: ConferenceGame[]; contractData: string | undefined } => game !== null
+      );
+  }, [games, schools, contractYearData]);
 
   return (
-    <div className="independents-game-list">
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr style={{ backgroundColor: '#f5f5f5', borderBottom: '2px solid #333' }}>
-            <th style={{ padding: '12px', textAlign: 'left' }}>Matchup</th>
-            <th style={{ padding: '12px', textAlign: 'center' }}>Time</th>
-            <th style={{ padding: '12px', textAlign: 'right' }}>Network</th>
-          </tr>
-        </thead>
-        <tbody>
-          {games.map((game, idx) => (
-            <tr key={idx} style={{ borderBottom: '1px solid #eee' }}>
-              <td style={{ padding: '10px', textAlign: 'left' }}>{game.matchup}</td>
-              <td style={{ padding: '10px', textAlign: 'center' }}>{game.time}</td>
-              <td style={{ padding: '10px', textAlign: 'right' }}>{game.network}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      {filteredGames.map(({ games: filterGames, contractData }, index) => (
+        <div key={index}>
+          {contractData && <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(contractData) }} />}
+          {filterGames[0]?.homeTeam?.[0]} Telecasts
+          <ConferenceTable games={filterGames} year={year} />
+        </div>
+      ))}
+    </>
   );
 };
 

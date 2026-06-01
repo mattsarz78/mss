@@ -42,7 +42,7 @@
   flex-direction: column;
 }
 
-.main {
+main {
   padding-top: 40px;
 }
 
@@ -55,7 +55,7 @@
     padding-right: 10px;
   }
 
-  .main {
+  main {
     padding-top: 21px;
   }
 

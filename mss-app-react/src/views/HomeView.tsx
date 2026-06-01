@@ -1,3 +1,4 @@
+import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
 import AdsByGoogle from '#shared/AdsByGoogle';
 import CopyrightLink from '#shared/CopyrightLink';
 import { addMetaTags } from '#utils/metaTags';
@@ -7,14 +8,36 @@ import styles from './HomeView.module.css';
 
 const HomeView: React.FC = () => {
   const title = "Matt's College Sports on TV";
+  const mainRef = useResetAdsenseHeight();
 
   useEffect(() => {
     addMetaTags(title);
   }, []);
 
+  // Handle Dynamic Twitter Script Loading
+  useEffect(() => {
+    // 1. If the script already exists, just tell Twitter to re-parse the button
+    if (window.twttr?.widgets) {
+      window.twttr.widgets.load();
+      return;
+    }
+
+    // 2. Otherwise, create the script tag and inject it into the document
+    const script = document.createElement('script');
+    script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+    script.setAttribute('async', 'true');
+    script.setAttribute('charset', 'utf-8');
+    document.body.appendChild(script);
+
+    // Clean up function to remove the script if the component unmounts mid-load
+    return () => {
+      script.remove();
+    };
+  }, []);
+
   return (
     <>
-      <main className={styles.main}>
+      <main ref={mainRef} className={styles.main}>
         <div>
           <img className={styles.imgtitle} src="/images/logo.webp" loading="lazy" alt="Matt's College Sports" />
           <br />
@@ -62,7 +85,6 @@ const HomeView: React.FC = () => {
           >
             Follow @mattsarz
           </a>
-          <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
         </div>
         <iframe
           className={styles.facebook}
@@ -71,10 +93,7 @@ const HomeView: React.FC = () => {
           src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmattsarzsports%2F&tabs&height=80&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
           height={80}
           style={{ border: 'none', overflow: 'hidden' }}
-          scrolling="no"
-          frameBorder="0"
           allowFullScreen={true}
-          allowTransparency={true}
         />
         <br />
         <a href="https://bsky.app/profile/mattsarz.bsky.social">

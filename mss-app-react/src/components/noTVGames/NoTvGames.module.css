@@ -1,13 +1,13 @@
-.slideIn {
-  padding-left: 30px;
+.slidingNoTVDiv {
+  padding-top: 10px;
 }
 
-.slideOut {
-  padding-left: 0;
+.show_hideNoTV {
+  display: inline-block;
 }
 
-.loadingContainer,
-.errorContainer {
+.loading-container,
+.error-container {
   min-height: 200px;
   display: flex;
   align-items: center;
@@ -19,13 +19,19 @@
   border: 1px solid #eee;
 }
 
-.loadingText {
+.loading-text {
   font-size: 1.2em;
   color: #666;
 }
 
 @media only screen and (max-width: 640px) {
-  .slideIn {
-    padding-left: 15px;
+  .buttonFont {
+    font-size: 0.9em;
+  }
+}
+
+@media all and (min-width: 641px) {
+  .buttonFont {
+    font-size: 14px;
   }
 }

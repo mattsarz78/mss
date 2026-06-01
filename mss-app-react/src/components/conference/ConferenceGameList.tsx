@@ -1,54 +1,95 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import type { ConferenceGame } from '#/graphQl.mjs';
+import ConferenceTable from '#conference/ConferenceTable.tsx';
 
-interface Game {
-  matchup?: string;
-  network?: string;
-  time?: string;
-  [key: string]: any;
+interface ConferenceGameListProps {
+  games: ConferenceGame[];
+  year: string;
 }
 
-interface Props {
-  games: Game[];
-  sport: string;
-}
-
-const ConferenceGameList: React.FC<Props> = ({ games, sport }) => {
-  if (!games || games.length === 0) {
-    return <p>No games available for this conference.</p>;
+// 1. Move static definitions outside the component to preserve memory references
+const GAME_CATEGORIES_CONFIG = {
+  networkGames: {
+    title: 'Network telecasts',
+    filter: (x: ConferenceGame) => x.mediaIndicator === 'T' && x.tvtype === 'N'
+  },
+  payTvGames: {
+    title: 'Primary National Cable telecasts',
+    filter: (x: ConferenceGame) => x.mediaIndicator === 'T' && (x.tvtype === 'NC' || x.tvtype === 'C')
+  },
+  secondaryPayTvGames: {
+    title: 'Broadly Syndicated and/or Secondary National Cable Telecasts',
+    filter: (x: ConferenceGame) => x.mediaIndicator === 'T' && x.tvtype === 'RS'
+  },
+  navyAacGames: {
+    title: 'Navy Telecasts',
+    filter: (x: ConferenceGame) => x.mediaIndicator === 'T' && x.tvtype === 'NV'
+  },
+  armyAacGames: {
+    title: 'Army West Point Telecasts',
+    filter: (x: ConferenceGame) => x.mediaIndicator === 'T' && x.tvtype === 'AR'
+  },
+  memberRetained: {
+    title: 'Member Retained Telecasts or Internet Exclusives',
+    filter: (x: ConferenceGame) =>
+      (x.mediaIndicator === 'W' || x.mediaIndicator === 'T') && x.tvtype === 'R' && x.conference === 'Big 12'
+  },
+  regional: (year: string) => ({
+    title: 'Regional Telecasts',
+    filter: (x: ConferenceGame) =>
+      (x.mediaIndicator === 'T' && x.tvtype === 'R' && x.conference !== 'Big 12') ||
+      (x.conference === 'Big 12' && (year === '2021r' || parseInt(year) < 2012))
+  }),
+  tbdGames: {
+    title: 'Network or Platform To Be Determined',
+    filter: (x: ConferenceGame) => x.mediaIndicator === 'T' && !x.tvtype
+  },
+  internetGames: {
+    title: 'Internet Exclusives',
+    filter: (x: ConferenceGame) => x.mediaIndicator === 'W' && x.tvtype !== 'R'
   }
+};
 
-  // Group games by network/category
-  const groupedGames = games.reduce(
-    (acc, game) => {
-      const network = game.network || 'Other';
-      if (!acc[network]) acc[network] = [];
-      acc[network].push(game);
-      return acc;
-    },
-    {} as Record<string, Game[]>
-  );
+const ConferenceGameList: React.FC<ConferenceGameListProps> = ({ games, year }) => {
+  
+  // 2. Compute the dynamic categorization lists using useMemo
+  const categorizedGames = useMemo(() => {
+    // Reconstruct the dynamic category dictionary structure matching Vue
+    const categories = {
+      ...GAME_CATEGORIES_CONFIG,
+      regional: GAME_CATEGORIES_CONFIG.regional(year) // Pass context variable down
+    };
+
+    const result: Record<string, { title: string; list: ConferenceGame[] }> = {};
+    
+    for (const [key, category] of Object.entries(categories)) {
+      const matchedGames = games.filter(category.filter);
+      
+      // Only append to lists that actively contain matched data tree items
+      result[key] = {
+        title: category.title,
+        list: matchedGames
+      };
+    }
+    
+    return result;
+  }, [games, year]);
 
   return (
-    <div className="conference-game-list">
-      {Object.entries(groupedGames).map(([network, networkGames]) => (
-        <section key={network} style={{ marginBottom: '30px' }}>
-          <h3 style={{ color: '#333', borderBottom: '2px solid #2196f3', paddingBottom: '10px' }}>
-            {network}
-          </h3>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <tbody>
-              {networkGames.map((game, idx) => (
-                <tr key={idx} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: '10px', textAlign: 'left' }}>{game.matchup}</td>
-                  <td style={{ padding: '10px', textAlign: 'center' }}>{game.time}</td>
-                  <td style={{ padding: '10px', textAlign: 'right' }}>{game.network}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-      ))}
-    </div>
+    <>
+      {Object.entries(categorizedGames).map(([key, category]) => {
+        // Handle rendering parity matching v-if="filteredGames[key].length"
+        if (category.list.length === 0) return null;
+
+        return (
+          <div key={key}>
+            <div>{category.title}</div>
+            <ConferenceTable games={category.list} year={year} />
+            <br />
+          </div>
+        );
+      })}
+    </>
   );
 };
 

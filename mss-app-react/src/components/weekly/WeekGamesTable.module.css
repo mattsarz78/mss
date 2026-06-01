@@ -1,10 +1,12 @@
 .webGame {
   display: table-row;
+  opacity: 1;
   transition: opacity 0.2s ease-in-out;
 }
 
-.webGame[style*='display: none'] {
+.webGame.hidden {
   opacity: 0;
+  display: none;
 }
 
 .header {

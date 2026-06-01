@@ -1,6 +1,4 @@
-/**
- * DOM manipulation utilities for text-based schedule views with checkboxes
- */
+import DOMPurify from 'dompurify';
 
 export const checkAllTextRows = (): void => {
   const elements = document.getElementsByClassName('checkBoxRow') as HTMLCollectionOf<HTMLInputElement>;
@@ -20,4 +18,8 @@ export const clearAllSelectedTextRows = (): void => {
     row.style.backgroundColor = '#FFF';
     row.className = 'gamerow DONTPrint rowstyle';
   });
+};
+
+export const sanitizeHtml = (html: string): string => {
+  return DOMPurify.sanitize(html);
 };

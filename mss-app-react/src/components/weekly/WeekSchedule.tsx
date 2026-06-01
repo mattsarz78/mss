@@ -1,73 +1,185 @@
+import { useCurrentTimeET } from '#hooks/useCurrentTimeET.mjs';
+import { useWeekSchedule } from '#hooks/useWeekSchedule.mjs';
+import { useWeekScheduleNav } from '#hooks/useWeekScheduleNav.mjs';
+import NoTvGames from '#noTv/NoTvGames.tsx';
+import AdsByGoogle from '#shared/AdsByGoogle.tsx';
+import BackToTop from '#shared/BackToTop.tsx';
+import Copyright from '#shared/CopyrightLink.tsx';
+import WeeklyBase from '#weekly/WeeklyBase.tsx';
+import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { useWebExclusivesContext } from '#weekly/WebExclusiveContext.tsx';
+import styles from './WeekSchedule.module.css';
 
-interface Game {
-  matchup?: string;
-  network?: string;
-  time?: string;
-  timeWithOffset?: string;
-  webGame?: boolean;
-  [key: string]: any;
-}
-
-interface Props {
-  games: Game[];
+interface WeekScheduleProps {
+  week: string;
   sport: string;
+  paramYear: string;
 }
 
-const WeekSchedule: React.FC<Props> = ({ games, sport }) => {
-  if (!games || games.length === 0) {
-    return <p>No games scheduled for this week.</p>;
+const WeekSchedule: React.FC<WeekScheduleProps> = ({ week, sport, paramYear }) => {
+  // Replicating computed year string formatting logic
+  const year = useMemo(() => {
+    return sport === 'football' ? paramYear : `${paramYear.slice(0, 4)}${paramYear.slice(5)}`;
+  }, [sport, paramYear]);
+
+  const { toggleWebExclusives, buttonText } = useWebExclusivesContext();
+  const weekInt = useMemo(() => parseInt(week), [week]);
+
+  const {
+    seasonContentsResult,
+    seasonContentsLoading,
+    seasonContentsError,
+    nextWeek,
+    previousWeek,
+    isBowlWeek,
+    isMbkPostseason,
+    isWeekOne,
+    isNextWeekMbkPostseason,
+    isNextWeekBowlWeek,
+  } = useWeekScheduleNav(sport, year, weekInt);
+
+  const { currentTimeISO } = useCurrentTimeET();
+
+  // Replicating computed logic checking if games run today
+  const gamesToday = useMemo(() => {
+    const nowIso = currentTimeISO;
+    if (!nowIso || !seasonContentsResult?.seasonContents?.seasonContents) return false;
+
+    return seasonContentsResult.seasonContents.seasonContents.some(
+      (content: { week: number; startDate: string; endDate: string }) => {
+        if (content.week !== weekInt) return false;
+        const startIso = DateTime.fromISO(content.startDate).toUTC().toISO();
+        const endIso = DateTime.fromISO(content.endDate).toUTC().toISO();
+        if (!startIso || !endIso) return false;
+        return startIso <= nowIso && endIso >= nowIso;
+      }
+    );
+  }, [currentTimeISO, seasonContentsResult, weekInt]);
+
+  // Replicating computed navbar dynamic class lookup
+  const navbarClass = useMemo(() => {
+    if (isMbkPostseason) return styles.mbkHeight;
+    if (isBowlWeek) return styles.bowlHeight;
+    if (gamesToday) return styles.navbarPadHeight;
+    return styles.navbarHeight;
+  }, [isMbkPostseason, isBowlWeek, gamesToday]);
+
+  const { tvGameResult, tvGameLoading, tvGameError } = useWeekSchedule(sport, year, weekInt);
+
+  // --- Unified Status Templates ---
+
+  if (seasonContentsLoading || tvGameLoading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <p className={styles.loadingText}>
+          Loading Week {week} for {paramYear}
+        </p>
+      </div>
+    );
   }
 
-  // Group games by date
-  const gamesByDate = useMemo(() => {
-    const grouped: Record<string, Game[]> = {};
-    games.forEach((game) => {
-      const timeStr = game.timeWithOffset || game.time || 'Unknown Date';
-      const dateMatch = timeStr.match(/^\d{4}-\d{2}-\d{2}/);
-      const date = dateMatch ? dateMatch[0] : 'Unknown Date';
-
-      if (!grouped[date]) grouped[date] = [];
-      grouped[date].push(game);
-    });
-    return Object.entries(grouped).sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
-  }, [games]);
+  if (seasonContentsError || tvGameError) {
+    return (
+      <div className={styles.errorContainer}>
+        <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="week-schedule">
-      {gamesByDate.map(([date, dateGames]) => (
-        <section key={date} style={{ marginBottom: '40px' }}>
-          <h3 style={{ color: '#333', borderBottom: '2px solid #ff9800', paddingBottom: '10px' }}>
-            {date}
-          </h3>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ backgroundColor: '#f5f5f5' }}>
-                <th style={{ padding: '12px', textAlign: 'left' }}>Matchup</th>
-                <th style={{ padding: '12px', textAlign: 'center' }}>Time</th>
-                <th style={{ padding: '12px', textAlign: 'right' }}>Network</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dateGames.map((game, idx) => (
-                <tr
-                  key={idx}
-                  className={game.webGame ? 'webGame' : ''}
-                  style={{
-                    borderBottom: '1px solid #eee',
-                    opacity: game.webGame ? 0.6 : 1,
-                    backgroundColor: game.webGame ? '#f9f9f9' : 'transparent'
-                  }}
-                >
-                  <td style={{ padding: '10px', textAlign: 'left' }}>{game.matchup}</td>
-                  <td style={{ padding: '10px', textAlign: 'center' }}>{game.time}</td>
-                  <td style={{ padding: '10px', textAlign: 'right' }}>{game.network}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-      ))}
+    <div>
+      {/* Navigation Layout - Displays when data payloads resolve successfully */}
+      {seasonContentsResult && tvGameResult && (
+        <nav role="navigation" className={`${styles.navbar} ${styles.DONTPrint} ${navbarClass}`}>
+          <div className={styles.container}>
+            <div className={styles.flexContainer}>
+              <div className={styles.flexRow}>
+                <Link to="/">Home</Link>
+              </div>
+              <div className={styles.flexRow}>
+                <Link to={`/season/${sport}/${paramYear}`}>Season Home</Link>
+              </div>
+              {gamesToday && (
+                <div className={styles.flexRow}>
+                  <Link to={`/schedule/${sport}/daily`}>Today's Schedule </Link>
+                </div>
+              )}
+            </div>
+
+            <div className={styles.flexContainer}>
+              {seasonContentsResult.seasonContents?.flexScheduleLink && (
+                <div className={styles.flexRow}>
+                  <Link to={`/tv-windows/${paramYear}`} target="_blank" rel="noopener">
+                    Available TV Windows
+                  </Link>
+                </div>
+              )}
+              <div className={styles.flexRow}>
+                <Link to={`/schedule/${sport}/${paramYear}/${week}/text`}>Customizable Text-Only Page</Link>
+              </div>
+            </div>
+
+            {!isMbkPostseason && !isBowlWeek && (
+              <div className={`${styles.flexContainerRow} ${styles.pad}`}>
+                {isWeekOne ? (
+                  <div className={styles.flexRowLeft}>
+                    <Link to={`/schedule/${sport}/${paramYear}/${nextWeek}`}>Next Week</Link>
+                  </div>
+                ) : (
+                  <>
+                    <div className={styles.flexRowLeft}>
+                      <Link to={`/schedule/${sport}/${paramYear}/${previousWeek}`}>Previous Week</Link>
+                    </div>
+                    {!isNextWeekMbkPostseason && !isNextWeekBowlWeek && (
+                      <div className={styles.flexRowRight}>
+                        <Link to={`/schedule/${sport}/${paramYear}/${nextWeek}`}>Next Week </Link>
+                      </div>
+                    )}
+                  </>
+                )}
+                <br className={styles.mobilehide} />
+              </div>
+            )}
+            <br />
+
+            {tvGameResult && (
+              <div className={styles.filters}>
+                {!isBowlWeek && !isMbkPostseason && (
+                  <button
+                    id="btnWebGames"
+                    type="button"
+                    className={`${styles.show_hideWeb} ${styles.buttonFont}`}
+                    onClick={toggleWebExclusives}
+                  >
+                    {buttonText}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        </nav>
+      )}
+
+      {/* Main Schedule Content Output Trees */}
+      {tvGameResult && (
+        <>
+          <WeeklyBase
+            tvGames={tvGameResult.tvGames!.tvGames}
+            isBowlWeek={isBowlWeek}
+            isMbkPostseason={isMbkPostseason}
+            isDaily={false}
+            showPpvColumn={tvGameResult.tvGames!.showPPVColumn}
+          />
+
+          {!isBowlWeek && tvGameResult.tvGames!.hasNoTVGames && <NoTvGames year={year} week={week} />}
+
+          <BackToTop />
+          <AdsByGoogle />
+          <Copyright />
+        </>
+      )}
     </div>
   );
 };

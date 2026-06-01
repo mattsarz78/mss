@@ -1,65 +1,81 @@
+import type { TvGame } from '#/graphQl.mjs';
+import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
+import { getDateForGame } from '#utils/dateFormatting.mjs';
+import WeekGamesTable from '#weekly/WeekGamesTable.tsx';
 import React, { useMemo } from 'react';
+import styles from './WeeklyBase.module.css';
 
-interface Game {
-  matchup?: string;
-  network?: string;
-  time?: string;
-  timeWithOffset?: string;
-  [key: string]: any;
+interface WeeklyBaseProps {
+  tvGames: TvGame[];
+  isBowlWeek: boolean;
+  isMbkPostseason: boolean;
+  isDaily: boolean;
+  showPpvColumn: boolean;
 }
 
-interface Props {
-  games: Game[];
-  sport: string;
-}
+const WeeklyBase: React.FC<WeeklyBaseProps> = ({
+  tvGames,
+  isBowlWeek,
+  isMbkPostseason,
+  isDaily,
+  showPpvColumn,
+}) => {
+  // Runtime assertion check replacing your hasValidTime type guard helper
+  const mainRef = useResetAdsenseHeight();
+  const hasValidTime = (game: TvGame): game is TvGame & { timeWithOffset: string } =>
+    typeof game.timeWithOffset === 'string';
 
-const WeeklyBase: React.FC<Props> = ({ games, sport }) => {
-  if (!games || games.length === 0) {
-    return <p>No games scheduled for this period.</p>;
-  }
+  // Group games dynamically into an associative map dictionary matching Vue's reducer
+  const tvGamesByDate = useMemo(() => {
+    if (!tvGames) return {} as Record<string, TvGame[]>;
 
-  // Group games by date
-  const gamesByDate = useMemo(() => {
-    const grouped: Record<string, Game[]> = {};
-    games.forEach((game) => {
-      const timeStr = game.timeWithOffset || game.time || 'Unknown Date';
-      const dateMatch = timeStr.match(/^\d{4}-\d{2}-\d{2}/);
-      const date = dateMatch ? dateMatch[0] : 'Unknown Date';
+    return tvGames.filter(hasValidTime).reduce<Record<string, TvGame[]>>((acc, game) => {
+      const date = getDateForGame(game.timeWithOffset);
+      if (date) {
+        acc[date] ??= [];
+        acc[date].push(game);
+      }
+      return acc;
+    }, {});
+  }, [tvGames]);
 
-      if (!grouped[date]) grouped[date] = [];
-      grouped[date].push(game);
-    });
-    return Object.entries(grouped).sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
-  }, [games]);
+  // Extract keys and apply natural sorting order bounds
+  const datesList = useMemo(() => {
+    return Object.keys(tvGamesByDate).sort();
+  }, [tvGamesByDate]);
+
+  // Parity with <template v-if="datesList.length"> wrapping condition
+  if (datesList.length === 0) return null;
+
+  // Flatten Vue array class checks into a clean text conditional layout string
+  const mainPaddingClass =
+    isMbkPostseason || isBowlWeek ? styles.shortMainPadding : isDaily ? styles.dailyPadding : styles.mainPadding;
 
   return (
-    <div className="weekly-base">
-      {gamesByDate.map(([date, dateGames]) => (
-        <section key={date} style={{ marginBottom: '40px' }}>
-          <h3 style={{ color: '#333', borderBottom: '2px solid #2196f3', paddingBottom: '10px' }}>
-            {date}
-          </h3>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ backgroundColor: '#f5f5f5' }}>
-                <th style={{ padding: '12px', textAlign: 'left' }}>Matchup</th>
-                <th style={{ padding: '12px', textAlign: 'center' }}>Time</th>
-                <th style={{ padding: '12px', textAlign: 'right' }}>Network</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dateGames.map((game, idx) => (
-                <tr key={idx} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: '10px', textAlign: 'left' }}>{game.matchup}</td>
-                  <td style={{ padding: '10px', textAlign: 'center' }}>{game.time}</td>
-                  <td style={{ padding: '10px', textAlign: 'right' }}>{game.network}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-      ))}
-    </div>
+    <main ref={mainRef} className={mainPaddingClass}>
+      <div id="WeeksBase">
+        {tvGames.length === 0 ? (
+          <p>There are no televised games at this time</p>
+        ) : (
+          <>
+            <p>
+              <strong>All start times displayed are based on your device's location.</strong>
+            </p>
+            {datesList.map((weekDate) => (
+              <div key={weekDate}>
+                <WeekGamesTable
+                  weekDate={weekDate}
+                  isBowlWeek={isBowlWeek}
+                  isMbkPostseason={isMbkPostseason}
+                  showPpvColumn={showPpvColumn}
+                  tvGamesForDate={tvGamesByDate[weekDate]}
+                />
+              </div>
+            ))}
+          </>
+        )}
+      </div>
+    </main>
   );
 };
 

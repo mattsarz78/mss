@@ -1,53 +1,96 @@
+import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
 import AdsByGoogle from '#shared/AdsByGoogle';
 import CopyrightLink from '#shared/CopyrightLink';
 import { addMetaTags } from '#utils/metaTags';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import styles from './ArchiveView.module.css';
 
 const ArchiveView: React.FC = () => {
-  const title = 'Archived Seasons';
+  const title = 'Archive Listings';
+  const mainRef = useResetAdsenseHeight();
 
   useEffect(() => {
     addMetaTags(title);
   }, []);
 
-  const footballSeasons = Array.from({ length: 15 }, (_, i) => 2019 - i); // 2019-2005
-  const basketballSeasons = Array.from({ length: 15 }, (_, i) => 2020 - i); // 2019-20 to 2005-06
+  const footballSeasons = [
+    '2019',
+    '2018',
+    '2017',
+    '2016',
+    '2015',
+    '2014',
+    '2013',
+    '2012',
+    '2011',
+    '2010',
+    '2009',
+    '2008',
+    '2007',
+    '2006',
+    '2005',
+  ];
 
+  const fbSeasons = ['2021'];
+  const mbkSeasons = ['2021-22'];
+
+  const basketballSeasons = [
+    '2019-20',
+    '2018-19',
+    '2017-18',
+    '2016-17',
+    '2015-16',
+    '2014-15',
+    '2013-14',
+    '2012-13',
+    '2011-12',
+    '2010-11',
+    '2009-10',
+    '2008-09',
+    '2007-08',
+    '2006-07',
+    '2005-06',
+  ];
   return (
     <>
-      <main style={{ padding: '20px' }}>
-        <h1>{title}</h1>
-
-        <h2>Football</h2>
-        <ul>
-          {footballSeasons.map((year) => (
-            <li key={`fb-${year}`}>
-              <Link to={`/season/football/${year}`}>{year}</Link>
-            </li>
-          ))}
-        </ul>
-
-        <h2>Men's Basketball</h2>
-        <ul>
-          {basketballSeasons.map((year) => (
-            <li key={`mbk-${year}`}>
-              <Link to={`/season/basketball/${year}-${String(year + 1).slice(-2)}`}>
-                {year}-{String(year + 1).slice(-2)}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <h2>Other Seasons</h2>
-        <ul>
-          <li>
-            <Link to="/season/football/2021">2021 Football</Link>
-          </li>
-          <li>
-            <Link to="/season/basketball/2021-22">2021-22 Men's Basketball</Link>
-          </li>
-        </ul>
+      <main ref={mainRef} className={styles.main}>
+        <div>
+          <div className={styles.links}>
+            <Link to="/">Home</Link>
+            <br />
+            <br />
+            {fbSeasons.map((season, index) => (
+              <div key={index}>
+                <Link to={`/season/football/${season}`}> {season} Football </Link>
+                <br />
+                <Link to={`/season/basketball/${mbkSeasons[index]}`}>{mbkSeasons[index]} Men's Basketball</Link>
+                <br />
+              </div>
+            ))}
+            <br />
+            <Link to="/season/football/2021s"> 2021 Football - Spring FCS only </Link>
+            <br />
+            <Link to="/season/football/2020r"> 2020 Football - Revised </Link>
+            <br />
+            <Link to="/season/football/2020"> 2020 Football - Pre-Conference Only Announcements </Link>
+            <br />
+            <Link to="/season/basketball/2020-21"> 2020-21 Men's Basketball </Link>
+            <br />
+            <br />
+            {footballSeasons.map((season, index) => (
+              <div key={index}>
+                <Link to={`/season/football/${season}`}> {season} Football </Link>
+                <br />
+                <Link to={`/season/basketball/${basketballSeasons[index]}`}>
+                  {basketballSeasons[index]} Men's Basketball
+                </Link>
+                <br />
+                <br />
+              </div>
+            ))}
+          </div>
+        </div>
 
         <AdsByGoogle />
       </main>

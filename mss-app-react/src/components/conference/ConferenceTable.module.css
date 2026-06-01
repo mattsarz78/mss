@@ -1,46 +1,67 @@
-.table {
+.game,
+.time,
+.network {
+  border: medium solid Gray;
+  border-width: thin;
+}
+
+.header {
+  text-align: center;
+}
+
+.network {
+  width: 30%;
+  padding: 2px;
+  text-align: center;
+}
+
+.time {
+  width: 15%;
+  text-align: right;
+  padding: 2px;
+}
+
+.game {
+  width: 55%;
+  padding: 2px;
+}
+
+.noTVTable {
   background-color: #fff;
-  border: thin solid Gray;
+  border: 2px ridge #fff;
   border-spacing: 1px;
   border-collapse: collapse;
   width: 100%;
-  max-width: 800px;
+  max-width: 550px;
   table-layout: auto;
+  /* Prevent column width changes */
 }
 
-.headerCell {
-  border: thin solid Gray;
-  text-align: center;
-  padding: 2px;
+:global(.linkblock) {
+  display: inline-block;
+  padding-top: 7px;
+  padding-bottom: 2px;
 }
 
-.gameCell,
-.timeCell,
-.networkCell {
-  border: thin solid Gray;
-  padding: 2px;
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
 }
 
-.gameCell {
-  width: 55%;
-}
-
-.timeCell {
-  width: 15%;
-  text-align: right;
-}
-
-.networkCell {
-  width: 30%;
-  text-align: center;
+:global(img) {
+  aspect-ratio: 66 / 50;
 }
 
 @media only screen and (max-width: 640px) {
-  .gameCell {
+  .game {
     padding: 1px;
   }
 
-  .networkCell {
+  .network {
     padding: 0;
+  }
+
+  :global(img) {
+    aspect-ratio: 43 / 33;
   }
 }
