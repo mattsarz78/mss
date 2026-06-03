@@ -45,7 +45,7 @@
     "compression": "1.8.1",
     "cors": "2.8.6",
     "express": "5.2.1",
-    "graphql": "16.14.0"
+    "graphql": "16.14.1"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
