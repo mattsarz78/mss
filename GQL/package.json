@@ -35,7 +35,7 @@
   "dependencies": {
     "@apollo/server": "5.5.1",
     "@as-integrations/express5": "1.1.2",
-    "@dotenvx/dotenvx": "1.69.2",
+    "@dotenvx/dotenvx": "1.71.0",
     "@graphql-tools/graphql-file-loader": "8.1.14",
     "@graphql-tools/load": "8.1.10",
     "@graphql-tools/merge": "9.1.9",
@@ -45,11 +45,11 @@
     "compression": "1.8.1",
     "cors": "2.8.6",
     "express": "5.2.1",
-    "graphql": "16.14.0"
+    "graphql": "16.14.1"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
-    "@graphql-codegen/cli": "7.1.1",
+    "@graphql-codegen/cli": "7.1.2",
     "@graphql-codegen/typescript": "6.0.2",
     "@graphql-codegen/typescript-resolvers": "6.0.2",
     "@types/body-parser": "1.19.6",
@@ -59,8 +59,8 @@
     "dotenv-cli": "11.0.0",
     "esbuild": "0.28.0",
     "prisma": "7.8.0",
-    "tsx": "4.22.3",
-    "typescript-eslint": "8.60.0"
+    "tsx": "4.22.4",
+    "typescript-eslint": "8.60.1"
   },
   "graphql": {
     "schema": "./schema.graphql",

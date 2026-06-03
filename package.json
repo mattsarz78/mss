@@ -18,7 +18,7 @@
     "install:web": "cd mss-app && pnpm i --frozen-lockfile"
   },
   "dependencies": {
-    "concurrently": "10.0.0"
+    "concurrently": "10.0.3"
   },
   "devDependencies": {
     "@types/luxon": "3.7.1",
