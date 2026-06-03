@@ -1,12 +1,14 @@
 import { useWeekTextSchedule } from '#hooks/useWeekTextSchedule.mjs';
-import { BackToTop, CopyrightLink } from '#shared/index.mjs';
+import { CopyrightLink } from '#shared/index.mjs';
 import { addMetaTags } from '#utils/metaTags';
 import { setupPrintListener } from '#utils/printListener.mjs';
 import { generateWeeklyTitle } from '#utils/weeklyTitle.mjs';
-import React, { useEffect, useMemo } from 'react';
+import React, { Suspense, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import AdsByGoogle from '../components/shared/AdsByGoogle.tsx';
 import WeekTextSchedule from '../components/weeklyText/WeekTextSchedule.tsx';
+
+const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
+const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
 
 const WeeklyTextScheduleView: React.FC = () => {
   const { sport = '', year = '', week = '' } = useParams<'sport' | 'year' | 'week'>();
@@ -42,8 +44,10 @@ const WeeklyTextScheduleView: React.FC = () => {
   return (
     <div key={`${sport}-${year}-${week}`}>
       <WeekTextSchedule games={games} sport={sport} />
-      <BackToTop />
-      <AdsByGoogle />
+      <Suspense fallback={null}>
+        <BackToTop />
+        <AdsByGoogle />
+      </Suspense>
       <CopyrightLink />
     </div>
   );

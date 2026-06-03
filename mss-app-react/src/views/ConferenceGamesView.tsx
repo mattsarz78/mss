@@ -5,15 +5,16 @@ import conferenceCasing from '#data/conferenceCasing.json' with { type: 'json' }
 import type { ConferenceCasing } from '#data/exportTypes.mjs';
 import { useConferenceGames } from '#hooks/useConferenceGames.mjs';
 import { useSeasonData } from '#hooks/useSeasonData.mjs';
-import AdsByGoogle from '#shared/AdsByGoogle.tsx';
-import BackToTop from '#shared/BackToTop.tsx';
 import Copyright from '#shared/CopyrightLink.tsx';
+import { sanitizeHtml } from '#utils/domText.mjs';
 import { addMetaTags } from '#utils/metaTags.mjs';
 import { setupPrintListener } from '#utils/printListener.mjs';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './ConferenceGamesView.module.css';
-import { sanitizeHtml } from '#utils/domText.mjs';
+
+const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
+const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
 
 const ConferenceView: React.FC = () => {
   const { conference = '', year = '' } = useParams<{ conference: string; year: string }>();
@@ -119,8 +120,10 @@ const ConferenceView: React.FC = () => {
             <ConferenceGameList year={year} games={result.conferenceGames!.conferenceGames} />
           )}
 
-          <BackToTop />
-          <AdsByGoogle />
+          <Suspense fallback={null}>
+            <BackToTop />
+            <AdsByGoogle />
+          </Suspense>
         </div>
       </main>
 

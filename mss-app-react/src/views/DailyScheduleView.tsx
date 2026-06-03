@@ -1,35 +1,138 @@
-import { useDailyTvGames, useWebExclusives } from '#hooks/index.mjs';
-import { addMetaTags } from '#utils/metaTags';
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import WeeklyBase from '../components/weekly/WeeklyBase.tsx';
+import { useDailyTvGames } from '#hooks/useDailyTvGames.mjs';
+import Copyright from '#shared/CopyrightLink.tsx';
+import { addMetaTags } from '#utils/metaTags.mjs';
+import { setupPrintListener } from '#utils/printListener.mts';
+import { useWebExclusivesContext, WebExclusivesProvider } from '#weekly/WebExclusiveContext.tsx';
+import WeeklyBase from '#weekly/WeeklyBase.tsx';
+import { DateTime } from 'luxon';
+import React, { Suspense, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import styles from './DailyScheduleView.module.css';
+import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
 
-const DailyScheduleView: React.FC = () => {
-  const { sport = '' } = useParams<'sport'>();
-  const { result, loading, error, startDate } = useDailyTvGames(sport);
-  const { isWebGamesHidden, toggleWebExclusives, buttonText } = useWebExclusives();
+// Lazy-Loaded Core Sub-Components
+const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
+const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
 
-  const title = `${sport?.charAt(0).toUpperCase() + sport?.slice(1)} - Daily Schedule`;
+const DailyTvGamesInner: React.FC = () => {
+  const mainRef = useResetAdsenseHeight();
+  // Pulling parameters via React Router DOM hook
+  const { sport } = useParams<{ sport: string }>() as { sport: string };
+
+  const {
+    result: dailyTvGameResult,
+    loading: dailyTvGameLoading,
+    error: dailyTvGameError,
+    season,
+    startDate,
+  } = useDailyTvGames(sport);
+
+  // Grab values out of the surrounding context pool wrapper
+  const { toggleWebExclusives, buttonText } = useWebExclusivesContext();
 
   useEffect(() => {
+    // Replicating "v-reset-adsense-height" cleanup hook lifecycle routine
+    const adElements = document.querySelectorAll('.adsbygoogle');
+    adElements.forEach((el) => {
+      if (el instanceof HTMLElement) el.style.height = '';
+    });
+
+    // Handle Title & Meta Tags Updates dynamically
+    const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
     addMetaTags(title);
-  }, [title]);
 
-  if (loading) return <main><p>Loading daily schedule...</p></main>;
-  if (error) return <main><p>Error loading daily schedule: {error.message}</p></main>;
-
-  const games = result?.dailyTvGames?.tvGames ?? [];
+    // Bind document printing side-effects listener routine
+    setupPrintListener();
+  }, []);
 
   return (
-    <main style={{ padding: '20px' }}>
-      <h1>{title}</h1>
-      <p>Games for {startDate}</p>
-      <button onClick={toggleWebExclusives} style={{ marginBottom: '20px' }}>
-        {buttonText}
-      </button>
-      <WeeklyBase games={games} sport={sport} />
+    <main ref={mainRef}>
+      {/* Loading Template View Tree */}
+      {dailyTvGameLoading && (
+        <div className={styles.loadingContainer}>
+          <p className={styles.loadingText}>
+            Loading {sport} for {startDate}
+          </p>
+        </div>
+      )}
+
+      {/* Error Template View Tree */}
+      {dailyTvGameError && (
+        <div className={styles.errorContainer}>
+          <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+        </div>
+      )}
+
+      {/* Main Content Layout Block */}
+      {dailyTvGameResult && (
+        <>
+          <nav role="navigation" className={`${styles.navbar} DONTPrint`}>
+            <div className={styles.container}>
+              <div className={styles.flexContainer}>
+                <div className={styles.flexRow}>
+                  <Link to="/">Home</Link>
+                </div>
+                {season && (
+                  <div className={styles.flexRow}>
+                    <Link to={`/season/${sport}/${season}`}>Season Home</Link>
+                  </div>
+                )}
+              </div>
+
+              <div className={styles.flexContainer}>
+                {dailyTvGameResult.dailyTvGames?.flexScheduleLink && (
+                  <div className={styles.flexRow}>
+                    <Link to={`/tv-windows/${season}`} target="_blank" rel="noopener">
+                      Available TV Windows
+                    </Link>
+                  </div>
+                )}
+                <div className={styles.flexRow}>
+                  <Link to={`/schedule/${sport}/daily/text`}>Customizable Text-Only Page</Link>
+                </div>
+                <br />
+              </div>
+
+              <div className={styles.filters}>
+                <button
+                  id="btnWebGames"
+                  type="button"
+                  className={`${styles.show_hideWeb} ${styles.buttonfont}`}
+                  onClick={toggleWebExclusives}
+                >
+                  {buttonText}
+                </button>
+              </div>
+            </div>
+          </nav>
+
+          <WeeklyBase
+            tvGames={dailyTvGameResult.dailyTvGames!.tvGames}
+            isBowlWeek={false}
+            isMbkPostseason={false}
+            isDaily={true}
+            showPpvColumn={dailyTvGameResult.dailyTvGames!.showPPVColumn}
+          />
+
+          <Suspense fallback={null}>
+            <BackToTop />
+            <AdsByGoogle />
+          </Suspense>
+
+          <Copyright />
+        </>
+      )}
     </main>
   );
 };
 
-export default DailyScheduleView;
+// Main Export wrapping the Inner Component in the WebExclusives Context Provider
+const DailyTvGamesView: React.FC = () => {
+  return (
+    <WebExclusivesProvider>
+      <DailyTvGamesInner />
+    </WebExclusivesProvider>
+  );
+};
+
+export default DailyTvGamesView;

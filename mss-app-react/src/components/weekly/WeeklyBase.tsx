@@ -13,15 +13,9 @@ interface WeeklyBaseProps {
   showPpvColumn: boolean;
 }
 
-const WeeklyBase: React.FC<WeeklyBaseProps> = ({
-  tvGames,
-  isBowlWeek,
-  isMbkPostseason,
-  isDaily,
-  showPpvColumn,
-}) => {
-  // Runtime assertion check replacing your hasValidTime type guard helper
+const WeeklyBase: React.FC<WeeklyBaseProps> = ({ tvGames, isBowlWeek, isMbkPostseason, isDaily, showPpvColumn }) => {
   const mainRef = useResetAdsenseHeight();
+
   const hasValidTime = (game: TvGame): game is TvGame & { timeWithOffset: string } =>
     typeof game.timeWithOffset === 'string';
 
@@ -44,8 +38,9 @@ const WeeklyBase: React.FC<WeeklyBaseProps> = ({
     return Object.keys(tvGamesByDate).sort();
   }, [tvGamesByDate]);
 
-  // Parity with <template v-if="datesList.length"> wrapping condition
-  if (datesList.length === 0) return null;
+  if (datesList.length === 0 && !isDaily) {
+    return null;
+  }
 
   // Flatten Vue array class checks into a clean text conditional layout string
   const mainPaddingClass =
