@@ -78,7 +78,6 @@ const ConferenceGameList: React.FC<ConferenceGameListProps> = ({ games, year }) 
   return (
     <>
       {Object.entries(categorizedGames).map(([key, category]) => {
-        // Handle rendering parity matching v-if="filteredGames[key].length"
         if (category.list.length === 0) return null;
 
         return (

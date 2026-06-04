@@ -1,14 +1,15 @@
+import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
+import { useWebExclusivesContext } from '#/hooks/useWebExclusivesContext.mjs';
 import { useDailyTvGames } from '#hooks/useDailyTvGames.mjs';
 import Copyright from '#shared/CopyrightLink.tsx';
 import { addMetaTags } from '#utils/metaTags.mjs';
 import { setupPrintListener } from '#utils/printListener.mjs';
-import { useWebExclusivesContext, WebExclusivesProvider } from '#weekly/WebExclusiveContext.tsx';
+import { WebExclusivesProvider } from '#weekly/WebExclusiveContext.tsx';
 import WeeklyBase from '#weekly/WeeklyBase.tsx';
 import { DateTime } from 'luxon';
 import React, { Suspense, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './DailyScheduleView.module.css';
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
 
 // Lazy-Loaded Core Sub-Components
 const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));

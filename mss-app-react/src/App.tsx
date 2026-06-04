@@ -1,13 +1,15 @@
+import '#/App.css';
 import { useAppUtils } from '#/hooks/useAppUtils.mjs';
 import { routes } from '#/router';
 import { checkVersion } from '#/utils/versionCheck.mjs';
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import '#/App.css';
+import { useResetAdsenseHeight } from './hooks/useResetAdsenseHeight.mjs';
 
 const App: React.FC = () => {
   const [needsUpdate, setNeedsUpdate] = useState(false);
   const { isOnline } = useAppUtils();
+  const mainRef = useResetAdsenseHeight();
   const checkIntervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <div className="maincontainer">
+      <main className="maincontainer" ref={mainRef}>
         {needsUpdate && (
           <div className="update-banner">
             A new version is available.
@@ -43,7 +45,7 @@ const App: React.FC = () => {
           {/* Catch-all route for 404s - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </div>
+      </main>
     </BrowserRouter>
   );
 };
