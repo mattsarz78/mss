@@ -9,7 +9,7 @@
   margin: 0 auto;
 }
 
-.textNav {
+.TextNav {
   margin: 0;
 }
 
@@ -70,7 +70,7 @@
 }
 
 @media all and (min-width: 641px) {
-  .buttonFont {
+  .buttonfont {
     font-size: 14px;
   }
 }
@@ -81,24 +81,32 @@
     padding-bottom: 4px;
   }
 
-  .flexRow {
+  .flexContainer :global(.flex-row) {
     padding-right: 10px;
   }
 
-  .blockspan {
-    display: block;
-    padding-bottom: 3px;
+  .flexRowLeft {
+    margin-right: 30%;
+  }
+
+  .flexRowRight {
+    margin-left: 30%;
+  }
+
+  .navbar {
+    height: 70px;
+    padding: 10px 3px;
+  }
+
+  .navbar :global(.DONTPrint) a {
+    line-height: 13px;
   }
 
   .mobilehide {
     display: none;
   }
 
-  .buttonFont {
+  .buttonfont {
     font-size: 0.9em;
-  }
-
-  .navbar {
-    padding: 10px 3px;
   }
 }

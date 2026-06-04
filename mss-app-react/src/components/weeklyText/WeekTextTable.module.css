@@ -1,52 +1,49 @@
-.table {
-  background-color: #fff;
-  border: thin solid Gray;
+/* WeekTextTable.module.css */
+
+.tablecell {
+  border: medium solid gray;
+  border-width: thin;
+}
+
+.tableborder {
+  border-style: ridge;
+  border-width: 2px;
   border-spacing: 1px;
   border-collapse: collapse;
-  width: 100%;
-  max-width: 800px;
-  table-layout: auto;
 }
 
-.headerCell {
-  border: thin solid Gray;
-  text-align: center;
-  padding: 2px;
-}
-
-.gameCell,
-.timeCell,
-.networkCell,
-.ppvCell {
-  border: thin solid Gray;
-  padding: 2px;
-}
-
-.gameCell {
-  width: 50%;
-}
-
-.timeCell {
-  width: 15%;
-  text-align: right;
-}
-
-.networkCell {
+.networkcell {
   width: 195px;
   text-align: center;
 }
 
-.ppvCell {
+.ppvcell {
   width: 25px;
   text-align: center;
 }
 
-@media only screen and (max-width: 640px) {
-  .gameCell {
-    padding: 1px;
-  }
+.timecell {
+  margin: 0 auto;
+  padding: 0 2px;
+}
 
-  .networkCell {
-    padding: 0;
+.gamecell {
+  width: 270px;
+}
+
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
+}
+
+@media all and (min-width: 641px) {
+  .rowStyle {
+    width: 660px;
+  }
+}
+
+@media print {
+  .DOPrint {
+    display: table !important;
   }
 }

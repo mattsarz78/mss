@@ -1,56 +1,35 @@
-import { useWeekTextSchedule } from '#hooks/useWeekTextSchedule.mjs';
-import { CopyrightLink } from '#shared/index.mjs';
-import { addMetaTags } from '#utils/metaTags';
-import { setupPrintListener } from '#utils/printListener.mjs';
+import WeekTextSchedule from '#text/WeekTextSchedule.tsx';
+import React, { useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+
+// Global Side-Effect Utilities
+import { addMetaTags } from '#utils/metaTags.mjs';
+import { setupPrintListener } from '#utils/printListener.mts';
 import { generateWeeklyTitle } from '#utils/weeklyTitle.mjs';
-import React, { Suspense, useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import WeekTextSchedule from '../components/weeklyText/WeekTextSchedule.tsx';
 
-const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
-const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
+const WeekTextScheduleView: React.FC = () => {
+  // 1. Pull parameters via React Router DOM hook
+  const {
+    week,
+    sport,
+    year: paramYear,
+  } = useParams<{ week: string; sport: string; year: string }>() as {
+    week: string;
+    sport: string;
+    year: string;
+  };
 
-const WeeklyTextScheduleView: React.FC = () => {
-  const { sport = '', year = '', week = '' } = useParams<'sport' | 'year' | 'week'>();
-  const weekNum = useMemo(() => parseInt(week) || 0, [week]);
-
-  const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, year, weekNum);
-
-  const title = useMemo(() => generateWeeklyTitle(sport, week, year, true), [sport, week, year]);
+  const location = useLocation();
 
   useEffect(() => {
+    const title = generateWeeklyTitle(sport, week, paramYear, true);
     addMetaTags(title);
+
+    // 4. Bind document printing side-effects listener routine
     setupPrintListener();
-  }, [title]);
+  }, [week, sport, paramYear]); // Re-run if path variables swap out
 
-  if (tvGameLoading) {
-    return (
-      <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontSize: '1.2em', color: '#666' }}>Loading schedule...</p>
-      </div>
-    );
-  }
-
-  if (tvGameError) {
-    return (
-      <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p>Error loading schedule: {tvGameError.message}</p>
-      </div>
-    );
-  }
-
-  const games = tvGameResult?.tvGames?.tvGames ?? [];
-
-  return (
-    <div key={`${sport}-${year}-${week}`}>
-      <WeekTextSchedule games={games} sport={sport} />
-      <Suspense fallback={null}>
-        <BackToTop />
-        <AdsByGoogle />
-      </Suspense>
-      <CopyrightLink />
-    </div>
-  );
+  return <WeekTextSchedule key={location.pathname} week={week} sport={sport} paramYear={paramYear} />;
 };
 
-export default WeeklyTextScheduleView;
+export default WeekTextScheduleView;

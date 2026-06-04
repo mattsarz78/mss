@@ -1,69 +1,73 @@
 import React, { useEffect, useRef } from 'react';
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
 
-const AdsenseSearchBox: React.FC = () => {
-  const adInitialized = useRef(false);
-  const mainRef = useResetAdsenseHeight();
+const AdsByGoogle: React.FC = () => {
+  const containerRef = useRef<HTMLModElement | null>(null);
+  const initialized = useRef(false);
 
   useEffect(() => {
-    // 1. Replicating the "v-reset-adsense-height" directive behavior
-    // Clears out any stuck heights left over by old ad runs on route switches
+    // 1. Clean up stale height states left over from prior view renders
     const adElements = document.querySelectorAll('.adsbygoogle');
     adElements.forEach((el) => {
-      if (el instanceof HTMLElement) {
-        el.style.height = '';
+      if (el instanceof HTMLElement) el.style.height = '';
+    });
+
+    // 2. Ensure core AdSense scripts are loaded globally
+    if (!document.querySelector('script[src*="adsbygoogle.js"]')) {
+      const adsenseScript = document.createElement('script');
+      adsenseScript.src =
+        'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0296554708545211';
+      adsenseScript.async = true;
+      adsenseScript.crossOrigin = 'anonymous';
+      document.body.appendChild(adsenseScript);
+    }
+
+    const insElement = containerRef.current;
+    if (!insElement || initialized.current) return;
+
+    // 3. Use a ResizeObserver to wait until the DOM layout
+    // calculates a real, non-zero pixel width for this slot.
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const width = entry.contentRect.width;
+
+        // Once the container stretches beyond 0px, it is safe to request the ad
+        if (width > 0 && !initialized.current) {
+          // Check if Google hasn't claimed this slot already
+          if (!insElement.hasAttribute('data-adsbygoogle-status')) {
+            try {
+              const globalWindow = window as any;
+              globalWindow.adsbygoogle = globalWindow.adsbygoogle || [];
+              globalWindow.adsbygoogle.push({});
+              initialized.current = true;
+
+              // Disconnect immediately so we don't trigger duplicate pushes on window resizes
+              observer.disconnect();
+            } catch (err) {
+              console.error('AdSense initialization block error:', err);
+            }
+          }
+        }
       }
     });
 
-    // 2. Inject Google Custom Search Engine (CSE) script
-    const cseScript = document.createElement('script');
-    cseScript.src = 'https://cse.google.com/cse.js?cx=partner-pub-0296554708545211:rp92al-azpy';
-    cseScript.async = true;
-    document.body.appendChild(cseScript);
+    observer.observe(insElement);
 
-    // 3. Inject Google AdSense Main Library script
-    const adsenseScript = document.createElement('script');
-    adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0296554708545211';
-    adsenseScript.async = true;
-    adsenseScript.crossOrigin = 'anonymous';
-    document.body.appendChild(adsenseScript);
-
-    // 4. Safely push the individual Ad Slot initialization command block
-    // Using a ref block guard prevents pushing multiple duplicate tracking requests on hot reloads
-    if (!adInitialized.current) {
-      try {
-        const globalWindow = window as any;
-        globalWindow.adsbygoogle = globalWindow.adsbygoogle || [];
-        globalWindow.adsbygoogle.push({});
-        adInitialized.current = true;
-      } catch (err) {
-        console.error('AdSense initialization block error:', err);
-      }
-    }
-
-    // Tearing down elements when switching routes (Replicating unmounted cleanups)
     return () => {
-      cseScript.remove();
-      adsenseScript.remove();
+      observer.disconnect();
     };
   }, []);
 
   return (
-    <main ref={mainRef} className="DONTPrint">
-      {/* Target anchor container for the Google CSE search bar interface */}
-      <div className="gcse-search" />
-
-      {/* Structured Google AdSense rendering ins node layout container */}
-      <ins
-        className="adsbygoogle DONTPrint"
-        style={{ display: 'block' }} // Passed safely as a React style object
-        data-ad-client="ca-pub-0296554708545211"
-        data-ad-slot="9539391470"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-    </main>
+    <ins
+      ref={containerRef} // 👈 Connect the hook observer target directly to the node
+      className="adsbygoogle DONTPrint"
+      style={{ display: 'block', minWidth: '250px', minHeight: '90px' }} // Fallback base constraints
+      data-ad-client="ca-pub-0296554708545211"
+      data-ad-slot="9539391470"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    />
   );
 };
 
-export default AdsenseSearchBox;
+export default AdsByGoogle;

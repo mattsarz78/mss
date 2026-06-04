@@ -37,7 +37,7 @@ const WeeklyScheduleView: React.FC = () => {
         /* Replicating :key="route.fullPath" triggers a total component unmount 
         and clean state reset on internal route alterations 
       */
-        key={`${sport}-${paramYear}-${week}-${location.pathname}`}
+        key={location.pathname}
         week={week}
         sport={sport}
         paramYear={paramYear}

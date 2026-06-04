@@ -31,17 +31,9 @@ const DailyTvGamesInner: React.FC = () => {
   const { toggleWebExclusives, buttonText } = useWebExclusivesContext();
 
   useEffect(() => {
-    // Replicating "v-reset-adsense-height" cleanup hook lifecycle routine
-    const adElements = document.querySelectorAll('.adsbygoogle');
-    adElements.forEach((el) => {
-      if (el instanceof HTMLElement) el.style.height = '';
-    });
-
-    // Handle Title & Meta Tags Updates dynamically
     const title = `Daily TV Games for ${DateTime.now().toFormat('LLLL dd, yyyy')}`;
     addMetaTags(title);
 
-    // Bind document printing side-effects listener routine
     setupPrintListener();
   }, []);
 

@@ -1,7 +1,6 @@
 import { useDailyTvTextGames } from '#hooks/index.mjs';
 import { BackToTop, CopyrightLink } from '#shared/index.mjs';
 import { formatDateLong } from '#utils/dateFormatting.mjs';
-import { checkAllTextRows, clearAllSelectedTextRows } from '#utils/domText.mjs';
 import { addMetaTags } from '#utils/metaTags';
 import { setupPrintListener } from '#utils/printListener.mjs';
 import React, { useEffect } from 'react';
