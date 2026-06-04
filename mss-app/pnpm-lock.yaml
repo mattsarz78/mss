@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@apollo/client':
-        specifier: 4.2.1
-        version: 4.2.1(graphql@16.14.1)(rxjs@7.8.2)
+        specifier: 4.2.2
+        version: 4.2.2(graphql@16.14.1)(rxjs@7.8.2)
       '@vue/apollo-composable':
         specifier: 5.0.0-alpha.2
-        version: 5.0.0-alpha.2(@apollo/client@4.2.1(graphql@16.14.1)(rxjs@7.8.2))(@vue/reactivity@3.5.35)(@vue/runtime-core@3.5.35)(@vueuse/core@14.3.0(vue@3.5.35(typescript@6.0.3)))(@wry/equality@0.5.7)(rxjs@7.8.2)
+        version: 5.0.0-alpha.2(@apollo/client@4.2.2(graphql@16.14.1)(rxjs@7.8.2))(@vue/reactivity@3.5.35)(@vue/runtime-core@3.5.35)(@vueuse/core@14.3.0(vue@3.5.35(typescript@6.0.3)))(@wry/equality@0.5.7)(rxjs@7.8.2)
       graphql:
         specifier: 16.14.1
         version: 16.14.1
@@ -32,7 +32,7 @@ importers:
     devDependencies:
       '@apollo/client-devtools-vscode':
         specifier: 4.25.6
-        version: 4.25.6(@apollo/client@4.2.1(graphql@16.14.1)(rxjs@7.8.2))(graphql@16.14.1)(rxjs@7.8.2)
+        version: 4.25.6(@apollo/client@4.2.2(graphql@16.14.1)(rxjs@7.8.2))(graphql@16.14.1)(rxjs@7.8.2)
       '@rushstack/eslint-patch':
         specifier: 1.16.1
         version: 1.16.1
@@ -85,8 +85,8 @@ packages:
       graphql: ^16.0.0
       rxjs: ^7.3.0
 
-  '@apollo/client@4.2.1':
-    resolution: {integrity: sha512-jYZak+1dqij4fYAuN77f+9OQukelMJwRf3C/KYEZsE/ifDfyKgzWcEOk3IlEisJz8UPRP1HkRo5DFrYZgz6PHg==}
+  '@apollo/client@4.2.2':
+    resolution: {integrity: sha512-tiI91oRHFB43QBDy1Y9gaBYYcz+0YmU7qtziHZfVAdXYyaI+y5NIvfT7fYPUzeAYfT6gXU6/lndcdmsr4MsOBQ==}
     peerDependencies:
       graphql: ^16.0.0
       graphql-ws: ^5.5.5 || ^6.0.3
@@ -3118,14 +3118,14 @@ snapshots:
       jsonpointer: 5.0.1
       leven: 3.1.0
 
-  '@apollo/client-devtools-vscode@4.25.6(@apollo/client@4.2.1(graphql@16.14.1)(rxjs@7.8.2))(graphql@16.14.1)(rxjs@7.8.2)':
+  '@apollo/client-devtools-vscode@4.25.6(@apollo/client@4.2.2(graphql@16.14.1)(rxjs@7.8.2))(graphql@16.14.1)(rxjs@7.8.2)':
     dependencies:
-      '@apollo/client': 4.2.1(graphql@16.14.1)(rxjs@7.8.2)
+      '@apollo/client': 4.2.2(graphql@16.14.1)(rxjs@7.8.2)
       graphql: 16.14.1
       rxjs: 7.8.2
       semver: 7.8.1
 
-  '@apollo/client@4.2.1(graphql@16.14.1)(rxjs@7.8.2)':
+  '@apollo/client@4.2.2(graphql@16.14.1)(rxjs@7.8.2)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.14.1)
       '@wry/caches': 1.0.1
@@ -4391,9 +4391,9 @@ snapshots:
     optionalDependencies:
       vue: 3.5.35(typescript@6.0.3)
 
-  '@vue/apollo-composable@5.0.0-alpha.2(@apollo/client@4.2.1(graphql@16.14.1)(rxjs@7.8.2))(@vue/reactivity@3.5.35)(@vue/runtime-core@3.5.35)(@vueuse/core@14.3.0(vue@3.5.35(typescript@6.0.3)))(@wry/equality@0.5.7)(rxjs@7.8.2)':
+  '@vue/apollo-composable@5.0.0-alpha.2(@apollo/client@4.2.2(graphql@16.14.1)(rxjs@7.8.2))(@vue/reactivity@3.5.35)(@vue/runtime-core@3.5.35)(@vueuse/core@14.3.0(vue@3.5.35(typescript@6.0.3)))(@wry/equality@0.5.7)(rxjs@7.8.2)':
     dependencies:
-      '@apollo/client': 4.2.1(graphql@16.14.1)(rxjs@7.8.2)
+      '@apollo/client': 4.2.2(graphql@16.14.1)(rxjs@7.8.2)
       '@vue/reactivity': 3.5.35
       '@vue/runtime-core': 3.5.35
       '@vueuse/core': 14.3.0(vue@3.5.35(typescript@6.0.3))

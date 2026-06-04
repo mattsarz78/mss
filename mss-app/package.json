@@ -54,7 +54,7 @@
     "copy-webp": "node ./scripts/copy-webp.mjs"
   },
   "dependencies": {
-    "@apollo/client": "4.2.1",
+    "@apollo/client": "4.2.2",
     "@vue/apollo-composable": "5.0.0-alpha.2",
     "graphql": "16.14.1",
     "luxon": "3.7.2",
