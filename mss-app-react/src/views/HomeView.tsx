@@ -49,31 +49,31 @@ const HomeView: React.FC = () => {
             <br />
             <Link to="/season/football/2025"> 2025 Football </Link>
             <br />
-            <Link to="/season/basketball/2025-26"> 2025-26 Men's Basketball </Link>
+            <Link to="/season/basketball/2025-26"> 2025-26 Men&apos;s Basketball </Link>
             <br />
             <br />
             <Link to="/season/football/2024"> 2024 Football </Link>
             <br />
-            <Link to="/season/basketball/2024-25"> 2024-25 Men's Basketball </Link>
+            <Link to="/season/basketball/2024-25"> 2024-25 Men&apos;s Basketball </Link>
             <br />
             <br />
             <Link to="/season/football/2023"> 2023 Football </Link>
             <br />
-            <Link to="/season/basketball/2023-24"> 2023-24 Men's Basketball </Link>
+            <Link to="/season/basketball/2023-24"> 2023-24 Men&apos;s Basketball </Link>
             <br />
             <br />
             <Link to="/season/football/2022"> 2022 Football </Link>
             <br />
-            <Link to="/season/basketball/2022-23"> 2022-23 Men's Basketball </Link>
+            <Link to="/season/basketball/2022-23"> 2022-23 Men&apos;s Basketball </Link>
             <br />
             <br />
             <Link to="/archive"> Archived Seasons </Link>
             <p>
               Check out my{' '}
-              <a href="http://mattsarzsports.blogspot.com/" target="_blank" rel="noopener">
+              <a href="http://mattsarzsports.blogspot.com/" target="_blank" rel="noopener noreferrer">
                 blog
               </a>
-              . Discussing college sports and how we're watching the games.
+              . Discussing college sports and how we&apos;re watching the games.
             </p>
           </div>
         </div>

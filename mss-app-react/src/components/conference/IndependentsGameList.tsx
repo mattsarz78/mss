@@ -11,12 +11,13 @@ interface IndependentsGameListProps {
 }
 
 const IndependentsGameList: React.FC<IndependentsGameListProps> = ({ games, schools, year, contractYearData }) => {
-  const filterGamesBySchool = (school: string) => {
-    return games.filter((game) => game.conference === school);
-  };
-
+  
   // Replicating Vue's filteredGames computed property
   const filteredGames = useMemo(() => {
+    const filterGamesBySchool = (school: string) => {
+      return games.filter((game) => game.conference === school);
+    };
+
     if (!schools || !games) return [];
 
     return schools

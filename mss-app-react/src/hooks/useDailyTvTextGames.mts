@@ -1,41 +1,53 @@
-import { useQuery } from '@apollo/client/react';
 import { DAILY_TV_GAMES, type TvGameData } from '#/graphQl.mjs';
+import { useQuery } from '@apollo/client/react';
 import { DateTime } from 'luxon';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 
-export const useDailyTvTextGames = (sport: string) => {
-  const startDate = DateTime.now().setZone('America/New_York').toISODate();
+export const useDailyTvTextGames = () => {
+  // 1. Grab parameters via React Router DOM hook
+  const { sport } = useParams<{ sport: string }>() as { sport: string };
 
-  const {
-    data: dailyTvGameData,
-    loading: dailyTvGameLoading,
-    error: dailyTvGameError
-  } = useQuery<{ dailyTvGames: TvGameData }>(DAILY_TV_GAMES, {
-    variables: { input: { sport, startDate } }
+  // 2. Resolve the Eastern Time timezone string safely
+  const startDate = useMemo(() => {
+    return DateTime.now().setZone('America/New_York').toISODate();
+  }, []);
+
+  const variables = useMemo(() => {
+    return { input: { sport, startDate } };
+  }, [sport, startDate]);
+
+  // 3. Fire the native React Apollo Client data query hook
+  const { data, loading, error } = useQuery<{ dailyTvGames: TvGameData }>(DAILY_TV_GAMES, {
+    variables,
+    skip: !sport, // Safety gate: skip query if parameters are missing during mount
   });
 
-  const [season, setSeason] = useState<string>('');
-  const [paramYear, setParamYear] = useState<string>('');
+  // 4. Replicate Vue's watch reactive sync logic inside a clean useMemo boundary
+  const { paramYear, season } = useMemo(() => {
+    const firstGame = data?.dailyTvGames?.tvGames?.[0];
 
-  useEffect(() => {
-    if (dailyTvGameData?.dailyTvGames?.tvGames?.length) {
-      const year = dailyTvGameData.dailyTvGames.tvGames[0].season;
-      setParamYear(year);
-      setSeason(
-        sport === 'football'
-          ? year
-          : `${year.slice(0, 4)}-${year.slice(5)}`
-      );
+    if (!firstGame?.season) {
+      return { paramYear: '', season: '' };
     }
-  }, [dailyTvGameData?.dailyTvGames?.tvGames, sport]);
 
+    const rawSeason = firstGame.season;
+    const formattedSeason = sport === 'football' ? rawSeason : `${rawSeason.slice(0, 4)}-${rawSeason.slice(5)}`;
+
+    return {
+      paramYear: rawSeason,
+      season: formattedSeason,
+    };
+  }, [data, sport]);
+
+  // 5. Return payload maintaining precise property name symmetry with your view template
   return {
-    dailyTvGameResult: { dailyTvGames: dailyTvGameData?.dailyTvGames },
-    dailyTvGameLoading,
-    dailyTvGameError,
+    dailyTvGameResult: data,
+    dailyTvGameLoading: loading,
+    dailyTvGameError: error,
     season,
     paramYear,
     sport,
-    startDate
+    startDate,
   };
 };

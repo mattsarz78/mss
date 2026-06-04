@@ -1,13 +1,9 @@
 import App from '#/App';
-// 1. Change the import from '@apollo/client/core' to '@apollo/client'
-// and include ApolloProvider
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { registerSW } from 'virtual:pwa-register';
-
-console.log(import.meta.env.API_URL)
 
 const httpLink = new HttpLink({
   uri: import.meta.env.API_URL ?? 'http://localhost:8020/graphql' 

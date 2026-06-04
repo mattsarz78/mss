@@ -64,7 +64,7 @@ const ArchiveView: React.FC = () => {
               <div key={index}>
                 <Link to={`/season/football/${season}`}> {season} Football </Link>
                 <br />
-                <Link to={`/season/basketball/${mbkSeasons[index]}`}>{mbkSeasons[index]} Men's Basketball</Link>
+                <Link to={`/season/basketball/${mbkSeasons[index]}`}>{mbkSeasons[index]} Men&apos;s Basketball</Link>
                 <br />
               </div>
             ))}
@@ -75,7 +75,7 @@ const ArchiveView: React.FC = () => {
             <br />
             <Link to="/season/football/2020"> 2020 Football - Pre-Conference Only Announcements </Link>
             <br />
-            <Link to="/season/basketball/2020-21"> 2020-21 Men's Basketball </Link>
+            <Link to="/season/basketball/2020-21"> 2020-21 Men&apos;s Basketball </Link>
             <br />
             <br />
             {footballSeasons.map((season, index) => (
@@ -83,7 +83,7 @@ const ArchiveView: React.FC = () => {
                 <Link to={`/season/football/${season}`}> {season} Football </Link>
                 <br />
                 <Link to={`/season/basketball/${basketballSeasons[index]}`}>
-                  {basketballSeasons[index]} Men's Basketball
+                  {basketballSeasons[index]} Men&apos;s Basketball
                 </Link>
                 <br />
                 <br />

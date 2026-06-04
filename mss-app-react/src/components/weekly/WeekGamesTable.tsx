@@ -1,6 +1,6 @@
 import type { TvGame } from '#/graphQl.mjs';
 import PostseasonMbkEvent from '#weekly/PostseasonMbkEvent.tsx';
-import { useWebExclusivesContext } from '#weekly/WebExclusiveContext.tsx';
+import { useWebExclusivesContext } from '#hooks/useWebExclusivesContext.mjs';
 import WeekGameRow from '#weekly/WeekGameRow.tsx';
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';

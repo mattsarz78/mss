@@ -96,11 +96,11 @@ const ConferenceView: React.FC = () => {
           <p>
             {cased} Broadcast Schedule
             <br />
-            <strong>All start times displayed are based on your device's location.</strong>
+            <strong>All start times displayed are based on your device&apos;s location.</strong>
           </p>
           <p>
             NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
-            non-conference games fall under the home team's telecast rights.
+            non-conference games fall under the home team&apos;s telecast rights.
           </p>
 
           {/* Raw HTML injection replacing v-dompurify-html */}

@@ -6,13 +6,21 @@ import globals from 'globals';
 import ts from 'typescript-eslint';
 
 export default [
-  { ignores: ['dist', 'node_modules', '.venv'] },
+  // 1. Global Ignores (Must be in an isolated object)
+  { ignores: ['dist', 'node_modules', '.venv', 'build'] },
+
+  // 2. Global Base Language Environment Configurations
   {
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest', // Automatically matches modern 2026/ESNext syntax specifications
       sourceType: 'module',
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+        ...globals.node, // Safely handles script environments like vite.config or scripts
+      },
+      parser: ts.parser, // Explicitly binds the TypeScript Flat Config parser asset node
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -21,16 +29,20 @@ export default [
     },
     settings: {
       react: {
-        version: 'detect',
+        version: '18', // Dynamically matches your local package.json React build version
       },
     },
   },
+
+  // 3. Recommended Core Engine Flag Layout Sets
   js.configs.recommended,
   ...ts.configs.recommended,
+
+  // 4. Custom React Application Rules Mapping Layout
   {
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
     plugins: {
-      react,
+      react: react.configs.flat.recommended.plugins.react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
@@ -41,6 +53,7 @@ export default [
       'react/prop-types': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     },
   },
 ];

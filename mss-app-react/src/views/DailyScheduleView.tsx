@@ -1,7 +1,7 @@
 import { useDailyTvGames } from '#hooks/useDailyTvGames.mjs';
 import Copyright from '#shared/CopyrightLink.tsx';
 import { addMetaTags } from '#utils/metaTags.mjs';
-import { setupPrintListener } from '#utils/printListener.mts';
+import { setupPrintListener } from '#utils/printListener.mjs';
 import { useWebExclusivesContext, WebExclusivesProvider } from '#weekly/WebExclusiveContext.tsx';
 import WeeklyBase from '#weekly/WeeklyBase.tsx';
 import { DateTime } from 'luxon';

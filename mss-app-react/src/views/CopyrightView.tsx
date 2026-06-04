@@ -58,7 +58,7 @@ const CopyrightView: React.FC = () => {
             <p>
               For the avoidance of doubt, you must not adapt, edit, change, transform, publish, republish, distribute,
               redistribute, broadcast, rebroadcast or show or play in public this website or the material on this
-              website (in any form or media) without MattSarzSports.com's prior written permission.
+              website (in any form or media) without MattSarzSports.com&apos;s prior written permission.
             </p>
             <p>
               <strong>Data mining</strong>
@@ -79,7 +79,7 @@ const CopyrightView: React.FC = () => {
               that you have used its copyright materials in contravention of the license above, MattSarzSports.com may
               bring legal proceedings against you seeking monetary damages and an injunction to stop you using those
               materials. You could also be ordered to pay legal costs. If you become aware of any use of
-              MattSarzSports.com's copyright materials that contravenes or may contravene the license above, please
+              MattSarzSports.com&apos;s copyright materials that contravenes or may contravene the license above, please
               report this by email to
               <a href="mailto:footballsked@gmail.com">footballsked@@gmail.com</a>.
             </p>
@@ -87,7 +87,7 @@ const CopyrightView: React.FC = () => {
               <strong>Infringing material</strong>
             </p>
             <p>
-              If you become aware of any material on the website that you believe infringes your or any other person's
+              If you become aware of any material on the website that you believe infringes your or any other person&apos;s
               copyright, please report this by email to
               <a href="mailto:footballsked@gmail.com">footballsked@@gmail.com</a>.
             </p>

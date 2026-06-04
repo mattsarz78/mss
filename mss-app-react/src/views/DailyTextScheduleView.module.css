@@ -3,7 +3,7 @@
   margin-right: 3px;
 }
 
-.textNav {
+#TextNav {
   margin: 0;
 }
 
@@ -32,8 +32,8 @@
   margin: 0 auto;
 }
 
-.loadingContainer,
-.errorContainer {
+.loading-container,
+.error-container {
   min-height: 200px;
   display: flex;
   align-items: center;
@@ -45,7 +45,7 @@
   border: 1px solid #eee;
 }
 
-.loadingText {
+.loading-text {
   font-size: 1.2em;
   color: #666;
 }
@@ -62,7 +62,7 @@
     padding: 10px 3px;
   }
 
-  .dontPrintLink {
+  .DONTPrint a {
     line-height: 13px;
   }
 

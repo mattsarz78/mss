@@ -2,6 +2,7 @@ import type { WeekInfo } from '#/graphQl.mjs';
 import WeekLink from '#season/WeekLink.tsx';
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
+
 interface SeasonDatesProps {
   contents: WeekInfo[];
   sport: string;
@@ -10,19 +11,22 @@ interface SeasonDatesProps {
 }
 
 const SeasonDates: React.FC<SeasonDatesProps> = ({ contents, sport, paramYear, hasBasketballPostseason }) => {
-  // Guard clause against empty arrays
-  if (!contents || contents.length === 0) return null;
-
-  const lastContent = contents[contents.length - 1];
-
-  // Parity logic: Replacing Vue's computed filters
+  // 1. HOOKS FIRST: Initialize memos right away so they always run in the same order
   const filteredContents = useMemo(() => {
+    if (!contents) return [];
     return contents.filter((x) => !x.postseasonInd);
   }, [contents]);
 
   const postseasonContents = useMemo(() => {
+    if (!contents) return [];
     return contents.filter((x) => x.postseasonInd);
   }, [contents]);
+
+  // 2. GUARD CLAUSE: Safe to return early now that all hooks have registered
+  if (!contents || contents.length === 0) return null;
+
+  // 3. DATA DERIVATION: Safe to read properties now that contents is guaranteed to exist
+  const lastContent = contents[contents.length - 1];
 
   // Reusable helper to format date ranges cleanly across templates
   const formatDateRangeText = (content: WeekInfo) => {

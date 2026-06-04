@@ -130,4 +130,6 @@ const WeekTextTable = forwardRef<WeekTextTableHandle, WeekTextTableProps>(
   }
 );
 
+WeekTextTable.displayName = 'WeekTextTable';
+
 export default WeekTextTable;

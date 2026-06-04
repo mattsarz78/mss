@@ -34,24 +34,22 @@ const alias = {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): UserConfig => {
-  // Load environment variables
   const env = loadEnv(mode, process.cwd(), '');
-  const buildId = new Date().getTime().toString();
 
   const config: UserConfigExport = {
     optimizeDeps: { include: ['react', 'react-dom', 'luxon', '@apollo/client/core'] },
     server: {
       watch: {
         usePolling: false,
-        ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**'], // Also ignore build output
+        ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**'],
       },
       hmr: {
         overlay: true,
-        timeout: 30000, // Increase timeout for slower connections
+        timeout: 30000,
       },
-      host: true, // Listen on all addresses
-      strictPort: true, // Fail if port is already in use
-      open: false, // Don't open browser automatically
+      host: true,
+      strictPort: true,
+      open: false,
     },
     css: { devSourcemap: true },
     assetsInclude: ['**/*.png', 'version.json', '**/*.webp'],
@@ -94,7 +92,6 @@ export default defineConfig(({ mode }): UserConfig => {
           start_url: '/',
         },
         workbox: {
-          // defining cached files formats
           globPatterns: ['**/*.{js,mjs,css,html,txt,xml,ico,png,svg,json,tsx,woff2,webmanifest}'],
           cleanupOutdatedCaches: true,
           skipWaiting: true,
@@ -112,9 +109,27 @@ export default defineConfig(({ mode }): UserConfig => {
     build: {
       sourcemap: env.SOURCEMAP === 'true',
       target: 'esnext',
-      minify: 'terser',
+      minify: 'esbuild',
+      chunkSizeWarningLimit: 800, // 👈 Safely raise limits to match typical application scales
       rollupOptions: {
         external: ['workbox-window'],
+        output: {
+          // 👈 Dynamic splitting configuration separating your third-party infrastructure
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('@apollo') || id.includes('graphql')) {
+                return 'vendor-graphql'; // Isolates data pipeline dependencies
+              }
+              if (id.includes('luxon')) {
+                return 'vendor-luxon'; // Separates weightier calendar parsing utilities
+              }
+              if (id.includes('react')) {
+                return 'vendor-react-core'; // Keeps core UI rendering engines lean
+              }
+              return 'vendor-misc'; // Catch-all bucket for smaller system tools
+            }
+          }
+        }
       },
     },
     define: {

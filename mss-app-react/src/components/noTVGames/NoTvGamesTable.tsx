@@ -1,5 +1,5 @@
 import type { NoTvGame } from '#/graphQl.mjs';
-import { formatWeekday } from '#utils/dateFormatting.mts';
+import { formatWeekday } from '#utils/dateFormatting.mjs';
 import React, { useMemo } from 'react';
 
 interface NoTvGamesTableProps {

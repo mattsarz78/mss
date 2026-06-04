@@ -1,9 +1,9 @@
 import { useCurrentTimeET } from '#hooks/useCurrentTimeET.mjs';
+import { useWebExclusivesContext } from '#hooks/useWebExclusivesContext.mjs';
 import { useWeekSchedule } from '#hooks/useWeekSchedule.mjs';
 import { useWeekScheduleNav } from '#hooks/useWeekScheduleNav.mjs';
 import NoTvGames from '#noTv/NoTvGames.tsx';
 import Copyright from '#shared/CopyrightLink.tsx';
-import { useWebExclusivesContext } from '#weekly/WebExclusiveContext.tsx';
 import WeeklyBase from '#weekly/WeeklyBase.tsx';
 import { DateTime } from 'luxon';
 import React, { Suspense, useMemo } from 'react';
@@ -104,7 +104,7 @@ const WeekSchedule: React.FC<WeekScheduleProps> = ({ week, sport, paramYear }) =
               </div>
               {gamesToday && (
                 <div className={styles.flexRow}>
-                  <Link to={`/schedule/${sport}/daily`}>Today's Schedule </Link>
+                  <Link to={`/schedule/${sport}/daily`}>Today&apos;s Schedule </Link>
                 </div>
               )}
             </div>
@@ -175,7 +175,6 @@ const WeekSchedule: React.FC<WeekScheduleProps> = ({ week, sport, paramYear }) =
           />
 
           {!isBowlWeek && tvGameResult.tvGames!.hasNoTVGames && <NoTvGames year={year} week={week} />}
-
           <Suspense fallback={null}>
             <BackToTop />
             <AdsByGoogle />

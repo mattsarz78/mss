@@ -54,7 +54,7 @@ const WeeklyBase: React.FC<WeeklyBaseProps> = ({ tvGames, isBowlWeek, isMbkPosts
         ) : (
           <>
             <p>
-              <strong>All start times displayed are based on your device's location.</strong>
+              <strong>All start times displayed are based on your device&apos;s location.</strong>
             </p>
             {datesList.map((weekDate) => (
               <div key={weekDate}>

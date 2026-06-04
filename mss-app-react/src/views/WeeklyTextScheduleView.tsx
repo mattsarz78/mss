@@ -4,7 +4,7 @@ import { useLocation, useParams } from 'react-router-dom';
 
 // Global Side-Effect Utilities
 import { addMetaTags } from '#utils/metaTags.mjs';
-import { setupPrintListener } from '#utils/printListener.mts';
+import { setupPrintListener } from '#utils/printListener.mjs';
 import { generateWeeklyTitle } from '#utils/weeklyTitle.mjs';
 
 const WeekTextScheduleView: React.FC = () => {

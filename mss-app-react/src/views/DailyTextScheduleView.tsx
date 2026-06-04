@@ -1,117 +1,115 @@
-import { useDailyTvTextGames } from '#hooks/index.mjs';
-import { BackToTop, CopyrightLink } from '#shared/index.mjs';
+import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
+import { useDailyTvTextGames } from '#hooks/useDailyTvTextGames.mjs';
+import Copyright from '#shared/CopyrightLink.tsx';
+import WeekTextBase from '#text/WeekTextBase.tsx';
+import type { WeekTextTableHandle } from '#text/WeekTextTable.tsx';
 import { formatDateLong } from '#utils/dateFormatting.mjs';
-import { addMetaTags } from '#utils/metaTags';
+import { addMetaTags } from '#utils/metaTags.mjs';
 import { setupPrintListener } from '#utils/printListener.mjs';
-import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import AdsByGoogle from '../components/shared/AdsByGoogle.tsx';
-import WeekTextBase from '../components/weeklyText/WeekTextBase.tsx';
+import React, { Suspense, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './DailyTextScheduleView.module.css';
 
-const DailyTextScheduleView: React.FC = () => {
-  const { sport = '' } = useParams<'sport'>();
-  const {
-    dailyTvGameResult: result,
-    dailyTvGameLoading: loading,
-    dailyTvGameError: error,
-    season,
-    paramYear,
-    startDate
-  } = useDailyTvTextGames(sport);
+// Lazy Components
+const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
+const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
 
-  const title = `Daily TV Games for ${formatDateLong(new Date())}`;
+const DailyTvTextGamesView: React.FC = () => {
+  const mainRef = useResetAdsenseHeight();
+
+  // Wire the command handle reference to target the child table methods directly
+  const tableRef = useRef<WeekTextTableHandle | null>(null);
+
+  const { dailyTvGameResult, dailyTvGameLoading, dailyTvGameError, season, paramYear, sport, startDate } =
+    useDailyTvTextGames();
 
   useEffect(() => {
+    // Update Meta Title Strings
+    const title = `Daily TV Games for ${formatDateLong(new Date())}`;
     addMetaTags(title);
+
+    // Bind browser print listeners
     setupPrintListener();
   }, []);
 
-  if (loading) {
-    return (
-      <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontSize: '1.2em', color: '#666' }}>Loading {sport} for {startDate}</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p>Sorry. Got a bit of a problem. Let Matt know.</p>
-      </div>
-    );
-  }
-
-  const games = result?.dailyTvGames?.tvGames ?? [];
-
   return (
-    <div>
-      <nav
-        role="navigation"
-        className="navbar DONTPrint"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 9999,
-          width: '100%',
-          backgroundColor: 'white',
-          padding: '2px 0',
-          boxShadow: '0 1px 1px rgba(0, 0, 0, 0.1)',
-          height: '119.5px',
-          display: 'block'
-        }}
-      >
-        <div style={{ maxWidth: '800px', margin: '0 auto', height: '100%' }}>
-          <div style={{ display: 'flex', gap: '20px', padding: '10px' }}>
-            <Link to="/" style={{ textDecoration: 'none', color: '#2196f3' }}>Home</Link>
-            <Link to={`/season/${sport}/${season}`} style={{ textDecoration: 'none', color: '#2196f3' }}>Season Home</Link>
-            <Link to={`/schedule/${sport}/daily`} className="DONTPrint" style={{ textDecoration: 'none', color: '#2196f3' }}>Daily Schedule</Link>
-          </div>
-          <div style={{ padding: '5px 10px' }} className="DONTPrint">
-            <button
-              id="ClearAll"
-              className="inputpad buttonfont"
-              onClick={clearAllSelectedTextRows}
-              style={{
-                padding: '10px 15px',
-                marginRight: '10px',
-                backgroundColor: '#f44336',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              Clear All Games
-            </button>
-            <button
-              id="CheckAll"
-              className="inputpad buttonfont"
-              onClick={checkAllTextRows}
-              style={{
-                padding: '10px 15px',
-                backgroundColor: '#4CAF50',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              Check All Games
-            </button>
-          </div>
+    <main ref={mainRef}>
+      {/* Loading Template View Tree */}
+      {dailyTvGameLoading && (
+        <div className={styles.loadingContainer}>
+          <p className={styles.loadingText}>
+            Loading {sport} for {startDate}
+          </p>
         </div>
-      </nav>
-      <main style={{ paddingTop: '130px' }}>
-        <WeekTextBase games={games} sport={sport} />
-      </main>
-      <BackToTop />
-      <AdsByGoogle />
-      <CopyrightLink />
-    </div>
+      )}
+
+      {/* Error Template View Tree */}
+      {dailyTvGameError && (
+        <div className={styles.errorContainer}>
+          <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+        </div>
+      )}
+
+      {/* Main Content Layout Block */}
+      {dailyTvGameResult && (
+        <>
+          <nav role="navigation" className={`${styles.navbar} DONTPrint`}>
+            <div className={styles.container}>
+              <div className={styles.flexContainerRow}>
+                <div className={styles.flexRow}>
+                  <Link to="/">Home</Link>
+                </div>
+                <div className={styles.flexRow}>
+                  <Link to={`/season/${sport}/${season}`}>Season Home</Link>
+                </div>
+                <div className={styles.flexRow}>
+                  <Link className="DONTPrint" to={`/schedule/${sport}/daily`}>
+                    Daily Schedule
+                  </Link>
+                </div>
+              </div>
+              <br />
+              <p id="TextNav" className={`${styles.pad} DONTPrint`}>
+                <button
+                  id="ClearAll"
+                  type="button"
+                  className={`${styles.inputpad} ${styles.buttonfont}`}
+                  onClick={() => tableRef.current?.clearAll()}
+                >
+                  Clear All Games
+                </button>
+
+                <button
+                  id="CheckAll"
+                  type="button"
+                  className={`${styles.inputpad} ${styles.buttonfont}`}
+                  onClick={() => tableRef.current?.checkAll()}
+                >
+                  Check All Games
+                </button>
+              </p>
+            </div>
+          </nav>
+
+          <WeekTextBase
+            ref={tableRef}
+            season={paramYear}
+            tvGames={dailyTvGameResult.dailyTvGames.tvGames}
+            isBowlWeek={false}
+            isMbkPostseason={false}
+            showPpvColumn={dailyTvGameResult.dailyTvGames.showPPVColumn}
+          />
+
+          <Suspense fallback={null}>
+            <BackToTop />
+            <AdsByGoogle />
+          </Suspense>
+
+          <Copyright />
+        </>
+      )}
+    </main>
   );
 };
 
-export default DailyTextScheduleView;
+export default DailyTvTextGamesView;
