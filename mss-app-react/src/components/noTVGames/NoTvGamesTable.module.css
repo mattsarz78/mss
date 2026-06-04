@@ -1,0 +1,56 @@
+.fcsgame {
+  background-color: #ff0;
+}
+
+.header {
+  text-align: center;
+}
+
+.game,
+.conference,
+.telecast {
+  border: medium solid Gray;
+  border-width: thin;
+}
+
+.noTVTable {
+  background-color: #fff;
+  border: 2px ridge #fff;
+  border-spacing: 1px;
+  border-collapse: collapse;
+}
+
+.conference,
+.telecast {
+  text-align: center;
+  padding: 5px;
+}
+
+.game {
+  width: 243px;
+}
+
+.conference {
+  width: 100px;
+}
+
+.telecast {
+  width: 400px;
+}
+
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
+}
+
+@media all and (min-width: 641px) {
+  .game {
+    padding: 2px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .game {
+    padding: 1px;
+  }
+}

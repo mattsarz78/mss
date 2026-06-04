@@ -1,0 +1,23 @@
+@media all and (min-width: 641px) {
+  .links {
+    width: 45%;
+    float: left;
+    display: inline;
+  }
+
+  .main {
+    padding-top: 37px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .links {
+    width: 100%;
+    float: left;
+    display: inline;
+  }
+
+  .main {
+    padding-top: 48px;
+  }
+}

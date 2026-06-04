@@ -1,0 +1,49 @@
+/* WeekTextTable.module.css */
+
+.tablecell {
+  border: medium solid gray;
+  border-width: thin;
+}
+
+.tableborder {
+  border-style: ridge;
+  border-width: 2px;
+  border-spacing: 1px;
+  border-collapse: collapse;
+}
+
+.networkcell {
+  width: 195px;
+  text-align: center;
+}
+
+.ppvcell {
+  width: 25px;
+  text-align: center;
+}
+
+.timecell {
+  margin: 0 auto;
+  padding: 0 2px;
+}
+
+.gamecell {
+  width: 270px;
+}
+
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
+}
+
+@media all and (min-width: 641px) {
+  .rowStyle {
+    width: 660px;
+  }
+}
+
+@media print {
+  .DOPrint {
+    display: table !important;
+  }
+}

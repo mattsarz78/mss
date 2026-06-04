@@ -1,0 +1,67 @@
+.game,
+.time,
+.network {
+  border: medium solid Gray;
+  border-width: thin;
+}
+
+.header {
+  text-align: center;
+}
+
+.network {
+  width: 30%;
+  padding: 2px;
+  text-align: center;
+}
+
+.time {
+  width: 15%;
+  text-align: right;
+  padding: 2px;
+}
+
+.game {
+  width: 55%;
+  padding: 2px;
+}
+
+.noTVTable {
+  background-color: #fff;
+  border: 2px ridge #fff;
+  border-spacing: 1px;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 550px;
+  table-layout: auto;
+  /* Prevent column width changes */
+}
+
+:global(.linkblock) {
+  display: inline-block;
+  padding-top: 7px;
+  padding-bottom: 2px;
+}
+
+.gameTitle {
+  font-weight: bold;
+  font-style: italic;
+}
+
+:global(img) {
+  aspect-ratio: 66 / 50;
+}
+
+@media only screen and (max-width: 640px) {
+  .game {
+    padding: 1px;
+  }
+
+  .network {
+    padding: 0;
+  }
+
+  :global(img) {
+    aspect-ratio: 43 / 33;
+  }
+}

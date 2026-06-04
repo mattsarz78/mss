@@ -1,0 +1,66 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  width: 100%;
+  background-color: white;
+  padding: 2px 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  height: 54px;
+  align-items: center;
+  display: block;
+}
+
+.container {
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.loadingContainer,
+.errorContainer {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.loadingText {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  padding-top: 40px;
+}
+
+@media only screen and (max-width: 640px) {
+  .flexContainer {
+    flex-direction: row;
+  }
+
+  .flexRow {
+    padding-right: 10px;
+  }
+
+  main {
+    padding-top: 21px;
+  }
+
+  .navbar {
+    height: 15px;
+    padding: 10px 3px;
+  }
+}

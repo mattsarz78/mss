@@ -1,0 +1,37 @@
+.slidingNoTVDiv {
+  padding-top: 10px;
+}
+
+.show_hideNoTV {
+  display: inline-block;
+}
+
+.loading-container,
+.error-container {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.loading-text {
+  font-size: 1.2em;
+  color: #666;
+}
+
+@media only screen and (max-width: 640px) {
+  .buttonFont {
+    font-size: 0.9em;
+  }
+}
+
+@media all and (min-width: 641px) {
+  .buttonFont {
+    font-size: 14px;
+  }
+}

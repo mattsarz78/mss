@@ -1,0 +1,26 @@
+.webGame {
+  display: table-row;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.webGame.hidden {
+  opacity: 0;
+  display: none;
+}
+
+.header {
+  text-align: center;
+}
+
+.noTVTable {
+  background-color: #fff;
+  border-color: #fff;
+  border-style: ridge;
+  border-width: 2px;
+  border-spacing: 1px;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  table-layout: auto;
+}

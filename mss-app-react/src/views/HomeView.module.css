@@ -1,0 +1,58 @@
+.imgtitle {
+  max-width: 100%;
+  padding-bottom: 5px;
+}
+
+.links {
+  float: left;
+  display: inline;
+}
+
+.facebook {
+  border: 0;
+  overflow: hidden;
+}
+
+.main {
+  padding-top: 37px;
+}
+
+@media all and (min-width: 641px) {
+  .facebook {
+    height: 80px;
+    width: 450px;
+  }
+
+  .links {
+    width: 45%;
+  }
+
+  .links,
+  .content {
+    height: 330px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .facebook {
+    height: 100px;
+    width: 300px;
+  }
+
+  .links {
+    width: 100%;
+  }
+
+  .links,
+  .content {
+    height: 280px;
+  }
+
+  .twitter {
+    width: 100%;
+  }
+
+  .main {
+    padding-top: 48px;
+  }
+}

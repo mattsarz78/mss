@@ -1,0 +1,40 @@
+{
+  "include": ["env.d.ts", "src/**/*", "src/**/*"],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "moduleDetection": "force",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "module": "nodenext",
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "noImplicitThis": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "composite": true,
+    "noEmit": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "paths": {
+      "#/*": ["./src/*"],
+      "#composables/*": ["./src/composables/*"],
+      "#hooks/*": ["./src/hooks/*"],
+      "#views/*": ["./src/views/*"],
+      "#utils/*": ["./src/utils/*"],
+      "#conference/*": ["./src/components/conference/*"],
+      "#noTv/*": ["./src/components/noTVGames/*"],
+      "#season/*": ["./src/components/season/*"],
+      "#shared/*": ["./src/components/shared/*"],
+      "#weekly/*": ["./src/components/weekly/*"],
+      "#text/*": ["./src/components/weeklyText/*"],
+      "#data/*": ["./src/staticData/*"]
+    },
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["node", "react", "react-dom"],
+    "erasableSyntaxOnly": true
+  }
+}

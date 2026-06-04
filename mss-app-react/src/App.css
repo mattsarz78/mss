@@ -1,0 +1,26 @@
+.update-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #4caf50;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  z-index: 99999;
+}
+
+.update-banner button {
+  background: white;
+  color: #4caf50;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-left: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.update-banner button:hover {
+  background: #f0f0f0;
+}
