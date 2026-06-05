@@ -1,28 +1,53 @@
-import { useResetAdsenseHeight, useSeasonContents } from '#hooks/index.mjs'; // Adjust hook import path as needed
+import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
+import { useSeasonContents } from '#hooks/useSeasonContents.mjs';
 import ConferenceList from '#season/ConferenceList.tsx';
 import SeasonDates from '#season/SeasonDates.tsx';
-import AdsByGoogle from '#shared/AdsByGoogle.tsx';
 import Copyright from '#shared/CopyrightLink.tsx';
 import { addMetaTags } from '#utils/metaTags.mjs';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './SeasonView.module.css';
 
+// Lazy-loaded Components
+const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
+
+interface RouteParams {
+  sport: string;
+  year: string;
+  [key: string]: string | undefined;
+}
+
 const SeasonView: React.FC = () => {
-  const { sport = '', year: paramYear = '' } = useParams<{ sport: string; year: string }>();
   const mainRef = useResetAdsenseHeight();
+  const { sport, year: paramYear } = useParams<RouteParams>() as { sport: string; year: string };
 
-  const year = sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`;
+  // 2. Computed season string matching your database structures
+  const year = useMemo(() => {
+    if (!sport || !paramYear) return '';
+    return sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`;
+  }, [sport, paramYear]);
 
-  const capitalizedSport = sport.charAt(0).toUpperCase() + sport.slice(1);
-  const title = `${paramYear} ${capitalizedSport} Season`;
+  // 3. Construct static title header string
+  const title = useMemo(() => {
+    if (!sport || !paramYear) return '';
+    return `${paramYear} ${sport.charAt(0).toUpperCase()}${sport.slice(1)} Season`;
+  }, [sport, paramYear]);
 
-  // Update meta tags when title dependencies change
-  useEffect(() => {
-    addMetaTags(title);
-  }, [title]);
-
+  // 4. Fire data retrieval hooks
   const { result, loading, error } = useSeasonContents(year);
+
+  useEffect(() => {
+    // Replicating "v-reset-adsense-height" side-effect script
+    const adElements = document.querySelectorAll('.adsbygoogle');
+    adElements.forEach((el) => {
+      if (el instanceof HTMLElement) el.style.height = '';
+    });
+
+    // Update browser documents tab headings meta tags
+    if (title) {
+      addMetaTags(title);
+    }
+  }, [title]);
 
   return (
     <>
@@ -41,23 +66,20 @@ const SeasonView: React.FC = () => {
         </div>
       </nav>
 
-      <main ref={mainRef}>
+      <main ref={mainRef} className={styles.mainContent}>
         <p>{title}</p>
 
-        {/* Error Handling State */}
-        {error && <>Got a problem. Let Matt know.</>}
+        {error && <div className={styles.errorContainer}>Got a problem. Let Matt know.</div>}
 
-        {/* Loading State */}
         {loading && (
           <div className={styles.loadingContainer}>
             <p className={styles.loadingText}>Loading {paramYear} season</p>
           </div>
         )}
 
-        {/* Successful Data State */}
         {result?.seasonContents && (
           <div id="content">
-            <div className={`${styles.seasonLinks} DONTPrint`}>
+            <div id="SeasonLinks" className={`${styles.seasonLinks} DONTPrint`}>
               <SeasonDates
                 contents={result.seasonContents.seasonContents}
                 paramYear={paramYear}
@@ -72,7 +94,6 @@ const SeasonView: React.FC = () => {
           </div>
         )}
 
-        {/* Always visible bottom markup */}
         <div className={styles.inlineBlock}>
           <p>
             <span id="Label9"> Got a question, complaint, comment or know a game not listed here? </span>
@@ -82,7 +103,10 @@ const SeasonView: React.FC = () => {
           </p>
         </div>
 
-        <AdsByGoogle />
+        <Suspense fallback={null}>
+          <AdsByGoogle />
+        </Suspense>
+
         <Copyright />
       </main>
     </>

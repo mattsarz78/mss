@@ -5,11 +5,11 @@
   border-width: thin;
 }
 
-.imgBorder {
+:global(.imgBorder) {
   border: 0;
 }
 
-.img {
+  :global(img) {
   aspect-ratio: 66 / 50;
 }
 
@@ -37,7 +37,7 @@
   padding: 2px;
 }
 
-.linkblock {
+:global(.linkblock) {
   display: inline-block;
   padding-top: 7px;
   padding-bottom: 2px;
@@ -57,7 +57,7 @@
     padding: 0;
   }
 
-  .img {
+  :global(img) {
     aspect-ratio: 43 / 33;
   }
 }

@@ -1,5 +1,7 @@
+/* SeasonView.module.css */
+
 .seasonLinks,
-.conference {
+:global(#Conference) {
   float: left;
   display: inline;
 }
@@ -8,7 +10,7 @@
   min-height: 250px;
 }
 
-main {
+.mainContent {
   padding-top: 29px;
 }
 
@@ -65,7 +67,7 @@ main {
     width: 55%;
   }
 
-  .conference {
+  :global(#Conference) {
     width: 35%;
     min-height: 380px;
   }

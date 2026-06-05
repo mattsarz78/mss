@@ -42,7 +42,11 @@
   flex-direction: column;
 }
 
-main {
+.flexRow {
+  display: block;
+}
+
+.mainContainer {
   padding-top: 40px;
 }
 
@@ -55,7 +59,7 @@ main {
     padding-right: 10px;
   }
 
-  main {
+  .mainContainer {
     padding-top: 21px;
   }
 

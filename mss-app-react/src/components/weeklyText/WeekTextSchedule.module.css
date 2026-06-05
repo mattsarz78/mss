@@ -81,7 +81,7 @@
     padding-bottom: 4px;
   }
 
-  .flexContainer :global(.flex-row) {
+  .flexContainer :global(.flexRow) {
     padding-right: 10px;
   }
 

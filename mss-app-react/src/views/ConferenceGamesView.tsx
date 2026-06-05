@@ -6,45 +6,50 @@ import type { ConferenceCasing } from '#data/exportTypes.mjs';
 import { useConferenceGames } from '#hooks/useConferenceGames.mjs';
 import { useSeasonData } from '#hooks/useSeasonData.mjs';
 import Copyright from '#shared/CopyrightLink.tsx';
-import { sanitizeHtml } from '#utils/domText.mjs';
 import { addMetaTags } from '#utils/metaTags.mjs';
-import { setupPrintListener } from '#utils/printListener.mjs';
-import React, { Suspense, useEffect } from 'react';
+import { setupPrintListener } from '#utils/printListener.mts';
+import React, { Suspense, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './ConferenceGamesView.module.css';
 
-const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
 const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
+const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
 
-const ConferenceView: React.FC = () => {
-  const { conference = '', year = '' } = useParams<{ conference: string; year: string }>();
+interface RouteParams {
+  conference: string;
+  year: string;
+  [key: string]: string | undefined;
+}
+
+const ConferenceGamesView: React.FC = () => {
   const mainRef = useResetAdsenseHeight();
+  const { conference, year } = useParams<RouteParams>() as { conference: string; year: string };
 
-  // Find conference meta data from config JSON
-  const conferenceData = (conferenceCasing as ConferenceCasing[]).find((x) => x.slug === conference);
+  // Locate the configuration layout meta matching our route slug
+  const conferenceData = useMemo(() => {
+    return (conferenceCasing as ConferenceCasing[]).find((x) => x.slug === conference);
+  }, [conference]);
 
-  if (!conferenceData) {
-    throw new Error(`Invalid conference slug: ${conference}`);
-  }
+  // Extract variables with structural fallback safe targets
+  const cased = conferenceData?.cased ?? '';
+  const lookup = conferenceData?.lookup ?? '';
+  const id = conferenceData?.id ?? '';
 
-  const { cased, lookup, id } = conferenceData;
-  const title = `${year} ${cased} Controlled Games`;
-
-  useEffect(() => {
-    addMetaTags(title);
-  }, [title]);
-
-  // Handle side-effect print utility registration precisely on initialization
-  useEffect(() => {
-    setupPrintListener();
-  }, []);
-
-  // API Call Data Hooks
   const { result: seasonResult, loading: seasonLoading, error: seasonError } = useSeasonData(year);
-
   const { result, loading, error } = useConferenceGames(year, conference, lookup, id);
 
-  if (error || seasonError) {
+  const isPageLoading = loading || seasonLoading;
+  const isPageError = error || seasonError || !conferenceData;
+
+  useEffect(() => {
+    if (!conferenceData) return;
+
+    const title = `${year} ${cased} Controlled Games`;
+    addMetaTags(title);
+    setupPrintListener();
+  }, [year, cased, conferenceData]);
+
+  if (isPageError) {
     return (
       <div className={styles.errorContainer}>
         <p>Sorry. Got a bit of a problem. Let Matt know.</p>
@@ -52,84 +57,89 @@ const ConferenceView: React.FC = () => {
     );
   }
 
-  if (loading || seasonLoading) {
+  if (isPageLoading) {
     return (
       <div className={styles.loadingContainer}>
-        <p className={styles.loadingText}>{cased} Games Loading...</p>
+        <p className={styles.loadingText}>{cased || 'Conference'} Games Loading...</p>
       </div>
     );
   }
 
-  if (!result || !seasonResult) return null;
-
-  const contractTextHtml = result.conferenceGames?.contractYearData[0]?.contractText ?? '';
-
   return (
     <>
-      <nav role="navigation" className={`${styles.navbar} DONTPrint`}>
-        <div className={styles.container}>
-          <div className={styles.flexContainer}>
-            <div>
-              <Link className={styles.flexRow} to="/">
-                Home
-              </Link>
+      {result && seasonResult && (
+        <>
+          <nav role="navigation" className={`${styles.navbar} DONTPrint`}>
+            <div className={styles.container}>
+              <div className={styles.flexContainer}>
+                <div>
+                  <Link className={styles.flexRow} to="/">
+                    Home
+                  </Link>
+                </div>
+                <div>
+                  <Link className={styles.flexRow} to={`/season/football/${year}`}>
+                    Season Home
+                  </Link>
+                </div>
+                <div>
+                  {seasonResult.seasonData?.flexScheduleLink && (
+                    <Link
+                      className={styles.flexRow}
+                      to={`/tv-windows/${year}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Available TV Windows
+                    </Link>
+                  )}
+                </div>
+              </div>
             </div>
-            <div>
-              <Link className={styles.flexRow} to={`/season/football/${year}`}>
-                Season Home
-              </Link>
-            </div>
-            <div>
-              {seasonResult.seasonData?.flexScheduleLink && (
-                <Link className={styles.flexRow} to={`/tv-windows/${year}`} target="_blank" rel="noopener">
-                  Available TV Windows
-                </Link>
+          </nav>
+
+          <main ref={mainRef} className={styles.mainContainer}>
+            <div id="head">
+              <p>
+                {cased} Broadcast Schedule
+                <br />
+                <strong>All start times displayed are based on your device&apos;s location.</strong>
+              </p>
+              <p>
+                NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
+                non-conference games fall under the home team&apos;s telecast rights.
+              </p>
+
+              {conference !== 'independents' && result.conferenceGames?.contractYearData?.[0]?.contractText && (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: result.conferenceGames.contractYearData[0].contractText,
+                  }}
+                />
               )}
+
+              {conference === 'independents' ? (
+                <IndependentsGameList
+                  games={result.conferenceGames!.conferenceGames}
+                  contractYearData={result.conferenceGames!.contractYearData}
+                  schools={result.conferenceGames!.conferences}
+                  year={year}
+                />
+              ) : (
+                <ConferenceGameList year={year} games={result.conferenceGames!.conferenceGames} />
+              )}
+
+              <Suspense fallback={null}>
+                <BackToTop />
+                <AdsByGoogle />
+              </Suspense>
             </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Note: Handle custom v-reset-adsense-height DOM mechanics with a hook Ref here if necessary */}
-      <main ref={mainRef}>
-        <div id="head">
-          <p>
-            {cased} Broadcast Schedule
-            <br />
-            <strong>All start times displayed are based on your device&apos;s location.</strong>
-          </p>
-          <p>
-            NOTE: This list includes telecasts that fall under the TV contracts for the conference. Any road
-            non-conference games fall under the home team&apos;s telecast rights.
-          </p>
-
-          {/* Raw HTML injection replacing v-dompurify-html */}
-          {conference !== 'independents' && (
-            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(contractTextHtml) }} />
-          )}
-
-          {/* Conditional Game Layout Lists */}
-          {conference === 'independents' ? (
-            <IndependentsGameList
-              games={result.conferenceGames!.conferenceGames}
-              contractYearData={result.conferenceGames!.contractYearData}
-              schools={result.conferenceGames!.conferences}
-              year={year}
-            />
-          ) : (
-            <ConferenceGameList year={year} games={result.conferenceGames!.conferenceGames} />
-          )}
-
-          <Suspense fallback={null}>
-            <BackToTop />
-            <AdsByGoogle />
-          </Suspense>
-        </div>
-      </main>
-
-      <Copyright />
+          </main>
+          <Copyright />
+        </>
+      )}
     </>
   );
 };
 
-export default ConferenceView;
+export default ConferenceGamesView;

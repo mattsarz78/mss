@@ -79,7 +79,7 @@ const WeekTextSchedule: React.FC<WeekTextScheduleProps> = ({ week, sport, paramY
               <div className={`${styles.flexContainerRow} ${styles.pad}`}>
                 {isWeekOne ? (
                   <div className={styles.flexRowLeft}>
-                    <Link to={`/schedule/${sport}/${paramYear}/${nextWeek}`}>Next Week</Link>
+                    <Link to={`/schedule/${sport}/${paramYear}/${nextWeek}/text`}>Next Week</Link>
                   </div>
                 ) : (
                   <>
