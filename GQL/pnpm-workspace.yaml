@@ -10,4 +10,4 @@ allowBuilds:
 
 dedupeDirectDeps: true
 
-useNodeVersion: 26.2.0
+useNodeVersion: 26.3.0
