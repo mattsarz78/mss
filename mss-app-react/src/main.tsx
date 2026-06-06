@@ -1,4 +1,4 @@
-import App from '#/App';
+import App from '#/App.tsx';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client/react';
 import React from 'react';
@@ -21,7 +21,7 @@ const apolloClient = new ApolloClient({
 });
 
 if (!import.meta.env.PROD) {
-  const { initializeApolloDevTools } = await import('#/devtools');
+  const { initializeApolloDevTools } = await import('#/devtools.mjs');
   await initializeApolloDevTools(apolloClient);
 }
 

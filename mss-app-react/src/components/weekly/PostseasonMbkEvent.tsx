@@ -1,6 +1,5 @@
 import type { TvGame } from '#/graphQl.mjs';
-import { sanitizeHtml } from '#utils/domText.mjs';
-import { formatGame, formatTime } from '#utils/game.mjs';
+import { formatGame, formatTime, sanitizeHtml } from '#utils/index.mjs';
 import React from 'react';
 import styles from './PostseasonMbkEvent.module.css';
 

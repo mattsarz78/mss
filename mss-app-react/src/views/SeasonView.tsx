@@ -1,15 +1,11 @@
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
-import { useSeasonContents } from '#hooks/useSeasonContents.mjs';
-import ConferenceList from '#season/ConferenceList.tsx';
-import SeasonDates from '#season/SeasonDates.tsx';
+import { useResetAdsenseHeight, useSeasonContents } from '#hooks/index.mjs';
+import { ConferenceList, SeasonDates } from '#season/index.tsx';
 import Copyright from '#shared/CopyrightLink.tsx';
-import { addMetaTags } from '#utils/metaTags.mjs';
+import { LazyAdsByGoogle } from '#shared/lazyIndex.tsx';
+import { addMetaTags } from '#utils/index.mjs';
 import React, { Suspense, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './SeasonView.module.css';
-
-// Lazy-loaded Components
-const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
 
 interface RouteParams {
   sport: string;
@@ -104,7 +100,7 @@ const SeasonView: React.FC = () => {
         </div>
 
         <Suspense fallback={null}>
-          <AdsByGoogle />
+          <LazyAdsByGoogle />
         </Suspense>
 
         <Copyright />

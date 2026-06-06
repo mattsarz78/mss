@@ -1,4 +1,4 @@
-import { useNoTvSchedule } from '#hooks/useNoTvSchedule.mjs';
+import { useNoTvSchedule } from '#hooks/index.mjs';
 import styles from '#noTv/NoTvGames.module.css';
 import NoTvGamesTable from '#noTv/NoTvGamesTable.tsx';
 import { DateTime } from 'luxon';

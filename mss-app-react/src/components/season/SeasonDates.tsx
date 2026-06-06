@@ -1,5 +1,5 @@
 import type { WeekInfo } from '#/graphQl.mjs';
-import WeekLink from '#season/WeekLink.tsx';
+import { WeekLink } from '#season/index.tsx';
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
 

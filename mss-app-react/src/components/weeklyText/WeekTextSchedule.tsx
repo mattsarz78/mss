@@ -1,15 +1,9 @@
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
-import { useWeekScheduleNav } from '#hooks/useWeekScheduleNav.mjs';
-import { useWeekTextSchedule } from '#hooks/useWeekTextSchedule.mjs';
-import AdsByGoogle from '#shared/AdsByGoogle.tsx';
-import BackToTop from '#shared/BackToTop.tsx';
-import Copyright from '#shared/CopyrightLink.tsx';
-import WeekTextBase from '#text/WeekTextBase.tsx';
-import type { WeekTextTableHandle } from '#text/WeekTextTable.tsx'; // 👈 Import handler interface
-import React, { useMemo, useRef } from 'react';
-import styles from './WeekTextSchedule.module.css';
+import { useResetAdsenseHeight, useWeekScheduleNav, useWeekTextSchedule } from '#hooks/index.mjs';
+import { LazyAdsByGoogle, LazyBackToTop, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
+import { WeekTextBase, type WeekTextTableHandle } from '#text/index.tsx'; // 👈 Import handler interface
+import React, { Suspense, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
-
+import styles from './WeekTextSchedule.module.css';
 interface WeekTextScheduleProps {
   week: string;
   sport: string;
@@ -132,11 +126,11 @@ const WeekTextSchedule: React.FC<WeekTextScheduleProps> = ({ week, sport, paramY
             isMbkPostseason={isMbkPostseason}
             showPpvColumn={tvGameResult.tvGames!.showPPVColumn}
           />
-          <React.Suspense fallback={null}>
-            <BackToTop />
-            <AdsByGoogle />
-          </React.Suspense>
-          <Copyright />
+          <Suspense fallback={null}>
+            <LazyBackToTop />
+            <LazyAdsByGoogle />
+          </Suspense>
+          <LazyCopyrightLink />
         </>
       )}
     </main>

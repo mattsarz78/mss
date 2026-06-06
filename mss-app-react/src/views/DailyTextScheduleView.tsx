@@ -1,18 +1,10 @@
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
-import { useDailyTvTextGames } from '#hooks/useDailyTvTextGames.mjs';
-import Copyright from '#shared/CopyrightLink.tsx';
-import WeekTextBase from '#text/WeekTextBase.tsx';
-import type { WeekTextTableHandle } from '#text/WeekTextTable.tsx';
-import { formatDateLong } from '#utils/dateFormatting.mjs';
-import { addMetaTags } from '#utils/metaTags.mjs';
-import { setupPrintListener } from '#utils/printListener.mjs';
+import { useDailyTvTextGames, useResetAdsenseHeight } from '#hooks/index.mjs';
+import { LazyAdsByGoogle, LazyBackToTop, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
+import { WeekTextBase, type WeekTextTableHandle } from '#text/index.tsx';
+import { addMetaTags, formatDateLong, setupPrintListener } from '#utils/index.mjs';
 import React, { Suspense, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './DailyTextScheduleView.module.css';
-
-// Lazy Components
-const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
-const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
 
 const DailyTvTextGamesView: React.FC = () => {
   const mainRef = useResetAdsenseHeight();
@@ -101,11 +93,11 @@ const DailyTvTextGamesView: React.FC = () => {
           />
 
           <Suspense fallback={null}>
-            <BackToTop />
-            <AdsByGoogle />
+            <LazyBackToTop />
+            <LazyAdsByGoogle />
           </Suspense>
 
-          <Copyright />
+          <LazyCopyrightLink />
         </>
       )}
     </main>

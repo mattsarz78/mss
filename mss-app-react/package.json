@@ -10,9 +10,6 @@
     "#/*": [
       "./src/*"
     ],
-    "#composables/*": [
-      "./src/composables/*"
-    ],
     "#views/*": [
       "./src/views/*"
     ],

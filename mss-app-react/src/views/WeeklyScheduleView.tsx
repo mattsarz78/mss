@@ -1,8 +1,5 @@
-import { addMetaTags } from '#utils/metaTags.mjs';
-import { setupPrintListener } from '#utils/printListener.mjs';
-import { generateWeeklyTitle } from '#utils/weeklyTitle.mjs';
-import { WebExclusivesProvider } from '#weekly/WebExclusiveContext.tsx';
-import WeekSchedule from '#weekly/WeekSchedule.tsx';
+import { addMetaTags, generateWeeklyTitle, setupPrintListener } from '#utils/index.mjs';
+import { WebExclusiveContext, WeekSchedule } from '#weekly/index.tsx';
 import React, { useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
@@ -32,7 +29,7 @@ const WeeklyScheduleView: React.FC = () => {
   }, []);
 
   return (
-    <WebExclusivesProvider>
+    <WebExclusiveContext>
       <WeekSchedule
         /* Replicating :key="route.fullPath" triggers a total component unmount 
         and clean state reset on internal route alterations 
@@ -42,7 +39,7 @@ const WeeklyScheduleView: React.FC = () => {
         sport={sport}
         paramYear={paramYear}
       />
-    </WebExclusivesProvider>
+    </WebExclusiveContext>
   );
 };
 

@@ -1,6 +1,6 @@
 import type { TvGame } from '#/graphQl.mjs';
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
-import WeekTextTable, { type WeekTextTableHandle } from '#text/WeekTextTable.tsx';
+import { useResetAdsenseHeight } from '#hooks/index.mjs';
+import { WeekTextTable, type WeekTextTableHandle } from '#text/index.tsx';
 import { forwardRef } from 'react';
 import styles from './WeekTextBase.module.css';
 

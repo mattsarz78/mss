@@ -1,6 +1,6 @@
 import { type WeekInfo } from '#/graphQl.mjs';
 import { useMemo } from 'react';
-import { useSeasonContents } from '#hooks/useSeasonContents.mjs';
+import { useSeasonContents } from '#hooks/index.mjs';
 
 const isFirstWeek = (contents: WeekInfo[], week: number): boolean => {
   return contents[0].week === week;

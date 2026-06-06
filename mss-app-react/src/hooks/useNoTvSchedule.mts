@@ -1,5 +1,5 @@
 import { NO_TV_GAMES, type NoTvGame } from '#/graphQl.mjs';
-import { getDateForGame } from '#utils/dateFormatting.mjs';
+import { getDateForGame } from '#utils/index.mjs';
 import { useLazyQuery } from '@apollo/client/react';
 import { useEffect, useMemo } from 'react';
 

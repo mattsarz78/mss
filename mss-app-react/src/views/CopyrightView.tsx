@@ -1,7 +1,6 @@
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
-import AdsByGoogle from '#shared/AdsByGoogle';
-import CopyrightLink from '#shared/CopyrightLink';
-import { addMetaTags } from '#utils/metaTags';
+import { useResetAdsenseHeight } from '#hooks/index.mjs';
+import { LazyAdsByGoogle, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
+import { addMetaTags } from '#utils/index.mjs';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -87,16 +86,16 @@ const CopyrightView: React.FC = () => {
               <strong>Infringing material</strong>
             </p>
             <p>
-              If you become aware of any material on the website that you believe infringes your or any other person&apos;s
-              copyright, please report this by email to
+              If you become aware of any material on the website that you believe infringes your or any other
+              person&apos;s copyright, please report this by email to
               <a href="mailto:footballsked@gmail.com">footballsked@@gmail.com</a>.
             </p>
           </div>
         </div>
 
-        <AdsByGoogle />
+        <LazyAdsByGoogle />
       </main>
-      <CopyrightLink />
+      <LazyCopyrightLink />
     </>
   );
 };

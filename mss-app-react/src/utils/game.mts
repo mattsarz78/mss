@@ -1,5 +1,3 @@
-import { formatTime } from '#utils/dateFormatting.mjs';
-
 interface GameLike {
   visitingTeam?: string | string[];
   homeTeam?: string | string[];
@@ -26,5 +24,3 @@ export const formatGame = (game: GameLike): string => {
       .join('<br />OR ') ?? ''
   );
 };
-
-export { formatTime };

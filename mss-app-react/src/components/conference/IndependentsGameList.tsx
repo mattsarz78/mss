@@ -1,6 +1,6 @@
 import type { ConferenceGame, ContractData } from '#/graphQl.mjs';
-import ConferenceTable from '#conference/ConferenceTable.tsx';
-import { sanitizeHtml } from '#utils/domText.mjs';
+import { ConferenceTable } from '#conference/index.tsx';
+import { sanitizeHtml } from '#utils/index.mjs';
 import React, { useMemo } from 'react';
 
 interface IndependentsGameListProps {
@@ -11,7 +11,6 @@ interface IndependentsGameListProps {
 }
 
 const IndependentsGameList: React.FC<IndependentsGameListProps> = ({ games, schools, year, contractYearData }) => {
-  
   // Replicating Vue's filteredGames computed property
   const filteredGames = useMemo(() => {
     const filterGamesBySchool = (school: string) => {

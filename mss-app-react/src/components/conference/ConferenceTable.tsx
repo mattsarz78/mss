@@ -1,6 +1,5 @@
 import type { ConferenceGame } from '#/graphQl.mjs';
-import { sanitizeHtml } from '#utils/domText.mjs';
-import { formatGame, formatTime } from '#utils/game.mjs';
+import { sanitizeHtml, formatGame, formatTime } from '#utils/index.mjs';
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
 import styles from './ConferenceTable.module.css';

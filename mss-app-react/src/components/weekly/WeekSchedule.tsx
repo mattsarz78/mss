@@ -1,18 +1,11 @@
-import { useCurrentTimeET } from '#hooks/useCurrentTimeET.mjs';
-import { useWebExclusivesContext } from '#hooks/useWebExclusivesContext.mjs';
-import { useWeekSchedule } from '#hooks/useWeekSchedule.mjs';
-import { useWeekScheduleNav } from '#hooks/useWeekScheduleNav.mjs';
+import { useCurrentTimeET, useWebExclusivesContext, useWeekSchedule, useWeekScheduleNav } from '#hooks/index.mjs';
 import NoTvGames from '#noTv/NoTvGames.tsx';
-import Copyright from '#shared/CopyrightLink.tsx';
-import WeeklyBase from '#weekly/WeeklyBase.tsx';
+import { LazyAdsByGoogle, LazyBackToTop, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
+import { WeeklyBase } from '#weekly/index.tsx';
 import { DateTime } from 'luxon';
 import React, { Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './WeekSchedule.module.css';
-
-const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
-const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
-
 interface WeekScheduleProps {
   week: string;
   sport: string;
@@ -176,10 +169,10 @@ const WeekSchedule: React.FC<WeekScheduleProps> = ({ week, sport, paramYear }) =
 
           {!isBowlWeek && tvGameResult.tvGames!.hasNoTVGames && <NoTvGames year={year} week={week} />}
           <Suspense fallback={null}>
-            <BackToTop />
-            <AdsByGoogle />
+            <LazyBackToTop />
+            <LazyAdsByGoogle />
           </Suspense>
-          <Copyright />
+          <LazyCopyrightLink />
         </>
       )}
     </div>

@@ -19,7 +19,6 @@ const getGitHash = () => {
 
 const alias = {
   '#': resolve(_dirname, './src'),
-  '#composables': resolve(_dirname, './src/composables'),
   '#hooks': resolve(_dirname, './src/hooks'),
   '#views': resolve(_dirname, './src/views'),
   '#utils': resolve(_dirname, './src/utils'),
@@ -114,7 +113,6 @@ export default defineConfig(({ mode }): UserConfig => {
       rollupOptions: {
         external: ['workbox-window'],
         output: {
-          // 👈 Dynamic splitting configuration separating your third-party infrastructure
           manualChunks(id) {
             if (id.includes('node_modules')) {
               if (id.includes('@apollo') || id.includes('graphql')) {

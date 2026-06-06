@@ -1,5 +1,4 @@
-import BackToTopButton from '#shared/BackToTopButton.tsx';
-import BackToTopScript from '#shared/BackToTopScript.tsx';
+import { BackToTopButton, BackToTopScript } from '#shared/index.tsx';
 import React from 'react';
 
 const BackToTop: React.FC = () => {

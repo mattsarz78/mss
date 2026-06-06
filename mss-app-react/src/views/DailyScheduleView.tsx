@@ -1,19 +1,11 @@
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
-import { useWebExclusivesContext } from '#/hooks/useWebExclusivesContext.mjs';
-import { useDailyTvGames } from '#hooks/useDailyTvGames.mjs';
-import Copyright from '#shared/CopyrightLink.tsx';
-import { addMetaTags } from '#utils/metaTags.mjs';
-import { setupPrintListener } from '#utils/printListener.mjs';
-import { WebExclusivesProvider } from '#weekly/WebExclusiveContext.tsx';
-import WeeklyBase from '#weekly/WeeklyBase.tsx';
+import { useDailyTvGames, useResetAdsenseHeight, useWebExclusivesContext } from '#hooks/index.mjs';
+import { LazyAdsByGoogle, LazyBackToTop, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
+import { addMetaTags, setupPrintListener } from '#utils/index.mjs';
+import { WebExclusiveContext, WeeklyBase } from '#weekly/index.tsx';
 import { DateTime } from 'luxon';
 import React, { Suspense, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './DailyScheduleView.module.css';
-
-// Lazy-Loaded Core Sub-Components
-const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
-const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
 
 const DailyTvGamesInner: React.FC = () => {
   const mainRef = useResetAdsenseHeight();
@@ -108,11 +100,11 @@ const DailyTvGamesInner: React.FC = () => {
           />
 
           <Suspense fallback={null}>
-            <BackToTop />
-            <AdsByGoogle />
+            <LazyBackToTop />
+            <LazyAdsByGoogle />
           </Suspense>
 
-          <Copyright />
+          <LazyCopyrightLink />
         </>
       )}
     </main>
@@ -122,9 +114,9 @@ const DailyTvGamesInner: React.FC = () => {
 // Main Export wrapping the Inner Component in the WebExclusives Context Provider
 const DailyTvGamesView: React.FC = () => {
   return (
-    <WebExclusivesProvider>
+    <WebExclusiveContext>
       <DailyTvGamesInner />
-    </WebExclusivesProvider>
+    </WebExclusiveContext>
   );
 };
 

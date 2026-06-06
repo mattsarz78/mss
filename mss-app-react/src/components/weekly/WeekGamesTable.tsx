@@ -1,7 +1,6 @@
 import type { TvGame } from '#/graphQl.mjs';
-import PostseasonMbkEvent from '#weekly/PostseasonMbkEvent.tsx';
-import { useWebExclusivesContext } from '#hooks/useWebExclusivesContext.mjs';
-import WeekGameRow from '#weekly/WeekGameRow.tsx';
+import { useWebExclusivesContext } from '#hooks/index.mjs';
+import { PostseasonMbkEvent, WeekGameRow } from '#weekly/index.tsx';
 import { DateTime } from 'luxon';
 import React, { useMemo } from 'react';
 import styles from './WeekGamesTable.module.css';

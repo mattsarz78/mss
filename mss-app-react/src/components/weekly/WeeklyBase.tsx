@@ -1,7 +1,7 @@
 import type { TvGame } from '#/graphQl.mjs';
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
-import { getDateForGame } from '#utils/dateFormatting.mjs';
-import WeekGamesTable from '#weekly/WeekGamesTable.tsx';
+import { useResetAdsenseHeight } from '#hooks/index.mjs';
+import { getDateForGame } from '#utils/index.mjs';
+import { WeekGamesTable } from '#weekly/index.tsx';
 import React, { useMemo } from 'react';
 import styles from './WeeklyBase.module.css';
 

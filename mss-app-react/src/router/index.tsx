@@ -4,16 +4,16 @@ import React, { lazy, Suspense } from 'react';
 /* eslint-disable react-refresh/only-export-components */
 
 // Lazy load view components for better performance
-const HomeView = lazy(() => import('#views/HomeView'));
-const CopyrightView = lazy(() => import('#views/CopyrightView'));
-const ArchiveView = lazy(() => import('#views/ArchiveView'));
-const SeasonView = lazy(() => import('#views/SeasonView'));
-const ConferenceGamesView = lazy(() => import('#views/ConferenceGamesView'));
-const TvWindowsView = lazy(() => import('#views/TvWindowsView'));
-const WeeklyScheduleView = lazy(() => import('#views/WeeklyScheduleView'));
-const WeeklyTextScheduleView = lazy(() => import('#views/WeeklyTextScheduleView'));
-const DailyScheduleView = lazy(() => import('#views/DailyScheduleView'));
-const DailyTextScheduleView = lazy(() => import('#views/DailyTextScheduleView'));
+const HomeView = lazy(() => import('#views/HomeView.tsx'));
+const CopyrightView = lazy(() => import('#views/CopyrightView.tsx'));
+const ArchiveView = lazy(() => import('#views/ArchiveView.tsx'));
+const SeasonView = lazy(() => import('#views/SeasonView.tsx'));
+const ConferenceGamesView = lazy(() => import('#views/ConferenceGamesView.tsx'));
+const TvWindowsView = lazy(() => import('#views/TvWindowsView.tsx'));
+const WeeklyScheduleView = lazy(() => import('#views/WeeklyScheduleView.tsx'));
+const WeeklyTextScheduleView = lazy(() => import('#views/WeeklyTextScheduleView.tsx'));
+const DailyScheduleView = lazy(() => import('#views/DailyScheduleView.tsx'));
+const DailyTextScheduleView = lazy(() => import('#views/DailyTextScheduleView.tsx'));
 
 export interface RouteConfig {
   path: string;

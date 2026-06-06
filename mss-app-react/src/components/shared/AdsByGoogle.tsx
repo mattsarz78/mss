@@ -1,4 +1,4 @@
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
+import { useResetAdsenseHeight } from '#hooks/index.mjs';
 import React, { useEffect, useRef } from 'react';
 
 const AdsByGoogle: React.FC = () => {
@@ -37,9 +37,8 @@ const AdsByGoogle: React.FC = () => {
         if (width > 0 && !initialized.current) {
           if (!insElement.hasAttribute('data-adsbygoogle-status')) {
             try {
-              const globalWindow = window as any;
-              globalWindow.adsbygoogle = globalWindow.adsbygoogle || [];
-              globalWindow.adsbygoogle.push({});
+              window.adsbygoogle = window.adsbygoogle || [];
+              window.adsbygoogle.push({});
               initialized.current = true;
               observer.disconnect();
             } catch (err) {

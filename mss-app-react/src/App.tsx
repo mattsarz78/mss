@@ -1,10 +1,9 @@
 import '#/App.css';
-import { useAppUtils } from '#/hooks/useAppUtils.mjs';
-import { routes } from '#/router';
-import { checkVersion } from '#/utils/versionCheck.mjs';
+import { routes } from '#/router/index.tsx';
+import { useAppUtils, useResetAdsenseHeight } from '#hooks/index.mjs';
+import { checkVersion } from '#utils/index.mjs';
 import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { useResetAdsenseHeight } from './hooks/useResetAdsenseHeight.mjs';
 
 const App: React.FC = () => {
   const [needsUpdate, setNeedsUpdate] = useState(false);

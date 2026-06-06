@@ -1,7 +1,6 @@
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
-import AdsByGoogle from '#shared/AdsByGoogle';
-import CopyrightLink from '#shared/CopyrightLink';
-import { addMetaTags } from '#utils/metaTags';
+import { useResetAdsenseHeight } from '#hooks/index.mjs';
+import { LazyAdsByGoogle, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
+import { addMetaTags } from '#utils/index.mjs';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './HomeView.module.css';
@@ -107,9 +106,9 @@ const HomeView: React.FC = () => {
           Got a question, complaint, comment or know a game not listed here?{' '}
           <a href="mailto:footballsked@gmail.com"> Send it here </a>
         </p>
-        <AdsByGoogle />
+        <LazyAdsByGoogle />
       </main>
-      <CopyrightLink />
+      <LazyCopyrightLink />
     </>
   );
 };

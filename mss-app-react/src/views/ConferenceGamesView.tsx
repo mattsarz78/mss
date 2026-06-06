@@ -1,19 +1,12 @@
-import { useResetAdsenseHeight } from '#/hooks/useResetAdsenseHeight.mjs';
-import ConferenceGameList from '#conference/ConferenceGameList.tsx';
-import IndependentsGameList from '#conference/IndependentsGameList.tsx';
+import { ConferenceGameList, IndependentsGameList } from '#conference/index.tsx';
 import conferenceCasing from '#data/conferenceCasing.json' with { type: 'json' };
 import type { ConferenceCasing } from '#data/exportTypes.mjs';
-import { useConferenceGames } from '#hooks/useConferenceGames.mjs';
-import { useSeasonData } from '#hooks/useSeasonData.mjs';
-import Copyright from '#shared/CopyrightLink.tsx';
-import { addMetaTags } from '#utils/metaTags.mjs';
-import { setupPrintListener } from '#utils/printListener.mts';
+import { useConferenceGames, useResetAdsenseHeight, useSeasonData } from '#hooks/index.mjs';
+import { LazyAdsByGoogle, LazyBackToTop, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
+import { addMetaTags, setupPrintListener } from '#utils/index.mjs';
 import React, { Suspense, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './ConferenceGamesView.module.css';
-
-const AdsByGoogle = React.lazy(() => import('#shared/AdsByGoogle.tsx'));
-const BackToTop = React.lazy(() => import('#shared/BackToTop.tsx'));
 
 interface RouteParams {
   conference: string;
@@ -130,12 +123,12 @@ const ConferenceGamesView: React.FC = () => {
               )}
 
               <Suspense fallback={null}>
-                <BackToTop />
-                <AdsByGoogle />
+                <LazyBackToTop />
+                <LazyAdsByGoogle />
               </Suspense>
             </div>
           </main>
-          <Copyright />
+          <LazyCopyrightLink />
         </>
       )}
     </>

@@ -1,11 +1,7 @@
 import WeekTextSchedule from '#text/WeekTextSchedule.tsx';
+import { addMetaTags, generateWeeklyTitle, setupPrintListener } from '#utils/index.mjs';
 import React, { useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-
-// Global Side-Effect Utilities
-import { addMetaTags } from '#utils/metaTags.mjs';
-import { setupPrintListener } from '#utils/printListener.mjs';
-import { generateWeeklyTitle } from '#utils/weeklyTitle.mjs';
 
 const WeekTextScheduleView: React.FC = () => {
   // 1. Pull parameters via React Router DOM hook

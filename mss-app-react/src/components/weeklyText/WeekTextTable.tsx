@@ -1,5 +1,6 @@
 import type { TvGame } from '#/graphQl.mjs';
-import { formatGame, formatTime } from '#utils/game.mjs';
+import type { WeekTextTableHandle } from '#text/index.tsx';
+import { formatGame, formatTime } from '#utils/index.mjs';
 import { DateTime } from 'luxon';
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import styles from './WeekTextTable.module.css';
@@ -10,12 +11,6 @@ interface WeekTextTableProps {
   isMbkPostseason: boolean;
   showPpvColumn: boolean;
   season?: string;
-}
-
-// 1. Define the handle interface for your parent component to call
-export interface WeekTextTableHandle {
-  checkAll: () => void;
-  clearAll: () => void;
 }
 
 const WeekTextTable = forwardRef<WeekTextTableHandle, WeekTextTableProps>(
