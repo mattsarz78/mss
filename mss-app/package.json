@@ -67,7 +67,7 @@
     "@rushstack/eslint-patch": "1.16.1",
     "@vitejs/plugin-vue": "6.0.7",
     "@vue/eslint-config-prettier": "10.2.0",
-    "@vue/eslint-config-typescript": "14.7.0",
+    "@vue/eslint-config-typescript": "14.8.0",
     "eslint-plugin-vue": "10.9.2",
     "eslint-plugin-vuejs-accessibility": "2.5.0",
     "rollup-plugin-visualizer": "7.0.1",

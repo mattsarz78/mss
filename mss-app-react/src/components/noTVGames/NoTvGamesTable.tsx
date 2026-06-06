@@ -1,6 +1,7 @@
 import type { NoTvGame } from '#/graphQl.mjs';
 import { formatWeekday } from '#utils/dateFormatting.mjs';
 import React, { useMemo } from 'react';
+import styles from './NoTvGamesTable.module.css';
 
 interface NoTvGamesTableProps {
   noTvGamesForDate: Partial<NoTvGame>[];
@@ -16,9 +17,9 @@ const NoTvGamesTable: React.FC<NoTvGamesTableProps> = ({ noTvGamesForDate, noTvD
   return (
     <div>
       <h3>{formattedDate}</h3>
-      <table className="noTVTable">
+      <table className={styles.noTVTable}>
         <thead>
-          <tr className="header">
+          <tr className={styles.header}>
             <th scope="col">Game</th>
             <th scope="col">Conference</th>
             <th scope="col">Television Options</th>
@@ -27,14 +28,14 @@ const NoTvGamesTable: React.FC<NoTvGamesTableProps> = ({ noTvGamesForDate, noTvD
         <tbody>
           {noTvGamesForDate.map((noTvGameForDate, index) => {
             // Apply dynamic row highlighting class if it's an FCS game
-            const rowClass = noTvGameForDate.fcs ? 'fcsgame' : '';
+            const rowClass = noTvGameForDate.fcs ? styles.fcsgame : '';
 
             return (
               <tr key={index} className={rowClass}>
-                <td className="game">
+                <td className={styles.game}>
                   {noTvGameForDate.gameTitle && (
                     <>
-                      <span className="gameTitle">{noTvGameForDate.gameTitle}</span>
+                      <span className={styles.gameTitle}>{noTvGameForDate.gameTitle}</span>
                       <br />
                     </>
                   )}
@@ -62,9 +63,9 @@ const NoTvGamesTable: React.FC<NoTvGamesTableProps> = ({ noTvGamesForDate, noTvD
                   )}
                 </td>
 
-                <td className="conference">{noTvGameForDate.conference}</td>
+                <td className={styles.conference}>{noTvGameForDate.conference}</td>
 
-                <td className="telecast">{noTvGameForDate.tvOptions}</td>
+                <td className={styles.telecast}>{noTvGameForDate.tvOptions}</td>
               </tr>
             );
           })}
