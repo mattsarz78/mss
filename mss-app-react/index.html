@@ -2,73 +2,102 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet preload"
-      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
-      as="style" />
-    <link rel="preconnect" href="https://cse.google.com" />
-    <title>MattSarzSports</title>
-    <style>
-      @media print {
-        .DONTPrint {
-          display: none !important;
-        }
-      }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MattSarzSports App</title>
 
+  <link rel="icon" crossorigin="use-credentials" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
+
+  <meta name="author" content="Matt Sarzyniak" />
+  <meta name="keywords" content="NCAA Football TV, NCAA Basketball TV, Matt Sarzyniak, sports on television" />
+  <meta name="description"
+    content="Since 2005, compiling NCAA Division I football and men's basketball television schedules. Looking for a game? Check here." />
+
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Matt's College Sports on TV" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Matt's College Sports on TV" />
+  <meta property="og:description"
+    content="Since 2005, college football and men's college basketball television & webcast schedules." />
+  <meta property="og:image" content="https://www.mattsarzsports.com/images/tvnets.webp" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@mattsarz" />
+  <meta name="twitter:creator" content="@mattsarz" />
+  <meta name="twitter:description"
+    content="Since 2005, college football and men's college basketball television & webcast schedules." />
+  <meta name="twitter:image" content="https://www.mattsarzsports.com/images/tvnets.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.mattsarzsports.com" />
+  <link rel="preconnect" href="https://cse.google.com" />
+
+  <link rel="stylesheet preload" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
+    as="style" />
+
+  <style>
+    @media print {
+      .DONTPrint {
+        display: none !important;
+      }
+    }
+
+    .maincontainer {
+      font-family: 'Roboto', Arial;
+      background-color: White;
+      max-width: 800px;
+      margin: 0 auto;
+      zoom: 1;
+      font-weight: 400;
+    }
+
+    .offline-banner {
+      background-color: #ff5252;
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10000;
+    }
+
+    @media all and (min-width: 641px) {
       .maincontainer {
-        font-family: 'Roboto', Arial;
-        background-color: White;
-        max-width: 800px;
-        margin: 0 auto;
-        zoom: 1;
-        font-weight: 400;
+        font-size: 14px;
       }
+    }
 
-      .offline-banner {
-        background-color: #ff5252;
-        color: white;
-        text-align: center;
-        padding: 0.5rem;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 10000;
+    @media only screen and (max-width: 640px) {
+      .maincontainer {
+        font-size: 0.75em;
+        margin: 2px;
       }
+    }
+  </style>
 
-      @media all and (min-width: 641px) {
-        .maincontainer {
-          font-size: 14px;
-        }
-      }
-
-      @media only screen and (max-width: 640px) {
-        .maincontainer {
-          font-size: 0.75em;
-          margin: 2px;
-        }
-      }
-    </style>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRJPEN1CQ1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-GRJPEN1CQ1');
-    </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRJPEN1CQ1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-GRJPEN1CQ1');
+  </script>
 </head>
 
 <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <div id="root" class="maincontainer"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>
