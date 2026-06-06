@@ -67,7 +67,7 @@ const AdsByGoogle: React.FC = () => {
       <ins
         ref={insRef}
         className="adsbygoogle DONTPrint"
-        style={{ display: 'block', minWidth: '250px', minHeight: '90px' }}
+        style={{ display: 'block' }}
         data-ad-client="ca-pub-0296554708545211"
         data-ad-slot="9539391470"
         data-ad-format="auto"
