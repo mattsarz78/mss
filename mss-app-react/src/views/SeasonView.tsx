@@ -1,7 +1,6 @@
 import { useResetAdsenseHeight, useSeasonContents } from '#hooks/index.mjs';
 import { ConferenceList, SeasonDates } from '#season/index.tsx';
-import Copyright from '#shared/CopyrightLink.tsx';
-import { LazyAdsByGoogle } from '#shared/lazyIndex.tsx';
+import { LazyAdsByGoogle, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
 import { addMetaTags } from '#utils/index.mjs';
 import React, { Suspense, useEffect, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -103,7 +102,7 @@ const SeasonView: React.FC = () => {
           <LazyAdsByGoogle />
         </Suspense>
 
-        <Copyright />
+        <LazyCopyrightLink />
       </main>
     </>
   );
