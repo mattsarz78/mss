@@ -1,7 +1,7 @@
 import { useResetAdsenseHeight, useSeasonData } from '#hooks/index.mjs';
 import { LazyAdsByGoogle, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
 import { addMetaTags } from '#utils/index.mjs';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './TvWindowsView.module.css';
 
@@ -62,11 +62,11 @@ const TvWindowsView: React.FC = () => {
         <iframe title={`Football TV Windows for ${year} season`} className={styles.tvFrame} src={iframeSrc} />
 
         {/* 3. AdsByGoogle placed exactly under the iframe */}
-        <LazyAdsByGoogle />
+        <Suspense fallback={null}>
+          <LazyAdsByGoogle />
+          <LazyCopyrightLink />
+        </Suspense>
       </main>
-
-      {/* 4. Copyright placed outside main, matching the Vue tree hierarchy */}
-      <LazyCopyrightLink />
     </>
   );
 };

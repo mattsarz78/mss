@@ -1,115 +1,50 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
-// 1. Tell Fast Refresh to completely skip checking this configuration bundle file
-/* eslint-disable react-refresh/only-export-components */
-
-// Lazy load view components for better performance
-const HomeView = lazy(() => import('#views/HomeView.tsx'));
-const CopyrightView = lazy(() => import('#views/CopyrightView.tsx'));
-const ArchiveView = lazy(() => import('#views/ArchiveView.tsx'));
-const SeasonView = lazy(() => import('#views/SeasonView.tsx'));
-const ConferenceGamesView = lazy(() => import('#views/ConferenceGamesView.tsx'));
-const TvWindowsView = lazy(() => import('#views/TvWindowsView.tsx'));
-const WeeklyScheduleView = lazy(() => import('#views/WeeklyScheduleView.tsx'));
-const WeeklyTextScheduleView = lazy(() => import('#views/WeeklyTextScheduleView.tsx'));
-const DailyScheduleView = lazy(() => import('#views/DailyScheduleView.tsx'));
-const DailyTextScheduleView = lazy(() => import('#views/DailyTextScheduleView.tsx'));
+// Import our code-split views from the lazy barrel file
+import {
+  ArchiveView,
+  ConferenceGamesView,
+  CopyrightView,
+  DailyScheduleView,
+  DailyTextScheduleView,
+  HomeView,
+  SeasonView,
+  TvWindowsView,
+  WeeklyScheduleView,
+  WeeklyTextScheduleView,
+} from './lazyRoutes.ts';
 
 export interface RouteConfig {
   path: string;
-  name?: string;
   element: React.ReactNode;
-  redirect?: string;
-  props?: Record<string, unknown>; // 👈 2. FIXED: Swap "any" for safe, modern "unknown"
 }
 
-// Route loading boundary
-const RouteLoader = ({ children }: { children: React.ReactNode }) => (
-  <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-);
-
 export const routes: RouteConfig[] = [
-  {
-    path: '/',
-    name: 'home',
-    element: (
-      <RouteLoader>
-        <HomeView />
-      </RouteLoader>
-    ),
-  },
-  {
-    path: '/copyright',
-    element: (
-      <RouteLoader>
-        <CopyrightView />
-      </RouteLoader>
-    ),
-  },
-  {
-    path: '/archive',
-    element: (
-      <RouteLoader>
-        <ArchiveView />
-      </RouteLoader>
-    ),
-  },
-  {
-    path: '/season/:sport/:year',
-    element: (
-      <RouteLoader>
-        <SeasonView />
-      </RouteLoader>
-    ),
-  },
-  {
-    path: '/contract/:conference/:year',
-    element: (
-      <RouteLoader>
-        <ConferenceGamesView />
-      </RouteLoader>
-    ),
-  },
-  {
-    path: '/tv-windows/:year',
-    element: (
-      <RouteLoader>
-        <TvWindowsView />
-      </RouteLoader>
-    ),
-  },
-  {
-    path: '/schedule/:sport/:year/:week',
-    name: 'Weekly',
-    element: (
-      <RouteLoader>
-        <WeeklyScheduleView />
-      </RouteLoader>
-    ),
-  },
-  {
-    path: '/schedule/:sport/:year/:week/text',
-    name: 'Weekly Text',
-    element: (
-      <RouteLoader>
-        <WeeklyTextScheduleView />
-      </RouteLoader>
-    ),
-  },
-  {
-    path: '/schedule/:sport/daily',
-    element: (
-      <RouteLoader>
-        <DailyScheduleView />
-      </RouteLoader>
-    ),
-  },
-  {
-    path: '/schedule/:sport/daily/text',
-    element: (
-      <RouteLoader>
-        <DailyTextScheduleView />
-      </RouteLoader>
-    ),
-  },
+  { path: '/', element: <HomeView /> },
+  { path: '/copyright', element: <CopyrightView /> },
+  { path: '/archive', element: <ArchiveView /> },
+
+  // Legacy URL Structure Parameter Redirects mapped straight to Home
+  { path: '/season/contents/:year', element: <Navigate to="/" replace /> },
+  { path: '/schedule/daily/:year', element: <Navigate to="/" replace /> },
+  { path: '/schedule/dailytext/:year', element: <Navigate to="/" replace /> },
+  { path: '/schedule/weekly/:year/:week', element: <Navigate to="/" replace /> },
+  { path: '/schedule/weeklytext/:year/:week', element: <Navigate to="/" replace /> },
+
+  // Dynamic Parameter Target Workspaces
+  { path: '/season/:sport/:year', element: <SeasonView /> },
+  { path: '/contract/:conference/:year', element: <ConferenceGamesView /> },
+  { path: '/tv-windows/:year', element: <TvWindowsView /> },
+
+  // Weekly & Text Schedules
+  { path: '/schedule/:sport/:year/:week', element: <WeeklyScheduleView /> },
+  { path: '/schedule/:sport/:year/:week/text', element: <WeeklyTextScheduleView /> },
+
+  // Daily Tracking Routes
+  { path: '/schedule/:sport/daily', element: <DailyScheduleView /> },
+  { path: '/schedule/:sport/daily/text', element: <DailyTextScheduleView /> },
+
+  // Catch-all route for 404 handling - matches anything left over
+  { path: '*', element: <Navigate to="/" replace /> },
 ];

@@ -15,30 +15,19 @@ interface RouteParams {
 const SeasonView: React.FC = () => {
   const mainRef = useResetAdsenseHeight();
   const { sport, year: paramYear } = useParams<RouteParams>() as { sport: string; year: string };
-
-  // 2. Computed season string matching your database structures
   const year = useMemo(() => {
     if (!sport || !paramYear) return '';
     return sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}${paramYear.substring(5)}`;
   }, [sport, paramYear]);
 
-  // 3. Construct static title header string
   const title = useMemo(() => {
     if (!sport || !paramYear) return '';
     return `${paramYear} ${sport.charAt(0).toUpperCase()}${sport.slice(1)} Season`;
   }, [sport, paramYear]);
 
-  // 4. Fire data retrieval hooks
   const { result, loading, error } = useSeasonContents(year);
 
   useEffect(() => {
-    // Replicating "v-reset-adsense-height" side-effect script
-    const adElements = document.querySelectorAll('.adsbygoogle');
-    adElements.forEach((el) => {
-      if (el instanceof HTMLElement) el.style.height = '';
-    });
-
-    // Update browser documents tab headings meta tags
     if (title) {
       addMetaTags(title);
     }
@@ -50,7 +39,7 @@ const SeasonView: React.FC = () => {
         <div className={styles.container}>
           <div className={styles.flexContainer}>
             <div>
-              <Link className={styles.homelink} to="/">
+              <Link to="/">
                 Home
               </Link>
             </div>
@@ -100,9 +89,8 @@ const SeasonView: React.FC = () => {
 
         <Suspense fallback={null}>
           <LazyAdsByGoogle />
+          <LazyCopyrightLink />
         </Suspense>
-
-        <LazyCopyrightLink />
       </main>
     </>
   );

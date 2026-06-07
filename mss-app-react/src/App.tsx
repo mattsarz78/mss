@@ -1,18 +1,24 @@
-import '#/App.css';
-import { routes } from '#/router/index.tsx';
-import { useAppUtils, useResetAdsenseHeight } from '#hooks/index.mjs';
-import { checkVersion } from '#utils/index.mjs';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+
+// Core Application Styles
+import '#/App.css';
+
+// Central Route Registry
+import { routes, type RouteConfig } from '#/router/index.tsx';
+
+// Unified Architecture Features & Global Handlers
+import { useAppUtils, useResetAdsenseHeight } from '#hooks/index.mjs';
+import { ScrollToTop } from '#shared/index.tsx';
+import { checkVersion } from '#utils/index.mjs';
 
 const App: React.FC = () => {
   const [needsUpdate, setNeedsUpdate] = useState(false);
   const { isOnline } = useAppUtils();
   const mainRef = useResetAdsenseHeight();
-  const checkIntervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  const checkIntervalRef = useRef<number | ReturnType<typeof setInterval> | undefined>(undefined);
 
   useEffect(() => {
-    // Check for updates every 5 minutes
     checkIntervalRef.current = setInterval(async () => {
       const hasUpdate = await checkVersion();
       setNeedsUpdate(hasUpdate);
@@ -29,21 +35,33 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <main className="maincontainer" ref={mainRef}>
+      <ScrollToTop />
+      <main className="maincontainer" ref={mainRef as React.RefObject<HTMLElement | null>}>
+        {' '}
         {needsUpdate && (
           <div className="update-banner">
-            A new version is available.
-            <button onClick={handleReload}>Refresh</button>
+            A new version is available.{' '}
+            <button onClick={handleReload} type="button">
+              Refresh
+            </button>
           </div>
         )}
         {!isOnline && <div className="offline-banner">You are currently offline</div>}
-        <Routes>
-          {routes.map((route) => (
-            <Route key={route.path} path={route.path} element={route.element} />
-          ))}
-          {/* Catch-all route for 404s - redirect to home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <Suspense
+          fallback={
+            <div className="loading-container">
+              <p>Loading layout...</p>
+            </div>
+          }
+        >
+          <Routes>
+            {routes.map((route: RouteConfig) => (
+              <Route key={route.path} path={route.path} element={route.element} />
+            ))}
+
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
       </main>
     </BrowserRouter>
   );

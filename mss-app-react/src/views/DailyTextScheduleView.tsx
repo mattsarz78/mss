@@ -95,9 +95,8 @@ const DailyTvTextGamesView: React.FC = () => {
           <Suspense fallback={null}>
             <LazyBackToTop />
             <LazyAdsByGoogle />
+            <LazyCopyrightLink />
           </Suspense>
-
-          <LazyCopyrightLink />
         </>
       )}
     </main>

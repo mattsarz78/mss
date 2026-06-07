@@ -24,3 +24,24 @@
 .update-banner button:hover {
   background: #f0f0f0;
 }
+
+/* App-Wide Lazy Load Fallback Shell */
+.loading-container {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+}
+
+.loading-container p {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 1.2em;
+  color: #666666;
+  font-weight: 400;
+  margin: 0;
+}

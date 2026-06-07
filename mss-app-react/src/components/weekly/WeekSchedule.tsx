@@ -171,8 +171,8 @@ const WeekSchedule: React.FC<WeekScheduleProps> = ({ week, sport, paramYear }) =
           <Suspense fallback={null}>
             <LazyBackToTop />
             <LazyAdsByGoogle />
+            <LazyCopyrightLink />
           </Suspense>
-          <LazyCopyrightLink />
         </>
       )}
     </div>

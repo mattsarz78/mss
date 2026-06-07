@@ -1,7 +1,7 @@
 import { useResetAdsenseHeight } from '#hooks/index.mjs';
 import { LazyAdsByGoogle, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
 import { addMetaTags } from '#utils/index.mjs';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const CopyrightView: React.FC = () => {
@@ -93,9 +93,11 @@ const CopyrightView: React.FC = () => {
           </div>
         </div>
 
-        <LazyAdsByGoogle />
+        <Suspense fallback={null}>
+          <LazyAdsByGoogle />
+          <LazyCopyrightLink />
+        </Suspense>
       </main>
-      <LazyCopyrightLink />
     </>
   );
 };

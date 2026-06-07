@@ -125,10 +125,10 @@ const ConferenceGamesView: React.FC = () => {
               <Suspense fallback={null}>
                 <LazyBackToTop />
                 <LazyAdsByGoogle />
+                <LazyCopyrightLink />
               </Suspense>
             </div>
           </main>
-          <LazyCopyrightLink />
         </>
       )}
     </>
