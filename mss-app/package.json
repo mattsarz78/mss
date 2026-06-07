@@ -43,7 +43,7 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "vite",
+    "dev": "vite --port 5172",
     "build": "pnpm type-check && pnpm build-only",
     "preview": "vite preview",
     "build-only": "vite build",
