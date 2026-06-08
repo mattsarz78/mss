@@ -1,9 +1,10 @@
 import { useResetAdsenseHeight, useWeekScheduleNav, useWeekTextSchedule } from '#hooks/index.mjs';
 import { LazyAdsByGoogle, LazyBackToTop, LazyCopyrightLink } from '#shared/lazyIndex.tsx';
-import { WeekTextBase, type WeekTextTableHandle } from '#text/index.tsx'; // 👈 Import handler interface
+import { WeekTextBase, type WeekTextTableHandle } from '#text/index.tsx';
 import React, { Suspense, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './WeekTextSchedule.module.css';
+
 interface WeekTextScheduleProps {
   week: string;
   sport: string;
@@ -39,100 +40,101 @@ const WeekTextSchedule: React.FC<WeekTextScheduleProps> = ({ week, sport, paramY
   const isLoading = seasonContentsLoading || tvGameLoading;
   const isError = seasonContentsError || tvGameError;
 
+  if (isError) {
+    return (
+      <div className={styles.errorContainer}>
+        <p>Sorry. Got a bit of a problem. Let Matt know.</p>
+      </div>
+    );
+  }
+
+  if (isLoading || !seasonContentsResult || !tvGameResult) {
+    return (
+      <div className={styles.loadingContainer}>
+        <p className={styles.loadingText}>
+          Loading Week {week} for {paramYear}
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <main ref={mainRef}>
-      {isLoading && (
-        <div className={styles.loadingContainer}>
-          <p className={styles.loadingText}>Loading...</p>
-        </div>
-      )}
-      {isError && (
-        <div className={styles.errorContainer}>
-          <p>Sorry. Problem loading data.</p>
-        </div>
-      )}
-
-      {seasonContentsResult && tvGameResult && (
-        <nav role="navigation" className={`${styles.navbar} DONTPrint`}>
-          <div className={styles.container}>
-            <div className={styles.flexContainer}>
-              <div className={styles.flexRow}>
-                <Link to="/">Home</Link>
-              </div>
-              <div className={styles.flexRow}>
-                <Link to={`/season/${sport}/${paramYear}`}>Season Home</Link>
-              </div>
-              <div className={styles.flexRow}>
-                <Link className="DONTPrint" to={`/schedule/${sport}/${paramYear}/${week}`}>
-                  Weekly Schedule
-                </Link>
-              </div>
+    <main ref={mainRef as React.RefObject<HTMLMapElement | null>}>
+      <nav role="navigation" className={`${styles.navbar} DONTPrint`}>
+        <div className={styles.container}>
+          <div className={styles.flexContainer}>
+            <div className={styles.flexRow}>
+              <Link to="/">Home</Link>
             </div>
-
-            {!isMbkPostseason && !isBowlWeek && (
-              <div className={`${styles.flexContainerRow} ${styles.pad}`}>
-                {isWeekOne ? (
-                  <div className={styles.flexRowLeft}>
-                    <Link to={`/schedule/${sport}/${paramYear}/${nextWeek}/text`}>Next Week</Link>
-                  </div>
-                ) : (
-                  <>
-                    <div className={styles.flexRowLeft}>
-                      <Link to={`/schedule/${sport}/${paramYear}/${previousWeek}/text`}>Previous Week</Link>
-                    </div>
-                    {!isNextWeekMbkPostseason && !isNextWeekBowlWeek && (
-                      <div className={styles.flexRowRight}>
-                        <Link to={`/schedule/${sport}/${paramYear}/${nextWeek}/text`}>Next Week</Link>
-                      </div>
-                    )}
-                  </>
-                )}
-                <br className={styles.mobilehide} />
-              </div>
-            )}
-            <br />
-
-            <p id="TextNav" className={`${styles.TextNav} DONTPrint`}>
-              {/* 2. Call the methods directly off the reference pointer securely */}
-              <button
-                id="ClearAll"
-                type="button"
-                className={`${styles.inputpad} ${styles.buttonfont}`}
-                onClick={() => tableRef.current?.clearAll()}
-              >
-                Clear All Games
-              </button>
-
-              <button
-                id="CheckAll"
-                type="button"
-                className={`${styles.inputpad} ${styles.buttonfont}`}
-                onClick={() => tableRef.current?.checkAll()}
-              >
-                Check All Games
-              </button>
-            </p>
+            <div className={styles.flexRow}>
+              <Link to={`/season/${sport}/${paramYear}`}>Season Home</Link>
+            </div>
+            <div className={styles.flexRow}>
+              <Link className="DONTPrint" to={`/schedule/${sport}/${paramYear}/${week}`}>
+                Weekly Schedule
+              </Link>
+            </div>
           </div>
-        </nav>
-      )}
 
-      {tvGameResult && (
-        <>
-          <WeekTextBase
-            ref={tableRef} // 👈 3. Connect the element controller wire to your layout tree view
-            season={year}
-            tvGames={tvGameResult.tvGames!.tvGames}
-            isBowlWeek={isBowlWeek}
-            isMbkPostseason={isMbkPostseason}
-            showPpvColumn={tvGameResult.tvGames!.showPPVColumn}
-          />
-          <Suspense fallback={null}>
-            <LazyBackToTop />
-            <LazyAdsByGoogle />
-            <LazyCopyrightLink />
-          </Suspense>
-        </>
-      )}
+          {!isMbkPostseason && !isBowlWeek && (
+            <div className={`${styles.flexContainerRow} ${styles.pad}`}>
+              {isWeekOne ? (
+                <div className={styles.flexRowLeft}>
+                  <Link to={`/schedule/${sport}/${paramYear}/${nextWeek}/text`}>Next Week</Link>
+                </div>
+              ) : (
+                <>
+                  <div className={styles.flexRowLeft}>
+                    <Link to={`/schedule/${sport}/${paramYear}/${previousWeek}/text`}>Previous Week</Link>
+                  </div>
+                  {!isNextWeekMbkPostseason && !isNextWeekBowlWeek && (
+                    <div className={styles.flexRowRight}>
+                      <Link to={`/schedule/${sport}/${paramYear}/${nextWeek}/text`}>Next Week</Link>
+                    </div>
+                  )}
+                </>
+              )}
+              <br className={styles.mobilehide} />
+            </div>
+          )}
+          <br />
+
+          <p id="TextNav" className={`${styles.TextNav} DONTPrint`}>
+            <button
+              id="ClearAll"
+              type="button"
+              className={`${styles.inputpad} ${styles.buttonfont}`}
+              onClick={() => tableRef.current?.clearAll()}
+            >
+              Clear All Games
+            </button>
+
+            <button
+              id="CheckAll"
+              type="button"
+              className={`${styles.inputpad} ${styles.buttonfont}`}
+              onClick={() => tableRef.current?.checkAll()}
+            >
+              Check All Games
+            </button>
+          </p>
+        </div>
+      </nav>
+
+      <WeekTextBase
+        ref={tableRef}
+        season={year}
+        tvGames={tvGameResult.tvGames!.tvGames}
+        isBowlWeek={isBowlWeek}
+        isMbkPostseason={isMbkPostseason}
+        showPpvColumn={tvGameResult.tvGames!.showPPVColumn}
+      />
+
+      <Suspense fallback={null}>
+        <LazyBackToTop />
+        <LazyAdsByGoogle />
+        <LazyCopyrightLink />
+      </Suspense>
     </main>
   );
 };
