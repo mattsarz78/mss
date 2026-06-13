@@ -8,14 +8,25 @@ const AdsByGoogle: React.FC = () => {
   const initialized = useRef(false);
 
   useEffect(() => {
+    // 1. Function to force Google to scan the DOM for the search div
+    const initializeGcse = () => {
+      if (window.google?.search?.cse?.element) {
+        window.google.search.cse.element.go();
+      }
+    };
     // 2. Load Google Custom Search Engine script if not present
     if (!document.querySelector('script[src*="cse.js"]')) {
       const cseScript = document.createElement('script');
       cseScript.src = 'https://cse.google.com/cse.js?cx=partner-pub-0296554708545211:rp92al-azpy';
       cseScript.async = true;
+      // 🚀 Force initialization the exact moment the script finishes downloading
+      cseScript.onload = initializeGcse;
       document.body.appendChild(cseScript);
+    } else {
+      // 🚀 If the script was already downloaded on a previous page view, force a re-scan now
+      initializeGcse();
     }
-
+    
     // 3. Ensure core AdSense scripts are loaded globally
     if (!document.querySelector('script[src*="adsbygoogle.js"]')) {
       const adsenseScript = document.createElement('script');

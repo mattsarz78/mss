@@ -22,6 +22,7 @@ export default [
       },
       parser: ts.parser, // Explicitly binds the TypeScript Flat Config parser asset node
       parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
         },
