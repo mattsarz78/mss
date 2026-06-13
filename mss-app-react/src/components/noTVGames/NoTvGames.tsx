@@ -25,16 +25,16 @@ const NoTvGames: React.FC<NoTvGamesProps> = ({ week, year }) => {
 
   return (
     <div>
-      <button
-        id="btnConferenceGames"
-        type="button"
-        className={`${styles.show_hideNoTV} ${styles.buttonFont}`}
-        onClick={toggleNoTV}
-      >
-        {buttonText}
-      </button>
-      <br />
-
+      <p>
+        <button
+          id="btnConferenceGames"
+          type="button"
+          className={`${styles.show_hideNoTV} ${styles.buttonFont}`}
+          onClick={toggleNoTV}
+        >
+          {buttonText}
+        </button>
+      </p>
       {noTvGamesLoading && (
         <div className={styles.loadingContainer}>
           <p className={styles.loadingText}>

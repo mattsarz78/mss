@@ -9,24 +9,24 @@
     "prettier:all": "concurrently \"pnpm run prettier:gql\" \"pnpm run prettier:web\"",
     "lintFix:all": "concurrently \"pnpm run lintFix:gql\" \"pnpm run lintFix:web\"",
     "start:gql": "cd GQL && pnpm run startDocker",
-    "start:web": "cd mss-app && pnpm run dev",
+    "start:web": "cd mss-app-react && pnpm run dev",
     "prettier:gql": "cd GQL && pnpm run prettier",
-    "prettier:web": "cd mss-app && pnpm run format",
+    "prettier:web": "cd mss-app-react && pnpm run format",
     "lintFix:gql": "cd GQL && pnpm run lintFix",
-    "lintFix:web": "cd mss-app && pnpm run lintFix",
+    "lintFix:web": "cd mss-app-react && pnpm run lintFix",
     "install:gql": "cd GQL && pnpm i --frozen-lockfile",
-    "install:web": "cd mss-app && pnpm i --frozen-lockfile"
+    "install:web": "cd mss-app-react && pnpm i --frozen-lockfile"
   },
   "dependencies": {
     "concurrently": "10.0.3"
   },
   "devDependencies": {
     "@types/luxon": "3.7.1",
-    "@types/node": "25.9.2",
+    "@types/node": "25.9.3",
     "eslint": "10.4.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.6",
-    "prettier": "3.8.3",
+    "prettier": "3.8.4",
     "typescript": "6.0.3"
   },
   "packageManager": "pnpm@11.5.1"
