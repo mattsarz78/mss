@@ -16,7 +16,7 @@
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["esnext", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
-    "target": "esnext",
+    "target": "esnext"
   },
   "include": ["vite.config.*", "env.d.ts", "plugins/**/*.mts"]
 }

@@ -39,9 +39,7 @@ const SeasonView: React.FC = () => {
         <div className={styles.container}>
           <div className={styles.flexContainer}>
             <div>
-              <Link to="/">
-                Home
-              </Link>
+              <Link to="/">Home</Link>
             </div>
             <div>
               <br />

@@ -5,7 +5,6 @@ export {
   formatWeekday,
   getDateForGame,
   getTodayEastern,
-  isEasternMidnight,
   parseISO,
   toEasternISO,
   toISO,

@@ -7,6 +7,15 @@ import { DateTime } from 'luxon';
  * This reduces bundle size by ~40-50KB compared to using Luxon for all formatting
  */
 
+const longDateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const weekdayFormatter = new Intl.DateTimeFormat('en-US', {
+  weekday: 'long',
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
 /**
  * Parse a date string, handling ISO date format specially to avoid UTC offset issues
  * ISO date strings (YYYY-MM-DD) are parsed as local dates, not UTC
@@ -25,36 +34,35 @@ const parseDate = (date: Date | string): Date => {
 
 /**
  * Format a date to long format: "April 19, 2026"
- * Uses native Intl.DateTimeFormat (no Luxon)
+ * Uses cached native Intl.DateTimeFormat (no Luxon)
  */
 export const formatDateLong = (date: Date | string): string => {
   const d = parseDate(date);
-  return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+  return longDateFormatter.format(d);
 };
 
 /**
  * Format a date to full weekday format: "Friday, April 19, 2026"
- * Uses native Intl.DateTimeFormat (no Luxon)
+ * Uses cached native Intl.DateTimeFormat (no Luxon)
  */
 export const formatWeekday = (date: Date | string): string => {
   const d = parseDate(date);
-  return new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(
-    d
-  );
+  return weekdayFormatter.format(d);
 };
 
 /**
  * Format a time in 12-hour format: "2:30 PM"
- * Uses native Intl.DateTimeFormat for basic formatting, but applies timezone logic
+ * Uses cached native Intl.DateTimeFormat for basic formatting, but applies timezone logic
  * REQUIRES LUXON for timezone conversion to check if it's midnight ET
  */
 export const formatTime = (timeWithOffset: string): string => {
-  const easternTime = DateTime.fromISO(timeWithOffset).setZone('America/New_York');
+  const dt = DateTime.fromISO(timeWithOffset);
+  const easternTime = dt.setZone('America/New_York');
   if (easternTime.toFormat('t') === '12:00 AM') return 'TBA';
 
-  const localTime = DateTime.fromISO(timeWithOffset).toLocal();
+  const localTime = dt.toLocal();
   const d = localTime.toJSDate();
-  return new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).format(d);
+  return timeFormatter.format(d);
 };
 
 /**
@@ -63,20 +71,12 @@ export const formatTime = (timeWithOffset: string): string => {
  * REQUIRES LUXON for accurate timezone handling
  */
 export const formatGameDateTime = (isoString: string) => {
-  const timeSource = isEasternMidnight(isoString)
-    ? DateTime.fromISO(isoString).setZone('America/New_York')
-    : DateTime.fromISO(isoString).toLocal();
+  const dt = DateTime.fromISO(isoString);
+  const eastern = dt.setZone('America/New_York');
+  const isMidnight = eastern.toFormat('t') === '12:00 AM';
+  const timeSource = isMidnight ? eastern : dt.toLocal();
 
   return { day: timeSource.toFormat('cccc'), date: timeSource.toFormat('LL/dd') };
-};
-
-/**
- * Check if a time in Eastern timezone is midnight (12:00 AM)
- * REQUIRES LUXON for accurate timezone handling
- */
-export const isEasternMidnight = (isoString: string): boolean => {
-  const eastern = DateTime.fromISO(isoString).setZone('America/New_York');
-  return eastern.toFormat('t') === '12:00 AM';
 };
 
 /**
@@ -85,11 +85,9 @@ export const isEasternMidnight = (isoString: string): boolean => {
  * REQUIRES LUXON for accurate timezone conversion
  */
 export const getDateForGame = (isoString: string): string => {
-  const eastern = DateTime.fromISO(isoString).setZone('America/New_York');
-  return (
-    (eastern.toFormat('t') === '12:00 AM' ? eastern.toISODate() : DateTime.fromISO(isoString).toLocal().toISODate()) ??
-    ''
-  );
+  const dt = DateTime.fromISO(isoString);
+  const eastern = dt.setZone('America/New_York');
+  return (eastern.toFormat('t') === '12:00 AM' ? eastern.toISODate() : dt.toLocal().toISODate()) ?? '';
 };
 
 /**

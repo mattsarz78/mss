@@ -2,6 +2,5 @@ packages:
   - '.'
 allowBuilds:
   esbuild: false
-  sharp: false
 useNodeVersion: 26.3.0
 dedupeDirectDeps: true

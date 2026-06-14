@@ -18,9 +18,10 @@ export const seasonContents = async (
       throw new BadRequestError('Season is required');
     }
 
-    const seasonData = await context.services[SeasonServiceKey].getSeasonData(input.season);
-
-    const results = await context.services[WeeklyDatesServiceKey].getConferenceGames(input.season);
+    const [seasonData, results] = await Promise.all([
+      context.services[SeasonServiceKey].getSeasonData(input.season),
+      context.services[WeeklyDatesServiceKey].getConferenceGames(input.season)
+    ]);
     return {
       conferenceListBase: seasonData.conferenceListBase,
       flexScheduleLink: seasonData.flexScheduleLink,

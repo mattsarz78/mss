@@ -26,7 +26,7 @@ const AdsByGoogle: React.FC = () => {
       // 🚀 If the script was already downloaded on a previous page view, force a re-scan now
       initializeGcse();
     }
-    
+
     // 3. Ensure core AdSense scripts are loaded globally
     if (!document.querySelector('script[src*="adsbygoogle.js"]')) {
       const adsenseScript = document.createElement('script');

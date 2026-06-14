@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // 1. Import the styles object from the module
-import styles from './BackToTopButton.module.css'; 
+import styles from './BackToTopButton.module.css';
 
 const BackToTopButton: React.FC = () => {
   const [showButton, setShowButton] = useState(false);

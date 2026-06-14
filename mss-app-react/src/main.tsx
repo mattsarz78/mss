@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client';
 import { registerSW } from 'virtual:pwa-register';
 
 const httpLink = new HttpLink({
-  uri: import.meta.env.API_URL ?? 'http://localhost:8020/graphql' 
+  uri: import.meta.env.API_URL ?? 'http://localhost:8020/graphql',
 });
 
 const cache = new InMemoryCache();
@@ -16,8 +16,8 @@ const apolloClient = new ApolloClient({
   cache,
   defaultOptions: {
     query: { fetchPolicy: 'cache-first' },
-    watchQuery: { fetchPolicy: 'cache-and-network' }
-  }
+    watchQuery: { fetchPolicy: 'cache-and-network' },
+  },
 });
 
 if (!import.meta.env.PROD) {
@@ -30,7 +30,7 @@ const updateSW = registerSW({
     if (confirm('New content available. Reload?')) {
       void updateSW();
     }
-  }
+  },
 });
 
 // 2. REMOVED: export const ApolloContext = React.createContext(apolloClient);

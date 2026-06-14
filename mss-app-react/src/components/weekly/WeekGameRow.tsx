@@ -54,4 +54,4 @@ const WeekGameRow: React.FC<WeekGameRowProps> = ({ tvGame, showPPVColumn }) => {
   );
 };
 
-export default WeekGameRow;
+export default React.memo(WeekGameRow);

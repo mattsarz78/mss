@@ -8,10 +8,16 @@ import ts from 'typescript-eslint';
 export default [
   // 1. Global Ignores (Must be in an isolated object)
   { ignores: ['dist', 'node_modules', '.venv', 'build'] },
-
+  {
+    settings: {
+      react: {
+        version: '19', // Tells eslint-plugin-react exactly what features are safe globally
+      },
+    },
+  },
   // 2. Global Base Language Environment Configurations
   {
-    files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
+    files: ['src/**/*.{ts,tsx,mts}', 'vite.config.ts', '*.mts', '*.tsx', '*.css'],
     languageOptions: {
       ecmaVersion: 'latest', // Automatically matches modern 2026/ESNext syntax specifications
       sourceType: 'module',
@@ -23,6 +29,7 @@ export default [
       parser: ts.parser, // Explicitly binds the TypeScript Flat Config parser asset node
       parserOptions: {
         tsconfigRootDir: import.meta.dirname,
+        projectService: true,
         ecmaFeatures: {
           jsx: true,
         },
@@ -30,7 +37,7 @@ export default [
     },
     settings: {
       react: {
-        version: '18', // Dynamically matches your local package.json React build version
+        version: '19', // Dynamically matches your local package.json React build version
       },
     },
   },

@@ -48,7 +48,7 @@ export const dailyTvGames = async (
     const seasonData = await context.services[SeasonServiceKey].getSeasonData(season);
 
     // Transform results using shared utility
-    return transformTvGamesResponse(results, '', seasonData);
+    return transformTvGamesResponse(results, season, seasonData);
   } catch (err: unknown) {
     throw handleError(err);
   }

@@ -14,17 +14,19 @@ const isBasketballPostseason = (sport: string, contents: WeekInfo[], week: numbe
   return sport === 'basketball' && contents.some((x) => x.week === week && x.postseasonInd);
 };
 
+const EMPTY_ARRAY: WeekInfo[] = [];
+
 export const useWeekScheduleNav = (sport: string, year: string, week: number) => {
   const {
     result: seasonContentsResult,
     loading: seasonContentsLoading,
-    error: seasonContentsError
+    error: seasonContentsError,
   } = useSeasonContents(year);
 
   const nextWeek = useMemo(() => week + 1, [week]);
   const previousWeek = useMemo(() => week - 1, [week]);
 
-  const seasonContents = seasonContentsResult?.seasonContents?.seasonContents ?? [];
+  const seasonContents = seasonContentsResult?.seasonContents?.seasonContents ?? EMPTY_ARRAY;
 
   const isBowlWeek = useMemo(
     () => (seasonContents.length ? isBowlGameWeek(sport, seasonContents, week) : false),
@@ -61,6 +63,6 @@ export const useWeekScheduleNav = (sport: string, year: string, week: number) =>
     isMbkPostseason,
     isWeekOne,
     isNextWeekMbkPostseason,
-    isNextWeekBowlWeek
+    isNextWeekBowlWeek,
   };
 };

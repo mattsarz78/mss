@@ -1,2 +1,2 @@
-schema: ['./GQL/schema.graphql', './mss-app/schema.graphql']
-documents: ['./GQL/**/*.{graphql,js,ts,jsx,tsx}', './mss-app/**/*.{graphql,js,ts,jsx,tsx}']
+schema: ['./GQL/schema.graphql', './mss-app-react/schema.graphql']
+documents: ['./GQL/**/*.{graphql,mjs,mts,jsx,tsx}', './mss-app-react/**/*.{graphql,mjs,mts,jsx,tsx}']

@@ -9,7 +9,7 @@
   border: 0;
 }
 
-  :global(img) {
+:global(img) {
   aspect-ratio: 66 / 50;
 }
 

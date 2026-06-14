@@ -8,5 +8,6 @@ export default defineConfigWithVueTs(
   pluginVue.configs[('flat/essential', 'flat/recommended')],
   vueTsConfigs.recommended,
   eslintPluginPrettierRecommended,
-  pluginVueA11y.configs['flat/recommended']
+  pluginVueA11y.configs['flat/recommended'],
+  { languageOptions: { parserOptions: { tsconfigRootDir: import.meta.dirname, projectService: true } } }
 );

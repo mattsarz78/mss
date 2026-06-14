@@ -126,8 +126,8 @@ export default defineConfig(({ mode }): UserConfig => {
               }
               return 'vendor-misc'; // Catch-all bucket for smaller system tools
             }
-          }
-        }
+          },
+        },
       },
     },
     define: {

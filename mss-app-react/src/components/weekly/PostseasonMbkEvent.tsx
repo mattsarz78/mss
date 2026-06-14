@@ -46,4 +46,4 @@ const PostseasonMbkEvent: React.FC<PostseasonMbkEventProps> = ({ tvGame }) => {
   );
 };
 
-export default PostseasonMbkEvent;
+export default React.memo(PostseasonMbkEvent);
