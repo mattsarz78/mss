@@ -18,7 +18,7 @@ updates:
     schedule:
       interval: 'monthly'
   - package-ecosystem: 'npm' # See documentation for possible values
-    directory: '/mss-app' # Location of package manifests
+    directory: '/mss-app-react' # Location of package manifests
     schedule:
       interval: 'monthly'
   - package-ecosystem: 'docker-compose' # See documentation for possible values
