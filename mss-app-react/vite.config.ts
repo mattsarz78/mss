@@ -92,7 +92,7 @@ export default defineConfig(({ mode }): UserConfig => {
       })
     ],
     build: {
-      sourcemap: env.SOURCEMAP === 'true',
+      sourcemap: env.SOURCEMAP === 'true' ? true : false,
       target: 'esnext',
       minify: 'esbuild',
       chunkSizeWarningLimit: 800, // 👈 Safely raise limits to match typical application scales

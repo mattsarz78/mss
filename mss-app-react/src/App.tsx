@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { useRegisterSW } from 'virtual:pwa-register/react';
 
 // Core Application Styles
 import '#/App.css';
@@ -18,6 +19,11 @@ const App: React.FC = () => {
   const mainRef = useResetAdsenseHeight();
   const checkIntervalRef = useRef<number | ReturnType<typeof setInterval> | undefined>(undefined);
 
+  const {
+    needRefresh: [pwaNeedRefresh],
+    updateServiceWorker
+  } = useRegisterSW();
+
   useEffect(() => {
     checkIntervalRef.current = setInterval(async () => {
       const hasUpdate = await checkVersion();
@@ -31,17 +37,25 @@ const App: React.FC = () => {
     };
   }, []);
 
-  const handleReload = () => window.location.reload();
+  const showUpdateBanner = needsUpdate || pwaNeedRefresh;
+
+  const handleReload = async () => {
+    if (pwaNeedRefresh) {
+      await updateServiceWorker(true);
+    } else {
+      window.location.reload();
+    }
+  };
 
   return (
     <BrowserRouter>
       <ScrollToTop />
       <main className="maincontainer" ref={mainRef as React.RefObject<HTMLElement | null>}>
         {' '}
-        {needsUpdate && (
+        {showUpdateBanner && (
           <div className="update-banner">
             A new version is available.{' '}
-            <button onClick={handleReload} type="button">
+            <button onClick={() => void handleReload()} type="button">
               Refresh
             </button>
           </div>
