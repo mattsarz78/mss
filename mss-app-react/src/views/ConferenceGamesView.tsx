@@ -81,8 +81,7 @@ const ConferenceGamesView: React.FC = () => {
                       className={styles.flexRow}
                       to={`/tv-windows/${year}`}
                       target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                      rel="noopener noreferrer">
                       Available TV Windows
                     </Link>
                   )}
@@ -104,11 +103,7 @@ const ConferenceGamesView: React.FC = () => {
               </p>
 
               {conference !== 'independents' && result.conferenceGames?.contractYearData?.[0]?.contractText && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: result.conferenceGames.contractYearData[0].contractText,
-                  }}
-                />
+                <div dangerouslySetInnerHTML={{ __html: result.conferenceGames.contractYearData[0].contractText }} />
               )}
 
               {conference === 'independents' ? (

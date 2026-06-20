@@ -17,7 +17,7 @@ const DailyTvGamesInner: React.FC = () => {
     loading: dailyTvGameLoading,
     error: dailyTvGameError,
     season,
-    startDate,
+    startDate
   } = useDailyTvGames(sport);
 
   // Grab values out of the surrounding context pool wrapper
@@ -83,8 +83,7 @@ const DailyTvGamesInner: React.FC = () => {
                   id="btnWebGames"
                   type="button"
                   className={`${styles.show_hideWeb} ${styles.buttonfont}`}
-                  onClick={toggleWebExclusives}
-                >
+                  onClick={toggleWebExclusives}>
                   {buttonText}
                 </button>
               </div>

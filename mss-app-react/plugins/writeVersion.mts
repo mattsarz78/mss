@@ -16,7 +16,7 @@ export function versionJson(): Plugin {
       writeFileSync(outPath, JSON.stringify(versionData, null, 2));
       console.log(`✨ Version file written to ${outPath}`);
       console.log(`📦 Version: ${version}`);
-    },
+    }
   };
 }
 
@@ -25,7 +25,7 @@ function getVersion() {
     // Try to get Git commit hash first
     const sha = execSync('git rev-parse --short HEAD', {
       cwd: resolve(__dirname, '..'),
-      stdio: ['ignore', 'pipe', 'ignore'],
+      stdio: ['ignore', 'pipe', 'ignore']
     })
       .toString()
       .trim();

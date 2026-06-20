@@ -20,7 +20,7 @@ export const useWeekScheduleNav = (sport: string, year: string, week: number) =>
   const {
     result: seasonContentsResult,
     loading: seasonContentsLoading,
-    error: seasonContentsError,
+    error: seasonContentsError
   } = useSeasonContents(year);
 
   const nextWeek = useMemo(() => week + 1, [week]);
@@ -63,6 +63,6 @@ export const useWeekScheduleNav = (sport: string, year: string, week: number) =>
     isMbkPostseason,
     isWeekOne,
     isNextWeekMbkPostseason,
-    isNextWeekBowlWeek,
+    isNextWeekBowlWeek
   };
 };

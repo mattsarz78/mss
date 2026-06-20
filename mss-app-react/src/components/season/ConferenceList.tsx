@@ -29,12 +29,9 @@ const ConferenceList: React.FC<ConferenceListProps> = ({ conferenceList, year })
       { key: 'ind', link: getConferenceCasing('ind') },
       { key: 'mac', link: getConferenceCasing('mac') },
       { key: 'mw', link: getConferenceCasing('mw') },
-      {
-        key: 'pac',
-        link: conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12'),
-      },
+      { key: 'pac', link: conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12') },
       { key: 'sec', link: getConferenceCasing('sec') },
-      { key: 'sbc', link: getConferenceCasing('sbc') },
+      { key: 'sbc', link: getConferenceCasing('sbc') }
     ];
 
     // Splice conditional insertions matching Vue's mutation strategy

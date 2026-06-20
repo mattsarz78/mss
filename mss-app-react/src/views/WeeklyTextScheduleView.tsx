@@ -8,12 +8,8 @@ const WeekTextScheduleView: React.FC = () => {
   const {
     week,
     sport,
-    year: paramYear,
-  } = useParams<{ week: string; sport: string; year: string }>() as {
-    week: string;
-    sport: string;
-    year: string;
-  };
+    year: paramYear
+  } = useParams<{ week: string; sport: string; year: string }>() as { week: string; sport: string; year: string };
 
   const location = useLocation();
 

@@ -28,8 +28,8 @@ const ConferenceTable: React.FC<ConferenceTableProps> = ({ games }) => {
         formattedTime: {
           day: timeSource.toFormat('cccc'),
           date: timeSource.toFormat('LL/dd'),
-          time: formatTime(game.timeWithOffset),
-        },
+          time: formatTime(game.timeWithOffset)
+        }
       };
     });
   }, [games]);

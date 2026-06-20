@@ -38,6 +38,6 @@ export const useNoTvSchedule = (week: string, year: string) => {
     noTvGamesLoading,
     noTvGamesError,
     datesList,
-    load,
+    load
   };
 };

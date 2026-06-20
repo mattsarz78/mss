@@ -28,7 +28,7 @@ const ArchiveView: React.FC = () => {
     '2008',
     '2007',
     '2006',
-    '2005',
+    '2005'
   ];
 
   const fbSeasons = ['2021'];
@@ -49,7 +49,7 @@ const ArchiveView: React.FC = () => {
     '2008-09',
     '2007-08',
     '2006-07',
-    '2005-06',
+    '2005-06'
   ];
   return (
     <>

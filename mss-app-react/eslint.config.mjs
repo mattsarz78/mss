@@ -11,9 +11,9 @@ export default [
   {
     settings: {
       react: {
-        version: '19', // Tells eslint-plugin-react exactly what features are safe globally
-      },
-    },
+        version: '19' // Tells eslint-plugin-react exactly what features are safe globally
+      }
+    }
   },
   // 2. Global Base Language Environment Configurations
   {
@@ -24,22 +24,16 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.es2020,
-        ...globals.node, // Safely handles script environments like vite.config or scripts
+        ...globals.node // Safely handles script environments like vite.config or scripts
       },
       parser: ts.parser, // Explicitly binds the TypeScript Flat Config parser asset node
-      parserOptions: {
-        tsconfigRootDir: import.meta.dirname,
-        projectService: true,
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
+      parserOptions: { tsconfigRootDir: import.meta.dirname, projectService: true, ecmaFeatures: { jsx: true } }
     },
     settings: {
       react: {
-        version: '19', // Dynamically matches your local package.json React build version
-      },
-    },
+        version: '19' // Dynamically matches your local package.json React build version
+      }
+    }
   },
 
   // 3. Recommended Core Engine Flag Layout Sets
@@ -52,7 +46,7 @@ export default [
     plugins: {
       react: react.configs.flat.recommended.plugins.react,
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      'react-refresh': reactRefresh
     },
     rules: {
       ...react.configs.recommended.rules,
@@ -61,7 +55,7 @@ export default [
       'react/prop-types': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-    },
-  },
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
+    }
+  }
 ];

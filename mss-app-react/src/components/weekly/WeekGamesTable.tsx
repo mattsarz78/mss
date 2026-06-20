@@ -18,7 +18,7 @@ const WeekGamesTable: React.FC<WeekGamesTableProps> = ({
   tvGamesForDate,
   isMbkPostseason,
   isBowlWeek,
-  showPpvColumn,
+  showPpvColumn
 }) => {
   const { isWebGamesHidden } = useWebExclusivesContext();
   // Replicating the computed date string layout formatter

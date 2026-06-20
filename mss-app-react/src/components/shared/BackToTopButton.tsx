@@ -26,8 +26,7 @@ const BackToTopButton: React.FC = () => {
     <a
       href="#"
       className={buttonClass} // 👈 Evaluates to something unique like "_backToTopBtn_x1y2z _show_x1y2z"
-      onClick={scrollToTop}
-    >
+      onClick={scrollToTop}>
       Back to top
     </a>
   );

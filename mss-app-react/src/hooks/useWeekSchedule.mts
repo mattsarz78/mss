@@ -7,12 +7,8 @@ export const useWeekSchedule = (sport: string, year: string, week: number) => {
   const {
     data: tvGameData,
     loading: tvGameLoading,
-    error: tvGameError,
+    error: tvGameError
   } = useQuery<{ tvGames: TvGameData }>(TV_GAMES, { variables });
 
-  return {
-    tvGameResult: { tvGames: tvGameData?.tvGames },
-    tvGameLoading,
-    tvGameError,
-  };
+  return { tvGameResult: { tvGames: tvGameData?.tvGames }, tvGameLoading, tvGameError };
 };

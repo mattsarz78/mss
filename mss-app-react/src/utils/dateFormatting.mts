@@ -12,7 +12,7 @@ const weekdayFormatter = new Intl.DateTimeFormat('en-US', {
   weekday: 'long',
   month: 'long',
   day: 'numeric',
-  year: 'numeric',
+  year: 'numeric'
 });
 const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
 

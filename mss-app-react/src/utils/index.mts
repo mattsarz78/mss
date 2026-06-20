@@ -8,7 +8,7 @@ export {
   parseISO,
   toEasternISO,
   toISO,
-  toISODate,
+  toISODate
 } from '#utils/dateFormatting.mjs';
 export { sanitizeHtml } from '#utils/domText.mjs';
 export { formatGame } from '#utils/game.mjs';

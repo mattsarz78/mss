@@ -12,7 +12,7 @@ import {
   SeasonView,
   TvWindowsView,
   WeeklyScheduleView,
-  WeeklyTextScheduleView,
+  WeeklyTextScheduleView
 } from './lazyRoutes.ts';
 
 export interface RouteConfig {
@@ -46,5 +46,5 @@ export const routes: RouteConfig[] = [
   { path: '/schedule/:sport/daily/text', element: <DailyTextScheduleView /> },
 
   // Catch-all route for 404 handling - matches anything left over
-  { path: '*', element: <Navigate to="/" replace /> },
+  { path: '*', element: <Navigate to="/" replace /> }
 ];

@@ -4,15 +4,7 @@ import React, { useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
 const WeeklyScheduleView: React.FC = () => {
-  const {
-    week = '',
-    sport = '',
-    year: paramYear = '',
-  } = useParams<{
-    week: string;
-    sport: string;
-    year: string;
-  }>();
+  const { week = '', sport = '', year: paramYear = '' } = useParams<{ week: string; sport: string; year: string }>();
 
   const location = useLocation();
 

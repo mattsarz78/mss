@@ -52,8 +52,7 @@ const App: React.FC = () => {
             <div className="loading-container">
               <p>Loading layout...</p>
             </div>
-          }
-        >
+          }>
           <Routes>
             {routes.map((route: RouteConfig) => (
               <Route key={route.path} path={route.path} element={route.element} />

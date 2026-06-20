@@ -80,8 +80,7 @@ const HomeView: React.FC = () => {
           <a
             href="https://twitter.com/mattsarz?ref_src=twsrc%5Etfw"
             className="twitter-follow-button"
-            data-show-count="true"
-          >
+            data-show-count="true">
             Follow @mattsarz
           </a>
         </div>

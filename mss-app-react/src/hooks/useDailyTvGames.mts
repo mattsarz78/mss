@@ -13,7 +13,7 @@ export const useDailyTvGames = (sport: string) => {
   const { data, loading, error } = useQuery<{ dailyTvGames: TvGameData }>(DAILY_TV_GAMES, {
     variables: { input: { sport, startDate } },
     // Optional: safe guard fallback if you change sport params in mid-session
-    skip: !sport,
+    skip: !sport
   });
 
   const currentSeason = useMemo(() => {
@@ -27,11 +27,5 @@ export const useDailyTvGames = (sport: string) => {
     return sport === 'football' ? paramYear : `${paramYear.substring(0, 4)}-${paramYear.substring(4, 6)}`;
   }, [currentSeason, sport]);
 
-  return {
-    result: data,
-    loading,
-    error,
-    season,
-    startDate,
-  };
+  return { result: data, loading, error, season, startDate };
 };

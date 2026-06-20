@@ -30,8 +30,7 @@ const NoTvGames: React.FC<NoTvGamesProps> = ({ week, year }) => {
           id="btnConferenceGames"
           type="button"
           className={`${styles.show_hideNoTV} ${styles.buttonFont}`}
-          onClick={toggleNoTV}
-        >
+          onClick={toggleNoTV}>
           {buttonText}
         </button>
       </p>

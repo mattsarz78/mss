@@ -20,7 +20,7 @@ export const useDailyTvTextGames = () => {
   // 3. Fire the native React Apollo Client data query hook
   const { data, loading, error } = useQuery<{ dailyTvGames: TvGameData }>(DAILY_TV_GAMES, {
     variables,
-    skip: !sport, // Safety gate: skip query if parameters are missing during mount
+    skip: !sport // Safety gate: skip query if parameters are missing during mount
   });
 
   // 4. Replicate Vue's watch reactive sync logic inside a clean useMemo boundary
@@ -34,10 +34,7 @@ export const useDailyTvTextGames = () => {
     const rawSeason = firstGame.season;
     const formattedSeason = sport === 'football' ? rawSeason : `${rawSeason.slice(0, 4)}-${rawSeason.slice(5)}`;
 
-    return {
-      paramYear: rawSeason,
-      season: formattedSeason,
-    };
+    return { paramYear: rawSeason, season: formattedSeason };
   }, [data, sport]);
 
   // 5. Return payload maintaining precise property name symmetry with your view template
@@ -48,6 +45,6 @@ export const useDailyTvTextGames = () => {
     season,
     paramYear,
     sport,
-    startDate,
+    startDate
   };
 };

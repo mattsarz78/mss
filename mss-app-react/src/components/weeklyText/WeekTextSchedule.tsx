@@ -32,7 +32,7 @@ const WeekTextSchedule: React.FC<WeekTextScheduleProps> = ({ week, sport, paramY
     isMbkPostseason,
     isWeekOne,
     isNextWeekMbkPostseason,
-    isNextWeekBowlWeek,
+    isNextWeekBowlWeek
   } = useWeekScheduleNav(sport, year, weekInt);
 
   const { tvGameResult, tvGameLoading, tvGameError } = useWeekTextSchedule(sport, year, weekInt);
@@ -104,8 +104,7 @@ const WeekTextSchedule: React.FC<WeekTextScheduleProps> = ({ week, sport, paramY
               id="ClearAll"
               type="button"
               className={`${styles.inputpad} ${styles.buttonfont}`}
-              onClick={() => tableRef.current?.clearAll()}
-            >
+              onClick={() => tableRef.current?.clearAll()}>
               Clear All Games
             </button>
 
@@ -113,8 +112,7 @@ const WeekTextSchedule: React.FC<WeekTextScheduleProps> = ({ week, sport, paramY
               id="CheckAll"
               type="button"
               className={`${styles.inputpad} ${styles.buttonfont}`}
-              onClick={() => tableRef.current?.checkAll()}
-            >
+              onClick={() => tableRef.current?.checkAll()}>
               Check All Games
             </button>
           </p>

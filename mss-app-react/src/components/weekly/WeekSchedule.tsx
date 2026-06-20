@@ -31,7 +31,7 @@ const WeekSchedule: React.FC<WeekScheduleProps> = ({ week, sport, paramYear }) =
     isMbkPostseason,
     isWeekOne,
     isNextWeekMbkPostseason,
-    isNextWeekBowlWeek,
+    isNextWeekBowlWeek
   } = useWeekScheduleNav(sport, year, weekInt);
 
   const { currentTimeISO } = useCurrentTimeET();
@@ -145,8 +145,7 @@ const WeekSchedule: React.FC<WeekScheduleProps> = ({ week, sport, paramYear }) =
                     id="btnWebGames"
                     type="button"
                     className={`${styles.show_hideWeb} ${styles.buttonFont}`}
-                    onClick={toggleWebExclusives}
-                  >
+                    onClick={toggleWebExclusives}>
                     {buttonText}
                   </button>
                 )}

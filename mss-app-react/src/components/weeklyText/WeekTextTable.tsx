@@ -30,7 +30,7 @@ const WeekTextTable = forwardRef<WeekTextTableHandle, WeekTextTableProps>(
       },
       clearAll() {
         setCheckedRows(new Array(tvGames.length).fill(false));
-      },
+      }
     }));
 
     const handleCheckboxChange = (index: number) => {
@@ -60,9 +60,7 @@ const WeekTextTable = forwardRef<WeekTextTableHandle, WeekTextTableProps>(
               const isChecked = !!checkedRows[index];
               const printClass = isChecked ? 'DOPrint' : 'DONTPrint';
 
-              const rowStyle: React.CSSProperties = {
-                backgroundColor: isChecked ? '#CCC' : '#FFF',
-              };
+              const rowStyle: React.CSSProperties = { backgroundColor: isChecked ? '#CCC' : '#FFF' };
 
               return (
                 <tr key={index} style={rowStyle} className={`gamerow ${styles.rowStyle} ${printClass}`}>

@@ -1,9 +1,6 @@
 {
   "client": {
-    "service": {
-      "name": "mss-graphql-api",
-      "url": "http://localhost:8020/graphql"
-    },
+    "service": { "name": "mss-graphql-api", "url": "http://localhost:8020/graphql" },
     "includes": ["src/**/*.tsx", "src/**/*.mts"],
     "excludes": ["**/__tests__/**", "**/*.spec.ts"],
     "tagName": "gql"

@@ -28,7 +28,7 @@ const alias = {
   '#season': resolve(_dirname, './src/components/season'),
   '#shared': resolve(_dirname, './src/components/shared'),
   '#weekly': resolve(_dirname, './src/components/weekly'),
-  '#text': resolve(_dirname, './src/components/weeklyText'),
+  '#text': resolve(_dirname, './src/components/weeklyText')
 };
 
 // https://vitejs.dev/config/
@@ -38,25 +38,17 @@ export default defineConfig(({ mode }): UserConfig => {
   const config: UserConfigExport = {
     optimizeDeps: { include: ['react', 'react-dom', 'luxon', '@apollo/client/core'] },
     server: {
-      watch: {
-        usePolling: false,
-        ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**'],
-      },
-      hmr: {
-        overlay: true,
-        timeout: 30000,
-      },
+      watch: { usePolling: false, ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**'] },
+      hmr: { overlay: true, timeout: 30000 },
       host: true,
       strictPort: true,
-      open: false,
+      open: false
     },
     css: { devSourcemap: true },
     assetsInclude: ['**/*.png', 'version.json', '**/*.webp'],
     base: '/',
     publicDir: 'public',
-    resolve: {
-      alias,
-    },
+    resolve: { alias },
     plugins: [
       versionJson(),
       react(),
@@ -76,19 +68,13 @@ export default defineConfig(({ mode }): UserConfig => {
             { src: 'favicon.ico', sizes: '48x48', type: 'image/x-icon', purpose: 'any' },
             { src: '192x192.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },
             { src: '512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
-            { src: 'apple-touch-icon.png', sizes: '180x180', type: 'image/png', purpose: 'maskable' },
+            { src: 'apple-touch-icon.png', sizes: '180x180', type: 'image/png', purpose: 'maskable' }
           ],
           screenshots: [
             { src: 'mss-wide.png', type: 'image/png', sizes: '3198x1138', form_factor: 'wide', label: 'Application' },
-            {
-              src: 'mss-mobile.png',
-              type: 'image/png',
-              sizes: '966x1114',
-              form_factor: 'narrow',
-              label: 'Application',
-            },
+            { src: 'mss-mobile.png', type: 'image/png', sizes: '966x1114', form_factor: 'narrow', label: 'Application' }
           ],
-          start_url: '/',
+          start_url: '/'
         },
         workbox: {
           globPatterns: ['**/*.{js,mjs,css,html,txt,xml,ico,png,svg,json,tsx,woff2,webmanifest}'],
@@ -99,11 +85,11 @@ export default defineConfig(({ mode }): UserConfig => {
             {
               urlPattern: /\/graphql/,
               handler: 'NetworkFirst',
-              options: { cacheName: 'graphql-api', expiration: { maxEntries: 50, maxAgeSeconds: 60 } },
-            },
-          ],
-        },
-      }),
+              options: { cacheName: 'graphql-api', expiration: { maxEntries: 50, maxAgeSeconds: 60 } }
+            }
+          ]
+        }
+      })
     ],
     build: {
       sourcemap: env.SOURCEMAP === 'true',
@@ -126,14 +112,14 @@ export default defineConfig(({ mode }): UserConfig => {
               }
               return 'vendor-misc'; // Catch-all bucket for smaller system tools
             }
-          },
-        },
-      },
+          }
+        }
+      }
     },
     define: {
       'import.meta.env.API_URL': JSON.stringify(env.API_URL),
-      'import.meta.env.VITE_APP_VERSION': JSON.stringify(getGitHash() ?? Date.now().toString()),
-    },
+      'import.meta.env.VITE_APP_VERSION': JSON.stringify(getGitHash() ?? Date.now().toString())
+    }
   };
 
   return config;

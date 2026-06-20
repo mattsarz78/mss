@@ -66,8 +66,7 @@ const DailyTvTextGamesView: React.FC = () => {
                   id="ClearAll"
                   type="button"
                   className={`${styles.inputpad} ${styles.buttonfont}`}
-                  onClick={() => tableRef.current?.clearAll()}
-                >
+                  onClick={() => tableRef.current?.clearAll()}>
                   Clear All Games
                 </button>
 
@@ -75,8 +74,7 @@ const DailyTvTextGamesView: React.FC = () => {
                   id="CheckAll"
                   type="button"
                   className={`${styles.inputpad} ${styles.buttonfont}`}
-                  onClick={() => tableRef.current?.checkAll()}
-                >
+                  onClick={() => tableRef.current?.checkAll()}>
                   Check All Games
                 </button>
               </p>

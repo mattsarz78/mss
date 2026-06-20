@@ -35,6 +35,6 @@ export const addMetaTags = (title: string) => {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: title,
-    url: window.location.href,
+    url: window.location.href
   });
 };
