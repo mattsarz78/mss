@@ -16,19 +16,20 @@ RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
   corepack enable pnpm \
   && pnpm install --frozen-lockfile
 
-  # Copy remaining source and run generators + build
+# Copy remaining source and run generators + build
 COPY . /app
 
-RUN pnpm run build:dist \
+RUN pnpm graphQlGen \ 
+  && pnpm run build:dist \
   && pnpm prune --prod --no-optional \
   && mv node_modules /opt/node_modules.prod \
   && rm -rf /tmp/* /root/.npm
-  
-  # RUN pnpm prismaFormat && pnpm prismaGen && pnpm graphQlGen \
-  # && pnpm run build:dist \
-  # && pnpm prune --prod --no-optional \
-  # && mv node_modules /opt/node_modules.prod \
-  # && rm -rf /tmp/* /root/.npm
+
+# RUN pnpm prismaFormat && pnpm prismaGen && pnpm graphQlGen \
+# && pnpm run build:dist \
+# && pnpm prune --prod --no-optional \
+# && mv node_modules /opt/node_modules.prod \
+# && rm -rf /tmp/* /root/.npm
 
 # Stage 2: Production
 FROM gcr.io/distroless/nodejs26-debian13:nonroot AS production

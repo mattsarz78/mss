@@ -11,4 +11,4 @@ services:
       - .env    
   # The distroless Node image already has `node` as the entrypoint, so
   # provide only the script path (or omit this key to use the image's CMD).
-    command: --harmony-temporal dist/index.js
+    command: dist/index.js
