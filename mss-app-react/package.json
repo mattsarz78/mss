@@ -50,7 +50,7 @@
     "format": "prettier --write ./"
   },
   "dependencies": {
-    "@apollo/client": "4.2.4",
+    "@apollo/client": "4.2.5",
     "dompurify": "3.4.11",
     "graphql": "17.0.1",
     "luxon": "3.7.2",
