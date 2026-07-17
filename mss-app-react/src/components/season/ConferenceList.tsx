@@ -14,25 +14,35 @@ interface ConferenceLinkItem {
   link: ConferenceCasing | undefined;
 }
 
+const conferenceLinkBase = [
+  { key: 'acc', conference: 'acc' },
+  { key: 'b12', conference: 'b12' },
+  { key: 'b1g', conference: 'b1g' },
+  { key: 'cusa', conference: 'cusa' },
+  { key: 'ind', conference: 'ind' },
+  { key: 'mac', conference: 'mac' },
+  { key: 'mw', conference: 'mw' },
+  { key: 'pac', conference: 'pac' },
+  { key: 'sec', conference: 'sec' },
+  { key: 'sbc', conference: 'sbc' }
+] as const satisfies ReadonlyArray<{ key: string; conference: string }>;
+
 const ConferenceList: React.FC<ConferenceListProps> = ({ conferenceList, year }) => {
   // Helper to locate individual configurations
   const getConferenceCasing = (conference: string) =>
     (conferenceCasingData as ConferenceCasing[]).find((x) => x.id === conference);
 
   // Parity logic: Replacing Vue's computed() with useMemo
-  const conferenceLinks = useMemo(() => {
-    const links: ConferenceLinkItem[] = [
-      { key: 'acc', link: getConferenceCasing('acc') },
-      { key: 'b12', link: getConferenceCasing('b12') },
-      { key: 'b1g', link: getConferenceCasing('b1g') },
-      { key: 'cusa', link: getConferenceCasing('cusa') },
-      { key: 'ind', link: getConferenceCasing('ind') },
-      { key: 'mac', link: getConferenceCasing('mac') },
-      { key: 'mw', link: getConferenceCasing('mw') },
-      { key: 'pac', link: conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12') },
-      { key: 'sec', link: getConferenceCasing('sec') },
-      { key: 'sbc', link: getConferenceCasing('sbc') }
-    ];
+  const conferenceLinks = useMemo<ConferenceLinkItem[]>(() => {
+    const links: ConferenceLinkItem[] = conferenceLinkBase.map((entry) => ({
+      key: entry.key,
+      link: getConferenceCasing(entry.conference)
+    }));
+
+    const pacEntry = links.find((entry) => entry.key === 'pac');
+    if (pacEntry) {
+      pacEntry.link = conferenceList === 'ListBase1' ? getConferenceCasing('p10') : getConferenceCasing('p12');
+    }
 
     // Splice conditional insertions matching Vue's mutation strategy
     if (conferenceList === 'ListBase3') {

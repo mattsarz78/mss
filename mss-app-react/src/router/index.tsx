@@ -20,7 +20,7 @@ export interface RouteConfig {
   element: React.ReactNode;
 }
 
-export const routes: RouteConfig[] = [
+export const routes = [
   { path: '/', element: <HomeView /> },
   { path: '/copyright', element: <CopyrightView /> },
   { path: '/archive', element: <ArchiveView /> },
@@ -47,4 +47,4 @@ export const routes: RouteConfig[] = [
 
   // Catch-all route for 404 handling - matches anything left over
   { path: '*', element: <Navigate to="/" replace /> }
-];
+] satisfies RouteConfig[];

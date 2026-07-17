@@ -19,11 +19,13 @@ const WeeklyBase: React.FC<WeeklyBaseProps> = ({ tvGames, isBowlWeek, isMbkPosts
   const hasValidTime = (game: TvGame): game is TvGame & { timeWithOffset: string } =>
     typeof game.timeWithOffset === 'string';
 
-  // Group games dynamically into an associative map dictionary matching Vue's reducer
-  const tvGamesByDate = useMemo(() => {
-    if (!tvGames) return {} as Record<string, TvGame[]>;
+  type GamesByDate = Record<string, TvGame[]>;
 
-    return tvGames.filter(hasValidTime).reduce<Record<string, TvGame[]>>((acc, game) => {
+  // Group games dynamically into an associative map dictionary matching Vue's reducer
+  const tvGamesByDate = useMemo<GamesByDate>(() => {
+    if (!tvGames) return {};
+
+    return tvGames.filter(hasValidTime).reduce<GamesByDate>((acc, game) => {
       const date = getDateForGame(game.timeWithOffset);
       if (date) {
         acc[date] ??= [];

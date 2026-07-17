@@ -1,11 +1,15 @@
-import React, { useMemo } from 'react';
 import type { ConferenceGame } from '#/graphQl.mjs';
 import ConferenceTable from '#conference/ConferenceTable.tsx';
+import React, { useMemo } from 'react';
 
 interface ConferenceGameListProps {
   games: ConferenceGame[];
   year: string;
 }
+
+type CategoryConfig = { title: string; filter: (game: ConferenceGame) => boolean };
+
+type CategoryRegistry = Record<string, CategoryConfig | ((year: string) => CategoryConfig)>;
 
 // 1. Move static definitions outside the component to preserve memory references
 const GAME_CATEGORIES_CONFIG = {
@@ -48,25 +52,23 @@ const GAME_CATEGORIES_CONFIG = {
     title: 'Internet Exclusives',
     filter: (x: ConferenceGame) => x.mediaIndicator === 'W' && x.tvtype !== 'R'
   }
-};
+} satisfies CategoryRegistry;
 
 const ConferenceGameList: React.FC<ConferenceGameListProps> = ({ games, year }) => {
   // 2. Compute the dynamic categorization lists using useMemo
   const categorizedGames = useMemo(() => {
     // Reconstruct the dynamic category dictionary structure matching Vue
-    const categories = {
-      ...GAME_CATEGORIES_CONFIG,
-      regional: GAME_CATEGORIES_CONFIG.regional(year) // Pass context variable down
-    };
+    const categories = { ...GAME_CATEGORIES_CONFIG, regional: GAME_CATEGORIES_CONFIG.regional(year) } satisfies Record<
+      string,
+      CategoryConfig
+    >;
 
-    const result: Record<string, { title: string; list: ConferenceGame[] }> = {};
-
-    for (const [key, category] of Object.entries(categories)) {
-      const matchedGames = games.filter(category.filter);
-
-      // Only append to lists that actively contain matched data tree items
-      result[key] = { title: category.title, list: matchedGames };
-    }
+    const result = Object.fromEntries(
+      Object.entries(categories).map(([key, category]) => [
+        key,
+        { title: category.title, list: games.filter(category.filter) }
+      ])
+    ) as Record<string, { title: string; list: ConferenceGame[] }>;
 
     return result;
   }, [games, year]);
