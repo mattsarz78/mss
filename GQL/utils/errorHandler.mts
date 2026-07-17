@@ -6,7 +6,7 @@ export const ERROR_CODES = {
   INTERNAL_SERVER: 'INTERNAL_SERVER',
   NOT_FOUND: 'NOT_FOUND',
   UNAUTHORIZED: 'UNAUTHORIZED'
-} as const;
+} as const satisfies Record<string, string>;
 
 export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES];
 

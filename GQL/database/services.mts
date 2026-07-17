@@ -15,17 +15,20 @@ export interface DatabaseServices {
   [SeasonServiceKey]: ISeasonService;
 }
 
-const isComplete = (services: Partial<DatabaseServices>): services is DatabaseServices => {
-  const requiredServices = [FootballServiceKey, WeeklyDatesServiceKey, CommonServiceKey, SeasonServiceKey] as const;
+const requiredServices = [
+  FootballServiceKey,
+  WeeklyDatesServiceKey,
+  CommonServiceKey,
+  SeasonServiceKey
+] as const satisfies readonly (keyof DatabaseServices)[];
 
+const isComplete = (services: Partial<DatabaseServices>): services is DatabaseServices => {
   return requiredServices.every((key) => key in services && services[key] !== undefined);
 };
 
 export const getDatabaseServices = (services: Partial<DatabaseServices>): DatabaseServices => {
   if (!isComplete(services)) {
-    const missing = [FootballServiceKey, WeeklyDatesServiceKey, CommonServiceKey, SeasonServiceKey].filter(
-      (key) => !(key in services) || services[key as keyof DatabaseServices] === undefined
-    );
+    const missing = requiredServices.filter((key) => !(key in services) || services[key] === undefined);
 
     throw new Error(`Missing services: ${missing.join(', ')}`);
   }

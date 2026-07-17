@@ -21,6 +21,13 @@ type FindManyArgs<T extends SportType> = T extends 'football'
   ? Prisma.footballFindManyArgs
   : Prisma.basketballFindManyArgs;
 
+type WhereClause = {
+  mediaindicator: { in: readonly ['T', 'W'] };
+  time?: { gte: Date; lte: Date };
+  season?: string | number;
+  week?: string | number;
+};
+
 export class CommonService implements ICommonService {
   private client: PrismaClient;
 
@@ -32,7 +39,7 @@ export class CommonService implements ICommonService {
     request: GetDailyTvGamesRequest | TvGamesInput,
     isDaily: boolean
   ): FindManyArgs<T> {
-    const where: Record<string, unknown> = { mediaindicator: { in: ['T', 'W'] as const } };
+    const where: WhereClause = { mediaindicator: { in: ['T', 'W'] as const } };
 
     if (isDaily) {
       const dailyRequest = request as GetDailyTvGamesRequest;
@@ -57,7 +64,7 @@ export class CommonService implements ICommonService {
       tvtype: true,
       conference: true,
       ...(isDaily && { season: true })
-    };
+    } satisfies Record<string, boolean>;
 
     return {
       where,

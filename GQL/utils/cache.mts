@@ -6,8 +6,10 @@ export interface CacheAdapter<T = unknown> {
   getOrSet(key: string, fn: () => Promise<T>, ttlSeconds?: number): Promise<T>;
 }
 
+type CacheEntry<T> = { value: T; expiresAt?: number };
+
 class InMemoryCache<T = unknown> implements CacheAdapter<T> {
-  private map: Map<string, { value: T; expiresAt?: number }> = new Map();
+  private map: Map<string, CacheEntry<T>> = new Map();
   private inFlight: Map<string, Promise<T>> = new Map();
   private maxEntries: number;
 

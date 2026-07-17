@@ -44,7 +44,7 @@ const corsPatterns = VALID_CORS_ORIGINS.map(
   (domain) => new RegExp(`^${domain.replace(/\\/g, '\\\\').replace(/\*/g, '[a-z0-9-]*').replace(/\./g, '\\.')}$`)
 );
 
-const corsOptions: cors.CorsOptions = {
+const corsOptions = {
   origin: (origin, callback) => {
     if (isValidCors(origin) || origin === undefined) {
       callback(null, true);
@@ -57,7 +57,7 @@ const corsOptions: cors.CorsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   maxAge: 86400
-};
+} satisfies cors.CorsOptions;
 
 const loadSchemaAndResolvers = () => {
   const gqlSchema = loadSchemaSync(SCHEMA_GLOB, { loaders: [new GraphQLFileLoader()] });

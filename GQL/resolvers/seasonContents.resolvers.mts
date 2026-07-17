@@ -32,7 +32,7 @@ export const seasonContents = async (
         endDate: result.enddate?.toISOString() ?? '',
         postseasonInd: result.postseasonind
       }))
-    } as SeasonContentsData;
+    } satisfies SeasonContentsData;
   } catch (err: unknown) {
     throw handleError(err);
   }

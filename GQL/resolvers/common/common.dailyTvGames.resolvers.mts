@@ -40,7 +40,12 @@ export const dailyTvGames = async (
 
     // If no results, return empty response
     if (results.length === 0) {
-      return { showPPVColumn: false, hasNoTVGames: false, flexScheduleLink: undefined, tvGames: [] };
+      return {
+        showPPVColumn: false,
+        hasNoTVGames: false,
+        flexScheduleLink: undefined,
+        tvGames: []
+      } satisfies TvGameData;
     }
 
     // Only fetch season data if we have results; use empty string for season in cache key
