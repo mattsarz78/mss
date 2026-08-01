@@ -2,5 +2,5 @@ packages:
   - '.'
 allowBuilds:
   esbuild: false
-useNodeVersion: 26.5.0
+useNodeVersion: 26.5.1
 dedupeDirectDeps: true
