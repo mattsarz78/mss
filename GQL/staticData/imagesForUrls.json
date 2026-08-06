@@ -84,5 +84,6 @@
   { "link": "channel/8b8efffb-46c6-4854-a432-a0b9dc79b7ea", "image": "cwsports.webp" },
   { "link": "primevideo", "image": "primevideo.webp" },
   { "link": "watch.themw.com", "image": "mwplus.webp"},
-  { "link": "nbc.com/watch", "image": "nbcstream.webp" }
+  { "link": "nbc.com/watch", "image": "nbcstream.webp" },
+  { "link": "watch.meacsports.com/", "image": "meacnetwork.webp"}
 ]
