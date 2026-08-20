@@ -3,12 +3,14 @@ import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { type Plugin } from 'vite';
 
+const pluginDirname = import.meta.dirname;
+
 export function versionJson(): Plugin {
   return {
     name: 'version-json',
     buildStart() {
       const version = getVersion();
-      const outDir = resolve(__dirname, '../public');
+      const outDir = resolve(pluginDirname, '../public');
 
       const versionData = { version, timestamp: Date.now(), environment: process.env.NODE_ENV || 'production' };
 
@@ -24,7 +26,7 @@ function getVersion() {
   try {
     // Try to get Git commit hash first
     const sha = execSync('git rev-parse --short HEAD', {
-      cwd: resolve(__dirname, '..'),
+      cwd: resolve(pluginDirname, '..'),
       stdio: ['ignore', 'pipe', 'ignore']
     })
       .toString()
@@ -33,7 +35,7 @@ function getVersion() {
   } catch {
     // Fallback to package.json version or timestamp
     try {
-      const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf8'));
+      const pkg = JSON.parse(readFileSync(resolve(pluginDirname, '../package.json'), 'utf8'));
       return pkg.version || Date.now().toString();
     } catch {
       return Date.now().toString();
