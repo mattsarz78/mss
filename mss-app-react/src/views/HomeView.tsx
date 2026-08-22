@@ -45,6 +45,8 @@ const HomeView: React.FC = () => {
           <div className={styles.links}>
             <Link to="/season/football/2026"> 2026 Football </Link>
             <br />
+            <Link to="/season/basketball/2026-27"> 2026-27 Men&apos;s Basketball </Link>
+            <br />
             <br />
             <Link to="/season/football/2025"> 2025 Football </Link>
             <br />
