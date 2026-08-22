@@ -6,7 +6,7 @@ import { DatabaseError } from '#utils/errorHandler.mjs';
 export const WeeklyDatesServiceKey = Symbol.for('IWeeklyDatesService');
 
 export interface IWeeklyDatesService extends DatabaseService<IWeeklyDatesService> {
-  getConferenceGames(season: string): Promise<weeklydates[]>;
+  getWeeklyDates(season: string): Promise<weeklydates[]>;
 }
 
 const WEEKLYDATES_CACHE_MAX = 200;
@@ -20,7 +20,7 @@ export class WeeklyDatesService implements IWeeklyDatesService {
     this.client = client;
   }
 
-  public async getConferenceGames(season: string): Promise<weeklydates[]> {
+  public async getWeeklyDates(season: string): Promise<weeklydates[]> {
     try {
       const data = await this.cache.getOrSet(
         season,

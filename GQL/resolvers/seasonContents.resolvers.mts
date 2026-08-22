@@ -20,7 +20,7 @@ export const seasonContents = async (
 
     const [seasonData, results] = await Promise.all([
       context.services[SeasonServiceKey].getSeasonData(input.season),
-      context.services[WeeklyDatesServiceKey].getConferenceGames(input.season)
+      context.services[WeeklyDatesServiceKey].getWeeklyDates(input.season)
     ]);
     return {
       conferenceListBase: seasonData.conferenceListBase,

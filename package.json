@@ -18,7 +18,7 @@
     "install:web": "cd mss-app-react && pnpm i --frozen-lockfile"
   },
   "dependencies": {
-    "concurrently": "10.0.4"
+    "concurrently": "10.0.5"
   },
   "packageManager": "pnpm@11.21.0"
 }

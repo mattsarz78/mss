@@ -44,7 +44,8 @@ export const specialCoverageNotes = [
   'https://msubobcats.com/sports/football/schedule',
   'https://gogriz.com/WhereToWatch',
   'https://gocamels.com/news/2025/9/9/cheerleading-campbell-football-televised-in-five-north-carolina-markets-this-season.aspx',
-  'https://ovcsports.com/news/2025/11/7/mens-basketball-gray-media-brings-ovc-basketball-to-free-over-the-air-television-viewers.aspx'
+  'https://ovcsports.com/news/2025/11/7/mens-basketball-gray-media-brings-ovc-basketball-to-free-over-the-air-television-viewers.aspx',
+  'https://gogriz.com/news/2026/8/6/football-griz-football-2026-tv-details-finalized'
 ];
 
 export const syndicationLinks = [
