@@ -40,10 +40,6 @@ const WeeklyBase: React.FC<WeeklyBaseProps> = ({ tvGames, isBowlWeek, isMbkPosts
     return Object.keys(tvGamesByDate).sort();
   }, [tvGamesByDate]);
 
-  if (datesList.length === 0 && !isDaily) {
-    return null;
-  }
-
   // Flatten Vue array class checks into a clean text conditional layout string
   const mainPaddingClass =
     isMbkPostseason || isBowlWeek ? styles.shortMainPadding : isDaily ? styles.dailyPadding : styles.mainPadding;
@@ -51,7 +47,7 @@ const WeeklyBase: React.FC<WeeklyBaseProps> = ({ tvGames, isBowlWeek, isMbkPosts
   return (
     <main ref={mainRef} className={mainPaddingClass}>
       <div id="WeeksBase">
-        {tvGames.length === 0 ? (
+        {datesList.length === 0 ? (
           <p>There are no televised games at this time</p>
         ) : (
           <>
