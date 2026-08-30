@@ -4,7 +4,8 @@ import { FootballService, FootballServiceKey } from '#database/football.mjs';
 import { SeasonService, SeasonServiceKey } from '#database/seasonData.mjs';
 import { type DatabaseServices } from '#database/services.mjs';
 import { WeeklyDatesService, WeeklyDatesServiceKey } from '#database/weeklyDates.mjs';
-import { PrismaClient } from '#generated/prisma/client.mjs';
+import type { Contract } from '#generated/prisma/contract.d.js';
+import contractJson from '#generated/prisma/contract.json' with { type: 'json' };
 import * as Resolvers from '#resolvers/index.mjs';
 import { SCHEMA_GLOB } from '#staticData/constants.mjs';
 import { ApolloServer } from '@apollo/server';
@@ -15,7 +16,7 @@ import dotenvx from '@dotenvx/dotenvx';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
-import { PrismaPg } from '@prisma/adapter-pg';
+import postgres from '@prisma/orm-postgres/runtime';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
@@ -85,15 +86,14 @@ const createResolversArray = () => {
 
 const startServer = async () => {
   // Lazy database client and services — created only when a resolver needs them.
-  let db: PrismaClient | null = null;
   let databaseServices: Partial<DatabaseServices> | null = null;
+  let db: ReturnType<typeof postgres<Contract>> | null = null;
 
   function ensureDbAndServicesSync() {
-    if (db && databaseServices) return { db, services: databaseServices };
+    if (databaseServices && db) return { db, services: databaseServices };
 
-    const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL }, { schema: 'mattsarzsports' });
+    db = postgres<Contract>({ url: process.env.DATABASE_URL!, contractJson });
 
-    db = new PrismaClient({ log: NODE_ENV === 'production' ? ['error'] : ['error'], errorFormat: 'minimal', adapter });
     process.stdout.write('Database client initialized');
 
     databaseServices = {
@@ -102,10 +102,6 @@ const startServer = async () => {
       [WeeklyDatesServiceKey]: new WeeklyDatesService(db),
       [SeasonServiceKey]: new SeasonService(db)
     };
-
-    // Intentionally do NOT call db.$connect() here. The Prisma client will open
-    // connections lazily when executing queries. This keeps startup fast and
-    // avoids blocking the process if the DB is temporarily unavailable.
 
     return { db, services: databaseServices };
   }
@@ -146,7 +142,7 @@ const startServer = async () => {
             if (!db || !databaseServices) ensureDbAndServicesSync();
             return db?.[prop as keyof typeof db];
           }
-        }) as unknown as PrismaClient;
+        }) as unknown as ReturnType<typeof postgres<Contract>>;
 
         const lazyServices = new Proxy({} as Record<PropertyKey, unknown>, {
           get(_target, prop) {
@@ -199,7 +195,7 @@ const startServer = async () => {
       // Disconnect from database if initialized
       if (db) {
         try {
-          await db.$disconnect();
+          await db.close();
           process.stdout.write('Database disconnected');
         } catch (err: unknown) {
           process.stdout.write(`Error disconnecting database: ${(err as Error).message}`);

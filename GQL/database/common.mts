@@ -1,13 +1,15 @@
-import { type DatabaseService } from '#database/services.mjs';
+import { type DatabaseService } from '#database/base.mjs';
 import { type TvGamesInput } from '#generated/graphql.mjs';
-import { Prisma, PrismaClient, type basketball, type football } from '#generated/prisma/client.mjs';
+import type { Contract } from '#generated/prisma/contract.d.js';
 import { DatabaseError } from '#utils/errorHandler.mjs';
+import type { RawGameResult } from '#utils/tvGamesTransform.mjs';
+import postgres from '@prisma/orm-postgres/runtime';
 
 export const CommonServiceKey = Symbol.for('ICommonService');
 
 export interface ICommonService extends DatabaseService<ICommonService> {
-  getTvGames(request: TvGamesInput): Promise<(football | basketball)[]>;
-  getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(football | basketball)[]>;
+  getTvGames(request: TvGamesInput): Promise<RawGameResult[]>;
+  getDailyTvGames(request: GetDailyTvGamesRequest): Promise<RawGameResult[]>;
 }
 
 export interface GetDailyTvGamesRequest {
@@ -16,94 +18,90 @@ export interface GetDailyTvGamesRequest {
   endDate: Date;
 }
 
-type SportType = 'football' | 'basketball';
-type FindManyArgs<T extends SportType> = T extends 'football'
-  ? Prisma.footballFindManyArgs
-  : Prisma.basketballFindManyArgs;
-
-type WhereClause = {
-  mediaindicator: { in: readonly ['T', 'W'] };
-  time?: { gte: Date; lte: Date };
-  season?: string | number;
-  week?: string | number;
-};
-
 export class CommonService implements ICommonService {
-  private client: PrismaClient;
+  private client: ReturnType<typeof postgres<Contract>>;
 
-  constructor(client: PrismaClient) {
+  constructor(client: ReturnType<typeof postgres<Contract>>) {
     this.client = client;
   }
 
-  private buildCriteria<T extends SportType>(
-    request: GetDailyTvGamesRequest | TvGamesInput,
-    isDaily: boolean
-  ): FindManyArgs<T> {
-    const where: WhereClause = { mediaindicator: { in: ['T', 'W'] as const } };
-
-    if (isDaily) {
-      const dailyRequest = request as GetDailyTvGamesRequest;
-      where.time = { gte: dailyRequest.startDate, lte: dailyRequest.endDate };
-    } else {
-      const weeklyRequest = request as TvGamesInput;
-      where.season = weeklyRequest.season;
-      where.week = weeklyRequest.week;
-    }
-
-    const select = {
-      gametitle: true,
-      visitingteam: true,
-      hometeam: true,
-      location: true,
-      timewithoffset: true,
-      mediaindicator: true,
-      network: true,
-      networkjpg: true,
-      coveragenotes: true,
-      ppv: true,
-      tvtype: true,
-      conference: true,
-      ...(isDaily && { season: true })
-    } satisfies Record<string, boolean>;
-
-    return {
-      where,
-      orderBy: [{ timewithoffset: 'asc' }, { listorder: 'asc' } as const],
-      select
-    } as unknown as FindManyArgs<T>;
+  private toPgDateString(date: Date): Temporal.Instant {
+    return Temporal.Instant.fromEpochMilliseconds(date.getTime());
   }
 
-  public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<(football | basketball)[]> {
+  public async getDailyTvGames(request: GetDailyTvGamesRequest): Promise<RawGameResult[]> {
     try {
-      const criteria =
+      // 1. Dynamically select the model based on sport
+      const model =
         request.sport === 'football'
-          ? this.buildCriteria<'football'>(request, true)
-          : this.buildCriteria<'basketball'>(request, true);
+          ? this.client.orm.mattsarzsports.football
+          : this.client.orm.mattsarzsports.basketball;
 
-      return request.sport === 'football'
-        ? await this.client.football.findMany(criteria as Prisma.footballFindManyArgs)
-        : await this.client.basketball.findMany(criteria as Prisma.basketballFindManyArgs);
+      const startInstant = this.toPgDateString(request.startDate);
+      const endInstant = this.toPgDateString(request.endDate);
+
+      // 2. Chain conditions and execute
+      return await model
+        .where((row) => row.mediaindicator.in(['T', 'W']))
+        .where((row) => row.time.gte(startInstant))
+        .where((row) => row.time.lte(endInstant))
+        .orderBy((row) => row.timewithoffset.asc())
+        .orderBy((row) => row.listorder.asc())
+        .select(
+          'gametitle',
+          'visitingteam',
+          'hometeam',
+          'location',
+          'timewithoffset',
+          'mediaindicator',
+          'network',
+          'networkjpg',
+          'coveragenotes',
+          'ppv',
+          'tvtype',
+          'conference',
+          'season'
+        )
+        .all();
     } catch (error) {
       throw new DatabaseError('Failed to fetch daily TV games', error as Error);
     }
   }
 
-  public async getTvGames(request: TvGamesInput): Promise<(football | basketball)[]> {
+  public async getTvGames(request: TvGamesInput): Promise<RawGameResult[]> {
     try {
-      const criteria =
+      const model =
         request.sport === 'football'
-          ? this.buildCriteria<'football'>(request, false)
-          : this.buildCriteria<'basketball'>(request, false);
+          ? this.client.orm.mattsarzsports.football
+          : this.client.orm.mattsarzsports.basketball;
 
-      return request.sport === 'football'
-        ? await this.client.football.findMany(criteria as Prisma.footballFindManyArgs)
-        : await this.client.basketball.findMany(criteria as Prisma.basketballFindManyArgs);
+      return await model
+        .where((row) => row.mediaindicator.in(['T', 'W']))
+        .where((row) => row.season.eq(request.season))
+        .where((row) => row.week.eq(request.week))
+        .orderBy((row) => row.timewithoffset.asc())
+        .orderBy((row) => row.listorder.asc())
+        .select(
+          'gametitle',
+          'visitingteam',
+          'hometeam',
+          'location',
+          'timewithoffset',
+          'mediaindicator',
+          'network',
+          'networkjpg',
+          'coveragenotes',
+          'ppv',
+          'tvtype',
+          'conference'
+        )
+        .all();
     } catch (error) {
       throw new DatabaseError('Failed to fetch TV games', error as Error);
     }
   }
 
-  public transaction(client: PrismaClient): CommonService {
+  public transaction(client: ReturnType<typeof postgres<Contract>>): CommonService {
     return new CommonService(client);
   }
 }

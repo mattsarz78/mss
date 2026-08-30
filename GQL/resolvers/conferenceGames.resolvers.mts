@@ -2,7 +2,6 @@ import type { IContext } from '#/context.mjs';
 import { FootballServiceKey } from '#database/football.mjs';
 import { SeasonServiceKey } from '#database/seasonData.mjs';
 import type { ConferenceGame, ConferenceGameData, ConferenceGamesInput, ContractData } from '#generated/graphql.mjs';
-import type { football } from '#generated/prisma/client.mjs';
 import contractData from '#staticData/contractData.json' with { type: 'json' };
 import { BadRequestError, handleError } from '#utils/errorHandler.mjs';
 import { formatNetworkBatch } from '#utils/image.mjs';
@@ -69,19 +68,19 @@ export const conferenceGames = async (
 
     // Batch fetch formatted network strings to avoid many concurrent promises
     const flattened = conferenceResults.flat();
-    const pairs: Array<{ input: string; season: string }> = flattened.map((cg: football) => ({
+    const pairs: Array<{ input: string; season: string }> = flattened.map((cg) => ({
       input: cg.networkjpg ?? '',
       season: input.season
     }));
 
     const batch = await formatNetworkBatch(pairs);
 
-    const conferenceGames: ConferenceGame[] = flattened.map((conferenceGame: football) => ({
+    const conferenceGames: ConferenceGame[] = flattened.map((conferenceGame) => ({
       gameTitle: conferenceGame.gametitle ?? '',
       visitingTeam: splitComma(conferenceGame.visitingteam ?? ''),
       homeTeam: splitComma(conferenceGame.hometeam ?? ''),
       location: conferenceGame.location ?? '',
-      timeWithOffset: conferenceGame.timewithoffset ? conferenceGame.timewithoffset.toISOString() : '',
+      timeWithOffset: conferenceGame.timewithoffset ? conferenceGame.timewithoffset.toString() : '',
       mediaIndicator: conferenceGame.mediaindicator ?? '',
       network: batch.get(`${conferenceGame.networkjpg ?? ''}::${input.season}`) ?? '',
       tvtype: conferenceGame.tvtype ?? '',

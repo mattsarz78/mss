@@ -1,7 +1,42 @@
 import type { TvGameData } from '#generated/graphql.mjs';
-import type { basketball, football, seasondata } from '#generated/prisma/client.mjs';
 import { formatNetworkBatch } from '#utils/image.mjs';
 import { splitComma } from '#utils/string.mjs';
+
+export interface RawGameResult {
+  season: string | null;
+  gametitle: string | null;
+  visitingteam: string | null;
+  hometeam: string | null;
+  location: string | null;
+  network: string | null;
+  networkjpg: string | null;
+  coveragenotes: string | null;
+  ppv: string | null;
+  mediaindicator: string | null;
+  timewithoffset: Temporal.Instant | null;
+  tvtype?: string | null;
+  conference?: string | null;
+}
+
+export interface TransformedGame {
+  season: string;
+  gameTitle: string;
+  visitingTeam: string[];
+  homeTeam: string[];
+  location: string;
+  network: string;
+  networkJpg: string;
+  coverageNotes: string;
+  ppv: string;
+  mediaIndicator: string;
+  timeWithOffset: string;
+}
+
+export interface SeasonMetadata {
+  showPPVColumn?: boolean;
+  hasNoTVGames?: boolean;
+  flexScheduleLink?: string | null;
+}
 
 /**
  * Transform raw TV game results into formatted GraphQL response
@@ -13,13 +48,13 @@ import { splitComma } from '#utils/string.mjs';
  * @returns Formatted TvGameData response ready for GraphQL
  */
 export const transformTvGamesResponse = async (
-  results: (football | basketball)[],
+  results: RawGameResult[],
   season: string,
-  seasonData: Partial<seasondata> | undefined
+  seasonData: SeasonMetadata | undefined
 ): Promise<TvGameData> => {
   // Prepare pairs for batch formatting
   const pairs: Array<{ input: string; season: string }> = [];
-  results.forEach((result: football | basketball) => {
+  results.forEach((result: RawGameResult) => {
     pairs.push({ input: result.networkjpg ?? '', season });
     pairs.push({ input: result.coveragenotes ?? '', season });
     pairs.push({ input: result.ppv ?? '', season });
@@ -29,7 +64,7 @@ export const transformTvGamesResponse = async (
   const batch = await formatNetworkBatch(pairs);
 
   // Transform results to GraphQL format
-  const tvGames = results.map((result: football | basketball) => ({
+  const tvGames = results.map((result: RawGameResult) => ({
     season: result.season ?? '',
     gameTitle: result.gametitle ?? '',
     visitingTeam: splitComma(result.visitingteam ?? ''),
@@ -40,7 +75,7 @@ export const transformTvGamesResponse = async (
     coverageNotes: batch.get(`${result.coveragenotes ?? ''}::${season}`) ?? '',
     ppv: batch.get(`${result.ppv ?? ''}::${season}`) ?? '',
     mediaIndicator: result.mediaindicator ?? '',
-    timeWithOffset: result.timewithoffset ? result.timewithoffset.toISOString() : ''
+    timeWithOffset: result.timewithoffset ? result.timewithoffset.toString() : ''
   }));
 
   // Build response with season metadata
