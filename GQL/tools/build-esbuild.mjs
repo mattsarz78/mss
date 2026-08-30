@@ -11,10 +11,8 @@ const deps = Object.keys(pkg.dependencies || {});
 
 // Externalize common native/prisma bits and all dependencies to keep node_modules in prod image
 const external = [
-  '@prisma/client',
-  '@prisma/engines',
-  '@prisma/debug',
-  '@prisma/get-platform',
+  '@prisma/cli-engine',
+  '@prisma/orm-postgres',
   // mark all dependencies as external so we don't bundle node_modules into the output
   ...deps
 ];
@@ -28,15 +26,15 @@ try {
     bundle: true,
     platform: 'node',
     format: 'esm',
-    target: ['node24'],
-    outfile: path.join(outdir, 'index.js'),
+    target: ['node26'],
+    outfile: path.join(outdir, 'index.mjs'),
     sourcemap: false,
     external,
     logLevel: 'info',
     // Keep path imports as-is for JSON files and generated .mjs imports
     loader: { '.ts': 'ts', '.mts': 'ts', '.js': 'js', '.mjs': 'js', '.json': 'json' }
   });
-  globalThis.console.log('esbuild: bundle complete ->', path.join(outdir, 'index.js'));
+  globalThis.console.log('esbuild: bundle complete ->', path.join(outdir, 'index.mjs'));
 } catch (err) {
   globalThis.console.error(err);
   globalThis.process?.exit?.(1);
