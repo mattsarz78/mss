@@ -1,19 +1,7 @@
-generator client {
-  provider               = "prisma-client"
-  output                 = "../__generated__/prisma"
-  previewFeatures        = ["typedSql"]
-  binaryTargets          = ["native", "linux-arm64-openssl-3.0.x"]
-  compilerBuild          = "small"
-  engineType             = "client"
-  generatedFileExtension = "mts"
-  importFileExtension    = "mjs"
-  moduleFormat           = "esm"
-  runtime                = "nodejs"
-}
+// use prisma-next
+// Contract inferred from the live database schema. Edit as needed, then run `prisma contract emit`.
 
-datasource db {
-  provider = "postgresql"
-}
+namespace mattsarzsports {
 
 model football {
   id             BigInt    @id @default(autoincrement())
@@ -26,19 +14,20 @@ model football {
   networkjpg     String?
   coveragenotes  String?
   ppv            String?
-  time           DateTime? @default(dbgenerated("'9999-12-31 00:00:00'::timestamp without time zone")) @db.Timestamp(6)
-  week           Int?      @db.SmallInt
-  listorder      Int?      @db.SmallInt
+  time           DateTime? @default(dbgenerated("'9999-12-31 00:00:00'::timestamp without time zone"))
+  week           Int?
+  listorder      Int?
   mediaindicator String?   @default("N")
   conference     String?
   fcs            String?
   tvtype         String?
-  timewithoffset DateTime? @default(dbgenerated("(\"time\" AT TIME ZONE 'US/Eastern'::text)")) @db.Timestamptz(6)
+  timewithoffset DateTime? @default(dbgenerated("(\"time\" AT TIME ZONE 'US/Eastern'::text)"))
 
   @@index([conference], map: "idx_fb_conference")
   @@index([season, week], map: "idx_fb_season_week")
   @@index([hometeam, visitingteam], map: "idx_football_teams")
   @@index([mediaindicator, timewithoffset], map: "idx_fb_mi_timeoffset")
+  @@map("football")
 }
 
 model basketball {
@@ -52,39 +41,42 @@ model basketball {
   networkjpg     String?
   coveragenotes  String?
   ppv            String?
-  time           DateTime? @default(dbgenerated("'9999-12-31 00:00:00'::timestamp without time zone")) @db.Timestamp(6)
-  week           Int?      @db.SmallInt
-  listorder      Int?      @db.SmallInt
+  time           DateTime? @default(dbgenerated("'9999-12-31 00:00:00'::timestamp without time zone"))
+  week           Int?
+  listorder      Int?
   mediaindicator String?   @default("N")
   conference     String?
   fcs            String?
   tvtype         String?
-  timewithoffset DateTime? @default(dbgenerated("(\"time\" AT TIME ZONE 'US/Eastern'::text)")) @db.Timestamptz(6)
+  timewithoffset DateTime? @default(dbgenerated("(\"time\" AT TIME ZONE 'US/Eastern'::text)"))
 
   @@index([conference], map: "idx_mbb_conference")
   @@index([season, week], map: "idx_mbb_season_week")
   @@index([hometeam, visitingteam], map: "idx_basketball_teams")
   @@index([mediaindicator, timewithoffset], map: "idx_mbb_mi_timeoffset")
+  @@map("basketball")
 }
 
 model availabletv {
   season     String
   conference String
-  week       Int     @db.SmallInt
+  week       Int
   tvoptions  String?
 
   @@id([season, conference, week])
+  @@map("availabletv")
 }
 
 model weeklydates {
   season        String
-  week          Int       @db.SmallInt
-  startdate     DateTime? @db.Timestamp(6)
-  enddate       DateTime? @db.Timestamp(6)
+  week          Int
+  startdate     String?
+  enddate       String?
   postseasonind String?
 
   @@id([season, week])
   @@index([season], map: "idx_wkly_dates_season")
+  @@map("weeklydates")  
 }
 
 model seasondata {
@@ -95,4 +87,6 @@ model seasondata {
   conferenceListBase String?
   independents       String?
   flexScheduleLink   String?
+  @@map("seasondata")  
 }
+} 

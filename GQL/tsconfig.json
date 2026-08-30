@@ -3,16 +3,18 @@
     "outDir": "dist",
     "allowJs": true,
     "allowUnreachableCode": false,
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
+    // "composite": true,
+    // "declaration": true,
+    // "declarationMap": true,
     "emitDecoratorMetadata": true,
     "allowImportingTsExtensions": true,
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "incremental": true,
-    "lib": ["ESNext"], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "lib": [
+      "ESNext"
+    ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
     "module": "NodeNext" /* Specify what module code is generated. */,
     "moduleResolution": "nodenext",
     "noImplicitThis": true,
@@ -37,6 +39,13 @@
     "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["**/*.mts", "**/*.json", "staticData/constants.mts", "tools/*.mjs"],
-  "exclude": ["node_modules", "dist"],
+  "include": [
+    "**/*.mts",
+    "**/*.json",
+    "staticData/constants.mts",
+    "tools/*.mjs",
+    "prisma.config.ts",
+    "__generated__/prisma/**/*.d.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
 }

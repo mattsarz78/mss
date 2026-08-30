@@ -21,7 +21,7 @@ export const noTvGames = async (_1: unknown, { input }: NoTvGamesArgs, context: 
       location: result.location ?? '',
       conference: result.conference ?? '',
       tvOptions: updatedTvOptions(result),
-      timeWithOffset: result.timewithoffset ? result.timewithoffset.toISOString() : '',
+      timeWithOffset: result.timewithoffset ? result.timewithoffset.toString() : '',
       fcs: result.fcs ?? ''
     }));
   } catch (err: unknown) {

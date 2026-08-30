@@ -6,8 +6,12 @@ allowBuilds:
   '@apollo/protobufjs': false
   '@prisma/engines': false
   esbuild: false
+  msgpackr-extract: false
   prisma: false
+  workerd: false
 
 dedupeDirectDeps: true
 
-useNodeVersion: 26.7.0
+nodeVersion: 26.8.1
+
+ignoreWorkspaceRootCheck: true

@@ -19,7 +19,8 @@ RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
 # Copy remaining source and run generators + build
 COPY . /app
 
-RUN pnpm graphQlGen \ 
+RUN pnpm prismaEmit \
+  && pnpm graphQlGen \ 
   && pnpm run build:dist \
   && pnpm prune --prod --no-optional \
   && mv node_modules /opt/node_modules.prod \

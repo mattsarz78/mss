@@ -2,11 +2,6 @@ import { CommonServiceKey, type ICommonService } from '#database/common.mjs';
 import { FootballServiceKey, type IFootballService } from '#database/football.mjs';
 import { type ISeasonService, SeasonServiceKey } from '#database/seasonData.mjs';
 import { type IWeeklyDatesService, WeeklyDatesServiceKey } from '#database/weeklyDates.mjs';
-import { Prisma } from '#generated/prisma/client.mjs';
-
-export interface DatabaseService<T> {
-  transaction(client: Prisma.TransactionClient): T;
-}
 
 export interface DatabaseServices {
   [FootballServiceKey]: IFootballService;

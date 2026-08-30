@@ -5,3 +5,4 @@ __generated__
 .DS_Store
 /dist
 /generated/prisma
+.DS_Store
