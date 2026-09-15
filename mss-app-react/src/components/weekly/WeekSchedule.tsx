@@ -86,7 +86,7 @@ const WeekSchedule: React.FC<WeekScheduleProps> = ({ week, sport, paramYear }) =
     <div>
       {/* Navigation Layout - Displays when data payloads resolve successfully */}
       {seasonContentsResult && tvGameResult && (
-        <nav role="navigation" className={`${styles.navbar} ${styles.DONTPrint} ${navbarClass}`}>
+        <nav role="navigation" className={`${styles.navbar} DONTPrint ${navbarClass}`}>
           <div className={styles.container}>
             <div className={styles.flexContainer}>
               <div className={styles.flexRow}>
