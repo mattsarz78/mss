@@ -11,6 +11,6 @@ allowBuilds:
 
 dedupeDirectDeps: true
 
-nodeVersion: 26.8.1
+nodeVersion: 26.9.0
 
 ignoreWorkspaceRootCheck: true
