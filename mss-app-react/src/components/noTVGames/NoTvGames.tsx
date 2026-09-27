@@ -49,7 +49,7 @@ const NoTvGames: React.FC<NoTvGamesProps> = ({ week, year }) => {
       )}
 
       {showNoTV && noTvGamesResults && (
-        <div className={styles.slidingNoTVDiv}>
+        <div>
           {!noTvGamesResults?.noTvGames || noTvGamesResults.noTvGames.length === 0 ? (
             <p>All FBS games scheduled for this week are being televised or shown online</p>
           ) : (
