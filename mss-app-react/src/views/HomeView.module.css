@@ -1,6 +1,8 @@
 .imgtitle {
   max-width: 100%;
-  height: auto;
+  max-height: 34px;    /* Stops the container from stretching it to 411px */
+  height: auto;        /* Allows the height to scale down proportionally on small screens */
+  width: auto;         
   padding-bottom: 5px;
 }
 

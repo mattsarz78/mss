@@ -38,7 +38,7 @@ const HomeView: React.FC = () => {
     <>
       <main ref={mainRef} className={styles.main}>
         <div>
-          <img className={styles.imgtitle} src="/images/logo.webp" loading="lazy" alt="Matt's College Sports" />
+          <img className={styles.imgtitle} src="/images/logo.webp" alt="Matt's College Sports" />
           <br />
         </div>
         <div className={styles.content}>

@@ -20,5 +20,5 @@
   "dependencies": {
     "concurrently": "10.0.5"
   },
-  "packageManager": "pnpm@12.4.2"
+  "packageManager": "pnpm@12.8.1"
 }

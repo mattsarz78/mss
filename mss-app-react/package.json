@@ -62,7 +62,7 @@
   "devDependencies": {
     "@apollo/client-devtools-vscode": "4.26.2",
     "@eslint/js": "10.0.1",
-    "@types/luxon": "3.7.5",
+    "@types/luxon": "3.7.6",
     "@types/node": "26.6.3",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
@@ -85,5 +85,5 @@
     "schema": "./schema.graphql",
     "documents": "./src/**/*.{graphql,js,mts,jsx,tsx}"
   },
-  "packageManager": "pnpm@12.4.2+sha256.3bb1683c7bff8bf8a810284d8b38af46ac22e2a732fca88de299fdc6b88af814"
+  "packageManager": "pnpm@12.8.1"
 }
