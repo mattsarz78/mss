@@ -1,4 +1,4 @@
-// use prisma-next
+// use prisma-8
 // Contract inferred from the live database schema. Edit as needed, then run `prisma contract emit`.
 
 namespace mattsarzsports {
@@ -14,14 +14,14 @@ model football {
   networkjpg     String?
   coveragenotes  String?
   ppv            String?
-  time           DateTime? @default(dbgenerated("'9999-12-31 00:00:00'::timestamp without time zone"))
+  time           DateTime? @default(sql`'9999-12-31 00:00:00'::timestamp without time zone`)
   week           Int?
   listorder      Int?
   mediaindicator String?   @default("N")
   conference     String?
   fcs            String?
   tvtype         String?
-  timewithoffset DateTime? @default(dbgenerated("(\"time\" AT TIME ZONE 'US/Eastern'::text)"))
+  timewithoffset DateTime? @default(sql`("time" AT TIME ZONE 'US/Eastern'::text)`)
 
   @@index([conference], map: "idx_fb_conference")
   @@index([season, week], map: "idx_fb_season_week")
@@ -41,14 +41,14 @@ model basketball {
   networkjpg     String?
   coveragenotes  String?
   ppv            String?
-  time           DateTime? @default(dbgenerated("'9999-12-31 00:00:00'::timestamp without time zone"))
+  time           DateTime? @default(sql`'9999-12-31 00:00:00'::timestamp without time zone`)
   week           Int?
   listorder      Int?
   mediaindicator String?   @default("N")
   conference     String?
   fcs            String?
   tvtype         String?
-  timewithoffset DateTime? @default(dbgenerated("(\"time\" AT TIME ZONE 'US/Eastern'::text)"))
+  timewithoffset DateTime? @default(sql`("time" AT TIME ZONE 'US/Eastern'::text)`)
 
   @@index([conference], map: "idx_mbb_conference")
   @@index([season, week], map: "idx_mbb_season_week")

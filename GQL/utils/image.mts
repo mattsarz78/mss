@@ -73,7 +73,7 @@ export const computeFormatNetworkJpgAndCoverage = (input: string, season: string
     combinedImagesString.push(
       `<picture>
         <source media="only screen and (max-width: 640px)" srcset="/images/${smallImage}" sizes="43w" />
-        <img class="imgBorder" loading="lazy" src="/images/${webpImage}" sizes="66w"/>
+        <img class="imgBorder gameImage" loading="lazy" src="/images/${webpImage}" sizes="66w"/>
       </picture>`
     );
   }
@@ -94,7 +94,7 @@ export const computeFormatNetworkJpgAndCoverage = (input: string, season: string
       `<a href="${imageHyperlink}" target="_blank" rel="noopener">
       <picture>
         <source media="only screen and (max-width: 640px)" srcset="/images/${smallUrl}" sizes="43w" />
-        <img class="imgBorder" loading="lazy" src="/images/${webpUrl}" sizes="66w" />
+        <img class="imgBorder gameImage" loading="lazy" src="/images/${webpUrl}" sizes="66w" />
       </picture>
       </a>`
     );
