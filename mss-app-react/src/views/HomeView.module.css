@@ -4,6 +4,7 @@
   height: auto;        /* Allows the height to scale down proportionally on small screens */
   width: auto;         
   padding-bottom: 5px;
+  aspect-ratio: auto;
 }
 
 .links {
