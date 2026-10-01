@@ -63,7 +63,7 @@
     "prisma": "8.0.0-rc.15",
     "tsx": "4.23.13",
     "typescript": "7.0.2",
-    "typescript-eslint": "8.70.0"
+    "typescript-eslint": "8.71.0"
   },
   "graphql": {
     "schema": "./schema.graphql",
