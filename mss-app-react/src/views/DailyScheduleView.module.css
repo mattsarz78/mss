@@ -5,7 +5,7 @@
   border: 0;
 }
 
-:global(img) {
+:global(.gameImage) {
   aspect-ratio: 66 / 50;
 }
 
@@ -91,7 +91,7 @@
     padding: 10px 3px;
   }
 
-  :global(img) {
+  :global(.gameImage) {
     aspect-ratio: 43 / 33;
   }
 }
