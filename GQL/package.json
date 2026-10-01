@@ -37,7 +37,7 @@
     "@graphql-tools/graphql-file-loader": "8.1.20",
     "@graphql-tools/load": "8.1.17",
     "@graphql-tools/merge": "9.2.4",
-    "@prisma/cli-engine": "0.3.0",
+    "@prisma/cli-engine": "0.6.1",
     "@prisma/orm-postgres": "8.0.0-rc.11",
     "body-parser": "2.3.0",
     "compression": "1.8.2",
