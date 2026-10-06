@@ -1,5 +1,5 @@
 import type { TvGame } from '#/graphQl.mjs';
-import { useResetAdsenseHeight } from '#hooks/index.mjs';
+import { useResetAdsenseHeight, useWebExclusivesContext } from '#hooks/index.mjs';
 import { getDateForGame } from '#utils/index.mjs';
 import { WeekGamesTable } from '#weekly/index.tsx';
 import React, { useMemo } from 'react';
@@ -15,17 +15,24 @@ interface WeeklyBaseProps {
 
 const WeeklyBase: React.FC<WeeklyBaseProps> = ({ tvGames, isBowlWeek, isMbkPostseason, isDaily, showPpvColumn }) => {
   const mainRef = useResetAdsenseHeight();
+  const { isWebGamesHidden } = useWebExclusivesContext();
 
   const hasValidTime = (game: TvGame): game is TvGame & { timeWithOffset: string } =>
     typeof game.timeWithOffset === 'string';
 
   type GamesByDate = Record<string, TvGame[]>;
 
+  const visibleGames = useMemo(() => {
+    if (!isWebGamesHidden) return tvGames;
+
+    return tvGames.filter((game) => game.mediaIndicator !== 'W');
+  }, [isWebGamesHidden, tvGames]);
+
   // Group games dynamically into an associative map dictionary matching Vue's reducer
   const tvGamesByDate = useMemo<GamesByDate>(() => {
-    if (!tvGames) return {};
+    if (!visibleGames) return {};
 
-    return tvGames.filter(hasValidTime).reduce<GamesByDate>((acc, game) => {
+    return visibleGames.filter(hasValidTime).reduce<GamesByDate>((acc, game) => {
       const date = getDateForGame(game.timeWithOffset);
       if (date) {
         acc[date] ??= [];
@@ -33,7 +40,7 @@ const WeeklyBase: React.FC<WeeklyBaseProps> = ({ tvGames, isBowlWeek, isMbkPosts
       }
       return acc;
     }, {});
-  }, [tvGames]);
+  }, [visibleGames]);
 
   // Extract keys and apply natural sorting order bounds
   const datesList = useMemo(() => {
