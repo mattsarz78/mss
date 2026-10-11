@@ -11,7 +11,6 @@ const deps = Object.keys(pkg.dependencies || {});
 
 // Externalize common native/prisma bits and all dependencies to keep node_modules in prod image
 const external = [
-  '@prisma/cli-engine',
   '@prisma/orm-postgres',
   // mark all dependencies as external so we don't bundle node_modules into the output
   ...deps
