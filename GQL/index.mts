@@ -16,6 +16,7 @@ import dotenvx from '@dotenvx/dotenvx';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
+import { contractFromJson } from '@prisma/orm-postgres/static';
 import postgres from '@prisma/orm-postgres/runtime';
 import bodyParser from 'body-parser';
 import compression from 'compression';
@@ -25,6 +26,7 @@ import http from 'http';
 
 dotenvx.config({ ignore: ['MISSING_ENV_FILE'] });
 
+const contract = contractFromJson<Contract>(contractJson);
 const VALID_CORS_ORIGINS = process.env.VALID_CORS_ORIGINS?.split(',') ?? [];
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
 
@@ -92,7 +94,7 @@ const startServer = async () => {
   function ensureDbAndServicesSync() {
     if (databaseServices && db) return { db, services: databaseServices };
 
-    db = postgres<Contract>({ url: process.env.DATABASE_URL!, contractJson });
+    db = postgres<Contract>({ url: process.env.DATABASE_URL!, contract });
 
     process.stdout.write('Database client initialized');
 
